@@ -2,8 +2,25 @@
   "name": "open-tender",
   "version": "1.0.0",
   "description": "A component library built for use with the Open Tender open source web app",
-  "main": "index.js",
+  "main": "dist/main.js",
   "author": "JC Harrington <jc@opentender.io> (https://www.opentender.io)",
   "license": "MIT",
-  "private": true
+  "private": true,
+  "homepage": "https://github.com/BetterBOH/open-tender",
+  "bugs": "https://github.com/BetterBOH/open-tender/issues",
+  "repository": {
+    "url": "https://github.com/BetterBOH/open-tender",
+    "type": "git"
+  },
+  "scripts": {
+    "dev": "webpack --watch --mode development",
+    "build": "webpack --mode production"
+  },
+  "devDependencies": {
+    "@babel/core": "^7.10.3",
+    "@babel/preset-env": "^7.10.3",
+    "babel-loader": "^8.1.0",
+    "webpack": "^4.43.0",
+    "webpack-cli": "^3.3.12"
+  }
 }
