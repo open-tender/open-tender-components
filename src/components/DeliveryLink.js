@@ -1,8 +1,7 @@
 import React from 'react'
 import propTypes from 'prop-types'
-import { iconMap } from '../packages/icons'
 
-const DeliveryLink = ({ text, trackingUrl }) => (
+const DeliveryLink = ({ text, trackingUrl, newWindowIcon }) => (
   <a
     href={trackingUrl}
     rel="noopener noreferrer"
@@ -10,7 +9,7 @@ const DeliveryLink = ({ text, trackingUrl }) => (
     title="Check delivery status"
   >
     {text}
-    <span className="link-icon">{iconMap['ExternalLink']}</span>
+    {newWindowIcon && <span className="link-icon">{newWindowIcon}</span>}
   </a>
 )
 
@@ -18,6 +17,7 @@ DeliveryLink.displayName = 'DeliveryLink'
 DeliveryLink.propTypes = {
   text: propTypes.string,
   trackingUrl: propTypes.string,
+  newWindowIcon: propTypes,
 }
 
 export default DeliveryLink

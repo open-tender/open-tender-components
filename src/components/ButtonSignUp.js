@@ -1,15 +1,11 @@
 import React from 'react'
 import propTypes from 'prop-types'
-import { useDispatch } from 'react-redux'
-import { openModal } from '../slices/modalSlice'
 import Button from './Button'
 
-const ButtonSignUp = ({ classes = 'btn' }) => {
-  const dispatch = useDispatch()
-
+const ButtonSignUp = ({ classes = 'btn', signUp }) => {
   const handleClick = (evt) => {
     evt.preventDefault()
-    dispatch(openModal({ type: 'signUp' }))
+    signUp()
     evt.target.blur()
   }
 
@@ -27,6 +23,7 @@ const ButtonSignUp = ({ classes = 'btn' }) => {
 ButtonSignUp.displayName = 'ButtonSignUp'
 ButtonSignUp.propTypes = {
   classes: propTypes.string,
+  signUp: propTypes.func,
 }
 
 export default ButtonSignUp

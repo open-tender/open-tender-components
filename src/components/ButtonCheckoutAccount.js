@@ -1,17 +1,15 @@
 import React from 'react'
 import propTypes from 'prop-types'
-import { useHistory } from 'react-router-dom'
-import { useSelector } from 'react-redux'
-import { selectCustomerAccount } from '../slices/customerSlice'
 import Button from './Button'
 
-const ButtonCheckoutAccount = ({ classes = 'btn' }) => {
-  const customer = useSelector(selectCustomerAccount)
-  const history = useHistory()
-
+const ButtonCheckoutAccount = ({
+  customer = {},
+  classes = 'btn',
+  goToAccount,
+}) => {
   const handleClick = (evt) => {
     evt.preventDefault()
-    history.push(`/account`)
+    goToAccount()
     evt.target.blur()
   }
 
@@ -28,7 +26,9 @@ const ButtonCheckoutAccount = ({ classes = 'btn' }) => {
 
 ButtonCheckoutAccount.displayName = 'ButtonCheckoutAccount'
 ButtonCheckoutAccount.propTypes = {
+  customer: propTypes.object,
   classes: propTypes.string,
+  goToAccount: propTypes.func,
 }
 
 export default ButtonCheckoutAccount
