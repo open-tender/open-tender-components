@@ -1,7 +1,7 @@
 import React from 'react'
 import propTypes from 'prop-types'
-import { iconMap } from './icons'
-import { cardIcons } from './utils/cards'
+import iconMap from './icons'
+import cardIconMap from './cardIcons'
 import CircleLoader from './CircleLoader'
 
 const ExistingCard = ({ card, appliedCards, existingCards, addTender }) => {
@@ -14,7 +14,7 @@ const ExistingCard = ({ card, appliedCards, existingCards, addTender }) => {
     <li>
       <div className={classes}>
         <div className="cards__card__image">
-          <img src={cardIcons[card.card_type]} alt={card.card_type_name} />
+          <img src={cardIconMap[card.card_type]} alt={card.card_type_name} />
         </div>
         <div className="cards__card__name">
           {card.card_type_name} ending in {card.last4}

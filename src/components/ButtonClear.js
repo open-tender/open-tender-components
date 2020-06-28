@@ -1,6 +1,6 @@
 import React from 'react'
 import propTypes from 'prop-types'
-import { iconMap } from './icons'
+import iconMap from './icons'
 
 const ButtonClear = ({
   icon = 'XCircle',

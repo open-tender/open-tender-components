@@ -1,6 +1,6 @@
 import React from 'react'
 import propTypes from 'prop-types'
-import { iconMap } from './icons'
+import iconMap from './icons'
 
 const ButtonIcon = ({ icon, text, iconEnd }) => (
   <span className="btn-icon-wrapper">

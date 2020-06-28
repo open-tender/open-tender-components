@@ -1,15 +1,15 @@
 import React, { useState, useEffect } from 'react'
 import propTypes from 'prop-types'
 import Button from './Button'
+import cardIconMap from './cardIcons'
 import { Input, Checkbox } from './Inputs'
 import {
-  cardIcons,
+  isEmpty,
   cardNames,
   getCardType,
   makeAcctNumber,
   validateCreditCard,
-} from './utils/cards'
-import { isEmpty } from './utils/helpers'
+} from 'open-tender-js'
 
 // https://github.com/muffinresearch/payment-icons
 // https://github.com/jasminmif/react-interactive-paycard
@@ -118,7 +118,7 @@ const CheckoutNewCardForm = ({
             Add a new card
           </p>
           <div className="cards__new__image">
-            <img src={cardIcons[cardType]} alt={cardNames[cardType]} />
+            <img src={cardIconMap[cardType]} alt={cardNames[cardType]} />
           </div>
         </div>
         <div className="cards__new__content">
@@ -189,6 +189,10 @@ CheckoutNewCardForm.displayName = 'CheckoutNewCardForm'
 CheckoutNewCardForm.propTypes = {
   addTender: propTypes.func,
   setShowNewCard: propTypes.func,
+  removeTender: propTypes.func,
+  setShowCredit: propTypes.func,
+  customerId: propTypes.number,
+  error: propTypes.object,
 }
 
 export default CheckoutNewCardForm

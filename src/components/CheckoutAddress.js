@@ -4,7 +4,7 @@ import { Input } from './Inputs'
 import CheckoutLineItem from './CheckoutLineItem'
 import { FormContext } from './CheckoutForm'
 import ButtonAddress from './ButtonAddress'
-import { isEmpty } from './utils/helpers'
+import { isEmpty } from 'open-tender-js'
 
 const initialState = {
   unit: '',

@@ -1,7 +1,7 @@
 import React, { useState } from 'react'
 import propTypes from 'prop-types'
 import DatePicker from 'react-datepicker'
-import { isEmpty } from './utils/helpers'
+import { isEmpty } from 'open-tender-js'
 import {
   dateToIso,
   isoToDate,
@@ -10,8 +10,8 @@ import {
   makeDatepickerArgs,
   timezoneMap,
   todayDate,
-} from './utils/datetimes'
-import { errMessages } from './utils/errors'
+} from 'open-tender-js'
+import { errMessages } from 'open-tender-js'
 
 const RequestedAtPicker = ({
   requestedAt,

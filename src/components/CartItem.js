@@ -1,7 +1,7 @@
 import React from 'react'
 import propTypes from 'prop-types'
-import { displayPrice, makeModifierNames } from './utils/cart'
-import { iconMap } from './icons'
+import { displayPrice, makeModifierNames } from 'open-tender-js'
+import iconMap from './icons'
 
 const SoldOutOverlay = () => (
   <div className="builder__option__overlay overlay-dark border-radius-small">

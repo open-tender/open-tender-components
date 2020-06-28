@@ -1,8 +1,8 @@
 import React, { useContext, useState, useEffect, createContext } from 'react'
 import { FormContext } from './CheckoutForm'
-import { checkAmountRemaining } from './utils/cart'
+import { checkAmountRemaining } from 'open-tender-js'
 import { CheckoutTender } from './index'
-import { isEmpty } from './utils/helpers'
+import { isEmpty } from 'open-tender-js'
 
 export const TendersContext = createContext(null)
 

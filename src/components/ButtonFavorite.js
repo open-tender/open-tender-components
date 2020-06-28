@@ -1,7 +1,7 @@
 import React from 'react'
 import propTypes from 'prop-types'
-import { iconMap } from './icons'
-import { makeSimpleCart } from './utils/cart'
+import iconMap from './icons'
+import { makeSimpleCart } from 'open-tender-js'
 
 const ButtonFavorite = ({
   item,

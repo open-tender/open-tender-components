@@ -1,8 +1,7 @@
 import React from 'react'
 import propTypes from 'prop-types'
-import { formatDollars, checkAmountRemaining } from './utils/cart'
+import { formatDollars, checkAmountRemaining } from 'open-tender-js'
 import { makeTenderName } from './TenderTypes'
-import BarLoader from 'react-spinners/BarLoader'
 
 const CheckItem = ({ label, value, classes = '' }) => (
   <li className={`check__item border-color ${classes}`}>
@@ -13,15 +12,15 @@ const CheckItem = ({ label, value, classes = '' }) => (
 
 CheckItem.displayName = 'CheckItem'
 CheckItem.propTypes = {
-  name: propTypes.string,
+  label: propTypes.string,
   value: propTypes.string,
-  unit: propTypes.string,
+  classes: propTypes.string,
 }
 
-const CheckUpdating = () => (
+const CheckUpdating = (loader) => (
   <div className="check__disabled overlay">
     <div className="check__disabled__working">
-      <BarLoader />
+      {loader}
       <span className="font-size-small">Updating...</span>
     </div>
   </div>

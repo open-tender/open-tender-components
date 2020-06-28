@@ -2,8 +2,8 @@ import React from 'react'
 import propTypes from 'prop-types'
 import { TransitionGroup, CSSTransition } from 'react-transition-group'
 import CircleLoader from './CircleLoader'
-import { iconMap } from './icons'
-import { cardIcons } from './utils/cards'
+import iconMap from './icons'
+import cardIconMap from './cardIcons'
 import CheckoutNewCardForm from './CheckoutNewCardForm'
 
 const NewCard = ({
@@ -34,7 +34,7 @@ const NewCard = ({
       {customerId && (
         <div className={classes}>
           <div className="cards__card__image">
-            <img src={cardIcons[newCardType]} alt="New Credit Card" />
+            <img src={cardIconMap[newCardType]} alt="New Credit Card" />
           </div>
           <div className="cards__card__name">
             {isApplied
@@ -83,6 +83,8 @@ NewCard.displayName = 'NewCard'
 NewCard.propTypes = {
   appliedCards: propTypes.array,
   addTender: propTypes.func,
+  removeTender: propTypes.func,
+  setShowCredit: propTypes.func,
   showNewCard: propTypes.func,
   setShowNewCard: propTypes.func,
   customerId: propTypes.number,

@@ -1,7 +1,7 @@
 import React, { useState, useContext } from 'react'
 import propTypes from 'prop-types'
 import { FormContext } from './CheckoutForm'
-import { iconMap } from './icons'
+import iconMap from './icons'
 import CircleLoader from './CircleLoader'
 import { Input } from './Inputs'
 

@@ -1,7 +1,7 @@
 import React from 'react'
 import propTypes from 'prop-types'
-import { iconMap } from './icons'
-import { tenderTypeNamesMap } from './utils/constants'
+import iconMap from './icons'
+import { tenderTypeNamesMap } from 'open-tender-js'
 
 export const CheckoutTenderLabel = ({ icon, text }) => (
   <span className="form__input__tender">

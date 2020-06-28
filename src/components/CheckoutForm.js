@@ -9,7 +9,7 @@ import {
   CheckoutPromoCodes,
   CheckoutTenders,
 } from './index'
-import { checkAmountRemaining } from './utils/cart'
+import { checkAmountRemaining } from 'open-tender-js'
 import { Error } from './Inputs'
 import CheckoutSurcharges from './CheckoutSurcharges'
 

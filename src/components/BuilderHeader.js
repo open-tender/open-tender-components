@@ -1,6 +1,6 @@
 import propTypes from 'prop-types'
 import React, { useState } from 'react'
-import { displayPrice } from './utils/cart'
+import { displayPrice } from 'open-tender-js'
 import BuilderNutrition from './BuilderNutrition'
 
 const BuilderHeader = ({ item, showImage }) => {

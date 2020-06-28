@@ -38,7 +38,7 @@ import {
   Trash2,
 } from 'react-feather'
 
-export const iconMap = {
+const iconMap = {
   RefreshCw: <RefreshCw size={null} />,
   Map: <Map size={null} />,
   MapPin: <MapPin size={null} />,
@@ -76,3 +76,5 @@ export const iconMap = {
   Heart: <Heart size={null} />,
   Trash2: <Trash2 size={null} />,
 }
+
+export default iconMap

@@ -1,7 +1,7 @@
 import React from 'react'
 import propTypes from 'prop-types'
-import { iconMap } from './icons'
-import { cardIcons } from './utils/cards'
+import iconMap from './icons'
+import cardIconMap from './cardIcons'
 
 const NewCardModal = ({ addNewCard }) => {
   const handleAdd = (evt) => {
@@ -14,7 +14,7 @@ const NewCardModal = ({ addNewCard }) => {
     <li>
       <div className="cards__card bg-color border-radius">
         <div className="cards__card__image">
-          <img src={cardIcons['OTHER']} alt="New Credit Card" />
+          <img src={cardIconMap['OTHER']} alt="New Credit Card" />
         </div>
         <div className="cards__card__name">Add a new credit card</div>
         <div className="cards__card__add">

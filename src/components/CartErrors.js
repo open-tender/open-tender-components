@@ -1,7 +1,7 @@
 import React from 'react'
 import propTypes from 'prop-types'
 import { Button } from './index'
-import { isoToDate } from './utils/datetimes'
+import { isoToDate } from 'open-tender-js'
 
 const InvalidItems = ({ invalidItems }) => {
   return invalidItems.length ? (
