@@ -11,7 +11,7 @@ export const CheckoutTenderLabel = ({ icon, text }) => (
 )
 
 CheckoutTenderLabel.displayName = 'CheckoutTenderLabel'
-CheckoutTenderLabel.prototypes = {
+CheckoutTenderLabel.propTypes = {
   icon: propTypes.string,
   text: propTypes.string,
 }

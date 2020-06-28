@@ -14,9 +14,9 @@ import {
 import { errMessages } from 'open-tender-js'
 
 const RequestedAtPicker = ({
-  requestedAt,
   revenueCenter,
   serviceType,
+  requestedAt,
   setRequestedAt,
 }) => {
   const { timezone, settings, revenue_center_type } = revenueCenter
@@ -118,9 +118,10 @@ const RequestedAtPicker = ({
 
 RequestedAtPicker.displayName = 'RequestedAtPicker'
 RequestedAtPicker.propTypes = {
+  revenueCenter: propTypes.object,
+  serviceType: propTypes.string,
   requestedAt: propTypes.string,
   setRequestedAt: propTypes.func,
-  revenueCenter: propTypes.object,
 }
 
 export default RequestedAtPicker

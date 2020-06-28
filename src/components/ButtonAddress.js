@@ -20,9 +20,10 @@ const ButtonAddress = ({ address, onClick, classes = 'btn', disabled }) => {
 
 ButtonAddress.displayName = 'ButtonAddress'
 ButtonAddress.propTypes = {
-  revenueCenter: propTypes.object,
+  address: propTypes.object,
   onClick: propTypes.func,
   classes: propTypes.string,
+  disabled: propTypes.bool,
 }
 
 export default ButtonAddress

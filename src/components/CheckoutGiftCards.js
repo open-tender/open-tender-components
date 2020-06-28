@@ -1,4 +1,5 @@
 import React, { useContext } from 'react'
+import propTypes from 'prop-types'
 import CheckoutLineItem from './CheckoutLineItem'
 import Button from './Button'
 import { FormContext } from './CheckoutForm'
@@ -17,6 +18,12 @@ const CheckoutGiftCardLabel = ({ giftCard, amount }) => {
       </span>
     </span>
   )
+}
+
+CheckoutGiftCardLabel.displayName = 'CheckoutGiftCardLabel'
+CheckoutGiftCardLabel.propTypes = {
+  giftCard: propTypes.object,
+  amount: propTypes.string,
 }
 
 const CheckoutGiftCards = () => {

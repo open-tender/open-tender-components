@@ -86,7 +86,7 @@ const CheckoutTender = ({ tenderType }) => {
 }
 
 CheckoutTender.displayName = 'CheckoutTender'
-CheckoutTender.prototypes = {
+CheckoutTender.propTypes = {
   tenderType: propTypes.string,
 }
 export default CheckoutTender

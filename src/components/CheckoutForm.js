@@ -164,15 +164,22 @@ const CheckoutForm = ({
 CheckoutForm.displayName = 'CheckoutForm'
 CheckoutForm.propTypes = {
   config: propTypes.object,
+  autoSelect: propTypes.bool,
   order: propTypes.object,
+  tz: propTypes.string,
   check: propTypes.object,
   form: propTypes.object,
   loading: propTypes.string,
   errors: propTypes.object,
   updateForm: propTypes.func,
+  submitting: propTypes.bool,
+  setSubmitting: propTypes.func,
   submitOrder: propTypes.func,
   login: propTypes.func,
   logout: propTypes.func,
+  updateRequestedAt: propTypes.func,
+  updateRevenueCenter: propTypes.func,
+  updateServiceType: propTypes.func,
 }
 
 export default CheckoutForm

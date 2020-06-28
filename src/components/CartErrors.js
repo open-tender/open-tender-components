@@ -59,7 +59,6 @@ const isCartRevertable = (previous, current, revenueCenters) => {
 }
 
 const CartErrors = ({
-  newCart,
   errors,
   config,
   revert,
@@ -110,7 +109,12 @@ const CartErrors = ({
 CartErrors.displayName = 'CartErrors'
 CartErrors.propTypes = {
   errors: propTypes.object,
-  newCart: propTypes.array,
+  config: propTypes.object,
+  revert: propTypes.func,
+  proceed: propTypes.func,
+  revenueCenters: propTypes.array,
+  previousMenuVars: propTypes.object,
+  menuVars: propTypes.object,
 }
 
 export default CartErrors
