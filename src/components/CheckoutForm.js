@@ -142,11 +142,6 @@ const CheckoutForm = ({
                 </p>
               </div>
             ) : null}
-            {/* {(
-              <div className="form__message__content border-radius-small ot-success font-size-small">
-                <p>Your order can now be submitted. Go for it!</p>
-              </div>
-            )} */}
           </div>
           <input
             className="btn btn--big"

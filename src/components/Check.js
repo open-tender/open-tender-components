@@ -17,7 +17,7 @@ CheckItem.propTypes = {
   classes: propTypes.string,
 }
 
-const CheckUpdating = (loader) => (
+const CheckUpdating = ({ loader }) => (
   <div className="check__disabled overlay">
     <div className="check__disabled__working">
       {loader}
@@ -26,7 +26,12 @@ const CheckUpdating = (loader) => (
   </div>
 )
 
-const Check = ({ title, check, tenders, updating = false }) => {
+CheckUpdating.displayName = 'CheckUpdating'
+CheckUpdating.propTypes = {
+  loader: propTypes.element,
+}
+
+const Check = ({ title, check, tenders, loader, updating = false }) => {
   const { order_id, surcharges, discounts, taxes, totals, details } = check
   const {
     subtotal,
@@ -46,7 +51,7 @@ const Check = ({ title, check, tenders, updating = false }) => {
   return (
     <div className="check">
       <div className="check__container">
-        {updating && <CheckUpdating />}
+        {updating && <CheckUpdating loader={loader} />}
         <div className="check__title font-size-big ot-bold border-bottom">
           <p>{title}</p>
           {order_id && (
@@ -145,6 +150,7 @@ Check.propTypes = {
   title: propTypes.string,
   check: propTypes.object,
   tenders: propTypes.array,
+  loader: propTypes.element,
   updating: propTypes.bool,
 }
 

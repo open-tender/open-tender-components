@@ -4,22 +4,16 @@ import Button from './Button'
 
 const ButtonCheckoutAccount = ({
   customer = {},
-  classes = 'btn',
   goToAccount,
+  classes = 'btn',
 }) => {
-  const handleClick = (evt) => {
-    evt.preventDefault()
-    goToAccount()
-    evt.target.blur()
-  }
-
   return customer ? (
     <Button
       text={`${customer.first_name} ${customer.last_name}`}
       ariaLabel="Go to account to update name or email"
       icon="User"
       classes={classes}
-      onClick={handleClick}
+      onClick={goToAccount}
     />
   ) : null
 }

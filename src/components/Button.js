@@ -14,7 +14,7 @@ ButtonIcon.displayName = 'ButtonIcon'
 ButtonIcon.propTypes = {
   text: propTypes.string,
   icon: propTypes.element,
-  iconEnd: propTypes.element,
+  iconEnd: propTypes.bool,
 }
 
 const Button = ({
