@@ -45,5 +45,6 @@ module.exports = {
     'react-datepicker': 'react-datepicker',
     'react-feather': 'react-feather',
     'react-transition-group': 'react-transition-group',
+    'google-maps-api-loader': 'google-maps-api-loader',
   },
 }
