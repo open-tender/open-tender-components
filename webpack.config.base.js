@@ -27,5 +27,23 @@ module.exports = {
       },
     ],
   },
-  externals: { react: 'react', reactDOM: 'react-dom', lodash: 'lodash' },
+  externals: {
+    react: {
+      commonjs: 'react',
+      commonjs2: 'react',
+      amd: 'React',
+      root: 'React',
+    },
+    'react-dom': {
+      commonjs: 'react-dom',
+      commonjs2: 'react-dom',
+      amd: 'ReactDOM',
+      root: 'ReactDOM',
+    },
+    lodash: 'lodash',
+    'prop-types': 'prop-types',
+    'react-datepicker': 'react-datepicker',
+    'react-feather': 'react-feather',
+    'react-transition-group': 'react-transition-group',
+  },
 }
