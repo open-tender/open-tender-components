@@ -27,5 +27,5 @@ module.exports = {
       },
     ],
   },
-  // externals: { react: 'react', reactDOM: 'react-dom', lodash: 'lodash' },
+  externals: { react: 'react', reactDOM: 'react-dom', lodash: 'lodash' },
 }

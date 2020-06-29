@@ -1,13 +1,15 @@
 import React, { useContext } from 'react'
 import propTypes from 'prop-types'
-import CheckoutLineItem from './CheckoutLineItem'
-import Button from './Button'
-import CircleLoader from './CircleLoader'
-import { makeTenderTypeLabel } from './TenderTypes'
 import { tenderTypeNamesMap } from 'open-tender-js'
-import CheckoutCreditCards from './CheckoutCreditCards'
 import { TendersContext } from './CheckoutTenders'
-import CheckoutHouseAccounts from './CheckoutHouseAccounts'
+import { makeTenderTypeLabel } from './CheckoutTenderTypes'
+import {
+  Button,
+  CircleLoader,
+  CheckoutLineItem,
+  CheckoutCreditCards,
+  CheckoutHouseAccounts,
+} from '.'
 
 const CheckoutTender = ({ tenderType }) => {
   const tenderContext = useContext(TendersContext)

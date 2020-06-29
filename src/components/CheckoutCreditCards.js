@@ -1,7 +1,7 @@
 import React, { useContext, useState, useEffect } from 'react'
 import { FormContext } from './CheckoutForm'
 import { TendersContext } from './CheckoutTenders'
-import { ExistingCard, NewCard } from '.'
+import { CheckoutExistingCard, CheckoutNewCard } from '.'
 
 const CheckoutCreditCards = () => {
   const [showNewCard, setShowNewCard] = useState(false)
@@ -25,7 +25,7 @@ const CheckoutCreditCards = () => {
       {/* <ul className={`cards__list ${showNewCard ? '-disabled' : ''}`}> */}
       <ul className="cards__list">
         {cards.map((card) => (
-          <ExistingCard
+          <CheckoutExistingCard
             key={card.customer_card_id}
             card={card}
             appliedCards={appliedCards}
@@ -34,7 +34,7 @@ const CheckoutCreditCards = () => {
             error={tenderError}
           />
         ))}
-        <NewCard
+        <CheckoutNewCard
           appliedCards={appliedCards}
           addTender={addTender}
           removeTender={removeTender}

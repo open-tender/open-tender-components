@@ -1,17 +1,17 @@
 import React, { useRef, createContext, useEffect } from 'react'
 import propTypes from 'prop-types'
+import { checkAmountRemaining } from 'open-tender-js'
 import {
+  Error,
   CheckoutAddress,
   CheckoutCustomer,
   CheckoutDetails,
   CheckoutDiscounts,
   CheckoutGiftCards,
   CheckoutPromoCodes,
+  CheckoutSurcharges,
   CheckoutTenders,
-} from './index'
-import { checkAmountRemaining } from 'open-tender-js'
-import { Error } from './Inputs'
-import CheckoutSurcharges from './CheckoutSurcharges'
+} from '.'
 
 export const FormContext = createContext(null)
 
