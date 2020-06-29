@@ -6,7 +6,7 @@ import iconMap from './icons'
 import cardIconMap from './cardIcons'
 import CheckoutNewCardForm from './CheckoutNewCardForm'
 
-const NewCard = ({
+const CheckoutNewCard = ({
   appliedCards,
   addTender,
   removeTender,
@@ -79,16 +79,16 @@ const NewCard = ({
   ) : null
 }
 
-NewCard.displayName = 'NewCard'
-NewCard.propTypes = {
+CheckoutNewCard.displayName = 'CheckoutNewCard'
+CheckoutNewCard.propTypes = {
   appliedCards: propTypes.array,
   addTender: propTypes.func,
   removeTender: propTypes.func,
   setShowCredit: propTypes.func,
-  showNewCard: propTypes.func,
+  showNewCard: propTypes.bool,
   setShowNewCard: propTypes.func,
   customerId: propTypes.number,
   error: propTypes.object,
 }
 
-export default NewCard
+export default CheckoutNewCard

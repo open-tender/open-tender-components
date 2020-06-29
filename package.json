@@ -44,13 +44,13 @@
     "webpack-merge": "^4.2.2"
   },
   "peerDependencies": {
+    "google-maps-api-loader": "^1.1.1",
     "prop-types": "^15.7.2",
     "react": "^16.13.1",
     "react-datepicker": "^3.0.0",
     "react-dom": "^16.13.1",
     "react-feather": "^2.0.8",
-    "react-transition-group": "^4.4.1",
-    "google-maps-api-loader": "^1.1.1"
+    "react-transition-group": "^4.4.1"
   },
   "dependencies": {}
 }

@@ -22,9 +22,14 @@ module.exports = {
       },
       {
         test: /\.(png|jp(e*)g|svg|gif)$/,
-        use: 'file-loader',
         exclude: /node_modules/,
+        use: 'file-loader',
       },
+      // {
+      //   test: /\.svg$/,
+      //   exclude: /node_modules/,
+      //   use: 'svg-inline-loader',
+      // },
     ],
   },
   externals: {

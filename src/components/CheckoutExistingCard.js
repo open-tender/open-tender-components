@@ -4,7 +4,12 @@ import iconMap from './icons'
 import cardIconMap from './cardIcons'
 import CircleLoader from './CircleLoader'
 
-const ExistingCard = ({ card, appliedCards, existingCards, addTender }) => {
+const CheckoutExistingCard = ({
+  card,
+  appliedCards,
+  existingCards,
+  addTender,
+}) => {
   const tender = { ...card, tender_type: 'CREDIT' }
   const isApplied = existingCards.includes(card.customer_card_id)
   const isDisabled = appliedCards.length && !isApplied
@@ -39,12 +44,12 @@ const ExistingCard = ({ card, appliedCards, existingCards, addTender }) => {
   ) : null
 }
 
-ExistingCard.displayName = 'ExistingCard'
-ExistingCard.propTypes = {
+CheckoutExistingCard.displayName = 'CheckoutExistingCard'
+CheckoutExistingCard.propTypes = {
   card: propTypes.object,
   appliedCards: propTypes.array,
   existingCards: propTypes.array,
   addTender: propTypes.func,
 }
 
-export default ExistingCard
+export default CheckoutExistingCard
