@@ -20,6 +20,7 @@ import ButtonServiceType from './ButtonServiceType'
 import ButtonSignUp from './ButtonSignUp'
 import ButtonStartOver from './ButtonStartOver'
 import CartItem from './CartItem'
+import CartCounts from './CartCounts'
 import CartErrors from './CartErrors'
 import Check from './Check'
 import CheckoutForm from './CheckoutForm'
@@ -76,6 +77,7 @@ export {
   ButtonSignUp,
   ButtonStartOver,
   CartItem,
+  CartCounts,
   CartErrors,
   CheckoutForm,
   CheckoutAccount,
