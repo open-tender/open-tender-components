@@ -51,5 +51,6 @@ module.exports = {
     'react-feather': 'react-feather',
     'react-transition-group': 'react-transition-group',
     'google-maps-api-loader': 'google-maps-api-loader',
+    'emotion-theming': 'emotion-theming',
   },
 }
