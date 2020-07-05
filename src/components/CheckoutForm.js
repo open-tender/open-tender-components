@@ -68,9 +68,11 @@ const CheckoutForm = ({
   submitOrder,
   login,
   logout,
+  goToAccount,
   updateRequestedAt,
   updateRevenueCenter,
   updateServiceType,
+  cardIconMap,
 }) => {
   const submitButton = useRef()
   const { total } = check ? check.totals : 0.0
@@ -108,9 +110,11 @@ const CheckoutForm = ({
         submitOrder,
         login,
         logout,
+        goToAccount,
         updateRequestedAt,
         updateRevenueCenter,
         updateServiceType,
+        cardIconMap,
       }}
     >
       <form
@@ -172,9 +176,11 @@ CheckoutForm.propTypes = {
   submitOrder: propTypes.func,
   login: propTypes.func,
   logout: propTypes.func,
+  goToAccount: propTypes.func,
   updateRequestedAt: propTypes.func,
   updateRevenueCenter: propTypes.func,
   updateServiceType: propTypes.func,
+  cardIconMap: propTypes.object,
 }
 
 export default CheckoutForm

@@ -27,7 +27,7 @@ const fields = [
 
 const CheckoutAccount = () => {
   const formContext = useContext(FormContext)
-  const { config, check, form, updateForm, logout } = formContext
+  const { config, check, form, updateForm, logout, goToAccount } = formContext
   const [customer, setCustomer] = useState(form.customer)
 
   const debouncedUpdate = useCallback(
@@ -66,7 +66,11 @@ const CheckoutAccount = () => {
       </div>
       <div className="form__inputs">
         <CheckoutLineItem label="Account">
-          <ButtonCheckoutAccount classes="btn--header" />
+          <ButtonCheckoutAccount
+            customer={customer}
+            goToAccount={goToAccount}
+            classes="btn--header"
+          />
         </CheckoutLineItem>
         {fields.map((field) => {
           const input = accountConfig[field.name]

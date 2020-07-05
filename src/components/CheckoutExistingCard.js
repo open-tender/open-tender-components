@@ -1,7 +1,7 @@
-import React from 'react'
+import React, { useContext } from 'react'
 import propTypes from 'prop-types'
 import iconMap from './icons'
-import cardIconMap from './cardIcons'
+import { FormContext } from './CheckoutForm'
 import CircleLoader from './CircleLoader'
 
 const CheckoutExistingCard = ({
@@ -10,6 +10,8 @@ const CheckoutExistingCard = ({
   existingCards,
   addTender,
 }) => {
+  const formContext = useContext(FormContext)
+  const { cardIconMap } = formContext
   const tender = { ...card, tender_type: 'CREDIT' }
   const isApplied = existingCards.includes(card.customer_card_id)
   const isDisabled = appliedCards.length && !isApplied
@@ -19,7 +21,9 @@ const CheckoutExistingCard = ({
     <li>
       <div className={classes}>
         <div className="cards__card__image">
-          <img src={cardIconMap[card.card_type]} alt={card.card_type_name} />
+          {cardIconMap && (
+            <img src={cardIconMap[card.card_type]} alt={card.card_type_name} />
+          )}
         </div>
         <div className="cards__card__name">
           {card.card_type_name} ending in {card.last4}

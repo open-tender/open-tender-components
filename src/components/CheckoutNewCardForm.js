@@ -1,8 +1,8 @@
-import React, { useState, useEffect } from 'react'
+import React, { useState, useEffect, useContext } from 'react'
 import propTypes from 'prop-types'
 import Button from './Button'
-import cardIconMap from './cardIcons'
 import { Input, Checkbox } from './Inputs'
+import { FormContext } from './CheckoutForm'
 import {
   isEmpty,
   cardNames,
@@ -46,6 +46,8 @@ const CheckoutNewCardForm = ({
   const [isApplied, setIsApplied] = useState(false)
   const [cardType, setCardType] = useState('OTHER')
   const [errors, setErrors] = useState({})
+  const formContext = useContext(FormContext)
+  const { cardIconMap } = formContext
 
   useEffect(() => {
     if (error && !isEmpty(error)) {
@@ -118,7 +120,9 @@ const CheckoutNewCardForm = ({
             Add a new card
           </p>
           <div className="cards__new__image">
-            <img src={cardIconMap[cardType]} alt={cardNames[cardType]} />
+            {cardIconMap && (
+              <img src={cardIconMap[cardType]} alt={cardNames[cardType]} />
+            )}
           </div>
         </div>
         <div className="cards__new__content">

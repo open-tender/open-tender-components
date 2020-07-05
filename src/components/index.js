@@ -47,14 +47,11 @@ import CheckoutTip from './CheckoutTip'
 import CircleLoader from './CircleLoader'
 import DeliveryLink from './DeliveryLink'
 import OrderQuantity from './OrderQuantity'
-import RequestedAtPicker from './RequestedAtPicker'
 import { Label, Error, Input, Textarea, Switch, Checkbox } from './Inputs'
 import iconMap from './icons'
-import cardIconMap from './cardIcons'
 
 export {
   iconMap,
-  cardIconMap,
   Builder,
   BuilderGroupHeader,
   BuilderGroupWarning,
@@ -104,7 +101,6 @@ export {
   CircleLoader,
   DeliveryLink,
   OrderQuantity,
-  RequestedAtPicker,
   Error,
   Input,
   Textarea,

@@ -1,9 +1,9 @@
-import React from 'react'
+import React, { useContext } from 'react'
 import propTypes from 'prop-types'
 import { TransitionGroup, CSSTransition } from 'react-transition-group'
+import { FormContext } from './CheckoutForm'
 import CircleLoader from './CircleLoader'
 import iconMap from './icons'
-import cardIconMap from './cardIcons'
 import CheckoutNewCardForm from './CheckoutNewCardForm'
 
 const CheckoutNewCard = ({
@@ -16,6 +16,8 @@ const CheckoutNewCard = ({
   customerId,
   error,
 }) => {
+  const formContext = useContext(FormContext)
+  const { cardIconMap } = formContext
   const newCard = appliedCards.find((i) => i.acct)
   const newCardType = newCard ? newCard.card_type : 'OTHER'
   const isApplied = !!newCard
@@ -34,7 +36,9 @@ const CheckoutNewCard = ({
       {customerId && (
         <div className={classes}>
           <div className="cards__card__image">
-            <img src={cardIconMap[newCardType]} alt="New Credit Card" />
+            {cardIconMap && (
+              <img src={cardIconMap[newCardType]} alt="New Credit Card" />
+            )}
           </div>
           <div className="cards__card__name">
             {isApplied
