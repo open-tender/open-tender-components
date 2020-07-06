@@ -5,7 +5,7 @@ import { FormContext } from './CheckoutForm'
 
 const CheckoutSignUp = () => {
   const formContext = useContext(FormContext)
-  const { config, login } = formContext
+  const { config, login, signUp } = formContext
   return (
     <div className="form__fieldset">
       <div className="form__legend">
@@ -16,7 +16,7 @@ const CheckoutSignUp = () => {
       </div>
       <div className="form__inputs">
         <div className="form__input">
-          <ButtonSignUp />
+          <ButtonSignUp signUp={signUp} />
           <Button
             classes="btn-link"
             text="or log into an existing account"

@@ -4,26 +4,33 @@ import { Input } from '../index'
 import SubmitButton from './SubmitButton'
 
 const fields = [
-  { label: 'First Name', name: 'first_name', type: 'text', required: true },
-  { label: 'Last Name', name: 'last_name', type: 'text', required: true },
-  { label: 'Email', name: 'email', type: 'email', required: true },
-  { label: 'Password', name: 'password', type: 'password', required: true },
-  { label: 'Phone', name: 'phone', type: 'tel', required: true },
-  // { label: 'Company', name: 'company', type: 'text' },
+  { label: 'New Password', name: 'new_password', type: 'password' },
+  { label: 'Confirm Password', name: 'confirm', type: 'password' },
 ]
 
-const SignUpForm = ({ loading, error, signUp, callback }) => {
+const ResetPasswordForm = ({
+  loading,
+  error,
+  reset,
+  resetForm,
+  resetToken,
+}) => {
+  const submitButton = useRef()
   const [data, setData] = useState({})
   const [errors, setErrors] = useState({})
   const [submitting, setSubmitting] = useState(false)
-  const submitButton = useRef()
+  const formError = error ? errors.token || errors.form || null : null
 
   useEffect(() => {
+    setData({})
+    setErrors({})
+    resetForm()
     return () => {
       setData({})
       setErrors({})
+      resetForm()
     }
-  }, [])
+  }, [resetForm])
 
   useEffect(() => {
     if (loading === 'idle') setSubmitting(false)
@@ -37,17 +44,29 @@ const SignUpForm = ({ loading, error, signUp, callback }) => {
 
   const handleSubmit = (evt) => {
     evt.preventDefault()
-    setErrors({})
-    setSubmitting(true)
-    signUp(data, callback)
+    const { new_password, confirm } = data
+    if (!new_password || new_password.length < 8) {
+      setErrors({ new_password: 'Must be at least 8 characters' })
+    } else if (new_password !== confirm) {
+      setErrors({ confirm: 'Passwords do not match' })
+    } else {
+      setErrors({})
+      setSubmitting(true)
+      reset(new_password, resetToken)
+    }
     submitButton.current.blur()
   }
 
   return (
-    <form id="signup-form" className="form" onSubmit={handleSubmit} noValidate>
-      {error && (
+    <form
+      id="reset-password-form"
+      className="form"
+      onSubmit={handleSubmit}
+      noValidate
+    >
+      {formError && (
         <div className="form__error form__error--top form-error">
-          There are one or more errors below.
+          {formError}
         </div>
       )}
       <div className="form__inputs">
@@ -71,12 +90,13 @@ const SignUpForm = ({ loading, error, signUp, callback }) => {
   )
 }
 
-SignUpForm.displayName = 'SignUpForm'
-SignUpForm.propTypes = {
+ResetPasswordForm.displayName = 'ResetPasswordForm'
+ResetPasswordForm.propTypes = {
   loading: propTypes.string,
   error: propTypes.object,
-  signUp: propTypes.func,
-  callback: propTypes.func,
+  reset: propTypes.func,
+  resetForm: propTypes.func,
+  resetToken: propTypes.string,
 }
 
-export default SignUpForm
+export default ResetPasswordForm
