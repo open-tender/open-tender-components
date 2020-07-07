@@ -32,7 +32,7 @@ const BuilderQuantity = ({
   return item.quantity === 0 ? (
     <div className={`quantity quantity--zero ${classes}`}>
       <button
-        className="quantity__increase__zero border-radio"
+        className="quantity__increase__zero ot-border-color"
         onClick={handleIncrement}
         disabled={incrementDisabled || item.isSoldOut}
       >
@@ -71,15 +71,13 @@ const BuilderQuantity = ({
 
 BuilderQuantity.displayName = 'BuilderQuantity'
 BuilderQuantity.propTypes = {
-  name: propTypes.string,
-  id: propTypes.oneOfType([propTypes.number, propTypes.string]),
-  classes: propTypes.string,
-  quantity: propTypes.oneOfType([propTypes.number, propTypes.string]),
+  item: propTypes.object,
   adjust: propTypes.func,
   increment: propTypes.func,
   decrement: propTypes.func,
-  size: propTypes.number,
   incrementDisabled: propTypes.bool,
+  decrementDisabled: propTypes.bool,
+  classes: propTypes.string,
 }
 
 export default BuilderQuantity

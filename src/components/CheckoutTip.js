@@ -49,9 +49,9 @@ const CheckoutTip = ({ setShowTip }) => {
               <button
                 type="button"
                 onClick={(evt) => chooseTip(evt, i.amount)}
-                className="btn--tip ot-font-size"
+                className="cards__card__tip ot-font-size"
               >
-                <div className="cards__card ot-bg-color-primary border-radius">
+                <div className="cards__card ot-bg-color-primary ot-border-radius">
                   <div className="cards__card__name">
                     ${i.amount} ({i.percent}%)
                     {isDefault && (
@@ -64,7 +64,9 @@ const CheckoutTip = ({ setShowTip }) => {
                     {isApplied ? (
                       <CircleLoader complete={true} />
                     ) : (
-                      <span className="btn-link">{iconMap['PlusCircle']}</span>
+                      <span className="ot-btn-link">
+                        {iconMap['PlusCircle']}
+                      </span>
                     )}
                   </div>
                 </div>
@@ -73,7 +75,7 @@ const CheckoutTip = ({ setShowTip }) => {
           )
         })}
         <li>
-          <div className="cards__card ot-bg-color-primary border-radius">
+          <div className="cards__card ot-bg-color-primary ot-border-radius">
             <div className="cards__card__name">
               {/* <span>Custom amount:</span> */}
               <Input
@@ -94,7 +96,7 @@ const CheckoutTip = ({ setShowTip }) => {
               <button
                 type="button"
                 onClick={applyCustomTip}
-                className="btn-link"
+                className="ot-btn-link"
                 disabled={customTip.length === 0}
               >
                 {customApplied ? (

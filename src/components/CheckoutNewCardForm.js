@@ -114,7 +114,7 @@ const CheckoutNewCardForm = ({
 
   return (
     <div className="cards__new">
-      <div className="cards__new__container ot-bg-color-primary border-radius">
+      <div className="cards__new__container ot-bg-color-primary ot-border-radius">
         <div className="cards__new__header">
           <p className="cards__new__title ot-font-size-big ot-bold">
             Add a new card
@@ -128,7 +128,7 @@ const CheckoutNewCardForm = ({
         <div className="cards__new__content">
           {cardErrors.length ? (
             <div className="cards__new__errors">
-              <span className="form-error">
+              <span className="ot-form-error">
                 {cardErrors.map(([field, msg]) => (
                   <p key={field}>{msg}</p>
                 ))}
@@ -165,21 +165,21 @@ const CheckoutNewCardForm = ({
         <div className="cards__new__footer">
           <Button
             text="Apply New Card"
-            classes="btn btn--cart"
+            classes="ot-btn ot-btn--cart"
             onClick={submitTender}
             disabled={emptyFields || isApplied}
           />
           {isApplied ? (
             <Button
               text="Remove Applied Card"
-              classes="btn"
+              classes="ot-btn"
               onClick={handleRemove}
             />
           ) : (
             <Button
               text="Cancel"
               ariaLabel="Cancel Add New Card"
-              classes="btn"
+              classes="ot-btn"
               onClick={handleCancel}
             />
           )}

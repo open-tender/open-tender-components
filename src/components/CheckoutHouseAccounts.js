@@ -47,7 +47,7 @@ const CheckoutHouseAccounts = () => {
             !isRevenueCenter ||
             (applied.length && !isApplied)
           const disabled = isDisabled ? '-disabled' : ''
-          const classes = `cards__card ot-bg-color-primary border-radius ${disabled}`
+          const classes = `cards__card ot-bg-color-primary ot-border-radius ${disabled}`
           return (
             <li key={house_account_id}>
               <div className={classes}>
@@ -75,7 +75,7 @@ const CheckoutHouseAccounts = () => {
                     <button
                       type="button"
                       onClick={(evt) => addTender(evt, tender)}
-                      className="btn-link"
+                      className="ot-btn-link"
                       disabled={isApplied || isDisabled}
                     >
                       {iconMap['PlusCircle']}

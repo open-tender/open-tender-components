@@ -9,7 +9,7 @@ const CheckoutSignUp = () => {
   return (
     <div className="form__fieldset">
       <div className="form__legend">
-        <p className="form__legend__title heading ot-font-size-h3">
+        <p className="form__legend__title ot-heading ot-font-size-h3">
           {config.sign_up.title}
         </p>
         <p className="form__legend__subtitle">{config.sign_up.subtitle}</p>
@@ -18,7 +18,7 @@ const CheckoutSignUp = () => {
         <div className="form__input">
           <ButtonSignUp signUp={signUp} />
           <Button
-            classes="btn-link"
+            classes="ot-btn-link"
             text="or log into an existing account"
             onClick={login}
           />

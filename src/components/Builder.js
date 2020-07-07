@@ -176,7 +176,7 @@ const Builder = ({
             {groups.map((group) => (
               <div key={group.id} className="builder__group">
                 <BuilderGroupHeader group={group} />
-                <div className="builder__options ot-bg-color-primary border-radius">
+                <div className="builder__options ot-bg-color-primary ot-border-radius">
                   {group.min === 1 && group.max === 1 ? (
                     <BuilderRadioGroup group={group} handler={toggleOption} />
                   ) : (
@@ -200,9 +200,9 @@ const Builder = ({
               </div>
             ))}
           </div>
-          <div className="builder__made-for ot-bg-color-primary border-radius">
+          <div className="builder__made-for ot-bg-color-primary ot-border-radius">
             <label htmlFor="made-for" className="label">
-              <span className="ot-font-size-h6 heading">Made For</span>
+              <span className="ot-font-size-h6 ot-heading">Made For</span>
               <input
                 id="made-for"
                 type="text"
@@ -211,9 +211,9 @@ const Builder = ({
               />
             </label>
           </div>
-          <div className="builder__notes ot-bg-color-primary border-radius">
+          <div className="builder__notes ot-bg-color-primary ot-border-radius">
             <label htmlFor="item-notes" className="label">
-              <span className="ot-font-size-h6 heading">Notes</span>
+              <span className="ot-font-size-h6 ot-heading">Notes</span>
               <textarea
                 id="item-notes"
                 value={notes || ''}
@@ -241,7 +241,7 @@ const Builder = ({
           </div>
           <div className="builder__submit">
             <button
-              className="btn btn--big"
+              className="ot-btn ot-btn--big"
               onClick={handleSubmit}
               disabled={isIncomplete}
             >

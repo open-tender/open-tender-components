@@ -12,7 +12,7 @@ const ButtonClear = ({
   return (
     <button
       type="button"
-      className={`btn-clear ot-color-link ${classes}`}
+      className={`clear-input ot-color-link ${classes}`}
       aria-label={ariaLabel}
       onClick={onClick}
       disabled={disabled}

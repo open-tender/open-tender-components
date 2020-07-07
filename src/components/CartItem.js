@@ -4,7 +4,7 @@ import { displayPrice, makeModifierNames } from 'open-tender-js'
 import iconMap from './icons'
 
 const SoldOutOverlay = () => (
-  <div className="builder__option__overlay ot-opacity-dark border-radius-small">
+  <div className="builder__option__overlay ot-opacity-dark ot-border-radius-small">
     <div className="builder__option__overlay__container">
       <p className="builder__option__overlay__message ot-color-light ot-font-size">
         Sold Out
@@ -14,7 +14,7 @@ const SoldOutOverlay = () => (
 )
 
 const AllergenOverlay = () => (
-  <div className="builder__option__overlay ot-opacity-alert border-radius-small">
+  <div className="builder__option__overlay ot-opacity-alert ot-border-radius-small">
     <div className="builder__option__overlay__container">
       <div className="builder__option__alert ot-color-light">
         {iconMap['AlertCircle']}
@@ -37,7 +37,7 @@ const CartItem = ({
   const desc = showModifiers ? makeModifierNames(item) : item.description
   const price = editItem || showModifiers ? item.totalPrice : item.price
   const soldOutClass = item.isSoldOut ? '-sold-out' : ''
-  const classes = `builder__option border-color ${soldOutClass}`
+  const classes = `builder__option ot-border-color ${soldOutClass}`
   const itemAllergens = item.allergens.length
     ? item.allergens.filter((allergen) => allergens.includes(allergen))
     : []
@@ -46,7 +46,7 @@ const CartItem = ({
   return (
     <span className={classes}>
       <span
-        className="builder__option__image bg-image ot-bg-color-secondary border-radius-small"
+        className="builder__option__image bg-image ot-bg-color-secondary ot-border-radius-small"
         style={bgStyle}
       >
         {item.isSoldOut ? (
@@ -72,13 +72,13 @@ const CartItem = ({
             {editItem ? (
               <>
                 <span className="builder__option__details__edit">
-                  <button className="btn-link" onClick={editItem}>
+                  <button className="ot-btn-link" onClick={editItem}>
                     edit
                   </button>
                 </span>
                 <span className="builder__option__details__remove">
                   <button
-                    className="btn-link ot-color-error"
+                    className="ot-btn-link ot-color-error"
                     onClick={removeItem}
                   >
                     remove

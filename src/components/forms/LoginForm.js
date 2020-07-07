@@ -24,7 +24,9 @@ const LoginForm = ({ loading, error, login, callback }) => {
   return (
     <form id="login-form" className="form" onSubmit={handleSubmit} noValidate>
       {error && (
-        <div className="form__error form__error--top form-error">{error}</div>
+        <div className="form__error form__error--top ot-form-error">
+          {error}
+        </div>
       )}
       <div className="form__inputs">
         <Input
@@ -48,7 +50,7 @@ const LoginForm = ({ loading, error, login, callback }) => {
       </div>
       <div className="form__submit">
         <input
-          className="btn"
+          className="ot-btn"
           type="submit"
           value={isLoading ? 'Submitting' : 'Submit'}
           disabled={isLoading}

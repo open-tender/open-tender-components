@@ -62,7 +62,7 @@ const CheckoutGuest = () => {
   return (
     <fieldset className="form__fieldset">
       <legend className="form__legend">
-        <p className="form__legend__title heading ot-font-size-h3">
+        <p className="form__legend__title ot-heading ot-font-size-h3">
           {config.guest.title}
         </p>
       </legend>

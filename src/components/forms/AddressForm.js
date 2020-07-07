@@ -43,7 +43,7 @@ const AddressForm = ({ address, loading, error, update, callback }) => {
   return (
     <form id="address-form" className="form" onSubmit={handleSubmit} noValidate>
       {errors.form && (
-        <div className="form__error form__error--top form-error">
+        <div className="form__error form__error--top ot-form-error">
           {errors.form}
         </div>
       )}
@@ -91,7 +91,7 @@ const AddressForm = ({ address, loading, error, update, callback }) => {
       </div>
       <div className="form__submit">
         <input
-          className="btn"
+          className="ot-btn"
           type="submit"
           value="Submit Updates"
           disabled={submitting}

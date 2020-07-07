@@ -4,7 +4,7 @@ import { formatDollars, checkAmountRemaining } from 'open-tender-js'
 import { makeTenderName } from './CheckoutTenderTypes'
 
 const CheckItem = ({ label, value, classes = '' }) => (
-  <li className={`check__item border-color ${classes}`}>
+  <li className={`check__item ot-border-color ${classes}`}>
     <span>{label}</span>
     <span>{formatDollars(value)}</span>
   </li>
@@ -52,7 +52,7 @@ const Check = ({ title, check, tenders, loader, updating = false }) => {
     <div className="check">
       <div className="check__container">
         {updating && <CheckUpdating loader={loader} />}
-        <div className="check__title border-bottom">
+        <div className="check__title ot-border-color">
           <p className="ot-font-size-big ot-bold">{title}</p>
           {order_id && (
             <p className="ot-font-size-small">editing order {order_id}</p>

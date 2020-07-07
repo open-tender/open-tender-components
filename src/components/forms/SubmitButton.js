@@ -5,7 +5,7 @@ import propTypes from 'prop-types'
 const SubmitButton = ({ submitRef, submitting, disabled }) => {
   return (
     <button
-      className="btn"
+      className="ot-btn"
       type="submit"
       disabled={disabled || submitting}
       ref={submitRef}

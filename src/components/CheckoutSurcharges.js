@@ -39,7 +39,7 @@ const CheckoutSurcharges = () => {
   return (
     <fieldset className="form__fieldset">
       <div className="form__legend">
-        <p className="form__legend__title heading ot-font-size-h3">
+        <p className="form__legend__title ot-heading ot-font-size-h3">
           {config.surcharges.title}
         </p>
         <p className="form__legend__subtitle">{config.surcharges.subtitle}</p>
@@ -74,7 +74,7 @@ const CheckoutSurcharges = () => {
                     text="Remove Surcharge"
                     ariaLabel={`Remove ${i.name} surcharge of ${i.amount}`}
                     icon="XCircle"
-                    classes="btn--header"
+                    classes="ot-btn--secondary ot-btn--header"
                     disabled={isPending || !i.is_optional}
                     onClick={(evt) => removeSurcharge(evt, i.id)}
                   />
@@ -83,7 +83,7 @@ const CheckoutSurcharges = () => {
                     text="Apply Surcharge"
                     ariaLabel={`Apply ${i.name} surcharge of ${i.amount}`}
                     icon="PlusCircle"
-                    classes="btn--header"
+                    classes="ot-btn--secondary ot-btn--header"
                     onClick={(evt) => applySurcharge(evt, i.id)}
                   />
                 )}

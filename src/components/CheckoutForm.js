@@ -141,7 +141,7 @@ const CheckoutForm = ({
         <div className="form__footer">
           <div className="form__message">
             {!isPaid ? (
-              <div className="form__message__content border-radius-small ot-color-error ot-bg-color-error ot-font-size-small">
+              <div className="form__message__content ot-border-radius-small ot-color-error ot-bg-color-error ot-font-size-small">
                 <p>
                   There is a balance of ${amountRemaining.toFixed(2)} remaining
                   on your order. Please add a payment above.
@@ -150,7 +150,7 @@ const CheckoutForm = ({
             ) : null}
           </div>
           <input
-            className="btn btn--big"
+            className="ot-btn ot-btn--big"
             type="submit"
             value="Submit Order"
             disabled={submitting || !isPaid}

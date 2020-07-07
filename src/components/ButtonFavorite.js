@@ -24,13 +24,13 @@ const ButtonFavorite = ({
     evt.target.blur()
   }
 
-  const favClass = favoriteId ? 'btn--highlight' : ''
-  const klass = `btn btn-favorite ${classes} ${favClass}`
+  const favClass = favoriteId ? 'ot-btn--highlight' : ''
+  const klass = `ot-btn favorite ${classes} ${favClass}`
   const handler = favoriteId ? handleRemove : handleAdd
 
   return (
     <button className={klass} onClick={handler}>
-      <span className="btn-favorite__icon">{iconMap['Heart']}</span>
+      <span className="favorite__icon">{iconMap['Heart']}</span>
     </button>
   )
 }

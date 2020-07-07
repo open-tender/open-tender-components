@@ -58,7 +58,7 @@ const AccountProfile = ({ profile, loading, error, update }) => {
       </div>
       <div className="section__submit">
         <input
-          className="btn"
+          className="ot-btn"
           type="submit"
           value="Update Account"
           disabled={submitting}

@@ -91,16 +91,10 @@ const CartErrors = ({
             text={content.buttonRevert}
             icon="ChevronLeft"
             onClick={handleRevert}
-            classes="btn--back"
+            classes="ot-btn--back"
           />
         )}
-        <Button
-          text={content.buttonProceed}
-          icon="Trash2"
-          onClick={proceed}
-          // iconEnd={true}
-          // classes="btn--proceed"
-        />
+        <Button text={content.buttonProceed} icon="Trash2" onClick={proceed} />
       </div>
     </div>
   )

@@ -3,10 +3,10 @@ import propTypes from 'prop-types'
 import iconMap from './icons'
 
 const ButtonIcon = ({ text, icon, iconEnd }) => (
-  <span className="btn-icon-wrapper">
-    {!iconEnd && <span className="btn-icon">{icon}</span>}
+  <span className="ot-btn__icon-wrapper">
+    {!iconEnd && <span className="ot-btn__icon">{icon}</span>}
     <span>{text}</span>
-    {iconEnd && <span className="btn-icon btn-icon--end">{icon}</span>}
+    {iconEnd && <span className="ot-btn__icon ot-btn__icon--end">{icon}</span>}
   </span>
 )
 
@@ -28,7 +28,7 @@ const Button = ({
   children,
 }) => {
   const btnIcon = typeof icon === 'string' ? iconMap[icon] : icon
-  const klass = `${btnIcon ? 'btn btn--icon' : ''} ${classes} ${
+  const klass = `${btnIcon ? 'ot-btn' : ''} ${classes} ${
     iconEnd ? '-icon-end' : ''
   }`
   return (

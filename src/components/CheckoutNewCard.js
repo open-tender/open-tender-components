@@ -23,7 +23,7 @@ const CheckoutNewCard = ({
   const isApplied = !!newCard
   const isDisabled = appliedCards.length && !isApplied
   const disabled = isDisabled ? '-disabled' : ''
-  const classes = `cards__card ot-bg-color-primary border-radius ${disabled}`
+  const classes = `cards__card ot-bg-color-primary ot-border-radius ${disabled}`
 
   const handleToggle = (evt) => {
     evt.preventDefault()
@@ -52,7 +52,7 @@ const CheckoutNewCard = ({
               <button
                 type="button"
                 onClick={handleToggle}
-                className="btn-link"
+                className="ot-btn-link"
                 disabled={isApplied || isDisabled}
               >
                 {iconMap['PlusCircle']}

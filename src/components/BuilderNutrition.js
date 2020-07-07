@@ -3,7 +3,7 @@ import React from 'react'
 import { TransitionGroup, CSSTransition } from 'react-transition-group'
 
 const LineItem = ({ name, value, unit = '' }) => (
-  <li className="nutrition__item border-color">
+  <li className="nutrition__item ot-border-color">
     <span>{name}</span>
     <span>
       {value}
@@ -42,7 +42,7 @@ const BuilderNutrition = ({ nutritionalInfo = {}, show = true }) => {
           timeout={{ enter: 250, exit: 250 }}
         >
           <div className="nutrition ot-bg-color-secondary">
-            <ul className="nutrition__list ot-bg-color-primary border-radius ot-font-size-small">
+            <ul className="nutrition__list ot-bg-color-primary ot-border-radius ot-font-size-small">
               <LineItem name="Serving Size" value={serving_size} unit="oz" />
               <LineItem name="Calories" value={calories} />
               <LineItem name="Total Fat" value={total_fat} unit="g" />

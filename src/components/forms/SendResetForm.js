@@ -29,7 +29,7 @@ const SendResetForm = ({ loading, error, sendReset, callback }) => {
       noValidate
     >
       {error && error.email && (
-        <div className="form__error form__error--top form-error">
+        <div className="form__error form__error--top ot-form-error">
           {error.email}
         </div>
       )}
@@ -46,7 +46,7 @@ const SendResetForm = ({ loading, error, sendReset, callback }) => {
       </div>
       <div className="form__submit">
         <input
-          className="btn"
+          className="ot-btn"
           type="submit"
           value={isLoading ? 'Submitting' : 'Submit'}
           disabled={isLoading}

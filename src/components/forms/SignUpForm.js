@@ -46,7 +46,7 @@ const SignUpForm = ({ loading, error, signUp, callback }) => {
   return (
     <form id="signup-form" className="form" onSubmit={handleSubmit} noValidate>
       {error && (
-        <div className="form__error form__error--top form-error">
+        <div className="form__error form__error--top ot-form-error">
           There are one or more errors below.
         </div>
       )}

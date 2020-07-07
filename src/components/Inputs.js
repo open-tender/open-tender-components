@@ -3,7 +3,7 @@ import propTypes from 'prop-types'
 import { TransitionGroup, CSSTransition } from 'react-transition-group'
 
 export const Label = ({ text, required }) => (
-  <span className="label preface ot-font-size-x-small ot-color-secondary">
+  <span className="label ot-preface ot-font-size-x-small ot-color-secondary">
     {text}
     {required ? <span className="ot-color-alert">*</span> : null}
   </span>
@@ -20,11 +20,11 @@ export const Error = ({ error }) => {
     <TransitionGroup component={null}>
       {error ? (
         <CSSTransition
-          key="form-error"
+          key="ot-form-error"
           classNames="reveal"
           timeout={{ enter: 250, exit: 250 }}
         >
-          <span className="form-error">
+          <span className="ot-form-error">
             <p>{error}</p>
           </span>
         </CSSTransition>
@@ -62,8 +62,11 @@ export const Input = React.forwardRef(
       ? `current-${name}`
       : null
     return (
-      <label htmlFor={name} className={`form__input border-color ${classes}`}>
-        <span className="form__input__wrapper border-color">
+      <label
+        htmlFor={name}
+        className={`form__input ot-border-color ${classes}`}
+      >
+        <span className="form__input__wrapper ot-border-color">
           {showLabel && <Label text={label} required={required} />}
           <span className="input">
             <input
@@ -122,8 +125,8 @@ export const Textarea = ({
   inputClasses = '',
 }) => {
   return (
-    <label htmlFor={name} className={`form__input border-color ${classes}`}>
-      <span className="form__input__wrapper border-color">
+    <label htmlFor={name} className={`form__input ot-border-color ${classes}`}>
+      <span className="form__input__wrapper ot-border-color">
         {showLabel && <Label text={label} required={required} />}
         <span className="input">
           <textarea
@@ -174,9 +177,9 @@ export const Switch = ({
   return (
     <label
       htmlFor={id}
-      className={`form__input border-color switch ${classes}`}
+      className={`form__input ot-border-color switch ${classes}`}
     >
-      <span className="form__input__wrapper border-color">
+      <span className="form__input__wrapper ot-border-color">
         {showLabel && <Label text={label} />}
         <span className={`input ${inputClasses}`}>
           <input
@@ -217,9 +220,9 @@ export const Checkbox = ({
   return (
     <label
       htmlFor={id}
-      className={`form__input border-color checkbox ${classes || ''}`}
+      className={`form__input ot-border-color checkbox ${classes || ''}`}
     >
-      <span className="form__input__wrapper border-color">
+      <span className="form__input__wrapper ot-border-color">
         {showLabel && <Label text={label} />}
         <span className="input">
           <input

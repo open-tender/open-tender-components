@@ -102,11 +102,11 @@ const RequestedAtPicker = ({
         {!error && (
           <>
             {hasAsap && (
-              <button className="btn" onClick={() => setRequestedAt('asap')}>
+              <button className="ot-btn" onClick={() => setRequestedAt('asap')}>
                 {requestedAt === 'asap' ? 'Keep ASAP' : 'Change to ASAP'}
               </button>
             )}
-            <button className="btn" onClick={submitDate}>
+            <button className="ot-btn" onClick={submitDate}>
               {hasAsap ? 'Update Order Time' : 'Choose Order Time'}
             </button>
           </>

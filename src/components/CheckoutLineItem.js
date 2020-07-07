@@ -8,11 +8,11 @@ export const Error = ({ error }) => {
     <TransitionGroup component={null}>
       {error ? (
         <CSSTransition
-          key="form-error"
+          key="ot-form-error"
           classNames="reveal"
           timeout={{ enter: 250, exit: 250 }}
         >
-          <div className="form__error form-error">
+          <div className="form__error ot-form-error">
             <p>{error}</p>
           </div>
         </CSSTransition>
@@ -34,7 +34,7 @@ const CheckoutLineItem = ({
   children,
 }) => {
   return (
-    <div className={`form__input border-color ${classes}`}>
+    <div className={`form__input ot-border-color ${classes}`}>
       <div className="form__input__wrapper">
         {typeof label === 'string' ? (
           <Label text={label} required={required} />

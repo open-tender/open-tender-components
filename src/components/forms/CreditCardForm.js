@@ -69,7 +69,7 @@ const CreditCardForm = ({ windowRef, loading, error, addCard, callback }) => {
       noValidate
     >
       {errors.form && (
-        <div className="form__error form__error--top form-error">
+        <div className="form__error form__error--top ot-form-error">
           {errors.form}
         </div>
       )}
@@ -90,7 +90,7 @@ const CreditCardForm = ({ windowRef, loading, error, addCard, callback }) => {
       </div>
       <div className="form__submit">
         <input
-          className="btn"
+          className="ot-btn"
           type="submit"
           value={submitting ? 'Authorizing Card...' : 'Add New Card'}
           disabled={submitting}

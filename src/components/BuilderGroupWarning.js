@@ -8,7 +8,7 @@ const BuilderGroupWarning = ({ quantity, min, max }) => {
   const classes = `${belowMin ? '-min' : atMax ? '-max' : ''}`
   return (
     <div
-      className={`builder__group__quantity ot-bg-color-primary ot-font-size-small border-radius-small ${classes}`}
+      className={`builder__group__quantity ot-bg-color-primary ot-font-size-small ot-border-radius-small ${classes}`}
     >
       {quantity < min ? (
         <span className="builder__group__warning">

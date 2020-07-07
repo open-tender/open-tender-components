@@ -90,7 +90,7 @@ const CheckoutAddress = () => {
   return (
     <fieldset className="form__fieldset">
       <legend className="form__legend">
-        <p className="form__legend__title heading ot-font-size-h3">
+        <p className="form__legend__title ot-heading ot-font-size-h3">
           {config.address.title}
         </p>
       </legend>
@@ -99,7 +99,7 @@ const CheckoutAddress = () => {
           <ButtonAddress
             address={order.address}
             onClick={updateRevenueCenter}
-            classes="btn--header"
+            classes="ot-btn--secondary ot-btn--header"
             disabled={order.revenueCenter.is_outpost}
           />
         </CheckoutLineItem>

@@ -55,7 +55,7 @@ const BuilderHeader = ({ item, showImage }) => {
         )}
         {item.cals && (
           <div className="builder__nutrition">
-            <button className="btn-link" onClick={toggleShow}>
+            <button className="ot-btn-link" onClick={toggleShow}>
               <span className="ot-font-size-small">
                 {!showInfo ? 'Show' : 'Hide'} nutritional info
               </span>

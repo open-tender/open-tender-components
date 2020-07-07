@@ -75,7 +75,7 @@ const CheckoutDetails = () => {
   return (
     <div className="form__fieldset">
       <div className="form__legend">
-        <p className="form__legend__title heading ot-font-size-h3">
+        <p className="form__legend__title ot-heading ot-font-size-h3">
           {config.details.title}
         </p>
       </div>
@@ -84,7 +84,7 @@ const CheckoutDetails = () => {
           <ButtonRevenueCenter
             revenueCenter={order.revenueCenter}
             onClick={updateRevenueCenter}
-            classes="btn--header"
+            classes="ot-btn--secondary ot-btn--header"
             disabled={autoSelect}
           />
         </CheckoutLineItem>
@@ -93,7 +93,7 @@ const CheckoutDetails = () => {
             serviceTypeName={serviceTypeBtnName}
             serviceType={order.serviceType}
             onClick={updateServiceType}
-            classes="btn--header"
+            classes="ot-btn--secondary ot-btn--header"
           />
         </CheckoutLineItem>
         <CheckoutLineItem label={`${serviceTypeName} Time`}>
@@ -101,7 +101,7 @@ const CheckoutDetails = () => {
             requestedAt={order.requestedAt}
             tz={tz}
             onClick={updateRequestedAt}
-            classes="btn--header"
+            classes="ot-btn--secondary ot-btn--header"
           />
         </CheckoutLineItem>
         {tipSettings.has_tip && (
@@ -111,7 +111,7 @@ const CheckoutDetails = () => {
                 text={`${check.totals.tip}`}
                 ariaLabel={`Adjust tip of $${check.totals.tip}`}
                 icon="DollarSign"
-                classes="btn--header"
+                classes="ot-btn--secondary ot-btn--header"
                 onClick={handleShowTip}
               />
             </CheckoutLineItem>

@@ -65,7 +65,7 @@ const ResetPasswordForm = ({
       noValidate
     >
       {formError && (
-        <div className="form__error form__error--top form-error">
+        <div className="form__error form__error--top ot-form-error">
           {formError}
         </div>
       )}

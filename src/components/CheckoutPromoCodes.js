@@ -64,7 +64,7 @@ const CheckoutPromoCodes = () => {
   return (
     <fieldset className="form__fieldset">
       <div className="form__legend">
-        <p className="form__legend__title heading ot-font-size-h3">
+        <p className="form__legend__title ot-heading ot-font-size-h3">
           {config.promoCodes.title}
         </p>
         {!email ? (
@@ -84,7 +84,7 @@ const CheckoutPromoCodes = () => {
           return (
             <div
               key={checkPromoCode}
-              className="form__input-with-button border-color"
+              className="form__input-with-button ot-border-color"
             >
               <Input
                 key={checkPromoCode}
@@ -105,14 +105,14 @@ const CheckoutPromoCodes = () => {
                 text="Remove Promo Code"
                 ariaLabel={`Remove promo code ${checkPromoCode}`}
                 icon="XCircle"
-                classes="btn--header"
+                classes="ot-btn--secondary ot-btn--header"
                 onClick={(evt) => removePromoCode(evt, checkPromoCode)}
               />
             </div>
           )
         })}
         {email && (
-          <div className="form__input-with-button border-color">
+          <div className="form__input-with-button ot-border-color">
             <Input
               label="New Promo Code"
               name="promo_code"
@@ -134,7 +134,7 @@ const CheckoutPromoCodes = () => {
               text="Apply Promo Code"
               ariaLabel="Apply Promo Code"
               icon="PlusCircle"
-              classes="btn--header btn--input"
+              classes="ot-btn--secondary ot-btn--header"
               onClick={applyPromoCode}
               disabled={!promoCode || pendingPromoCode === promoCode}
             />

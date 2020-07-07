@@ -49,7 +49,7 @@ const CheckoutAccount = () => {
   return (
     <fieldset className="form__fieldset">
       <div className="form__legend">
-        <p className="form__legend__title heading ot-font-size-h3">
+        <p className="form__legend__title ot-heading ot-font-size-h3">
           {config.account.title}
           {/* {customer.first_name} */}
         </p>
@@ -58,7 +58,7 @@ const CheckoutAccount = () => {
           <Button
             text="Click here to logout"
             ariaLabel="Log out of your account"
-            classes="btn-link"
+            classes="ot-btn-link"
             onClick={logout}
           />{' '}
           if you want to switch accounts or check out as a guest.
@@ -69,7 +69,7 @@ const CheckoutAccount = () => {
           <ButtonCheckoutAccount
             customer={customer}
             goToAccount={goToAccount}
-            classes="btn--header"
+            classes="ot-btn--secondary ot-btn--header"
           />
         </CheckoutLineItem>
         {fields.map((field) => {

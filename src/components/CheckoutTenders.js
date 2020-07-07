@@ -87,7 +87,7 @@ const CheckoutTenders = () => {
     >
       <fieldset className="form__fieldset">
         <div className="form__legend">
-          <p className="form__legend__title heading ot-font-size-h3">
+          <p className="form__legend__title ot-heading ot-font-size-h3">
             {config.tenders.title}
           </p>
           <p className="form__legend__subtitle">{config.tenders.subtitle}</p>

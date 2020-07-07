@@ -63,7 +63,7 @@ const CheckoutTender = ({ tenderType }) => {
                 text={`Remove ${name} Payment`}
                 ariaLabel={`Remove ${name} Payment`}
                 icon="XCircle"
-                classes="btn--header"
+                classes="ot-btn--secondary ot-btn--header"
                 onClick={(evt) => removeTender(evt, tenderType)}
               />
             </>
@@ -72,7 +72,7 @@ const CheckoutTender = ({ tenderType }) => {
               text={`Pay with ${name}`}
               ariaLabel={`Pay with ${name}`}
               icon="PlusCircle"
-              classes="btn--header"
+              classes="ot-btn--secondary ot-btn--header"
               onClick={applyTender}
               disabled={isPaid || isDisabled}
             />

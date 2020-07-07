@@ -81,7 +81,7 @@ const CheckoutGiftCards = () => {
   return (
     <fieldset className="form__fieldset">
       <div className="form__legend">
-        <p className="form__legend__title heading ot-font-size-h3">
+        <p className="form__legend__title ot-heading ot-font-size-h3">
           {config.giftCards.title}
         </p>
         <p className="form__legend__subtitle">{config.giftCards.subtitle}</p>
@@ -104,7 +104,7 @@ const CheckoutGiftCards = () => {
                       text="Remove Gift Card"
                       ariaLabel={`Remove gift card ${i.card_number} with amount of ${amount}`}
                       icon="XCircle"
-                      classes="btn--header"
+                      classes="ot-btn--secondary ot-btn--header"
                       onClick={(evt) => removeGiftCard(evt, i.card_number)}
                     />
                   </>
@@ -113,7 +113,7 @@ const CheckoutGiftCards = () => {
                     text="Apply Gift Card"
                     ariaLabel={`Apply gift card ${i.card_number} with balance of ${i.balance}`}
                     icon="PlusCircle"
-                    classes="btn--header"
+                    classes="ot-btn--secondary ot-btn--header"
                     onClick={(evt) =>
                       applyGiftCard(evt, i.card_number, i.balance)
                     }

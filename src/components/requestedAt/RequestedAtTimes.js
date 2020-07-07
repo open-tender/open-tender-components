@@ -26,7 +26,7 @@ const RequestedAtTimes = ({
   return (
     <div className="modal__content">
       <div className="modal__header">
-        <p className="modal__title heading ot-font-size-h3">
+        <p className="modal__title ot-heading ot-font-size-h3">
           Choose an order time
         </p>
         <p className="modal__subtitle">
@@ -42,7 +42,7 @@ const RequestedAtTimes = ({
             return (
               <li
                 key={i.iso}
-                className={`order-time border-color ${
+                className={`order-time ot-border-color ${
                   current ? '-current' : ''
                 }`}
               >
@@ -59,7 +59,7 @@ const RequestedAtTimes = ({
                   </div>
                   <Button
                     text={current ? 'Keep' : 'Select'}
-                    classes={current ? 'btn btn--highlight' : 'btn'}
+                    classes={current ? 'ot-btn ot-btn--highlight' : 'btn'}
                     onClick={(evt) => handleRequestedAt(evt, i.iso)}
                   />
                 </div>
