@@ -16,7 +16,7 @@ const CheckoutExistingCard = ({
   const isApplied = existingCards.includes(card.customer_card_id)
   const isDisabled = appliedCards.length && !isApplied
   const disabled = isDisabled ? '-disabled' : ''
-  const classes = `cards__card bg-color border-radius ${disabled}`
+  const classes = `cards__card ot-bg-color-primary border-radius ${disabled}`
   return !isDisabled ? (
     <li>
       <div className={classes}>

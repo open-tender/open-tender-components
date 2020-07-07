@@ -23,7 +23,7 @@ const CheckoutNewCard = ({
   const isApplied = !!newCard
   const isDisabled = appliedCards.length && !isApplied
   const disabled = isDisabled ? '-disabled' : ''
-  const classes = `cards__card bg-color border-radius ${disabled}`
+  const classes = `cards__card ot-bg-color-primary border-radius ${disabled}`
 
   const handleToggle = (evt) => {
     evt.preventDefault()

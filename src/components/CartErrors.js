@@ -6,7 +6,7 @@ import { isoToDate } from 'open-tender-js'
 const InvalidItems = ({ invalidItems }) => {
   return invalidItems.length ? (
     <div className="validate__invalid">
-      <p className="font-size-small">
+      <p className="ot-font-size-small">
         The following items will need to be removed from your cart:
       </p>
       <ul>
@@ -21,7 +21,7 @@ const InvalidItems = ({ invalidItems }) => {
                 {item.name}
               </span>
               {missingOptions ? (
-                <span className="font-size-small">
+                <span className="ot-font-size-small">
                   {' '}
                   (unavailable modifiers: {missingOptions})
                 </span>

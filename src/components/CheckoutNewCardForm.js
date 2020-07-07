@@ -114,9 +114,9 @@ const CheckoutNewCardForm = ({
 
   return (
     <div className="cards__new">
-      <div className="cards__new__container bg-color border-radius">
+      <div className="cards__new__container ot-bg-color-primary border-radius">
         <div className="cards__new__header">
-          <p className="cards__new__title font-size-big ot-bold">
+          <p className="cards__new__title ot-font-size-big ot-bold">
             Add a new card
           </p>
           <div className="cards__new__image">

@@ -52,7 +52,7 @@ const RequestedAtTimes = ({
                       {capitalize(i.weekday)} @ {time24ToDateStr(i.start_time)}{' '}
                       {current ? '(current)' : ''}
                     </p>
-                    <p className="order-time__order-by font-size-small secondary-color">
+                    <p className="order-time__order-by ot-font-size-small ot-color-secondary">
                       {' '}
                       (order by {orderBy})
                     </p>

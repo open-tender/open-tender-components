@@ -59,7 +59,7 @@ const CheckoutSurcharges = () => {
                 <CheckoutLabel
                   title={i.label || i.name}
                   description={i.description}
-                  alert={<span className="ot-success-color">{cost}</span>}
+                  alert={<span className="ot-color-success">{cost}</span>}
                 />
               }
             >

@@ -141,7 +141,7 @@ const CheckoutForm = ({
         <div className="form__footer">
           <div className="form__message">
             {!isPaid ? (
-              <div className="form__message__content border-radius-small ot-error font-size-small">
+              <div className="form__message__content border-radius-small ot-color-error ot-bg-color-error ot-font-size-small">
                 <p>
                   There is a balance of ${amountRemaining.toFixed(2)} remaining
                   on your order. Please add a payment above.

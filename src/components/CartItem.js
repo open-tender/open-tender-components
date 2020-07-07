@@ -4,17 +4,19 @@ import { displayPrice, makeModifierNames } from 'open-tender-js'
 import iconMap from './icons'
 
 const SoldOutOverlay = () => (
-  <div className="builder__option__overlay overlay-dark border-radius-small">
+  <div className="builder__option__overlay ot-opacity-dark border-radius-small">
     <div className="builder__option__overlay__container">
-      <p className="ot-light-color ot-bold ot-upper font-size">Sold Out</p>
+      <p className="builder__option__overlay__message ot-color-light ot-font-size">
+        Sold Out
+      </p>
     </div>
   </div>
 )
 
 const AllergenOverlay = () => (
-  <div className="builder__option__overlay ot-overlay-allert border-radius-small">
+  <div className="builder__option__overlay ot-opacity-alert border-radius-small">
     <div className="builder__option__overlay__container">
-      <div className="builder__option__alert ot-light-color">
+      <div className="builder__option__alert ot-color-light">
         {iconMap['AlertCircle']}
       </div>
     </div>
@@ -44,7 +46,7 @@ const CartItem = ({
   return (
     <span className={classes}>
       <span
-        className="builder__option__image bg-image bg-secondary-color border-radius-small"
+        className="builder__option__image bg-image ot-bg-color-secondary border-radius-small"
         style={bgStyle}
       >
         {item.isSoldOut ? (
@@ -54,18 +56,15 @@ const CartItem = ({
         ) : null}
       </span>
       <span className="builder__option__info">
-        <span className="builder__option__name font-size-small ot-bold">
+        <span className="builder__option__name ot-font-size-small ot-bold">
           {item.name}
-          {/* {item.isSoldOut && (
-            <span className="ot-error-color ot-upper"> &mdash; Sold Out</span>
-          )} */}
         </span>
         {desc && (
-          <span className="builder__option__desc font-size-x-small secondary-color">
+          <span className="builder__option__desc ot-font-size-x-small ot-color-secondary">
             {desc}
           </span>
         )}
-        <span className="builder__option__details font-size-small">
+        <span className="builder__option__details ot-font-size-small">
           <span className="builder__option__details__container">
             <span className="builder__option__details__price ot-bold">
               ${displayPrice(price)}
@@ -79,7 +78,7 @@ const CartItem = ({
                 </span>
                 <span className="builder__option__details__remove">
                   <button
-                    className="btn-link ot-error-color"
+                    className="btn-link ot-color-error"
                     onClick={removeItem}
                   >
                     remove
@@ -89,17 +88,17 @@ const CartItem = ({
             ) : (
               <>
                 {item.cals && (
-                  <span className="builder__option__details__cals secondary-color">
+                  <span className="builder__option__details__cals ot-color-secondary">
                     {item.cals} cal
                   </span>
                 )}
                 {item.allergens.length > 0 && (
-                  <span className="builder__option__details__allergens ot-alert-color font-size-x-small">
+                  <span className="builder__option__details__allergens ot-color-alert ot-font-size-x-small">
                     {item.allergens.join(', ')}
                   </span>
                 )}
                 {item.tags.length > 0 && (
-                  <span className="builder__option__details__tags secondary-color font-size-x-small">
+                  <span className="builder__option__details__tags ot-color-secondary ot-font-size-x-small">
                     {item.tags.join(', ')}
                   </span>
                 )}

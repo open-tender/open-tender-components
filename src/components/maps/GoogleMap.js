@@ -47,7 +47,7 @@ const GoogleMap = ({
             })
           )
         })}
-      <div className="map ot-top">
+      <div className="map">
         {loading && loader && <div className="map__loading">{loader}</div>}
         <div ref={mapRef} className="map-ref" />
       </div>

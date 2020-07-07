@@ -21,7 +21,7 @@ const CheckoutCreditCards = () => {
   }, [customerId])
 
   return (
-    <div className="cards bg-secondary-color">
+    <div className="cards ot-bg-color-secondary">
       {/* <ul className={`cards__list ${showNewCard ? '-disabled' : ''}`}> */}
       <ul className="cards__list">
         {cards.map((card) => (

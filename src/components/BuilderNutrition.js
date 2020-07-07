@@ -41,8 +41,8 @@ const BuilderNutrition = ({ nutritionalInfo = {}, show = true }) => {
           classNames="reveal"
           timeout={{ enter: 250, exit: 250 }}
         >
-          <div className="nutrition bg-secondary-color">
-            <ul className="nutrition__list bg-color border-radius font-size-small">
+          <div className="nutrition ot-bg-color-secondary">
+            <ul className="nutrition__list ot-bg-color-primary border-radius ot-font-size-small">
               <LineItem name="Serving Size" value={serving_size} unit="oz" />
               <LineItem name="Calories" value={calories} />
               <LineItem name="Total Fat" value={total_fat} unit="g" />

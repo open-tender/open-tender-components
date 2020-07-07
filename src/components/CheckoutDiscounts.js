@@ -1,4 +1,5 @@
 import React, { useContext, useState, useEffect } from 'react'
+import propTypes from 'prop-types'
 import CheckoutLineItem from './CheckoutLineItem'
 import Button from './Button'
 import { FormContext } from './CheckoutForm'
@@ -6,17 +7,22 @@ import CircleLoader from './CircleLoader'
 
 const CheckoutDiscountLabel = ({ discount }) => (
   <span className="form__input__discount">
-    <span className="font-size ot-bold">{discount.name}</span>
-    <span className="font-size-small ot-success-color">
+    <span className="ot-font-size ot-bold">{discount.name}</span>
+    <span className="ot-font-size-small ot-color-success">
       {discount.description}
     </span>
     {discount.is_auto && (
-      <span className="font-size-small ot-alert-color">
+      <span className="ot-font-size-small ot-color-alert">
         Credit has automatically been applied to your order.
       </span>
     )}
   </span>
 )
+
+CheckoutDiscountLabel.displayName = 'CheckoutDiscountLabel'
+CheckoutDiscountLabel.propTypes = {
+  discount: propTypes.object,
+}
 
 const CheckoutDiscounts = () => {
   const formContext = useContext(FormContext)

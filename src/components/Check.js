@@ -18,10 +18,10 @@ CheckItem.propTypes = {
 }
 
 const CheckUpdating = ({ loader }) => (
-  <div className="check__disabled overlay">
+  <div className="check__disabled ot-opacity-light">
     <div className="check__disabled__working">
       {loader}
-      <span className="font-size-small">Updating...</span>
+      <span className="ot-font-size-small">Updating...</span>
     </div>
   </div>
 )
@@ -52,19 +52,17 @@ const Check = ({ title, check, tenders, loader, updating = false }) => {
     <div className="check">
       <div className="check__container">
         {updating && <CheckUpdating loader={loader} />}
-        <div className="check__title font-size-big ot-bold border-bottom">
-          <p>{title}</p>
+        <div className="check__title border-bottom">
+          <p className="ot-font-size-big ot-bold">{title}</p>
           {order_id && (
-            <p className="font-size-small ot-normal">
-              editing order {order_id}
-            </p>
+            <p className="ot-font-size-small">editing order {order_id}</p>
           )}
         </div>
         <ul className="check__items">
           <CheckItem label="Cart Total" value={subtotal} />
           {surcharges.length ? (
             <>
-              <ul className="check__items__section font-size-small">
+              <ul className="check__items__section ot-font-size-small">
                 {surcharges.map((surcharge) => (
                   <CheckItem
                     key={surcharge.id}
@@ -78,7 +76,7 @@ const Check = ({ title, check, tenders, loader, updating = false }) => {
           ) : null}
           {discounts.length ? (
             <>
-              <ul className="check__items__section font-size-small">
+              <ul className="check__items__section ot-font-size-small">
                 {discounts.map((discount) => (
                   <CheckItem
                     key={discount.id}
@@ -98,7 +96,7 @@ const Check = ({ title, check, tenders, loader, updating = false }) => {
             />
           )}
           {taxes.length ? (
-            <ul className="check__items__section font-size-small">
+            <ul className="check__items__section ot-font-size-small">
               {taxes.map((tax) => (
                 <CheckItem
                   key={tax.id}
@@ -122,7 +120,7 @@ const Check = ({ title, check, tenders, loader, updating = false }) => {
           />
           {tenders.length ? (
             <>
-              <ul className="check__items__section font-size-small">
+              <ul className="check__items__section ot-font-size-small">
                 {tenders.map((tender, index) => (
                   <CheckItem
                     key={`${tender.tender_type}-${tender.amount}-${index}`}

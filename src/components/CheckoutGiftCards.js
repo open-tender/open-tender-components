@@ -9,10 +9,10 @@ import { checkAmountRemaining } from 'open-tender-js'
 const CheckoutGiftCardLabel = ({ giftCard, amount }) => {
   return (
     <span className="form__input__discount">
-      <span className="font-size ot-bold">
+      <span className="ot-font-size ot-bold">
         Gift Card {giftCard.card_number}
       </span>
-      <span className="font-size-small ot-success-color">
+      <span className="ot-font-size-small ot-color-success">
         Balance of ${giftCard.balance}{' '}
         {amount && `($${amount} applied to check)`}
       </span>

@@ -115,18 +115,19 @@ const GoogleMapsAutocomplete = ({
         error={error}
         ref={inputRef}
       >
-        <div className="autocomplete__predictions bg-color border-radius border-color">
+        <div className="autocomplete__predictions ot-bg-color-primary border-radius border-color">
           {predictions ? (
             <ul>
               {predictions.map((i, index) => {
-                const active = activeIndex === index ? 'bg-secondary-color' : ''
+                const active =
+                  activeIndex === index ? 'ot-bg-color-secondary' : ''
                 let classes =
-                  'autocomplete__prediction border-color font-size-small '
+                  'autocomplete__prediction border-color ot-font-size-small '
                 classes += active
                 return (
                   <li key={i.place_id} className={classes}>
                     <button
-                      className="font-size-small"
+                      className="ot-font-size-small"
                       onClick={(evt) =>
                         choosePlace(evt, i.place_id, i.description)
                       }
@@ -139,9 +140,7 @@ const GoogleMapsAutocomplete = ({
             </ul>
           ) : null}
         </div>
-        <div className="autocomplete__icon ot-placeholder">
-          {iconMap['Navigation']}
-        </div>
+        <div className="autocomplete__icon">{iconMap['Navigation']}</div>
         {input.length ? (
           <button className="autocomplete__clear btn-link" onClick={clearInput}>
             {iconMap['XCircle']}

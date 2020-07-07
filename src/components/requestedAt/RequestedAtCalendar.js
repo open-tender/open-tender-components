@@ -32,7 +32,7 @@ const RequestedAtCalendar = ({
           <p className="modal__title heading ot-font-size-h3">
             Order date & time updated
           </p>
-          <p className="modal__subtitle ot-bold ot-alert-color">
+          <p className="modal__subtitle ot-bold ot-color-alert">
             Your previous order time is no longer available and has been updated
             to {requestedTime}.
           </p>
@@ -42,13 +42,13 @@ const RequestedAtCalendar = ({
           <p className="modal__title heading ot-font-size-h3">
             Choose an order date & time
           </p>
-          <p className="modal__subtitle ot-bold ot-alert-color">
+          <p className="modal__subtitle ot-bold ot-color-alert">
             Your current order time is {requestedTime}.
           </p>
         </div>
       )}
       <div className="modal__body">
-        <p className="font-size-small">
+        <p className="ot-font-size-small">
           <button className="btn-link" onClick={handleClose}>
             Keep this time
           </button>{' '}

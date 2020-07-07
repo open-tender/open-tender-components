@@ -11,7 +11,7 @@ const OrderQuantity = ({
 }) => {
   return (
     <div className="order__quantity">
-      <div className="order__quantity__count ot-input-quantity ot-bold font-size-small">
+      <div className="order__quantity__count ot-input-quantity ot-bold ot-font-size-small">
         {item.quantity}
       </div>
       {show && (

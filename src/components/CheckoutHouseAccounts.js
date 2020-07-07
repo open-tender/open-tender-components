@@ -15,7 +15,7 @@ const CheckoutHouseAccounts = () => {
     .map((i) => i.house_account_id)
 
   return (
-    <div className="cards bg-secondary-color">
+    <div className="cards ot-bg-color-secondary">
       <ul className="cards__list">
         {houseAccounts.map((houseAccount) => {
           const {
@@ -47,7 +47,7 @@ const CheckoutHouseAccounts = () => {
             !isRevenueCenter ||
             (applied.length && !isApplied)
           const disabled = isDisabled ? '-disabled' : ''
-          const classes = `cards__card bg-color border-radius ${disabled}`
+          const classes = `cards__card ot-bg-color-primary border-radius ${disabled}`
           return (
             <li key={house_account_id}>
               <div className={classes}>
@@ -55,15 +55,15 @@ const CheckoutHouseAccounts = () => {
                 <div className="cards__card__name">
                   <p>{name}</p>
                   {!isRevenueCenter ? (
-                    <p className="font-size-x-small">
+                    <p className="ot-font-size-x-small">
                       Cannot be used with this location
                     </p>
                   ) : !isOrderType ? (
-                    <p className="font-size-x-small">
+                    <p className="ot-font-size-x-small">
                       Cannot be used with this order type
                     </p>
                   ) : !isServiceType ? (
-                    <p className="font-size-x-small">
+                    <p className="ot-font-size-x-small">
                       Cannot be used with this service type
                     </p>
                   ) : null}

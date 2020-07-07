@@ -78,7 +78,7 @@ const RequestedAtPicker = ({
   return (
     <div className="datepicker-inline">
       {error ? (
-        <p className="ot-error-color">{error}</p>
+        <p className="ot-color-error">{error}</p>
       ) : (
         <DatePicker
           showPopperArrow={false}

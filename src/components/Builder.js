@@ -176,7 +176,7 @@ const Builder = ({
             {groups.map((group) => (
               <div key={group.id} className="builder__group">
                 <BuilderGroupHeader group={group} />
-                <div className="builder__options bg-color border-radius">
+                <div className="builder__options ot-bg-color-primary border-radius">
                   {group.min === 1 && group.max === 1 ? (
                     <BuilderRadioGroup group={group} handler={toggleOption} />
                   ) : (
@@ -200,7 +200,7 @@ const Builder = ({
               </div>
             ))}
           </div>
-          <div className="builder__made-for bg-color border-radius">
+          <div className="builder__made-for ot-bg-color-primary border-radius">
             <label htmlFor="made-for" className="label">
               <span className="ot-font-size-h6 heading">Made For</span>
               <input
@@ -211,7 +211,7 @@ const Builder = ({
               />
             </label>
           </div>
-          <div className="builder__notes bg-color border-radius">
+          <div className="builder__notes ot-bg-color-primary border-radius">
             <label htmlFor="item-notes" className="label">
               <span className="ot-font-size-h6 heading">Notes</span>
               <textarea
@@ -223,11 +223,11 @@ const Builder = ({
           </div>
         </div>
       </div>
-      <div className="builder__footer bg-color">
+      <div className="builder__footer ot-bg-color-primary">
         <div className="builder__price ot-font-size-h5 ot-bold">
           <span>${displayPrice(totalPrice)}</span>
           {item.cals && (
-            <span className="secondary-color">{item.cals} cal</span>
+            <span className="ot-color-secondary">{item.cals} cal</span>
           )}
         </div>
         <div className="builder__actions">

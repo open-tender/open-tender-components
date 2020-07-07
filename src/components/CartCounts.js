@@ -14,7 +14,7 @@ const CartCounts = ({ cart, errors }) => {
   return (
     <div className="validate">
       <div className="validate__invalid">
-        <p className="font-size-small">
+        <p className="ot-font-size-small">
           The quantities of the items below need to be adjusted before you can
           submit your order.
         </p>
@@ -24,7 +24,7 @@ const CartCounts = ({ cart, errors }) => {
               <span className="validate__invalid__item ot-bold">
                 {item.name}
               </span>
-              <span className="font-size-small">{item.error}</span>
+              <span className="ot-font-size-small">{item.error}</span>
             </li>
           ))}
         </ul>

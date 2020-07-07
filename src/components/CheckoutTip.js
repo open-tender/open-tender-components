@@ -38,7 +38,7 @@ const CheckoutTip = ({ setShowTip }) => {
   const customApplied = customTip.length > 0 && check.totals.tip === customTip
 
   return (
-    <div className="cards bg-secondary-color">
+    <div className="cards ot-bg-color-secondary">
       <ul className="cards__list">
         {tipOptions.map((i) => {
           const isCustom = customTip.length > 0
@@ -49,13 +49,13 @@ const CheckoutTip = ({ setShowTip }) => {
               <button
                 type="button"
                 onClick={(evt) => chooseTip(evt, i.amount)}
-                className="btn--tip font-size"
+                className="btn--tip ot-font-size"
               >
-                <div className="cards__card bg-color border-radius">
+                <div className="cards__card ot-bg-color-primary border-radius">
                   <div className="cards__card__name">
                     ${i.amount} ({i.percent}%)
                     {isDefault && (
-                      <span className="cards__card__default font-size-small secondary-color">
+                      <span className="cards__card__default ot-font-size-small ot-color-secondary">
                         Suggested Amount
                       </span>
                     )}
@@ -73,7 +73,7 @@ const CheckoutTip = ({ setShowTip }) => {
           )
         })}
         <li>
-          <div className="cards__card bg-color border-radius">
+          <div className="cards__card ot-bg-color-primary border-radius">
             <div className="cards__card__name">
               {/* <span>Custom amount:</span> */}
               <Input

@@ -8,12 +8,12 @@ const BuilderGroupWarning = ({ quantity, min, max }) => {
   const classes = `${belowMin ? '-min' : atMax ? '-max' : ''}`
   return (
     <div
-      className={`builder__group__quantity bg-color font-size-small border-radius-small ${classes}`}
+      className={`builder__group__quantity ot-bg-color-primary ot-font-size-small border-radius-small ${classes}`}
     >
       {quantity < min ? (
         <span className="builder__group__warning">
           <span>Select</span>
-          <span className="builder__group__alert ot-alert">
+          <span className="builder__group__alert ot-warning">
             {min - quantity}
           </span>
         </span>
@@ -32,7 +32,9 @@ const BuilderGroupWarning = ({ quantity, min, max }) => {
 
 BuilderGroupWarning.displayName = 'BuilderGroupWarning'
 BuilderGroupWarning.propTypes = {
-  group: propTypes.object,
+  quantity: propTypes.number,
+  min: propTypes.number,
+  max: propTypes.number,
 }
 
 export default BuilderGroupWarning

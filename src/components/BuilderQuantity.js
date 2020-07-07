@@ -40,7 +40,7 @@ const BuilderQuantity = ({
       </button>
     </div>
   ) : (
-    <div className={`quantity bg-secondary-color ${classes}`}>
+    <div className={`quantity ot-bg-color-secondary ${classes}`}>
       <button
         className="quantity__decrease"
         onClick={handleDecrement}
@@ -55,7 +55,7 @@ const BuilderQuantity = ({
           value={item.quantity}
           onChange={handleAdjust}
           aria-label={item.name}
-          className="ot-input-quantity font-size-small"
+          className="ot-input-quantity ot-font-size-small"
         />
       </label>
       <button
