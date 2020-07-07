@@ -1,8 +1,5 @@
-import { useState } from 'react'
+import React, { useState } from 'react'
 import propTypes from 'prop-types'
-/** @jsx jsx */
-import { jsx } from '@emotion/core'
-import { useTheme } from 'emotion-theming'
 import { displayPrice, makeOrderItem, calcPrices } from 'open-tender-js'
 import BuilderGroupHeader from './BuilderGroupHeader'
 import BuilderRadioGroup from './BuilderRadioGroup'
@@ -159,7 +156,7 @@ const Builder = ({
     decrementOption,
     setOptionQuantity,
   } = useBuilder(menuItem, soldOut)
-  const theme = useTheme()
+  // const theme = useTheme()
 
   const handleSubmit = (evt) => {
     evt.preventDefault()
@@ -174,10 +171,7 @@ const Builder = ({
     <form className="builder__item">
       <div className="builder__content">
         {renderHeader({ item, showImage })}
-        <div
-          className="builder__body"
-          css={{ backgroundColor: theme.bgColors.secondary }}
-        >
+        <div className="builder__body ot-bg-color-secondary">
           <div className="builder__groups">
             {groups.map((group) => (
               <div key={group.id} className="builder__group">
@@ -200,16 +194,6 @@ const Builder = ({
                         }
                         return renderOption(optionProps)
                       })}
-                      {/* {group.options.map((option) => (
-                    <BuilderOption
-                      key={`${group.id}-${option.id}`}
-                      group={group}
-                      option={option}
-                      adjust={adjustOption}
-                      increment={incrementOption}
-                      decrement={decrementOption}
-                    />
-                  ))} */}
                     </ul>
                   )}
                 </div>
