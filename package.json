@@ -1,15 +1,15 @@
 {
-  "name": "open-tender",
+  "name": "@open-tender/components",
   "version": "1.0.0",
   "description": "A component library built for use with the Open Tender open source web app",
   "main": "dist/main.js",
   "author": "JC Harrington <jc@opentender.io> (https://www.opentender.io)",
   "license": "MIT",
-  "private": true,
-  "homepage": "https://github.com/BetterBOH/open-tender",
-  "bugs": "https://github.com/BetterBOH/open-tender/issues",
+  "private": false,
+  "homepage": "https://github.com/open-tender/open-tender-components",
+  "bugs": "https://github.com/open-tender/open-tender-components/issues",
   "repository": {
-    "url": "https://github.com/BetterBOH/open-tender",
+    "url": "https://github.com/open-tender/open-tender-components",
     "type": "git"
   },
   "scripts": {
