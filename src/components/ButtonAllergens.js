@@ -2,7 +2,7 @@ import React from 'react'
 import propTypes from 'prop-types'
 import Button from './Button'
 
-const ButtonAllergens = ({ onClick, classes = 'btn' }) => {
+const ButtonAllergens = ({ onClick, classes = 'ot-btn' }) => {
   return (
     <Button
       text="Allergens"

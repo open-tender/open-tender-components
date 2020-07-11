@@ -2,7 +2,7 @@ import React from 'react'
 import propTypes from 'prop-types'
 import Button from './Button'
 
-const ButtonMenu = ({ onClick, classes = 'btn' }) => {
+const ButtonMenu = ({ onClick, classes = 'ot-btn' }) => {
   return (
     <Button
       text="Back To Menu"

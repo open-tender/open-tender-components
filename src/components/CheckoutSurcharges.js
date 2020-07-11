@@ -42,7 +42,9 @@ const CheckoutSurcharges = () => {
         <p className="form__legend__title ot-heading ot-font-size-h3">
           {config.surcharges.title}
         </p>
-        <p className="form__legend__subtitle">{config.surcharges.subtitle}</p>
+        <p className="form__legend__subtitle ot-line-height ot-color-secondary">
+          {config.surcharges.subtitle}
+        </p>
       </div>
       <div className="form__inputs">
         {surchargesOptional.map((i) => {

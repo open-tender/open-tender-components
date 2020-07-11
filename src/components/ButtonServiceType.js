@@ -15,7 +15,7 @@ const ButtonServiceType = ({
   serviceType,
   serviceTypeName,
   onClick,
-  classes = 'btn',
+  classes = 'ot-btn',
 }) => {
   return (
     <Button

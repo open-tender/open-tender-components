@@ -51,10 +51,8 @@ const CheckoutAccount = () => {
       <div className="form__legend">
         <p className="form__legend__title ot-heading ot-font-size-h3">
           {config.account.title}
-          {/* {customer.first_name} */}
         </p>
-        <p className="form__legend__subtitle">
-          Please verify your account information for your order.{' '}
+        <p className="form__legend__subtitle ot-line-height ot-color-secondary">
           <Button
             text="Click here to logout"
             ariaLabel="Log out of your account"

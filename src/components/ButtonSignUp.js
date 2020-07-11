@@ -5,7 +5,7 @@ import Button from './Button'
 const ButtonSignUp = ({
   text = 'Create An Account',
   signUp,
-  classes = 'btn',
+  classes = 'ot-btn',
 }) => {
   return <Button text={text} icon="User" classes={classes} onClick={signUp} />
 }

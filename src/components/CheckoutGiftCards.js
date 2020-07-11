@@ -84,7 +84,9 @@ const CheckoutGiftCards = () => {
         <p className="form__legend__title ot-heading ot-font-size-h3">
           {config.giftCards.title}
         </p>
-        <p className="form__legend__subtitle">{config.giftCards.subtitle}</p>
+        <p className="form__legend__subtitle ot-line-height ot-color-secondary">
+          {config.giftCards.subtitle}
+        </p>
       </div>
       <div className="form__inputs">
         {giftCards.map((i) => {

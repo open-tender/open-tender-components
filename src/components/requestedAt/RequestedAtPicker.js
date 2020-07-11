@@ -76,28 +76,30 @@ const RequestedAtPicker = ({
   } = args
 
   return (
-    <div className="datepicker-inline">
-      {error ? (
-        <p className="ot-color-error">{error}</p>
-      ) : (
-        <DatePicker
-          showPopperArrow={false}
-          showTimeSelect
-          timeCaption="Time"
-          timeFormat="h:mm aa"
-          dateFormat="yyyy-MM-dd h:mm aa"
-          minDate={minDate}
-          maxDate={maxDate}
-          timeIntervals={interval}
-          excludeDates={holidays}
-          excludeTimes={excludeTimes}
-          filterDate={isClosed}
-          selected={date}
-          onChange={(date) => setDate(date)}
-          inline
-          shouldCloseOnSelect={false}
-        />
-      )}
+    <>
+      <div className="datepicker-inline ot-font-size-small ot-border ot-border-radius-small ot-bg-color-primary">
+        {error ? (
+          <p className="ot-color-error">{error}</p>
+        ) : (
+          <DatePicker
+            showPopperArrow={false}
+            showTimeSelect
+            timeCaption="Time"
+            timeFormat="h:mm aa"
+            dateFormat="yyyy-MM-dd h:mm aa"
+            minDate={minDate}
+            maxDate={maxDate}
+            timeIntervals={interval}
+            excludeDates={holidays}
+            excludeTimes={excludeTimes}
+            filterDate={isClosed}
+            selected={date}
+            onChange={(date) => setDate(date)}
+            inline
+            shouldCloseOnSelect={false}
+          />
+        )}
+      </div>
       <div className="form__submit">
         {!error && (
           <>
@@ -112,7 +114,7 @@ const RequestedAtPicker = ({
           </>
         )}
       </div>
-    </div>
+    </>
   )
 }
 

@@ -6,7 +6,7 @@ const ButtonRevenueCenter = ({
   revenueCenter,
   onClick,
   disabled,
-  classes = 'btn',
+  classes = 'ot-btn',
 }) => {
   return revenueCenter ? (
     <Button

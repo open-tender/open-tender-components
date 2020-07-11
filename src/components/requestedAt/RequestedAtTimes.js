@@ -59,7 +59,7 @@ const RequestedAtTimes = ({
                   </div>
                   <Button
                     text={current ? 'Keep' : 'Select'}
-                    classes={current ? 'ot-btn ot-btn--highlight' : 'btn'}
+                    classes={current ? 'ot-btn ot-btn--highlight' : 'ot-btn'}
                     onClick={(evt) => handleRequestedAt(evt, i.iso)}
                   />
                 </div>

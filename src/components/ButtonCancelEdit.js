@@ -2,7 +2,7 @@ import React from 'react'
 import propTypes from 'prop-types'
 import Button from './Button'
 
-const ButtonCancelEdit = ({ orderId, onClick, classes = 'btn' }) => {
+const ButtonCancelEdit = ({ orderId, onClick, classes = 'ot-btn' }) => {
   return (
     <Button
       text="Cancel Edit"

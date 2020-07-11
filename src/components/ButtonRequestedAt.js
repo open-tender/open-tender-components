@@ -3,7 +3,12 @@ import propTypes from 'prop-types'
 import Button from './Button'
 import { makeRequestedAtStr } from 'open-tender-js'
 
-const ButtonRequestedAt = ({ requestedAt, tz, onClick, classes = 'btn' }) => {
+const ButtonRequestedAt = ({
+  requestedAt,
+  tz,
+  onClick,
+  classes = 'ot-btn',
+}) => {
   const requestedAtText = makeRequestedAtStr(requestedAt, tz)
   return (
     <Button

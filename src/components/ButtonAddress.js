@@ -3,7 +3,7 @@ import propTypes from 'prop-types'
 import Button from './Button'
 import { makeFullAddress } from 'open-tender-js'
 
-const ButtonAddress = ({ address, onClick, classes = 'btn', disabled }) => {
+const ButtonAddress = ({ address, onClick, classes = 'ot-btn', disabled }) => {
   if (!address) return null
   const fullAddresss = makeFullAddress(address)
   return (

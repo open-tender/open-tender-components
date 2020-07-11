@@ -64,7 +64,7 @@ export const Input = React.forwardRef(
     return (
       <label
         htmlFor={name}
-        className={`form__input ot-border-color ${classes}`}
+        className={`form__input -input ot-border-color ${classes}`}
       >
         <span className="form__input__wrapper ot-border-color">
           {showLabel && <Label text={label} required={required} />}
@@ -108,6 +108,10 @@ Input.propTypes = {
   placeholder: propTypes.string,
   classes: propTypes.string,
   inputClasses: propTypes.string,
+  children: propTypes.oneOfType([
+    propTypes.arrayOf(propTypes.node),
+    propTypes.node,
+  ]),
 }
 
 export const Textarea = ({
@@ -125,7 +129,10 @@ export const Textarea = ({
   inputClasses = '',
 }) => {
   return (
-    <label htmlFor={name} className={`form__input ot-border-color ${classes}`}>
+    <label
+      htmlFor={name}
+      className={`form__input -input ot-border-color ${classes}`}
+    >
       <span className="form__input__wrapper ot-border-color">
         {showLabel && <Label text={label} required={required} />}
         <span className="input">
@@ -206,6 +213,8 @@ Switch.propTypes = {
   onChange: propTypes.func,
   disabled: propTypes.bool,
   classes: propTypes.string,
+  showLabel: propTypes.bool,
+  inputClasses: propTypes.string,
 }
 
 export const Checkbox = ({
@@ -252,4 +261,5 @@ Checkbox.propTypes = {
   onChange: propTypes.func,
   disabled: propTypes.bool,
   classes: propTypes.string,
+  showLabel: propTypes.bool,
 }

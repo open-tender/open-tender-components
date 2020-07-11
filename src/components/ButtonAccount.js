@@ -8,7 +8,7 @@ const ButtonAccount = ({
   login,
   logout,
   goToAccount,
-  classes = 'btn',
+  classes = 'ot-btn',
 }) => {
   return account ? (
     isAccount ? (

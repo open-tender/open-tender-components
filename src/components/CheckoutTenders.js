@@ -90,7 +90,9 @@ const CheckoutTenders = () => {
           <p className="form__legend__title ot-heading ot-font-size-h3">
             {config.tenders.title}
           </p>
-          <p className="form__legend__subtitle">{config.tenders.subtitle}</p>
+          <p className="form__legend__subtitle ot-line-height ot-color-secondary">
+            {config.tenders.subtitle}
+          </p>
         </div>
         <div className="form__inputs">
           {tenderTypes.map((tenderType) => (

@@ -2,7 +2,7 @@ import React from 'react'
 import propTypes from 'prop-types'
 import Button from './Button'
 
-const ButtonGroupOrder = ({ onClick, classes = 'btn' }) => {
+const ButtonGroupOrder = ({ onClick, classes = 'ot-btn' }) => {
   return (
     <Button
       text="Group Order"

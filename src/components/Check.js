@@ -53,7 +53,7 @@ const Check = ({ title, check, tenders, loader, updating = false }) => {
       <div className="check__container">
         {updating && <CheckUpdating loader={loader} />}
         <div className="check__title ot-border-color">
-          <p className="ot-font-size-big ot-bold">{title}</p>
+          <p className="ot-heading ot-font-size-h4">{title}</p>
           {order_id && (
             <p className="ot-font-size-small">editing order {order_id}</p>
           )}

@@ -5,7 +5,7 @@ import iconMap from './icons'
 const ButtonIcon = ({ text, icon, iconEnd }) => (
   <span className="ot-btn__icon-wrapper">
     {!iconEnd && <span className="ot-btn__icon">{icon}</span>}
-    <span>{text}</span>
+    <span className="ot-btn__text">{text}</span>
     {iconEnd && <span className="ot-btn__icon ot-btn__icon--end">{icon}</span>}
   </span>
 )

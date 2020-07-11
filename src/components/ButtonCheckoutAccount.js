@@ -5,7 +5,7 @@ import Button from './Button'
 const ButtonCheckoutAccount = ({
   customer = {},
   goToAccount,
-  classes = 'btn',
+  classes = 'ot-btn',
 }) => {
   return customer ? (
     <Button
