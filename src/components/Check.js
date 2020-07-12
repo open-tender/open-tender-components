@@ -32,7 +32,15 @@ CheckUpdating.propTypes = {
 }
 
 const Check = ({ title, check, tenders, loader, updating = false }) => {
-  const { order_id, surcharges, discounts, taxes, totals, details } = check
+  const {
+    order_id,
+    cart,
+    surcharges,
+    discounts,
+    taxes,
+    totals,
+    details,
+  } = check
   const {
     subtotal,
     surcharge,
@@ -59,6 +67,17 @@ const Check = ({ title, check, tenders, loader, updating = false }) => {
           )}
         </div>
         <ul className="check__items">
+          {cart && cart.length ? (
+            <ul className="check__items__section ot-font-size-small">
+              {cart.map((item) => (
+                <CheckItem
+                  key={item.id}
+                  label={`${item.name}`}
+                  value={item.price_total}
+                />
+              ))}
+            </ul>
+          ) : null}
           <CheckItem label="Cart Total" value={subtotal} />
           {surcharges.length ? (
             <>

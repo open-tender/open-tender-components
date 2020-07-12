@@ -171,7 +171,7 @@ const Builder = ({
     <form className="builder__item">
       <div className="builder__content">
         {renderHeader({ item, showImage })}
-        <div className="builder__body ot-bg-color-secondary">
+        <div className="builder__body">
           <div className="builder__groups">
             {groups.map((group) => (
               <div key={group.id} className="builder__group">

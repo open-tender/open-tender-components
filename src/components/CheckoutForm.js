@@ -62,6 +62,7 @@ const CheckoutForm = ({
   form,
   loading,
   errors,
+  checkSummary,
   updateForm,
   submitting,
   setSubmitting,
@@ -137,6 +138,7 @@ const CheckoutForm = ({
         <CheckoutDiscounts />
         <CheckoutPromoCodes />
         {hasGiftCardTender && <CheckoutGiftCards />}
+        {checkSummary}
         <CheckoutTenders />
         <div className="form__footer">
           <div className="form__message">
@@ -172,6 +174,7 @@ CheckoutForm.propTypes = {
   form: propTypes.object,
   loading: propTypes.string,
   errors: propTypes.object,
+  checkSummary: propTypes.element,
   updateForm: propTypes.func,
   submitting: propTypes.bool,
   setSubmitting: propTypes.func,

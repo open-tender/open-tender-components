@@ -5,6 +5,8 @@ import ResetPasswordForm from './ResetPasswordForm'
 import ProfileForm from './ProfileForm'
 import AddressForm from './AddressForm'
 import CreditCardForm from './CreditCardForm'
+import AllergenForm from './AllergenForm'
+import OrderRatingForm from './OrderRatingForm'
 import SubmitButton from './SubmitButton'
 
 export {
@@ -16,4 +18,6 @@ export {
   ProfileForm,
   AddressForm,
   CreditCardForm,
+  AllergenForm,
+  OrderRatingForm,
 }
