@@ -11,7 +11,7 @@ import {
   timezoneMap,
   todayDate,
   errMessages,
-} from 'open-tender-js'
+} from '@open-tender/js'
 
 const RequestedAtPicker = ({
   revenueCenter,

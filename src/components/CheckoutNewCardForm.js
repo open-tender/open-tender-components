@@ -9,7 +9,7 @@ import {
   getCardType,
   makeAcctNumber,
   validateCreditCard,
-} from 'open-tender-js'
+} from '@open-tender/js'
 
 // https://github.com/muffinresearch/payment-icons
 // https://github.com/jasminmif/react-interactive-paycard

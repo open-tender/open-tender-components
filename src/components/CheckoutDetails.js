@@ -11,10 +11,10 @@ import {
   Textarea,
   Switch,
 } from './index'
-import { serviceTypeNamesMap } from 'open-tender-js'
+import { serviceTypeNamesMap } from '@open-tender/js'
 import { FormContext } from './CheckoutForm'
-import { isEmpty } from 'open-tender-js'
-import { makeServiceTypeName } from 'open-tender-js'
+import { isEmpty } from '@open-tender/js'
+import { makeServiceTypeName } from '@open-tender/js'
 
 const CheckoutDetails = () => {
   const {

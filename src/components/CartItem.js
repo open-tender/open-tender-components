@@ -1,6 +1,6 @@
 import React from 'react'
 import propTypes from 'prop-types'
-import { displayPrice, makeModifierNames } from 'open-tender-js'
+import { displayPrice, makeModifierNames } from '@open-tender/js'
 import iconMap from './icons'
 
 const SoldOutOverlay = () => (

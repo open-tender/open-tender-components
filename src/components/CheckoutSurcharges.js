@@ -4,7 +4,7 @@ import Button from './Button'
 import { FormContext } from './CheckoutForm'
 import { CheckoutLabel } from './index'
 import CircleLoader from './CircleLoader'
-import { displayPrice } from 'open-tender-js'
+import { displayPrice } from '@open-tender/js'
 
 const CheckoutSurcharges = () => {
   const formContext = useContext(FormContext)

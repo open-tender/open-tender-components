@@ -1,6 +1,6 @@
 import React, { useContext } from 'react'
 import propTypes from 'prop-types'
-import { tenderTypeNamesMap } from 'open-tender-js'
+import { tenderTypeNamesMap } from '@open-tender/js'
 import { TendersContext } from './CheckoutTenders'
 import { makeTenderTypeLabel } from './CheckoutTenderTypes'
 import {

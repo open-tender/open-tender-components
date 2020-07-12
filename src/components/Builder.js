@@ -1,6 +1,6 @@
 import React, { useState } from 'react'
 import propTypes from 'prop-types'
-import { displayPrice, makeOrderItem, calcPrices } from 'open-tender-js'
+import { displayPrice, makeOrderItem, calcPrices } from '@open-tender/js'
 import BuilderGroupHeader from './BuilderGroupHeader'
 import BuilderRadioGroup from './BuilderRadioGroup'
 import BuilderQuantity from './BuilderQuantity'

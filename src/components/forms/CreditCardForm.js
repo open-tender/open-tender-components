@@ -1,6 +1,10 @@
 import React, { useState, useRef, useEffect } from 'react'
 import propTypes from 'prop-types'
-import { getCardType, makeAcctNumber, validateCreditCard } from 'open-tender-js'
+import {
+  getCardType,
+  makeAcctNumber,
+  validateCreditCard,
+} from '@open-tender/js'
 import { Input } from '../index'
 
 const fields = [

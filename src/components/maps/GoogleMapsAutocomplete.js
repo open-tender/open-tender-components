@@ -3,7 +3,7 @@ import React, { useState, useCallback, useEffect, useRef } from 'react'
 import propTypes from 'prop-types'
 import { useGoogleMapsAutocomplete, useGoogleMapsPlace } from '.'
 import { Input, iconMap } from '../index'
-import { makeAddress } from 'open-tender-js'
+import { makeAddress } from '@open-tender/js'
 
 const keys = {
   enter: 13,

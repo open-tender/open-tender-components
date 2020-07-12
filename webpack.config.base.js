@@ -52,5 +52,7 @@ module.exports = {
     'react-transition-group': 'react-transition-group',
     'google-maps-api-loader': 'google-maps-api-loader',
     'emotion-theming': 'emotion-theming',
+    '@open-tender/js': '@open-tender/js',
+    '@open-tender/redux': '@open-tender/redux',
   },
 }

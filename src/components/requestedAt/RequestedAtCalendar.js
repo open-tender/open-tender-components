@@ -4,7 +4,7 @@ import {
   timezoneMap,
   makeRequestedAtStr,
   makeEstimatedTime,
-} from 'open-tender-js'
+} from '@open-tender/js'
 import { RequestedAtPicker } from '.'
 
 const RequestedAtCalendar = ({

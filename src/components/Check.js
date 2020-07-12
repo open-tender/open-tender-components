@@ -1,6 +1,6 @@
 import React from 'react'
 import propTypes from 'prop-types'
-import { formatDollars, checkAmountRemaining } from 'open-tender-js'
+import { formatDollars, checkAmountRemaining } from '@open-tender/js'
 import { makeTenderName } from './CheckoutTenderTypes'
 
 const CheckItem = ({ label, value, classes = '' }) => (

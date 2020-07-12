@@ -5,7 +5,7 @@ import {
   makeOrderTimes,
   time24ToDateStr,
   timezoneMap,
-} from 'open-tender-js'
+} from '@open-tender/js'
 import { Button } from '../index'
 
 const RequestedAtTimes = ({

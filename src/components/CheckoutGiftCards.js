@@ -4,7 +4,7 @@ import CheckoutLineItem from './CheckoutLineItem'
 import Button from './Button'
 import { FormContext } from './CheckoutForm'
 import CircleLoader from './CircleLoader'
-import { checkAmountRemaining } from 'open-tender-js'
+import { checkAmountRemaining } from '@open-tender/js'
 
 const CheckoutGiftCardLabel = ({ giftCard, amount }) => {
   return (

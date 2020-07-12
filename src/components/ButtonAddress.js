@@ -1,7 +1,7 @@
 import React from 'react'
 import propTypes from 'prop-types'
 import Button from './Button'
-import { makeFullAddress } from 'open-tender-js'
+import { makeFullAddress } from '@open-tender/js'
 
 const ButtonAddress = ({ address, onClick, classes = 'ot-btn', disabled }) => {
   if (!address) return null

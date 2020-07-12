@@ -1,6 +1,6 @@
 import React, { useRef, createContext, useEffect } from 'react'
 import propTypes from 'prop-types'
-import { checkAmountRemaining } from 'open-tender-js'
+import { checkAmountRemaining } from '@open-tender/js'
 import {
   Error,
   CheckoutAddress,

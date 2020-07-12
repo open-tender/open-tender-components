@@ -1,7 +1,7 @@
 import React from 'react'
 import propTypes from 'prop-types'
 import Button from './Button'
-import { makeRequestedAtStr } from 'open-tender-js'
+import { makeRequestedAtStr } from '@open-tender/js'
 
 const ButtonRequestedAt = ({
   requestedAt,
