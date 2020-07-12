@@ -1,6 +1,28 @@
-import React, { useRef, createContext, useEffect } from 'react'
+import React, {
+  useRef,
+  createContext,
+  useCallback,
+  useEffect,
+  useMemo,
+} from 'react'
 import propTypes from 'prop-types'
-import { checkAmountRemaining } from '@open-tender/js'
+import isEqual from 'lodash/isEqual'
+import {
+  adjustTenders,
+  checkAmountRemaining,
+  timezoneMap,
+  prepareOrder,
+} from '@open-tender/js'
+import {
+  updateCheckoutCustomer,
+  logoutCustomer,
+  updateForm,
+  setSubmitting,
+  validateOrder,
+  submitOrder,
+  resetErrors,
+  setAlert,
+} from '@open-tender/redux'
 import {
   Error,
   CheckoutAddress,
@@ -12,94 +34,171 @@ import {
   CheckoutSurcharges,
   CheckoutTenders,
 } from '.'
+import Check from './Check'
 
 export const FormContext = createContext(null)
 
-const adjustTenders = (tenders, isPaid, amountRemaining, updateForm) => {
-  if (!tenders.length || isPaid) return
-  const gift = tenders.filter((i) => i.tender_type === 'GIFT_CARD')
-  const nonGift = tenders.filter((i) => i.tender_type !== 'GIFT_CARD')
-  if (amountRemaining > 0) {
-    if (!nonGift.length) return
-    const newTenders = nonGift.map((i) => {
-      const newAmount = parseFloat(i.amount) + amountRemaining
-      amountRemaining = 0.0
-      return { ...i, amount: newAmount.toFixed(2) }
-    })
-    updateForm({ tenders: [...gift, ...newTenders] })
-    isPaid = Math.abs(amountRemaining).toFixed(2) === '0.00'
-  } else {
-    const newTenders = nonGift.map((i) => {
-      const newAmount = Math.max(parseFloat(i.amount) + amountRemaining, 0.0)
-      amountRemaining += parseFloat(i.amount) - newAmount
-      return { ...i, amount: newAmount.toFixed(2) }
-    })
-    isPaid = Math.abs(amountRemaining).toFixed(2) === '0.00'
-    if (isPaid) {
-      const nonZero = newTenders.filter((i) => i.amount !== '0.00')
-      updateForm({ tenders: [...gift, ...nonZero] })
-    } else {
-      const newGift = gift.map((i) => {
-        const newAmount = Math.max(parseFloat(i.amount) + amountRemaining, 0.0)
-        amountRemaining += parseFloat(i.amount) - newAmount
-        return { ...i, amount: newAmount.toFixed(2) }
-      })
-      const allNew = [...newGift, ...newTenders].filter(
-        (i) => i.amount !== '0.00'
-      )
-      updateForm({ tenders: allNew })
-      isPaid = Math.abs(amountRemaining).toFixed(2) === '0.00'
-    }
-  }
+const usePrevious = (value) => {
+  const ref = useRef()
+  useEffect(() => {
+    ref.current = value
+  })
+  return ref.current
 }
 
 const CheckoutForm = ({
-  config,
-  autoSelect,
-  order,
-  tz,
-  check,
-  form,
-  loading,
-  errors,
-  checkSummary,
-  updateForm,
-  submitting,
-  setSubmitting,
-  submitOrder,
-  signUp,
-  login,
-  logout,
-  goToAccount,
-  updateRequestedAt,
-  updateRevenueCenter,
-  updateServiceType,
+  dispatch,
+  history,
   cardIconMap,
+  config,
+  checkout,
+  order,
+  customer,
+  autoSelect,
 }) => {
   const submitButton = useRef()
+  const {
+    check,
+    form,
+    loading,
+    errors = {},
+    submitting,
+    completedOrder,
+  } = checkout
+  const {
+    orderId,
+    orderType,
+    serviceType,
+    revenueCenter,
+    requestedAt,
+    address,
+    cart,
+  } = order
+  const revenueCenterId = revenueCenter ? revenueCenter.revenue_center_id : null
+  const tz = revenueCenter ? timezoneMap[revenueCenter.timezone] : null
+  const { surcharges, discounts, promoCodes, tenders, tip } = form
+  const { profile } = customer
   const { total } = check ? check.totals : 0.0
-  const { tenders } = form
   let amountRemaining = checkAmountRemaining(total, tenders)
   let isPaid = Math.abs(amountRemaining).toFixed(2) === '0.00'
-  const isDelivery = order.serviceType === 'DELIVERY'
-  const hasGiftCardTender = check.config.tender_types.includes('GIFT_CARD')
+  const isDelivery = serviceType === 'DELIVERY'
+  const hasGiftCardTender = check
+    ? check.config.tender_types.includes('GIFT_CARD')
+    : false
+  const isComplete = completedOrder ? true : false
+  const pending = loading === 'pending'
+  const checkUpdating = submitting ? false : pending
+  const dispatchUpdateForm = useCallback((form) => dispatch(updateForm(form)), [
+    dispatch,
+  ])
 
   useEffect(() => {
-    adjustTenders(tenders, isPaid, amountRemaining, updateForm)
-  }, [tenders, isPaid, amountRemaining, updateForm])
+    adjustTenders(tenders, isPaid, amountRemaining, dispatchUpdateForm)
+  }, [tenders, isPaid, amountRemaining, dispatchUpdateForm])
+
+  useEffect(() => {
+    dispatch(resetErrors())
+    dispatch(updateCheckoutCustomer(profile))
+  }, [dispatch, profile])
+
+  const orderValidate = useMemo(() => {
+    const customerValidate = profile
+      ? { customer_id: profile.customer_id }
+      : null
+    const dataValidate = {
+      orderId,
+      revenueCenterId,
+      serviceType,
+      requestedAt,
+      cart,
+      customer: customerValidate,
+      address,
+      surcharges,
+      discounts,
+      promoCodes,
+      tip,
+    }
+    return prepareOrder(dataValidate)
+  }, [
+    orderId,
+    profile,
+    revenueCenterId,
+    serviceType,
+    requestedAt,
+    cart,
+    address,
+    surcharges,
+    discounts,
+    promoCodes,
+    tip,
+  ])
+  const prevOrderValidate = usePrevious(orderValidate)
+
+  useEffect(() => {
+    if (!isComplete && !isEqual(orderValidate, prevOrderValidate)) {
+      dispatch(validateOrder(orderValidate))
+    }
+  }, [dispatch, orderValidate, prevOrderValidate, isComplete])
 
   if (!check || !check.config) return null
 
+  const handleSignUp = (evt) => {
+    evt.preventDefault()
+    dispatch(setAlert({ type: 'signUp' }))
+    evt.target.blur()
+  }
+
+  const handleLogin = (evt) => {
+    evt.preventDefault()
+    dispatch(setAlert({ type: 'login' }))
+    evt.target.blur()
+  }
+
+  const handleLogout = (evt) => {
+    evt.preventDefault()
+    dispatch(logoutCustomer())
+    evt.target.blur()
+  }
+
+  const handleAccount = (evt) => {
+    evt.preventDefault()
+    history.push(`/account`)
+    evt.target.blur()
+  }
+
+  const handleServiceType = (evt) => {
+    evt.preventDefault()
+    if (orderType === 'CATERING') {
+      history.push(`/catering`)
+    } else {
+      const startOver = () => history.push(`/`)
+      dispatch(setAlert({ type: 'orderType', args: { startOver } }))
+    }
+    evt.target.blur()
+  }
+
+  const handleRevenueCenter = (evt) => {
+    evt.preventDefault()
+    return history.push(`/locations`)
+  }
+
+  const handleRequestedAt = (evt) => {
+    evt.preventDefault()
+    dispatch(setAlert({ type: 'requestedAt' }))
+    evt.target.blur()
+  }
+
   const handleSubmit = (evt) => {
     evt.preventDefault()
-    setSubmitting(true)
-    submitOrder()
+    dispatch(setSubmitting(true))
+    dispatch(submitOrder())
     submitButton.current.blur()
   }
 
   return (
     <FormContext.Provider
       value={{
+        cardIconMap,
         config,
         autoSelect,
         order,
@@ -108,16 +207,14 @@ const CheckoutForm = ({
         form,
         loading,
         errors,
-        updateForm,
-        submitOrder,
-        signUp,
-        login,
-        logout,
-        goToAccount,
-        updateRequestedAt,
-        updateRevenueCenter,
-        updateServiceType,
-        cardIconMap,
+        updateForm: dispatchUpdateForm,
+        signUp: handleSignUp,
+        login: handleLogin,
+        logout: handleLogout,
+        goToAccount: handleAccount,
+        updateRequestedAt: handleRequestedAt,
+        updateRevenueCenter: handleRevenueCenter,
+        updateServiceType: handleServiceType,
       }}
     >
       <form
@@ -138,7 +235,12 @@ const CheckoutForm = ({
         <CheckoutDiscounts />
         <CheckoutPromoCodes />
         {hasGiftCardTender && <CheckoutGiftCards />}
-        {checkSummary}
+        <Check
+          title={config.check.title}
+          check={check}
+          tenders={tenders}
+          updating={checkUpdating}
+        />
         <CheckoutTenders />
         <div className="form__footer">
           <div className="form__message">
@@ -166,27 +268,14 @@ const CheckoutForm = ({
 
 CheckoutForm.displayName = 'CheckoutForm'
 CheckoutForm.propTypes = {
-  config: propTypes.object,
-  autoSelect: propTypes.bool,
-  order: propTypes.object,
-  tz: propTypes.string,
-  check: propTypes.object,
-  form: propTypes.object,
-  loading: propTypes.string,
-  errors: propTypes.object,
-  checkSummary: propTypes.element,
-  updateForm: propTypes.func,
-  submitting: propTypes.bool,
-  setSubmitting: propTypes.func,
-  submitOrder: propTypes.func,
-  signUp: propTypes.func,
-  login: propTypes.func,
-  logout: propTypes.func,
-  goToAccount: propTypes.func,
-  updateRequestedAt: propTypes.func,
-  updateRevenueCenter: propTypes.func,
-  updateServiceType: propTypes.func,
+  dispatch: propTypes.func,
+  history: propTypes.object,
   cardIconMap: propTypes.object,
+  config: propTypes.object,
+  checkout: propTypes.object,
+  order: propTypes.object,
+  customer: propTypes.object,
+  autoSelect: propTypes.bool,
 }
 
 export default CheckoutForm

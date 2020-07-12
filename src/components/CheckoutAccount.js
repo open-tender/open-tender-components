@@ -27,8 +27,19 @@ const fields = [
 
 const CheckoutAccount = () => {
   const formContext = useContext(FormContext)
-  const { config, check, form, updateForm, logout, goToAccount } = formContext
+  const {
+    config,
+    check,
+    form,
+    errors,
+    updateForm,
+    logout,
+    goToAccount,
+  } = formContext
   const [customer, setCustomer] = useState(form.customer)
+  const requiredFields = check.config.required.customer
+  const accountConfig = makeAccountConfig(requiredFields)
+  const formErrors = errors.customer || {}
 
   const debouncedUpdate = useCallback(
     debounce((newCustomer) => updateForm({ customer: newCustomer }), 500),
@@ -43,9 +54,6 @@ const CheckoutAccount = () => {
     debouncedUpdate(newCustomer)
   }
 
-  const errors = {}
-  const requiredFields = check.config.required.customer
-  const accountConfig = makeAccountConfig(requiredFields)
   return (
     <fieldset className="form__fieldset">
       <div className="form__legend">
@@ -82,7 +90,7 @@ const CheckoutAccount = () => {
                 type={field.type}
                 value={customer[field.name]}
                 onChange={handleChange}
-                error={errors[field.name]}
+                error={formErrors[field.name]}
                 required={input.required}
               />
             )

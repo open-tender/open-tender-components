@@ -17,7 +17,7 @@ CheckItem.propTypes = {
   classes: propTypes.string,
 }
 
-const CheckUpdating = ({ loader }) => (
+const CheckUpdating = ({ loader = null }) => (
   <div className="check__disabled ot-opacity-light">
     <div className="check__disabled__working">
       {loader}
@@ -57,7 +57,7 @@ const Check = ({ title, check, tenders, loader, updating = false }) => {
   const amountRemaiing = checkAmountRemaining(total, tenders)
 
   return (
-    <div className="check">
+    <div className="check ot-border-radius ot-bg-color-primary ot-border-color ot-box-shadow">
       <div className="check__container">
         {updating && <CheckUpdating loader={loader} />}
         <div className="check__title ot-border-color">
