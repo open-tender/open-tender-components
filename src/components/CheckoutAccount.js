@@ -27,6 +27,7 @@ const fields = [
 const CheckoutAccount = () => {
   const formContext = useContext(FormContext)
   const {
+    iconMap = {},
     config,
     check,
     form,
@@ -74,7 +75,7 @@ const CheckoutAccount = () => {
           <Button
             text={`${customer.first_name} ${customer.last_name}`}
             ariaLabel="Go to account to update name or email"
-            icon="User"
+            icon={iconMap.account || null}
             classes="ot-btn--secondary ot-btn--header"
             onClick={goToAccount}
           />

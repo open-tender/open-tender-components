@@ -4,8 +4,7 @@ import { FormContext } from './CheckoutForm'
 
 const CheckoutSignUp = () => {
   const formContext = useContext(FormContext)
-  const { config, login, signUp, iconMap } = formContext
-  const icon = iconMap ? iconMap.signUp : null
+  const { config, login, signUp, iconMap = {} } = formContext
   return (
     <div className="form__fieldset">
       <div className="form__legend">
@@ -20,7 +19,7 @@ const CheckoutSignUp = () => {
         <Button
           classes="ot-btn"
           text="Create An Account"
-          icon={icon}
+          icon={iconMap.signUp || null}
           onClick={signUp}
         />
         <Button

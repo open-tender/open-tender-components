@@ -2,22 +2,23 @@ import React, { useState, useEffect, useCallback, useContext } from 'react'
 import debounce from 'lodash/debounce'
 import {
   Button,
-  ButtonRevenueCenter,
-  ButtonServiceType,
-  ButtonRequestedAt,
   CheckoutLineItem,
   CheckoutTip,
   Input,
   Textarea,
   Switch,
 } from './index'
-import { serviceTypeNamesMap } from '@open-tender/js'
+import {
+  isEmpty,
+  serviceTypeNamesMap,
+  makeServiceTypeName,
+  makeRequestedAtStr,
+} from '@open-tender/js'
 import { FormContext } from './CheckoutForm'
-import { isEmpty } from '@open-tender/js'
-import { makeServiceTypeName } from '@open-tender/js'
 
 const CheckoutDetails = () => {
   const {
+    iconMap = {},
     config,
     autoSelect,
     order,
@@ -32,7 +33,7 @@ const CheckoutDetails = () => {
   } = useContext(FormContext)
   const [details, setDetails] = useState(form.details)
   const [showTip, setShowTip] = useState(false)
-  const { orderType, serviceType } = order
+  const { orderType, serviceType, revenueCenter } = order
   const serviceTypeName = serviceTypeNamesMap[serviceType]
   const isCatering = orderType === 'CATERING'
   const serviceTypeBtnName = makeServiceTypeName(serviceType, isCatering)
@@ -44,6 +45,7 @@ const CheckoutDetails = () => {
   const personCountRequired = requiredFields.includes('person_count')
   const notesRequired = requiredFields.includes('notes')
   const detailsErrors = errors.details || {}
+  const requestedAtText = makeRequestedAtStr(order.requestedAt, tz)
 
   useEffect(() => {
     if (isEmpty(form.details) && check.details) {
@@ -81,27 +83,31 @@ const CheckoutDetails = () => {
       </div>
       <div className="form__inputs">
         <CheckoutLineItem label="Location">
-          <ButtonRevenueCenter
-            revenueCenter={order.revenueCenter}
-            onClick={updateRevenueCenter}
+          <Button
+            text={revenueCenter.name}
+            ariaLabel={`Change location from ${revenueCenter.name}`}
+            icon={iconMap.revenueCenter}
             classes="ot-btn--secondary ot-btn--header"
+            onClick={updateRevenueCenter}
             disabled={autoSelect}
           />
         </CheckoutLineItem>
         <CheckoutLineItem label="Service Type">
-          <ButtonServiceType
-            serviceTypeName={serviceTypeBtnName}
-            serviceType={order.serviceType}
-            onClick={updateServiceType}
+          <Button
+            text={serviceTypeBtnName}
+            ariaLabel={`Change service type from ${serviceTypeBtnName}`}
+            icon={iconMap[serviceType.toLowerCase()]}
             classes="ot-btn--secondary ot-btn--header"
+            onClick={updateServiceType}
           />
         </CheckoutLineItem>
         <CheckoutLineItem label={`${serviceTypeName} Time`}>
-          <ButtonRequestedAt
-            requestedAt={order.requestedAt}
-            tz={tz}
-            onClick={updateRequestedAt}
+          <Button
+            text={requestedAtText}
+            ariaLabel={`Change time from ${requestedAtText}`}
+            icon={iconMap.requestedAt}
             classes="ot-btn--secondary ot-btn--header"
+            onClick={updateRequestedAt}
           />
         </CheckoutLineItem>
         {tipSettings.has_tip && (
