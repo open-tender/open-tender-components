@@ -10,6 +10,7 @@ const BuilderOption = ({
   increment,
   decrement,
   allergens,
+  iconMap,
   classes = '',
 }) => {
   const groupAtMax = group.max !== 0 && group.quantity === group.max
@@ -30,6 +31,7 @@ const BuilderOption = ({
           incrementDisabled={incrementDisabled}
           decrementDisabled={decrementDisabled}
           classes={classes}
+          iconMap={iconMap}
         />
       </CartItem>
     </li>
@@ -43,8 +45,9 @@ BuilderOption.propTypes = {
   adjust: propTypes.func,
   increment: propTypes.func,
   decrement: propTypes.func,
-  size: propTypes.number,
+  allergens: propTypes.array,
   classes: propTypes.string,
+  iconMap: propTypes.object,
 }
 
 export default BuilderOption

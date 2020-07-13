@@ -1,6 +1,5 @@
 import propTypes from 'prop-types'
 import React from 'react'
-import { Plus, Minus } from 'react-feather'
 
 const BuilderQuantity = ({
   item,
@@ -10,6 +9,7 @@ const BuilderQuantity = ({
   incrementDisabled,
   decrementDisabled,
   classes = '',
+  iconMap = {},
 }) => {
   const handleAdjust = (evt) => {
     const value = parseInt(evt.target.value)
@@ -36,7 +36,7 @@ const BuilderQuantity = ({
         onClick={handleIncrement}
         disabled={incrementDisabled || item.isSoldOut}
       >
-        <Plus size={null} />
+        {iconMap.plus || '+'}
       </button>
     </div>
   ) : (
@@ -46,7 +46,7 @@ const BuilderQuantity = ({
         onClick={handleDecrement}
         disabled={decrementDisabled}
       >
-        <Minus size={null} />
+        {iconMap.minus || '-'}
       </button>
       <label htmlFor={item.id} className={`label ${classes}`}>
         <input
@@ -63,7 +63,7 @@ const BuilderQuantity = ({
         onClick={handleIncrement}
         disabled={incrementDisabled}
       >
-        <Plus size={null} />
+        {iconMap.plus || '+'}
       </button>
     </div>
   )
@@ -78,6 +78,7 @@ BuilderQuantity.propTypes = {
   incrementDisabled: propTypes.bool,
   decrementDisabled: propTypes.bool,
   classes: propTypes.string,
+  iconMap: propTypes.object,
 }
 
 export default BuilderQuantity

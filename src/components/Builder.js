@@ -143,6 +143,7 @@ const Builder = ({
   showImage,
   renderHeader,
   renderOption,
+  iconMap,
 }) => {
   const {
     item,
@@ -191,6 +192,7 @@ const Builder = ({
                           increment: () => incrementOption(group.id, option.id),
                           decrement: () => decrementOption(group.id, option.id),
                           allergens,
+                          iconMap,
                         }
                         return renderOption(optionProps)
                       })}
@@ -237,6 +239,7 @@ const Builder = ({
               adjust={setQuantity}
               increment={increment}
               decrement={decrement}
+              iconMap={iconMap}
             />
           </div>
           <div className="builder__submit">
@@ -263,6 +266,7 @@ Builder.propTypes = {
   showImage: propTypes.bool,
   renderHeader: propTypes.func,
   renderOption: propTypes.func,
+  iconMap: propTypes.object,
 }
 
 export default Builder
