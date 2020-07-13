@@ -2,7 +2,6 @@ import React, { useContext } from 'react'
 import propTypes from 'prop-types'
 import { tenderTypeNamesMap } from '@open-tender/js'
 import { TendersContext } from './CheckoutTenders'
-import { makeTenderTypeLabel } from './CheckoutTenderTypes'
 import {
   Button,
   CircleLoader,
@@ -10,6 +9,19 @@ import {
   CheckoutCreditCards,
   CheckoutHouseAccounts,
 } from '.'
+
+const CheckoutTenderLabel = ({ icon, name }) => (
+  <span className="form__input__tender">
+    <span className="form__input__icon">{icon}</span>
+    <span>{name}</span>
+  </span>
+)
+
+CheckoutTenderLabel.displayName = 'CheckoutTenderLabel'
+CheckoutTenderLabel.propTypes = {
+  icon: propTypes.element,
+  name: propTypes.string,
+}
 
 const CheckoutTender = ({ tenderType }) => {
   const tenderContext = useContext(TendersContext)
@@ -23,9 +35,11 @@ const CheckoutTender = ({ tenderType }) => {
     setShowHouseAccount,
     addTender,
     removeTender,
+    iconMap,
   } = tenderContext
-  const label = makeTenderTypeLabel(tenderType)
   const name = tenderTypeNamesMap[tenderType]
+  const icon = iconMap[tenderType.toLowerCase()]
+  const label = <CheckoutTenderLabel icon={icon} name={name} />
   const isApplied = tenderTypesApplied.includes(tenderType)
   const isDisabled = tenderType === 'HOUSE_ACCOUNT' && !customerId
 
@@ -62,7 +76,7 @@ const CheckoutTender = ({ tenderType }) => {
               <Button
                 text={`Remove ${name} Payment`}
                 ariaLabel={`Remove ${name} Payment`}
-                icon="XCircle"
+                icon={iconMap.remove}
                 classes="ot-btn--secondary ot-btn--header"
                 onClick={(evt) => removeTender(evt, tenderType)}
               />
@@ -71,7 +85,7 @@ const CheckoutTender = ({ tenderType }) => {
             <Button
               text={`Pay with ${name}`}
               ariaLabel={`Pay with ${name}`}
-              icon="PlusCircle"
+              icon={iconMap.add}
               classes="ot-btn--secondary ot-btn--header"
               onClick={applyTender}
               disabled={isPaid || isDisabled}

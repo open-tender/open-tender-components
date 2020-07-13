@@ -7,7 +7,7 @@ import {
   Input,
   Textarea,
   Switch,
-} from './index'
+} from '.'
 import {
   isEmpty,
   serviceTypeNamesMap,
@@ -116,7 +116,7 @@ const CheckoutDetails = () => {
               <Button
                 text={`${check.totals.tip}`}
                 ariaLabel={`Adjust tip of $${check.totals.tip}`}
-                icon="DollarSign"
+                icon={iconMap.tip}
                 classes="ot-btn--secondary ot-btn--header"
                 onClick={handleShowTip}
               />

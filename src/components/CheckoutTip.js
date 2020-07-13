@@ -1,13 +1,12 @@
 import React, { useState, useContext } from 'react'
 import propTypes from 'prop-types'
 import { FormContext } from './CheckoutForm'
-import iconMap from './icons'
 import CircleLoader from './CircleLoader'
 import { Input } from './Inputs'
 
 const CheckoutTip = ({ setShowTip }) => {
   const formContext = useContext(FormContext)
-  const { check, form, updateForm } = formContext
+  const { iconMap = {}, check, form, updateForm } = formContext
   const tipSettings = check.config.gratuity
   const tipOptions = tipSettings.options
   const initialTip =
@@ -64,9 +63,7 @@ const CheckoutTip = ({ setShowTip }) => {
                     {isApplied ? (
                       <CircleLoader complete={true} />
                     ) : (
-                      <span className="ot-btn-link">
-                        {iconMap['PlusCircle']}
-                      </span>
+                      <span className="ot-btn-link">{iconMap.add || '+'}</span>
                     )}
                   </div>
                 </div>
@@ -102,7 +99,7 @@ const CheckoutTip = ({ setShowTip }) => {
                 {customApplied ? (
                   <CircleLoader complete={true} />
                 ) : (
-                  iconMap['PlusCircle']
+                  iconMap.add || '+'
                 )}
               </button>
             </div>

@@ -21,8 +21,7 @@ const BuilderRadioGroup = ({ group, handler }) => {
 
 BuilderRadioGroup.displayName = 'BuilderRadioGroup'
 BuilderRadioGroup.propTypes = {
-  id: propTypes.number,
-  options: propTypes.array,
+  group: propTypes.object,
   handler: propTypes.func,
 }
 

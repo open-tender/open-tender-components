@@ -10,7 +10,15 @@ const CheckoutPromoCodes = () => {
   const [error, setError] = useState('')
   const [pendingPromoCode, setPendingPromoCode] = useState(null)
   const formContext = useContext(FormContext)
-  const { config, check, form, loading, errors, updateForm } = formContext
+  const {
+    iconMap = {},
+    config,
+    check,
+    form,
+    loading,
+    errors,
+    updateForm,
+  } = formContext
   const checkPromoCodes = check.discounts
     .filter((i) => i.is_promo_code)
     .map((i) => i.name)
@@ -104,7 +112,7 @@ const CheckoutPromoCodes = () => {
               <Button
                 text="Remove Promo Code"
                 ariaLabel={`Remove promo code ${checkPromoCode}`}
-                icon="XCircle"
+                icon={iconMap.remove}
                 classes="ot-btn--secondary ot-btn--header"
                 onClick={(evt) => removePromoCode(evt, checkPromoCode)}
               />
@@ -133,7 +141,7 @@ const CheckoutPromoCodes = () => {
             <Button
               text="Apply Promo Code"
               ariaLabel="Apply Promo Code"
-              icon="PlusCircle"
+              icon={iconMap.add}
               classes="ot-btn--secondary ot-btn--header"
               onClick={applyPromoCode}
               disabled={!promoCode || pendingPromoCode === promoCode}

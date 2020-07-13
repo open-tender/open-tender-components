@@ -1,7 +1,6 @@
 import React from 'react'
 import propTypes from 'prop-types'
 import { displayPrice, makeModifierNames } from '@open-tender/js'
-import iconMap from './icons'
 
 const SoldOutOverlay = () => (
   <div className="builder__option__overlay ot-opacity-dark ot-border-radius-small">
@@ -17,7 +16,7 @@ const AllergenOverlay = () => (
   <div className="builder__option__overlay ot-opacity-alert ot-border-radius-small">
     <div className="builder__option__overlay__container">
       <div className="builder__option__alert ot-color-light">
-        {iconMap['AlertCircle']}
+        <span>!</span>
       </div>
     </div>
   </div>

@@ -2,7 +2,7 @@
 import React, { useState, useCallback, useEffect, useRef } from 'react'
 import propTypes from 'prop-types'
 import { useGoogleMapsAutocomplete, useGoogleMapsPlace } from '.'
-import { Input, iconMap } from '../index'
+import { Input } from '../index'
 import { makeAddress } from '@open-tender/js'
 import ButtonClear from '../ButtonClear'
 
@@ -21,6 +21,7 @@ const GoogleMapsAutocomplete = ({
   setAddress,
   setCenter,
   error,
+  icon,
 }) => {
   const [input, setInput] = useState(formattedAddress || '')
   const [activeIndex, setActiveIndex] = useState(0)
@@ -141,7 +142,7 @@ const GoogleMapsAutocomplete = ({
             </ul>
           ) : null}
         </div>
-        <div className="autocomplete__icon">{iconMap['Navigation']}</div>
+        {icon && <div className="autocomplete__icon">{icon}</div>}
         {input.length ? (
           <ButtonClear
             ariaLabel="Clear text & start over"
@@ -163,5 +164,6 @@ GoogleMapsAutocomplete.propTypes = {
   setCenter: propTypes.func,
   error: propTypes.string,
   formattedAddress: propTypes.string,
+  icon: propTypes.element,
 }
 export default GoogleMapsAutocomplete

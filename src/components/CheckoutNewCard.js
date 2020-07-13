@@ -3,7 +3,6 @@ import propTypes from 'prop-types'
 import { TransitionGroup, CSSTransition } from 'react-transition-group'
 import { FormContext } from './CheckoutForm'
 import CircleLoader from './CircleLoader'
-import iconMap from './icons'
 import CheckoutNewCardForm from './CheckoutNewCardForm'
 
 const CheckoutNewCard = ({
@@ -17,7 +16,7 @@ const CheckoutNewCard = ({
   error,
 }) => {
   const formContext = useContext(FormContext)
-  const { cardIconMap } = formContext
+  const { iconMap = {}, cardIconMap = {} } = formContext
   const newCard = appliedCards.find((i) => i.acct)
   const newCardType = newCard ? newCard.card_type : 'OTHER'
   const isApplied = !!newCard
@@ -55,7 +54,7 @@ const CheckoutNewCard = ({
                 className="ot-btn-link"
                 disabled={isApplied || isDisabled}
               >
-                {iconMap['PlusCircle']}
+                {iconMap.add || '+'}
               </button>
             )}
           </div>

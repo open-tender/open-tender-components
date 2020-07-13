@@ -8,7 +8,7 @@ import { displayPrice } from '@open-tender/js'
 
 const CheckoutSurcharges = () => {
   const formContext = useContext(FormContext)
-  const { config, check, form, loading, updateForm } = formContext
+  const { iconMap = {}, config, check, form, loading, updateForm } = formContext
   const [pendingSurcharge, setPendingSurcharge] = useState(null)
   const surchargeIds = form.surcharges.map((i) => i.id)
 
@@ -75,7 +75,7 @@ const CheckoutSurcharges = () => {
                   <Button
                     text="Remove Surcharge"
                     ariaLabel={`Remove ${i.name} surcharge of ${i.amount}`}
-                    icon="XCircle"
+                    icon={iconMap.remove}
                     classes="ot-btn--secondary ot-btn--header"
                     disabled={isPending || !i.is_optional}
                     onClick={(evt) => removeSurcharge(evt, i.id)}
@@ -84,7 +84,7 @@ const CheckoutSurcharges = () => {
                   <Button
                     text="Apply Surcharge"
                     ariaLabel={`Apply ${i.name} surcharge of ${i.amount}`}
-                    icon="PlusCircle"
+                    icon={iconMap.add}
                     classes="ot-btn--secondary ot-btn--header"
                     onClick={(evt) => applySurcharge(evt, i.id)}
                   />

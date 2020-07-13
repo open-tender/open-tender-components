@@ -40,6 +40,9 @@ InvalidItems.propTypes = {
 }
 
 const isCartRevertable = (previous, current, revenueCenters) => {
+  console.log(previous)
+  console.log(current)
+  console.log(revenueCenters)
   if (!previous) return null
   const previousLocation = revenueCenters.find(
     (i) => i.revenue_center_id === previous.revenueCenterId
@@ -62,7 +65,9 @@ const CartErrors = ({
   errors,
   config,
   revert,
+  revertIcon,
   proceed,
+  proceedIcon,
   revenueCenters,
   previousMenuVars,
   menuVars,
@@ -79,7 +84,9 @@ const CartErrors = ({
     revert(evt, newLocation, newMenuVars)
   }
 
-  const unavailable = [...errors.missingItems, ...errors.invalidItems]
+  const unavailable = errors
+    ? [...errors.missingItems, ...errors.invalidItems]
+    : []
 
   return (
     <div className="validate">
@@ -89,12 +96,17 @@ const CartErrors = ({
         {isRevertable && (
           <Button
             text={content.buttonRevert}
-            icon="ChevronLeft"
+            icon={revertIcon}
             onClick={handleRevert}
-            classes="ot-btn--back"
+            classes="ot-btn"
           />
         )}
-        <Button text={content.buttonProceed} icon="Trash2" onClick={proceed} />
+        <Button
+          text={content.buttonProceed}
+          icon={proceedIcon}
+          onClick={proceed}
+          classes="ot-btn"
+        />
       </div>
     </div>
   )
@@ -105,7 +117,9 @@ CartErrors.propTypes = {
   errors: propTypes.object,
   config: propTypes.object,
   revert: propTypes.func,
+  revertIcon: propTypes.element,
   proceed: propTypes.func,
+  proceedIcon: propTypes.element,
   revenueCenters: propTypes.array,
   previousMenuVars: propTypes.object,
   menuVars: propTypes.object,

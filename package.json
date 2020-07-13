@@ -36,7 +36,6 @@
     "react": "^16.13.1",
     "react-datepicker": "^3.0.0",
     "react-dom": "^16.13.1",
-    "react-feather": "^2.0.8",
     "react-transition-group": "^4.4.1",
     "sass-loader": "^8.0.2",
     "style-loader": "^1.2.1",
@@ -57,7 +56,6 @@
     "react": "^16.13.1",
     "react-datepicker": "^3.0.0",
     "react-dom": "^16.13.1",
-    "react-feather": "^2.0.8",
     "react-transition-group": "^4.4.1"
   },
   "dependencies": {}

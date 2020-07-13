@@ -3,8 +3,8 @@ import debounce from 'lodash/debounce'
 import { Input } from './Inputs'
 import CheckoutLineItem from './CheckoutLineItem'
 import { FormContext } from './CheckoutForm'
-import ButtonAddress from './ButtonAddress'
-import { isEmpty } from '@open-tender/js'
+import { Button } from '.'
+import { isEmpty, makeFullAddress } from '@open-tender/js'
 
 const initialState = {
   unit: '',
@@ -48,6 +48,7 @@ const fields = [
 const CheckoutAddress = () => {
   const formContext = useContext(FormContext)
   const {
+    iconMap = {},
     config,
     order,
     check,
@@ -60,6 +61,7 @@ const CheckoutAddress = () => {
   const requiredFields = check.config.required.address
   const addressConfig = makeAddressConfig(requiredFields)
   const addressErrors = errors.address || {}
+  const fullAddress = makeFullAddress(order.address)
 
   useEffect(() => {
     if (isEmpty(form.address) && check.address) {
@@ -96,10 +98,12 @@ const CheckoutAddress = () => {
       </legend>
       <div className="form__inputs">
         <CheckoutLineItem label="Address">
-          <ButtonAddress
-            address={order.address}
-            onClick={updateRevenueCenter}
+          <Button
+            text={fullAddress}
+            ariaLabel={`Current address: ${fullAddress}. Click to update.`}
+            icon={iconMap.address}
             classes="ot-btn--secondary ot-btn--header"
+            onClick={updateRevenueCenter}
             disabled={order.revenueCenter.is_outpost}
           />
         </CheckoutLineItem>

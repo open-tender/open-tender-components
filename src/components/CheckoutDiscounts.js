@@ -26,7 +26,7 @@ CheckoutDiscountLabel.propTypes = {
 
 const CheckoutDiscounts = () => {
   const formContext = useContext(FormContext)
-  const { config, check, form, loading, updateForm } = formContext
+  const { iconMap = {}, config, check, form, loading, updateForm } = formContext
   const [pendingDiscount, setPendingDiscount] = useState(null)
   const discountIds = form.discounts.map((i) => i.id)
 
@@ -93,7 +93,7 @@ const CheckoutDiscounts = () => {
                   <Button
                     text="Remove Discount"
                     ariaLabel={`Remove ${i.name} discount of ${i.amount}`}
-                    icon="XCircle"
+                    icon={iconMap.remove}
                     classes="ot-btn--secondary ot-btn--header"
                     disabled={isPending || !i.is_optional}
                     onClick={(evt) => removeDiscount(evt, i.id)}
@@ -102,7 +102,7 @@ const CheckoutDiscounts = () => {
                   <Button
                     text="Apply Discount"
                     ariaLabel={`Apply ${i.name} discount of ${i.amount}`}
-                    icon="PlusCircle"
+                    icon={iconMap.add}
                     classes="ot-btn--secondary ot-btn--header"
                     onClick={(evt) => applyDiscount(evt, i.id, i.ext_id)}
                   />

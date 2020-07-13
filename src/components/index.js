@@ -35,10 +35,8 @@ import CheckoutTip from './CheckoutTip'
 import CircleLoader from './CircleLoader'
 import DeliveryLink from './DeliveryLink'
 import { Label, Error, Input, Textarea, Switch, Checkbox } from './Inputs'
-import iconMap from './icons'
 
 export {
-  iconMap,
   Builder,
   BuilderGroupHeader,
   BuilderGroupWarning,

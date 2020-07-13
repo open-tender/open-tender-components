@@ -2,11 +2,10 @@ import React, { useContext } from 'react'
 import { FormContext } from './CheckoutForm'
 import { TendersContext } from './CheckoutTenders'
 import CircleLoader from './CircleLoader'
-import iconMap from './icons'
 
 const CheckoutHouseAccounts = () => {
   const formContext = useContext(FormContext)
-  const { check, form } = formContext
+  const { iconMap = {}, check, form } = formContext
   const tenderContext = useContext(TendersContext)
   const { addTender } = tenderContext
   const houseAccounts = check.customer.house_accounts || []
@@ -78,7 +77,7 @@ const CheckoutHouseAccounts = () => {
                       className="ot-btn-link"
                       disabled={isApplied || isDisabled}
                     >
-                      {iconMap['PlusCircle']}
+                      {iconMap.add || '+'}
                     </button>
                   )}
                 </div>

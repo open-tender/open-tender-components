@@ -1,12 +1,10 @@
 import React from 'react'
 import propTypes from 'prop-types'
-import iconMap from './icons'
 
-const ButtonIcon = ({ text, icon, iconEnd }) => (
+const ButtonIcon = ({ text, icon }) => (
   <span className="ot-btn__icon-wrapper">
-    {!iconEnd && <span className="ot-btn__icon">{icon}</span>}
+    <span className="ot-btn__icon">{icon}</span>
     <span className="ot-btn__text">{text}</span>
-    {iconEnd && <span className="ot-btn__icon ot-btn__icon--end">{icon}</span>}
   </span>
 )
 
@@ -20,17 +18,13 @@ ButtonIcon.propTypes = {
 const Button = ({
   text,
   icon,
-  iconEnd = false,
   classes = '',
   ariaLabel,
   onClick,
   disabled,
   children,
 }) => {
-  const btnIcon = typeof icon === 'string' ? iconMap[icon] : icon
-  const klass = `${btnIcon ? 'ot-btn' : ''} ${classes} ${
-    iconEnd ? '-icon-end' : ''
-  }`
+  const klass = `${icon ? 'ot-btn' : ''} ${classes}`
   return (
     <button
       type="button"
@@ -39,10 +33,10 @@ const Button = ({
       onClick={onClick}
       disabled={disabled}
     >
-      {btnIcon ? (
-        <ButtonIcon icon={btnIcon} text={text} iconEnd={iconEnd} />
+      {icon ? (
+        <ButtonIcon icon={icon} text={text} />
       ) : text ? (
-        text
+        <span className="ot-btn__text">{text}</span>
       ) : (
         children
       )}
@@ -54,7 +48,6 @@ Button.displayName = 'Button'
 Button.propTypes = {
   text: propTypes.string,
   icon: propTypes.oneOfType([propTypes.string, propTypes.element]),
-  iconEnd: propTypes.oneOfType([propTypes.string, propTypes.element]),
   classes: propTypes.string,
   ariaLabel: propTypes.string,
   onClick: propTypes.func,

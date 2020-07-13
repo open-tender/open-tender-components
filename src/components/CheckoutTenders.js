@@ -10,7 +10,7 @@ const CheckoutTenders = () => {
   const [showCredit, setShowCredit] = useState(false)
   const [showHouseAccount, setShowHouseAccount] = useState(false)
   const formContext = useContext(FormContext)
-  const { config, check, form, errors, updateForm } = formContext
+  const { iconMap = {}, config, check, form, errors, updateForm } = formContext
   const tenderTypes = check.config.tender_types.filter((i) => i !== 'GIFT_CARD')
   const tenderTypesApplied = form.tenders.map((i) => i.tender_type)
   const amountRemaining = checkAmountRemaining(check.totals.total, form.tenders)
@@ -83,6 +83,7 @@ const CheckoutTenders = () => {
         setShowHouseAccount,
         addTender,
         removeTender,
+        iconMap,
       }}
     >
       <fieldset className="form__fieldset">

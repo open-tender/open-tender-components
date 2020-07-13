@@ -28,7 +28,7 @@ CheckoutGiftCardLabel.propTypes = {
 
 const CheckoutGiftCards = () => {
   const formContext = useContext(FormContext)
-  const { config, check, form, updateForm } = formContext
+  const { iconMap = {}, config, check, form, updateForm } = formContext
 
   const giftCards =
     check.customer && check.customer.gift_cards
@@ -105,7 +105,7 @@ const CheckoutGiftCards = () => {
                     <Button
                       text="Remove Gift Card"
                       ariaLabel={`Remove gift card ${i.card_number} with amount of ${amount}`}
-                      icon="XCircle"
+                      icon={iconMap.remove}
                       classes="ot-btn--secondary ot-btn--header"
                       onClick={(evt) => removeGiftCard(evt, i.card_number)}
                     />
@@ -114,7 +114,7 @@ const CheckoutGiftCards = () => {
                   <Button
                     text="Apply Gift Card"
                     ariaLabel={`Apply gift card ${i.card_number} with balance of ${i.balance}`}
-                    icon="PlusCircle"
+                    icon={iconMap.add}
                     classes="ot-btn--secondary ot-btn--header"
                     onClick={(evt) =>
                       applyGiftCard(evt, i.card_number, i.balance)
