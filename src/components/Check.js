@@ -69,9 +69,9 @@ const Check = ({ title, check, tenders, loader, updating = false }) => {
         <ul className="check__items">
           {cart && cart.length ? (
             <ul className="check__items__section ot-font-size-small">
-              {cart.map((item) => (
+              {cart.map((item, index) => (
                 <CheckItem
-                  key={item.id}
+                  key={`${item.id}-${index}`}
                   label={`${item.name}`}
                   value={item.price_total}
                 />

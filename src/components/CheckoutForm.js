@@ -49,7 +49,8 @@ const usePrevious = (value) => {
 const CheckoutForm = ({
   dispatch,
   history,
-  cardIconMap,
+  iconMap = {},
+  cardIconMap = {},
   config,
   checkout,
   order,
@@ -198,6 +199,7 @@ const CheckoutForm = ({
   return (
     <FormContext.Provider
       value={{
+        iconMap,
         cardIconMap,
         config,
         autoSelect,
@@ -270,6 +272,7 @@ CheckoutForm.displayName = 'CheckoutForm'
 CheckoutForm.propTypes = {
   dispatch: propTypes.func,
   history: propTypes.object,
+  iconMap: propTypes.object,
   cardIconMap: propTypes.object,
   config: propTypes.object,
   checkout: propTypes.object,

@@ -1,14 +1,10 @@
 import React from 'react'
 import propTypes from 'prop-types'
-import iconMap from './icons'
 
-const ButtonClear = ({
-  icon = 'XCircle',
-  classes = '',
-  ariaLabel,
-  onClick,
-  disabled,
-}) => {
+// as of 2020-07-12, this is only used in <GoogleMapsAutocomplete /> and
+// and <CheckoutPromoCodes /> and not exported for use outside of this library
+
+const ButtonClear = ({ classes = '', ariaLabel, onClick, disabled }) => {
   return (
     <button
       type="button"
@@ -16,9 +12,7 @@ const ButtonClear = ({
       aria-label={ariaLabel}
       onClick={onClick}
       disabled={disabled}
-    >
-      {iconMap[icon]}
-    </button>
+    />
   )
 }
 

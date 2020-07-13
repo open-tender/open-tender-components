@@ -1,11 +1,11 @@
 import React, { useContext } from 'react'
 import Button from './Button'
-import ButtonSignUp from './ButtonSignUp'
 import { FormContext } from './CheckoutForm'
 
 const CheckoutSignUp = () => {
   const formContext = useContext(FormContext)
-  const { config, login, signUp } = formContext
+  const { config, login, signUp, iconMap } = formContext
+  const icon = iconMap ? iconMap.signUp : null
   return (
     <div className="form__fieldset">
       <div className="form__legend">
@@ -16,15 +16,18 @@ const CheckoutSignUp = () => {
           {config.sign_up.subtitle}
         </p>
       </div>
-      <div className="form__inputs">
-        <div className="form__input">
-          <ButtonSignUp signUp={signUp} />
-          <Button
-            classes="ot-btn-link"
-            text="or log into an existing account"
-            onClick={login}
-          />
-        </div>
+      <div className="form__signup">
+        <Button
+          classes="ot-btn"
+          text="Create An Account"
+          icon={icon}
+          onClick={signUp}
+        />
+        <Button
+          classes="ot-btn-link"
+          text="or log into an existing account"
+          onClick={login}
+        />
       </div>
     </div>
   )

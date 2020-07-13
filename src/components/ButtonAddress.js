@@ -3,6 +3,9 @@ import propTypes from 'prop-types'
 import Button from './Button'
 import { makeFullAddress } from '@open-tender/js'
 
+// as of 2020-07-12, this is only used in <CheckoutAddress /> and not
+// exported for use outside of this library
+
 const ButtonAddress = ({ address, onClick, classes = 'ot-btn', disabled }) => {
   if (!address) return null
   const fullAddresss = makeFullAddress(address)

@@ -4,6 +4,7 @@ import propTypes from 'prop-types'
 import { useGoogleMapsAutocomplete, useGoogleMapsPlace } from '.'
 import { Input, iconMap } from '../index'
 import { makeAddress } from '@open-tender/js'
+import ButtonClear from '../ButtonClear'
 
 const keys = {
   enter: 13,
@@ -142,12 +143,10 @@ const GoogleMapsAutocomplete = ({
         </div>
         <div className="autocomplete__icon">{iconMap['Navigation']}</div>
         {input.length ? (
-          <button
-            className="autocomplete__clear ot-btn-link"
+          <ButtonClear
+            ariaLabel="Clear text & start over"
             onClick={clearInput}
-          >
-            {iconMap['XCircle']}
-          </button>
+          />
         ) : null}
       </Input>
     </div>

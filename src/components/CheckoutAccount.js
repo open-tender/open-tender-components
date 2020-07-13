@@ -2,7 +2,6 @@ import React, { useState, useCallback, useContext } from 'react'
 import { Input } from './Inputs'
 import CheckoutLineItem from './CheckoutLineItem'
 import debounce from 'lodash/debounce'
-import ButtonCheckoutAccount from './ButtonCheckoutAccount'
 import Button from './Button'
 import { FormContext } from './CheckoutForm'
 
@@ -72,10 +71,12 @@ const CheckoutAccount = () => {
       </div>
       <div className="form__inputs">
         <CheckoutLineItem label="Account">
-          <ButtonCheckoutAccount
-            customer={customer}
-            goToAccount={goToAccount}
+          <Button
+            text={`${customer.first_name} ${customer.last_name}`}
+            ariaLabel="Go to account to update name or email"
+            icon="User"
             classes="ot-btn--secondary ot-btn--header"
+            onClick={goToAccount}
           />
         </CheckoutLineItem>
         {fields.map((field) => {
