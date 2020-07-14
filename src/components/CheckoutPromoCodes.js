@@ -110,7 +110,7 @@ const CheckoutPromoCodes = () => {
                 <CircleLoader complete={true} />
               </span>
               <Button
-                text="Remove Promo Code"
+                text="Remove"
                 ariaLabel={`Remove promo code ${checkPromoCode}`}
                 icon={iconMap.remove}
                 classes="ot-btn--secondary ot-btn--header"
@@ -139,7 +139,7 @@ const CheckoutPromoCodes = () => {
               ) : null}
             </Input>
             <Button
-              text="Apply Promo Code"
+              text="Apply"
               ariaLabel="Apply Promo Code"
               icon={iconMap.add}
               classes="ot-btn--secondary ot-btn--header"

@@ -103,7 +103,7 @@ const CheckoutGiftCards = () => {
                       <CircleLoader complete={true} />
                     </span>
                     <Button
-                      text="Remove Gift Card"
+                      text="Remove"
                       ariaLabel={`Remove gift card ${i.card_number} with amount of ${amount}`}
                       icon={iconMap.remove}
                       classes="ot-btn--secondary ot-btn--header"
@@ -112,7 +112,7 @@ const CheckoutGiftCards = () => {
                   </>
                 ) : (
                   <Button
-                    text="Apply Gift Card"
+                    text="Apply"
                     ariaLabel={`Apply gift card ${i.card_number} with balance of ${i.balance}`}
                     icon={iconMap.add}
                     classes="ot-btn--secondary ot-btn--header"

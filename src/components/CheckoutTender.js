@@ -74,7 +74,8 @@ const CheckoutTender = ({ tenderType }) => {
                 <CircleLoader complete={true} />
               </span>
               <Button
-                text={`Remove ${name} Payment`}
+                // text={`Remove ${name} Payment`}
+                text={`Remove`}
                 ariaLabel={`Remove ${name} Payment`}
                 icon={iconMap.remove}
                 classes="ot-btn--secondary ot-btn--header"
@@ -83,7 +84,8 @@ const CheckoutTender = ({ tenderType }) => {
             </>
           ) : (
             <Button
-              text={`Pay with ${name}`}
+              // text={`Pay with ${name}`}
+              text={`Apply`}
               ariaLabel={`Pay with ${name}`}
               icon={iconMap.add}
               classes="ot-btn--secondary ot-btn--header"

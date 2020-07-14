@@ -73,7 +73,7 @@ const CheckoutSurcharges = () => {
                 )}
                 {isApplied ? (
                   <Button
-                    text="Remove Surcharge"
+                    text="Remove"
                     ariaLabel={`Remove ${i.name} surcharge of ${i.amount}`}
                     icon={iconMap.remove}
                     classes="ot-btn--secondary ot-btn--header"
@@ -82,7 +82,7 @@ const CheckoutSurcharges = () => {
                   />
                 ) : (
                   <Button
-                    text="Apply Surcharge"
+                    text="Apply"
                     ariaLabel={`Apply ${i.name} surcharge of ${i.amount}`}
                     icon={iconMap.add}
                     classes="ot-btn--secondary ot-btn--header"

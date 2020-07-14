@@ -91,7 +91,7 @@ const CheckoutDiscounts = () => {
                 )}
                 {isApplied ? (
                   <Button
-                    text="Remove Discount"
+                    text="Remove"
                     ariaLabel={`Remove ${i.name} discount of ${i.amount}`}
                     icon={iconMap.remove}
                     classes="ot-btn--secondary ot-btn--header"
@@ -100,7 +100,7 @@ const CheckoutDiscounts = () => {
                   />
                 ) : (
                   <Button
-                    text="Apply Discount"
+                    text="Apply"
                     ariaLabel={`Apply ${i.name} discount of ${i.amount}`}
                     icon={iconMap.add}
                     classes="ot-btn--secondary ot-btn--header"
