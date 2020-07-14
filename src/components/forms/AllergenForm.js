@@ -69,13 +69,14 @@ const AllergenForm = ({
         ))}
       </div>
       <div className="form__submit">
-        <input
+        <button
           className="ot-btn"
           type="submit"
-          value="Update Selected Allergens"
           disabled={submitting}
           ref={submitButton}
-        />
+        >
+          Update Selected Allergens
+        </button>
       </div>
     </form>
   )

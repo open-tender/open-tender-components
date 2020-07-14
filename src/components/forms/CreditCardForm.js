@@ -93,13 +93,14 @@ const CreditCardForm = ({ windowRef, loading, error, addCard, callback }) => {
         ))}
       </div>
       <div className="form__submit">
-        <input
+        <button
           className="ot-btn"
           type="submit"
-          value={submitting ? 'Authorizing Card...' : 'Add New Card'}
           disabled={submitting}
           ref={submitButton}
-        />
+        >
+          {submitting ? 'Authorizing Card...' : 'Add New Card'}
+        </button>
       </div>
     </form>
   )

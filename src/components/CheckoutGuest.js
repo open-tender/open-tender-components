@@ -40,10 +40,6 @@ const CheckoutGuest = () => {
   const contactConfig = makeContactConfig(requiredFields)
   const customerErrors = errors.customer || {}
 
-  // useEffect(() => {
-  //   setCustomer(checkoutCustomer || initialState)
-  // }, [checkoutCustomer])
-
   // https://medium.com/p/5489fc3461b3/responses/show
   // https://codesandbox.io/s/functional-component-debounce-cunf7
   const debouncedUpdate = useCallback(

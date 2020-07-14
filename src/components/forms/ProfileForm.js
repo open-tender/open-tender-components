@@ -57,13 +57,14 @@ const AccountProfile = ({ profile, loading, error, update }) => {
         ))}
       </div>
       <div className="section__submit">
-        <input
+        <button
           className="ot-btn"
           type="submit"
-          value="Update Account"
           disabled={submitting}
           ref={submitButton}
-        />
+        >
+          Update Account
+        </button>
       </div>
     </form>
   )

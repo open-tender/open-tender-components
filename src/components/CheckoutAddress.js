@@ -96,6 +96,11 @@ const CheckoutAddress = () => {
           {config.address.title}
         </p>
       </legend>
+      {typeof addressErrors === 'string' && (
+        <div className="form__error form__error--top ot-form-error">
+          {addressErrors}
+        </div>
+      )}
       <div className="form__inputs">
         <CheckoutLineItem label="Address">
           <Button

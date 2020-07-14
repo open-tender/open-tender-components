@@ -90,13 +90,14 @@ const AddressForm = ({ address, loading, error, update, callback }) => {
         })}
       </div>
       <div className="form__submit">
-        <input
+        <button
           className="ot-btn"
           type="submit"
-          value="Submit Updates"
           disabled={submitting}
           ref={submitButton}
-        />
+        >
+          Submit Updates
+        </button>
       </div>
     </form>
   )

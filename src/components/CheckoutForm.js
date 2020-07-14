@@ -99,7 +99,7 @@ const CheckoutForm = ({
 
   useEffect(() => {
     dispatch(resetErrors())
-    dispatch(updateCheckoutCustomer(profile))
+    if (profile) dispatch(updateCheckoutCustomer(profile))
   }, [dispatch, profile])
 
   const orderValidate = useMemo(() => {
@@ -255,13 +255,14 @@ const CheckoutForm = ({
               </div>
             ) : null}
           </div>
-          <input
+          <button
             className="ot-btn ot-btn--big"
             type="submit"
-            value="Submit Order"
             disabled={submitting || !isPaid}
             ref={submitButton}
-          />
+          >
+            Submit Order
+          </button>
         </div>
       </form>
     </FormContext.Provider>

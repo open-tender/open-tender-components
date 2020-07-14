@@ -61,12 +61,9 @@ const OrderRatingForm = ({
         />
       </div>
       <div className="form__submit">
-        <input
-          className="ot-btn"
-          type="submit"
-          value="Submit"
-          ref={submitButton}
-        />
+        <button className="ot-btn" type="submit" ref={submitButton}>
+          Submit
+        </button>
       </div>
     </form>
   )

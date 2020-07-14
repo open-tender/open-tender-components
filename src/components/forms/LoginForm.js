@@ -49,13 +49,14 @@ const LoginForm = ({ loading, error, login, callback }) => {
         />
       </div>
       <div className="form__submit">
-        <input
+        <button
           className="ot-btn"
           type="submit"
-          value={isLoading ? 'Submitting' : 'Submit'}
           disabled={isLoading}
           ref={submitButton}
-        />
+        >
+          {isLoading ? 'Submitting' : 'Submit'}
+        </button>
       </div>
     </form>
   )
