@@ -29,7 +29,7 @@ const useGoogleMap = ({ apiKey, zoom, styles, center, events = {} }) => {
         rotateControl: false,
         fullscreenControl: false,
         zoomControlOptions: {
-          position: google.maps.ControlPosition.RIGHT_TOP,
+          position: google.maps.ControlPosition.LEFT_BOTTOM,
         },
         controlSize: 28,
       })
