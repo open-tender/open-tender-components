@@ -144,6 +144,7 @@ const Builder = ({
   renderHeader,
   renderOption,
   iconMap,
+  closeModal,
 }) => {
   const {
     item,
@@ -165,7 +166,14 @@ const Builder = ({
     evt.target.blur()
   }
 
+  const handleCancel = (evt) => {
+    evt.preventDefault()
+    closeModal()
+    evt.target.blur()
+  }
+
   const { groups, notes, madeFor, totalPrice } = item
+  const isEdit = menuItem.index !== undefined
   const isIncomplete = groups.filter((g) => g.quantity < g.min).length > 0
 
   return (
@@ -226,29 +234,41 @@ const Builder = ({
         </div>
       </div>
       <div className="builder__footer ot-bg-color-primary">
-        <div className="builder__price ot-font-size-h5 ot-bold">
-          <span>${displayPrice(totalPrice)}</span>
-          {item.cals && (
-            <span className="ot-color-secondary">{item.cals} cal</span>
-          )}
-        </div>
-        <div className="builder__actions">
-          <div className="builder__quantity">
-            <BuilderQuantity
-              item={item}
-              adjust={setQuantity}
-              increment={increment}
-              decrement={decrement}
-              iconMap={iconMap}
-            />
+        <div className="builder__footer__container">
+          <div className="builder__price ot-font-size-h5 ot-bold">
+            <span>${displayPrice(totalPrice)}</span>
+            {item.cals && (
+              <span className="ot-color-secondary">{item.cals} cal</span>
+            )}
           </div>
-          <div className="builder__submit">
+          <div className="builder__actions">
+            <div className="builder__quantity">
+              <BuilderQuantity
+                item={item}
+                adjust={setQuantity}
+                increment={increment}
+                decrement={decrement}
+                iconMap={iconMap}
+              />
+            </div>
+            <div className="builder__submit">
+              <button
+                className="ot-btn ot-btn--big"
+                onClick={handleSubmit}
+                disabled={isIncomplete}
+              >
+                Add To Cart
+              </button>
+            </div>
+          </div>
+        </div>
+        <div className="builder__footer__cancel">
+          <div className="builder__footer__cancel__button ot-font-size-small">
             <button
-              className="ot-btn ot-btn--big"
-              onClick={handleSubmit}
-              disabled={isIncomplete}
+              className="ot-btn-link-subtle ot-preface"
+              onClick={handleCancel}
             >
-              Add To Cart
+              {isEdit ? 'Cancel Changes' : 'Cancel / Back To Menu'}
             </button>
           </div>
         </div>
@@ -267,6 +287,7 @@ Builder.propTypes = {
   renderHeader: propTypes.func,
   renderOption: propTypes.func,
   iconMap: propTypes.object,
+  closeModal: propTypes.func,
 }
 
 export default Builder
