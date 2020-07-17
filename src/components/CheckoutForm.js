@@ -79,7 +79,7 @@ const CheckoutForm = ({
   const tz = revenueCenter ? timezoneMap[revenueCenter.timezone] : null
   const { surcharges, discounts, promoCodes, tenders, tip } = form
   const { profile } = customer
-  const { total } = check ? check.totals : 0.0
+  const total = check && check.totals ? check.totals.total : 0.0
   let amountRemaining = checkAmountRemaining(total, tenders)
   let isPaid = Math.abs(amountRemaining).toFixed(2) === '0.00'
   const isDelivery = serviceType === 'DELIVERY'
@@ -94,8 +94,10 @@ const CheckoutForm = ({
   ])
 
   useEffect(() => {
-    adjustTenders(tenders, isPaid, amountRemaining, dispatchUpdateForm)
-  }, [tenders, isPaid, amountRemaining, dispatchUpdateForm])
+    if (total > 0) {
+      adjustTenders(tenders, isPaid, amountRemaining, dispatchUpdateForm)
+    }
+  }, [tenders, isPaid, amountRemaining, dispatchUpdateForm, total])
 
   useEffect(() => {
     dispatch(resetErrors())
