@@ -40,9 +40,6 @@ InvalidItems.propTypes = {
 }
 
 const isCartRevertable = (previous, current, revenueCenters) => {
-  console.log(previous)
-  console.log(current)
-  console.log(revenueCenters)
   if (!previous) return null
   const previousLocation = revenueCenters.find(
     (i) => i.revenue_center_id === previous.revenueCenterId
@@ -63,7 +60,6 @@ const isCartRevertable = (previous, current, revenueCenters) => {
 
 const CartErrors = ({
   errors,
-  config,
   revert,
   revertIcon,
   proceed,
@@ -77,7 +73,6 @@ const CartErrors = ({
     menuVars,
     revenueCenters
   )
-  const content = isRevertable ? config.revert : config.proceed
 
   const handleRevert = (evt) => {
     const { newLocation, newMenuVars } = isRevertable
@@ -91,18 +86,22 @@ const CartErrors = ({
   return (
     <div className="validate">
       <InvalidItems invalidItems={unavailable} />
-      <p>{content.message}</p>
+      <p>
+        {isRevertable
+          ? 'Please either remove these items or switch back to your previous menu.'
+          : 'Please click the button below to remove these items and proceed with your order.'}
+      </p>
       <div className="validate__buttons">
         {isRevertable && (
           <Button
-            text={content.buttonRevert}
+            text="Back to Previous Menu"
             icon={revertIcon}
             onClick={handleRevert}
             classes="ot-btn"
           />
         )}
         <Button
-          text={content.buttonProceed}
+          text="Remove Items"
           icon={proceedIcon}
           onClick={proceed}
           classes="ot-btn"
@@ -115,7 +114,6 @@ const CartErrors = ({
 CartErrors.displayName = 'CartErrors'
 CartErrors.propTypes = {
   errors: propTypes.object,
-  config: propTypes.object,
   revert: propTypes.func,
   revertIcon: propTypes.element,
   proceed: propTypes.func,
