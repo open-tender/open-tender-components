@@ -28,8 +28,14 @@ const CartItem = ({
   showModifiers,
   editItem,
   removeItem,
+  displaySettings,
   children,
 }) => {
+  const {
+    calories: showCals,
+    tags: showTags,
+    allergens: showAllergens,
+  } = displaySettings
   const bgStyle = item.imageUrl
     ? { backgroundImage: `url(${item.imageUrl}` }
     : null
@@ -86,17 +92,17 @@ const CartItem = ({
               </>
             ) : (
               <>
-                {item.cals && (
+                {showCals && item.cals && (
                   <span className="builder__option__details__cals ot-color-secondary">
                     {item.cals} cal
                   </span>
                 )}
-                {item.allergens.length > 0 && (
+                {showAllergens && item.allergens.length > 0 && (
                   <span className="builder__option__details__allergens ot-color-alert ot-font-size-x-small">
                     {item.allergens.join(', ')}
                   </span>
                 )}
-                {item.tags.length > 0 && (
+                {showTags && item.tags.length > 0 && (
                   <span className="builder__option__details__tags ot-color-secondary ot-font-size-x-small">
                     {item.tags.join(', ')}
                   </span>
@@ -118,6 +124,7 @@ CartItem.propTypes = {
   showModifiers: propTypes.bool,
   editItem: propTypes.func,
   removeItem: propTypes.func,
+  displaySettings: propTypes.object,
   children: propTypes.oneOfType([
     propTypes.arrayOf(propTypes.node),
     propTypes.node,

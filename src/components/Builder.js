@@ -140,11 +140,11 @@ const Builder = ({
   soldOut,
   allergens,
   addItemToCart,
-  showImage,
   renderHeader,
   renderOption,
   iconMap,
   closeModal,
+  displaySettings,
 }) => {
   const {
     item,
@@ -179,7 +179,7 @@ const Builder = ({
   return (
     <form className="builder__item">
       <div className="builder__content">
-        {renderHeader({ item, showImage })}
+        {renderHeader({ item, displaySettings })}
         <div className="builder__body">
           <div className="builder__groups">
             {groups.map((group) => (
@@ -187,7 +187,11 @@ const Builder = ({
                 <BuilderGroupHeader group={group} />
                 <div className="builder__options ot-bg-color-primary ot-border-radius">
                   {group.min === 1 && group.max === 1 ? (
-                    <BuilderRadioGroup group={group} handler={toggleOption} />
+                    <BuilderRadioGroup
+                      group={group}
+                      handler={toggleOption}
+                      displaySettings={displaySettings}
+                    />
                   ) : (
                     <ul>
                       {group.options.map((option) => {
@@ -201,6 +205,7 @@ const Builder = ({
                           decrement: () => decrementOption(group.id, option.id),
                           allergens,
                           iconMap,
+                          displaySettings,
                         }
                         return renderOption(optionProps)
                       })}
@@ -210,27 +215,31 @@ const Builder = ({
               </div>
             ))}
           </div>
-          <div className="builder__made-for ot-bg-color-primary ot-border-radius">
-            <label htmlFor="made-for" className="label">
-              <span className="ot-font-size-h6 ot-heading">Made For</span>
-              <input
-                id="made-for"
-                type="text"
-                value={madeFor || ''}
-                onChange={(evt) => setMadeFor(evt.target.value)}
-              />
-            </label>
-          </div>
-          <div className="builder__notes ot-bg-color-primary ot-border-radius">
-            <label htmlFor="item-notes" className="label">
-              <span className="ot-font-size-h6 ot-heading">Notes</span>
-              <textarea
-                id="item-notes"
-                value={notes || ''}
-                onChange={(evt) => setNotes(evt.target.value)}
-              />
-            </label>
-          </div>
+          {displaySettings.madeFor && (
+            <div className="builder__made-for ot-bg-color-primary ot-border-radius">
+              <label htmlFor="made-for" className="label">
+                <span className="ot-font-size-h6 ot-heading">Made For</span>
+                <input
+                  id="made-for"
+                  type="text"
+                  value={madeFor || ''}
+                  onChange={(evt) => setMadeFor(evt.target.value)}
+                />
+              </label>
+            </div>
+          )}
+          {displaySettings.notes && (
+            <div className="builder__notes ot-bg-color-primary ot-border-radius">
+              <label htmlFor="item-notes" className="label">
+                <span className="ot-font-size-h6 ot-heading">Notes</span>
+                <textarea
+                  id="item-notes"
+                  value={notes || ''}
+                  onChange={(evt) => setNotes(evt.target.value)}
+                />
+              </label>
+            </div>
+          )}
         </div>
       </div>
       <div className="builder__footer ot-bg-color-primary">
@@ -283,11 +292,11 @@ Builder.propTypes = {
   soldOut: propTypes.array,
   allergens: propTypes.array,
   addItemToCart: propTypes.func,
-  showImage: propTypes.bool,
   renderHeader: propTypes.func,
   renderOption: propTypes.func,
   iconMap: propTypes.object,
   closeModal: propTypes.func,
+  displaySettings: propTypes.object,
 }
 
 export default Builder

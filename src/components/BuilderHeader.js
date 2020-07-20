@@ -3,8 +3,14 @@ import React, { useState } from 'react'
 import { displayPrice } from '@open-tender/js'
 import BuilderNutrition from './BuilderNutrition'
 
-const BuilderHeader = ({ item, showImage }) => {
+const BuilderHeader = ({ item, displaySettings }) => {
   const [showInfo, setShowInfo] = useState(false)
+  const {
+    builderImages: showImage,
+    calories: showCals,
+    tags: showTags,
+    allergens: showAllergens,
+  } = displaySettings
 
   const toggleShow = (evt) => {
     evt.preventDefault()
@@ -34,17 +40,17 @@ const BuilderHeader = ({ item, showImage }) => {
               ? 'Price varies'
               : `$${displayPrice(item.price)}`}
           </span>
-          {item.cals && (
+          {showCals && item.cals && (
             <span className="builder__details__cals ot-bold ot-color-secondary">
               {item.cals} cal
             </span>
           )}
-          {item.allergens.length > 0 && (
+          {showAllergens && item.allergens.length > 0 && (
             <span className="builder__details__cals ot-color-alert ot-font-size-small">
               {item.allergens.join(', ')}
             </span>
           )}
-          {item.tags.length > 0 && (
+          {showTags && item.tags.length > 0 && (
             <span className="builder__details__cals ot-color-secondary ot-font-size-small">
               {item.tags.join(', ')}
             </span>
@@ -53,7 +59,7 @@ const BuilderHeader = ({ item, showImage }) => {
         {item.description && (
           <p className="builder__desc ot-color-secondary">{item.description}</p>
         )}
-        {item.cals && (
+        {showCals && item.cals && (
           <div className="builder__nutrition">
             <button className="ot-btn-link" onClick={toggleShow}>
               <span className="ot-font-size-small">
@@ -63,10 +69,12 @@ const BuilderHeader = ({ item, showImage }) => {
           </div>
         )}
       </div>
-      <BuilderNutrition
-        nutritionalInfo={item.nutritionalInfo}
-        show={showInfo}
-      />
+      {showCals && (
+        <BuilderNutrition
+          nutritionalInfo={item.nutritionalInfo}
+          show={showInfo}
+        />
+      )}
     </div>
   )
 }
@@ -74,7 +82,7 @@ const BuilderHeader = ({ item, showImage }) => {
 BuilderHeader.displayName = 'BuilderHeader'
 BuilderHeader.propTypes = {
   item: propTypes.object,
-  showImage: propTypes.bool,
+  displaySettings: propTypes.object,
 }
 
 export default BuilderHeader

@@ -12,6 +12,7 @@ const BuilderOption = ({
   allergens,
   iconMap,
   classes = '',
+  displaySettings,
 }) => {
   const groupAtMax = group.max !== 0 && group.quantity === group.max
   const optionAtMax = option.max !== 0 && option.quantity === option.max
@@ -22,7 +23,11 @@ const BuilderOption = ({
   const decrementDisabled = option.quantity === 0
   return (
     <li>
-      <CartItem item={option} allergens={allergens}>
+      <CartItem
+        item={option}
+        allergens={allergens}
+        displaySettings={displaySettings}
+      >
         <BuilderQuantity
           item={option}
           adjust={adjust}
@@ -48,6 +53,7 @@ BuilderOption.propTypes = {
   allergens: propTypes.array,
   classes: propTypes.string,
   iconMap: propTypes.object,
+  displaySettings: propTypes.object,
 }
 
 export default BuilderOption
