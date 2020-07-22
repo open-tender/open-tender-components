@@ -240,7 +240,7 @@ const CheckoutForm = ({
         <CheckoutPromoCodes />
         {hasGiftCardTender && <CheckoutGiftCards />}
         <Check
-          title={config.check.title}
+          title={config.checkTitle}
           check={check}
           tenders={tenders}
           updating={checkUpdating}
