@@ -1,6 +1,7 @@
 import React, { useContext } from 'react'
 import propTypes from 'prop-types'
 import { tenderTypeNamesMap } from '@open-tender/js'
+import { FormContext } from './CheckoutForm'
 import { TendersContext } from './CheckoutTenders'
 import {
   Button,
@@ -24,6 +25,8 @@ CheckoutTenderLabel.propTypes = {
 }
 
 const CheckoutTender = ({ tenderType }) => {
+  const formContext = useContext(FormContext)
+  const { check } = formContext
   const tenderContext = useContext(TendersContext)
   const {
     customerId,
@@ -41,7 +44,11 @@ const CheckoutTender = ({ tenderType }) => {
   const icon = iconMap[tenderType.toLowerCase()]
   const label = <CheckoutTenderLabel icon={icon} name={name} />
   const isApplied = tenderTypesApplied.includes(tenderType)
-  const isDisabled = tenderType === 'HOUSE_ACCOUNT' && !customerId
+  const houseAccounts = check.customer
+    ? check.customer.house_accounts || []
+    : []
+  const isDisabled =
+    tenderType === 'HOUSE_ACCOUNT' && (!customerId || !houseAccounts.length)
 
   const applyTender =
     tenderType === 'CREDIT'
@@ -96,9 +103,9 @@ const CheckoutTender = ({ tenderType }) => {
         </div>
       </CheckoutLineItem>
       {tenderType === 'CREDIT' && showCredit && <CheckoutCreditCards />}
-      {tenderType === 'HOUSE_ACCOUNT' && showHouseAccount && (
-        <CheckoutHouseAccounts />
-      )}
+      {tenderType === 'HOUSE_ACCOUNT' &&
+        showHouseAccount &&
+        houseAccounts.length > 0 && <CheckoutHouseAccounts />}
     </>
   )
 }
