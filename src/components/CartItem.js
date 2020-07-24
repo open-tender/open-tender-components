@@ -1,6 +1,8 @@
-import React from 'react'
+import React, { useState } from 'react'
 import propTypes from 'prop-types'
 import { displayPrice, makeModifierNames } from '@open-tender/js'
+import BuilderNutrition from './BuilderNutrition'
+import BuilderIngredients from './BuilderIngredients'
 
 const SoldOutOverlay = () => (
   <div className="builder__option__overlay ot-opacity-dark ot-border-radius-small">
@@ -31,11 +33,15 @@ const CartItem = ({
   displaySettings,
   children,
 }) => {
+  const [showInfo, setShowInfo] = useState(false)
+  const [showIngredients, setShowIngredients] = useState(false)
   const {
     calories: showCals,
     tags: showTags,
     allergens: showAllergens,
   } = displaySettings
+  const hasCals = showCals && item.cals
+  const hasIngredients = item.ingredients && item.ingredients.length > 0
   const bgStyle = item.imageUrl
     ? { backgroundImage: `url(${item.imageUrl}` }
     : null
@@ -48,72 +54,123 @@ const CartItem = ({
     : []
   const allergenAlert = itemAllergens.length > 0
 
+  const toggleShowInfo = (evt) => {
+    evt.preventDefault()
+    if (showIngredients) setShowIngredients(false)
+    setShowInfo(!showInfo)
+    evt.target.blur()
+  }
+
+  const toggleShowIngredients = (evt) => {
+    evt.preventDefault()
+    if (showInfo) setShowInfo(false)
+    setShowIngredients(!showIngredients)
+    evt.target.blur()
+  }
+
   return (
-    <span className={classes}>
-      <span
-        className="builder__option__image bg-image ot-bg-color-secondary ot-border-radius-small"
-        style={bgStyle}
-      >
-        {item.isSoldOut ? (
-          <SoldOutOverlay />
-        ) : allergenAlert ? (
-          <AllergenOverlay />
-        ) : null}
-      </span>
-      <span className="builder__option__info">
-        <span className="builder__option__name ot-font-size-small ot-bold">
-          {item.name}
+    <>
+      <span className={classes}>
+        <span
+          className="builder__option__image bg-image ot-bg-color-secondary ot-border-radius-small"
+          style={bgStyle}
+        >
+          {item.isSoldOut ? (
+            <SoldOutOverlay />
+          ) : allergenAlert ? (
+            <AllergenOverlay />
+          ) : null}
         </span>
-        {desc && (
-          <span className="builder__option__desc ot-font-size-x-small ot-color-secondary">
-            {desc}
+        <span className="builder__option__info">
+          <span className="builder__option__name ot-font-size-small ot-bold">
+            {item.name}
           </span>
-        )}
-        <span className="builder__option__details ot-font-size-small">
-          <span className="builder__option__details__container">
-            <span className="builder__option__details__price ot-bold">
-              ${displayPrice(price)}
+          {desc && (
+            <span className="builder__option__desc ot-font-size-x-small ot-color-secondary">
+              {desc}
             </span>
-            {editItem ? (
-              <>
-                <span className="builder__option__details__edit">
-                  <button className="ot-btn-link" onClick={editItem}>
-                    edit
-                  </button>
-                </span>
-                <span className="builder__option__details__remove">
-                  <button
-                    className="ot-btn-link ot-color-error"
-                    onClick={removeItem}
-                  >
-                    remove
-                  </button>
-                </span>
-              </>
-            ) : (
-              <>
-                {showCals && item.cals && (
-                  <span className="builder__option__details__cals ot-color-secondary">
-                    {item.cals} cal
+          )}
+          <span className="builder__option__details ot-font-size-small">
+            <span className="builder__option__details__container">
+              <span className="builder__option__details__price ot-bold">
+                ${displayPrice(price)}
+              </span>
+              {editItem ? (
+                <>
+                  <span className="builder__option__details__edit">
+                    <button className="ot-btn-link" onClick={editItem}>
+                      edit
+                    </button>
                   </span>
-                )}
-                {showAllergens && item.allergens.length > 0 && (
-                  <span className="builder__option__details__allergens ot-color-alert ot-font-size-x-small">
-                    {item.allergens.join(', ')}
+                  <span className="builder__option__details__remove">
+                    <button
+                      className="ot-btn-link ot-color-error"
+                      onClick={removeItem}
+                    >
+                      remove
+                    </button>
                   </span>
-                )}
-                {showTags && item.tags.length > 0 && (
-                  <span className="builder__option__details__tags ot-color-secondary ot-font-size-x-small">
-                    {item.tags.join(', ')}
-                  </span>
-                )}
-              </>
-            )}
+                </>
+              ) : (
+                <>
+                  {showCals && item.cals && (
+                    <span className="builder__option__details__cals ot-color-secondary">
+                      {item.cals} cal
+                    </span>
+                  )}
+                  {showAllergens && item.allergens.length > 0 && (
+                    <span className="builder__option__details__allergens ot-color-alert ot-font-size-x-small">
+                      {item.allergens.join(', ')}
+                    </span>
+                  )}
+                  {showTags && item.tags.length > 0 && (
+                    <span className="builder__option__details__tags ot-color-secondary ot-font-size-x-small">
+                      {item.tags.join(', ')}
+                    </span>
+                  )}
+                </>
+              )}
+            </span>
           </span>
+          {!editItem && (hasCals || hasIngredients) && (
+            <div className="builder__option__nutrition">
+              {hasCals && (
+                <button className="ot-btn-link" onClick={toggleShowInfo}>
+                  <span className="ot-font-size-x-small">
+                    {!showInfo ? 'show' : 'hide'} nutritional info
+                  </span>
+                </button>
+              )}
+              {hasCals && hasIngredients ? (
+                <span className="ot-font-size-x-small ot-color-secondary">
+                  {' | '}
+                </span>
+              ) : null}
+              {hasIngredients && (
+                <button className="ot-btn-link" onClick={toggleShowIngredients}>
+                  <span className="ot-font-size-x-small">
+                    {!showIngredients ? 'show' : 'hide'} ingredients
+                  </span>
+                </button>
+              )}
+            </div>
+          )}
         </span>
+        <span className="builder__option__quantity">{children}</span>
       </span>
-      <span className="builder__option__quantity">{children}</span>
-    </span>
+      {showCals && (
+        <BuilderNutrition
+          nutritionalInfo={item.nutritionalInfo}
+          show={showInfo}
+        />
+      )}
+      {hasIngredients && (
+        <BuilderIngredients
+          ingredients={item.ingredients}
+          show={showIngredients}
+        />
+      )}
+    </>
   )
 }
 

@@ -2,19 +2,31 @@ import propTypes from 'prop-types'
 import React, { useState } from 'react'
 import { displayPrice } from '@open-tender/js'
 import BuilderNutrition from './BuilderNutrition'
+import BuilderIngredients from './BuilderIngredients'
 
 const BuilderHeader = ({ item, displaySettings }) => {
   const [showInfo, setShowInfo] = useState(false)
+  const [showIngredients, setShowIngredients] = useState(false)
   const {
     builderImages: showImage,
     calories: showCals,
     tags: showTags,
     allergens: showAllergens,
   } = displaySettings
+  const hasCals = showCals && item.cals
+  const hasIngredients = item.ingredients && item.ingredients.length > 0
 
-  const toggleShow = (evt) => {
+  const toggleShowInfo = (evt) => {
     evt.preventDefault()
+    if (showIngredients) setShowIngredients(false)
     setShowInfo(!showInfo)
+    evt.target.blur()
+  }
+
+  const toggleShowIngredients = (evt) => {
+    evt.preventDefault()
+    if (showInfo) setShowInfo(false)
+    setShowIngredients(!showIngredients)
     evt.target.blur()
   }
 
@@ -59,13 +71,27 @@ const BuilderHeader = ({ item, displaySettings }) => {
         {item.description && (
           <p className="builder__desc ot-color-secondary">{item.description}</p>
         )}
-        {showCals && item.cals && (
+        {(hasCals || hasIngredients) && (
           <div className="builder__nutrition">
-            <button className="ot-btn-link" onClick={toggleShow}>
-              <span className="ot-font-size-small">
-                {!showInfo ? 'Show' : 'Hide'} nutritional info
+            {hasCals && (
+              <button className="ot-btn-link" onClick={toggleShowInfo}>
+                <span className="ot-font-size-small">
+                  {!showInfo ? 'show' : 'hide'} nutritional info
+                </span>
+              </button>
+            )}
+            {hasCals && hasIngredients ? (
+              <span className="ot-font-size-small ot-color-secondary">
+                {' | '}
               </span>
-            </button>
+            ) : null}
+            {hasIngredients && (
+              <button className="ot-btn-link" onClick={toggleShowIngredients}>
+                <span className="ot-font-size-small">
+                  {!showIngredients ? 'show' : 'hide'} ingredients
+                </span>
+              </button>
+            )}
           </div>
         )}
       </div>
@@ -73,6 +99,12 @@ const BuilderHeader = ({ item, displaySettings }) => {
         <BuilderNutrition
           nutritionalInfo={item.nutritionalInfo}
           show={showInfo}
+        />
+      )}
+      {hasIngredients && (
+        <BuilderIngredients
+          ingredients={item.ingredients}
+          show={showIngredients}
         />
       )}
     </div>
