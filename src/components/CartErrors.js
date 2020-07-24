@@ -67,8 +67,8 @@ const CartErrors = ({
   const isRevertable = isCartRevertable(previousMenuVars, menuVars)
 
   const handleRevert = (evt) => {
-    const { newLocation, newMenuVars } = isRevertable
-    revert(evt, newLocation, newMenuVars)
+    const { newMenuVars } = isRevertable
+    revert(evt, newMenuVars)
   }
 
   const unavailable = errors

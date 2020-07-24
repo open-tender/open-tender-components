@@ -80,6 +80,11 @@ const CheckoutDetails = () => {
         <p className="form__legend__title ot-heading ot-font-size-h3">
           {config.details.title}
         </p>
+        {config.details.subtitle.length > 0 && (
+          <p className="form__legend__subtitle ot-line-height ot-color-secondary">
+            {config.details.subtitle}
+          </p>
+        )}
       </div>
       <div className="form__inputs">
         <CheckoutLineItem label="Location">

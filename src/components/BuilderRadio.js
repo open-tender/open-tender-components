@@ -2,10 +2,11 @@ import propTypes from 'prop-types'
 import React from 'react'
 
 const BuilderRadio = ({ option, handler, classes = '' }) => {
+  const className = `${classes} ${option.isSoldOut ? '-disabled' : ''}`
   return (
     <label
       htmlFor={option.id}
-      className={`label radio builder__radio ${classes}`}
+      className={`label radio builder__radio ${className}`}
     >
       <input
         id={option.id}
@@ -13,6 +14,7 @@ const BuilderRadio = ({ option, handler, classes = '' }) => {
         className="radio__input"
         checked={option.quantity >= 1}
         onChange={handler}
+        disabled={option.isSoldOut}
       />
       <span className="radio__custom" />
     </label>

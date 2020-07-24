@@ -11,12 +11,13 @@ const initialState = {
   company: '',
 }
 
-const makeContactConfig = (requiredFields) => {
+const makeContactConfig = (requiredFields, isCatering) => {
   return {
     first_name: { label: 'First Name', included: true, required: true },
     last_name: { label: 'Last Name', included: true, required: true },
     email: { label: 'Email', included: true, required: true },
     phone: { label: 'Phone', included: true, required: true },
+    password: { label: 'Password', included: true, required: isCatering },
     company: {
       label: 'Company',
       included: requiredFields.includes('company'),
@@ -30,14 +31,18 @@ const fields = [
   { name: 'last_name', type: 'text' },
   { name: 'email', type: 'email' },
   { name: 'phone', type: 'tel' },
+  { name: 'password', type: 'password' },
   { name: 'company', type: 'text' },
 ]
 
 const CheckoutGuest = () => {
-  const { config, check, form, errors, updateForm } = useContext(FormContext)
+  const { config, order, check, form, errors, updateForm } = useContext(
+    FormContext
+  )
   const [customer, setCustomer] = useState(form.customer || initialState)
   const requiredFields = check.config.required.customer
-  const contactConfig = makeContactConfig(requiredFields)
+  const isCatering = order.orderType === 'CATERING'
+  const contactConfig = makeContactConfig(requiredFields, isCatering)
   const customerErrors = errors.customer || {}
 
   // https://medium.com/p/5489fc3461b3/responses/show
@@ -61,6 +66,11 @@ const CheckoutGuest = () => {
         <p className="form__legend__title ot-heading ot-font-size-h3">
           {config.guest.title}
         </p>
+        {config.guest.subtitle.length > 0 && (
+          <p className="form__legend__subtitle ot-line-height ot-color-secondary">
+            {config.guest.subtitle}
+          </p>
+        )}
       </legend>
       <div className="form__inputs">
         {fields.map((field) => {
