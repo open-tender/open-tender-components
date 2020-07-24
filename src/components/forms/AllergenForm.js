@@ -45,41 +45,45 @@ const AllergenForm = ({
     if (callback) callback()
   }
 
-  return (
-    <form
-      id="allergen-form"
-      className="form"
-      onSubmit={handleSubmit}
-      noValidate
-    >
-      {formError && (
-        <div className="form__error form__error--top ot-form-error">
-          {formError}
+  return allergens ? (
+    allergens.length > 0 ? (
+      <form
+        id="allergen-form"
+        className="form"
+        onSubmit={handleSubmit}
+        noValidate
+      >
+        {formError && (
+          <div className="form__error form__error--top ot-form-error">
+            {formError}
+          </div>
+        )}
+        <div className="form__inputs">
+          {allergens.map((allergen) => (
+            <Switch
+              key={allergen.allergen_id}
+              label={allergen.name}
+              id={`${allergen.allergen_id}`}
+              on={allergenIds.includes(allergen.allergen_id)}
+              onChange={handleChange}
+            />
+          ))}
         </div>
-      )}
-      <div className="form__inputs">
-        {allergens.map((allergen) => (
-          <Switch
-            key={allergen.allergen_id}
-            label={allergen.name}
-            id={`${allergen.allergen_id}`}
-            on={allergenIds.includes(allergen.allergen_id)}
-            onChange={handleChange}
-          />
-        ))}
-      </div>
-      <div className="form__submit">
-        <button
-          className="ot-btn"
-          type="submit"
-          disabled={submitting}
-          ref={submitButton}
-        >
-          Update Selected Allergens
-        </button>
-      </div>
-    </form>
-  )
+        <div className="form__submit">
+          <button
+            className="ot-btn"
+            type="submit"
+            disabled={submitting}
+            ref={submitButton}
+          >
+            Update Selected Allergens
+          </button>
+        </div>
+      </form>
+    ) : (
+      <p>This brand {"doesn't"} currently have any allergens configured</p>
+    )
+  ) : null
 }
 
 AllergenForm.displayName = 'AllergenForm'

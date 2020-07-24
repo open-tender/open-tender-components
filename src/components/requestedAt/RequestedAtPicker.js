@@ -45,7 +45,9 @@ const RequestedAtPicker = ({
     const interval = settings.first_times[serviceType].interval
     const holidays = settings.holidays[serviceType].map((i) => makeLocalDate(i))
     const weekdayTimes = makeWeekdaysExcluded(validTimes)
-    const excludedTimes = settings.excluded_times[serviceType]
+    const excludedTimes = settings.excluded_times
+      ? settings.excluded_times[serviceType]
+      : {}
     args = makeDatepickerArgs(
       date,
       weekdayTimes,
