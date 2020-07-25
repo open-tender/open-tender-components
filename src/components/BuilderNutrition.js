@@ -32,7 +32,7 @@ const BuilderNutrition = ({ nutritionalInfo = {}, show = true }) => {
     total_carbs,
     total_fat,
     trans_fat,
-  } = nutritionalInfo
+  } = nutritionalInfo || {}
   return (
     <TransitionGroup component={null}>
       {show ? (
