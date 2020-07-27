@@ -24,7 +24,7 @@ const AllergenForm = ({
   }, [isLoading])
 
   useEffect(() => {
-    setData(selectedAllergens)
+    setData(selectedAllergens || [])
   }, [selectedAllergens, allergens])
 
   const handleChange = (evt) => {

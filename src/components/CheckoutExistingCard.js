@@ -8,6 +8,7 @@ const CheckoutExistingCard = ({
   appliedCards,
   existingCards,
   addTender,
+  error,
 }) => {
   const formContext = useContext(FormContext)
   const { iconMap = {}, cardIconMap = {} } = formContext
@@ -53,6 +54,7 @@ CheckoutExistingCard.propTypes = {
   appliedCards: propTypes.array,
   existingCards: propTypes.array,
   addTender: propTypes.func,
+  error: propTypes.object,
 }
 
 export default CheckoutExistingCard

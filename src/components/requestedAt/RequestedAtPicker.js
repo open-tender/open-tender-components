@@ -21,6 +21,7 @@ const RequestedAtPicker = ({
 }) => {
   const { timezone, settings, revenue_center_type } = revenueCenter
   const tz = timezoneMap[timezone]
+  const st = serviceType === 'WALKIN' ? 'PICKUP' : serviceType
   const requestedAtDate =
     requestedAt === 'asap' ? null : isoToDate(requestedAt, tz)
   const [date, setDate] = useState(requestedAtDate)
@@ -36,17 +37,17 @@ const RequestedAtPicker = ({
   let args = {}
   if (isEmpty(settings.first_times)) {
     setError(errMessages.revenueCenterClosed)
-  } else if (!settings.first_times[serviceType]) {
+  } else if (!settings.first_times[st]) {
     setError(errMessages.serviceTypeNotAvailable)
   } else {
-    const validTimes = settings.valid_times[serviceType]
-    const daysAhead = settings.days_ahead[serviceType]
-    const firstTimes = settings.first_times[serviceType]
-    const interval = settings.first_times[serviceType].interval
-    const holidays = settings.holidays[serviceType].map((i) => makeLocalDate(i))
+    const validTimes = settings.valid_times[st]
+    const daysAhead = settings.days_ahead[st]
+    const firstTimes = settings.first_times[st]
+    const interval = settings.first_times[st].interval
+    const holidays = settings.holidays[st].map((i) => makeLocalDate(i))
     const weekdayTimes = makeWeekdaysExcluded(validTimes)
     const excludedTimes = settings.excluded_times
-      ? settings.excluded_times[serviceType]
+      ? settings.excluded_times[st]
       : {}
     args = makeDatepickerArgs(
       date,
