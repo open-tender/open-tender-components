@@ -47,13 +47,13 @@ const BuilderHeader = ({ item, displaySettings }) => {
       <div className="builder__info ot-bg-color-primary">
         <h2 className="builder__name ot-font-size-h3">{item.name}</h2>
         <div className="builder__details">
-          <span className="builder__details__price ot-bold">
+          <span className="builder__details__price ot-bold ot-color-headings">
             {item.price === '0.00'
               ? 'Price varies'
               : `$${displayPrice(item.price)}`}
           </span>
           {showCals && item.cals && (
-            <span className="builder__details__cals ot-bold ot-color-secondary">
+            <span className="builder__details__cals ot-bold">
               {item.cals} cal
             </span>
           )}
@@ -63,13 +63,13 @@ const BuilderHeader = ({ item, displaySettings }) => {
             </span>
           )}
           {showTags && item.tags.length > 0 && (
-            <span className="builder__details__cals ot-color-secondary ot-font-size-small">
+            <span className="builder__details__cals ot-font-size-small">
               {item.tags.join(', ')}
             </span>
           )}
         </div>
         {item.description && (
-          <p className="builder__desc ot-color-secondary">{item.description}</p>
+          <p className="builder__desc">{item.description}</p>
         )}
         {(hasCals || hasIngredients) && (
           <div className="builder__nutrition">
@@ -81,9 +81,7 @@ const BuilderHeader = ({ item, displaySettings }) => {
               </button>
             )}
             {hasCals && hasIngredients ? (
-              <span className="ot-font-size-small ot-color-secondary">
-                {' | '}
-              </span>
+              <span className="ot-font-size-small">{' | '}</span>
             ) : null}
             {hasIngredients && (
               <button className="ot-btn-link" onClick={toggleShowIngredients}>

@@ -6,8 +6,10 @@ const BuilderGroupHeader = ({ group }) => {
   return (
     <div className="builder__group__header">
       <div className="builder__group__info">
-        <h3 className="builder__group__name ot-font-size-h5">{group.name}</h3>
-        <p className="builder__group__desc ot-font-size-small ot-color-secondary">
+        <h3 className="builder__group__name ot-font-size-h5 ot-color-headings">
+          {group.name}
+        </h3>
+        <p className="builder__group__desc ot-font-size-small">
           {group.description}
         </p>
       </div>
@@ -17,7 +19,7 @@ const BuilderGroupHeader = ({ group }) => {
 }
 
 BuilderGroupHeader.displayName = 'BuilderGroupHeader'
-BuilderGroupWarning.propTypes = {
+BuilderGroupHeader.propTypes = {
   group: propTypes.object,
 }
 

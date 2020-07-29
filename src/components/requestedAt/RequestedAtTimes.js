@@ -48,11 +48,11 @@ const RequestedAtTimes = ({
               >
                 <div className="order-time__container">
                   <div className="order-time__time">
-                    <p className={current ? 'ot-bold' : ''}>
+                    <p className={current ? 'ot-bold ot-color-headings' : ''}>
                       {capitalize(i.weekday)} @ {time24ToDateStr(i.start_time)}{' '}
                       {current ? '(current)' : ''}
                     </p>
-                    <p className="order-time__order-by ot-font-size-small ot-color-secondary">
+                    <p className="order-time__order-by ot-font-size-small">
                       {' '}
                       (order by {orderBy})
                     </p>

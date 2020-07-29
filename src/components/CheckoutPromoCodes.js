@@ -76,12 +76,12 @@ const CheckoutPromoCodes = () => {
           {config.promoCodes.title}
         </p>
         {!email ? (
-          <p className="form__legend__subtitle ot-line-height ot-color-secondary">
+          <p className="form__legend__subtitle ot-line-height">
             Please add a valid email address before adding a promo code
           </p>
         ) : (
           config.promoCodes.subtitle && (
-            <p className="form__legend__subtitle ot-line-height ot-color-secondary">
+            <p className="form__legend__subtitle ot-line-height">
               {config.promoCodes.subtitle}
             </p>
           )

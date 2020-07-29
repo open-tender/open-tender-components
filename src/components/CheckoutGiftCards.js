@@ -9,7 +9,7 @@ import { checkAmountRemaining } from '@open-tender/js'
 const CheckoutGiftCardLabel = ({ giftCard, amount }) => {
   return (
     <span className="form__input__discount">
-      <span className="ot-font-size ot-bold">
+      <span className="ot-font-size ot-color-headings">
         Gift Card {giftCard.card_number}
       </span>
       <span className="ot-font-size-small ot-color-success">
@@ -84,7 +84,7 @@ const CheckoutGiftCards = () => {
         <p className="form__legend__title ot-heading ot-font-size-h3">
           {config.giftCards.title}
         </p>
-        <p className="form__legend__subtitle ot-line-height ot-color-secondary">
+        <p className="form__legend__subtitle ot-line-height">
           {config.giftCards.subtitle}
         </p>
       </div>

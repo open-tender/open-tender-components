@@ -13,8 +13,8 @@ import {
 
 const CheckoutTenderLabel = ({ icon, name }) => (
   <span className="form__input__tender">
-    <span className="form__input__icon">{icon}</span>
-    <span>{name}</span>
+    <span className="form__input__icon ot-color-headings">{icon}</span>
+    <span className="ot-color-headings">{name}</span>
   </span>
 )
 

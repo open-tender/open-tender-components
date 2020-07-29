@@ -245,10 +245,10 @@ const Builder = ({
       <div className="builder__footer ot-bg-color-primary">
         <div className="builder__footer__container">
           <div className="builder__price ot-font-size-h5 ot-bold">
-            <span>${displayPrice(totalPrice)}</span>
-            {item.cals && (
-              <span className="ot-color-secondary">{item.cals} cal</span>
-            )}
+            <span className="ot-color-headings">
+              ${displayPrice(totalPrice)}
+            </span>
+            {item.cals && <span>{item.cals} cal</span>}
           </div>
           <div className="builder__actions">
             <div className="builder__quantity">

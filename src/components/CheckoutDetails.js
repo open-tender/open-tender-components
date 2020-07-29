@@ -81,7 +81,7 @@ const CheckoutDetails = () => {
           {config.details.title}
         </p>
         {config.details.subtitle.length > 0 && (
-          <p className="form__legend__subtitle ot-line-height ot-color-secondary">
+          <p className="form__legend__subtitle ot-line-height">
             {config.details.subtitle}
           </p>
         )}

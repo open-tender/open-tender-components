@@ -78,7 +78,11 @@ const Check = ({ title, check, tenders, loader, updating = false }) => {
               ))}
             </ul>
           ) : null}
-          <CheckItem label="Cart Total" value={subtotal} />
+          <CheckItem
+            label="Cart Total"
+            value={subtotal}
+            classes="ot-color-headings"
+          />
           {surcharges.length ? (
             <>
               <ul className="check__items__section ot-font-size-small">
@@ -111,7 +115,7 @@ const Check = ({ title, check, tenders, loader, updating = false }) => {
             <CheckItem
               label="Total before Tax"
               value={totalBeforeTax}
-              classes="check__item--total ot-bold"
+              classes="check__item--total ot-bold ot-color-headings"
             />
           )}
           {taxes.length ? (
@@ -128,14 +132,14 @@ const Check = ({ title, check, tenders, loader, updating = false }) => {
             <CheckItem label="Tax (tax exempt)" value={'0.00'} />
           ) : null}
           {/* <CheckItem label="Tax" value={tax} /> */}
-          <CheckItem label="Tip" value={tip} />
+          <CheckItem label="Tip" value={tip} classes="ot-font-size-small" />
           {shipping !== '0.00' && (
             <CheckItem label="Shipping" value={shipping} />
           )}
           <CheckItem
             label="Total"
             value={total}
-            classes="check__item--grand-total ot-bold"
+            classes="check__item--grand-total ot-bold ot-color-headings"
           />
           {tenders.length ? (
             <>
@@ -152,7 +156,7 @@ const Check = ({ title, check, tenders, loader, updating = false }) => {
               <CheckItem
                 label="Remaining Amount Due"
                 value={amountRemaiing.toFixed(2)}
-                classes="check__item--amount-due ot-bold"
+                classes="check__item--amount-due ot-bold ot-color-headings"
               />
             </>
           ) : null}

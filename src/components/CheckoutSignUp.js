@@ -11,7 +11,7 @@ const CheckoutSignUp = () => {
         <p className="form__legend__title ot-heading ot-font-size-h3">
           {config.signUp.title}
         </p>
-        <p className="form__legend__subtitle ot-line-height ot-color-secondary">
+        <p className="form__legend__subtitle ot-line-height">
           {config.signUp.subtitle}
         </p>
       </div>

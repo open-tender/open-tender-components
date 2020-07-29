@@ -51,10 +51,10 @@ const CheckoutTip = ({ setShowTip }) => {
                 className="cards__card__tip ot-font-size"
               >
                 <div className="cards__card ot-bg-color-primary ot-border-radius">
-                  <div className="cards__card__name">
+                  <div className="cards__card__name ot-color-headings">
                     ${i.amount} ({i.percent}%)
                     {isDefault && (
-                      <span className="cards__card__default ot-font-size-small ot-color-secondary">
+                      <span className="cards__card__default ot-font-size-small ot-color-body">
                         Suggested Amount
                       </span>
                     )}

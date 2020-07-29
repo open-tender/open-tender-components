@@ -7,7 +7,7 @@ import CircleLoader from './CircleLoader'
 
 const CheckoutDiscountLabel = ({ discount }) => (
   <span className="form__input__discount">
-    <span className="ot-font-size ot-bold">{discount.name}</span>
+    <span className="ot-font-size ot-color-headings">{discount.name}</span>
     <span className="ot-font-size-small ot-color-success">
       {discount.description}
     </span>
@@ -70,7 +70,7 @@ const CheckoutDiscounts = () => {
         <p className="form__legend__title ot-heading ot-font-size-h3">
           {config.discounts.title}
         </p>
-        <p className="form__legend__subtitle ot-line-height ot-color-secondary">
+        <p className="form__legend__subtitle ot-line-height">
           {config.discounts.subtitle}
         </p>
       </div>

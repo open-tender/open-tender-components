@@ -42,7 +42,7 @@ const CheckoutSurcharges = () => {
         <p className="form__legend__title ot-heading ot-font-size-h3">
           {config.surcharges.title}
         </p>
-        <p className="form__legend__subtitle ot-line-height ot-color-secondary">
+        <p className="form__legend__subtitle ot-line-height">
           {config.surcharges.subtitle}
         </p>
       </div>

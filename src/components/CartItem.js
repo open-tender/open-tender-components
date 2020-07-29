@@ -82,17 +82,17 @@ const CartItem = ({
           ) : null}
         </span>
         <span className="builder__option__info">
-          <span className="builder__option__name ot-font-size-small ot-bold">
+          <span className="builder__option__name ot-font-size-small ot-color-headings ot-bold">
             {item.name}
           </span>
           {desc && (
-            <span className="builder__option__desc ot-font-size-x-small ot-color-secondary">
+            <span className="builder__option__desc ot-font-size-x-small">
               {desc}
             </span>
           )}
           <span className="builder__option__details ot-font-size-small">
             <span className="builder__option__details__container">
-              <span className="builder__option__details__price ot-bold">
+              <span className="builder__option__details__price ot-color-headings ot-bold">
                 ${displayPrice(price)}
               </span>
               {editItem ? (
@@ -114,7 +114,7 @@ const CartItem = ({
               ) : (
                 <>
                   {showCals && item.cals && (
-                    <span className="builder__option__details__cals ot-color-secondary">
+                    <span className="builder__option__details__cals">
                       {item.cals} cal
                     </span>
                   )}
@@ -124,7 +124,7 @@ const CartItem = ({
                     </span>
                   )}
                   {showTags && item.tags.length > 0 && (
-                    <span className="builder__option__details__tags ot-color-secondary ot-font-size-x-small">
+                    <span className="builder__option__details__tags ot-font-size-x-small">
                       {item.tags.join(', ')}
                     </span>
                   )}
@@ -142,9 +142,7 @@ const CartItem = ({
                 </button>
               )}
               {hasCals && hasIngredients ? (
-                <span className="ot-font-size-x-small ot-color-secondary">
-                  {' | '}
-                </span>
+                <span className="ot-font-size-x-small">{' | '}</span>
               ) : null}
               {hasIngredients && (
                 <button className="ot-btn-link" onClick={toggleShowIngredients}>

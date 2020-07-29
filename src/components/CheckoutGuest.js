@@ -67,7 +67,7 @@ const CheckoutGuest = () => {
           {config.guest.title}
         </p>
         {config.guest.subtitle.length > 0 && (
-          <p className="form__legend__subtitle ot-line-height ot-color-secondary">
+          <p className="form__legend__subtitle ot-line-height">
             {config.guest.subtitle}
           </p>
         )}
