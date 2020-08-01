@@ -13,27 +13,27 @@ const initialState = {
   phone: '',
 }
 
-const makeAddressConfig = (requiredFields) => {
+const makeAddressConfig = (required, displayed) => {
   return {
     unit: {
       label: 'Unit / Suite',
-      included: requiredFields.includes('unit'),
-      required: requiredFields.includes('unit'),
+      included: displayed.includes('unit') || required.includes('unit'),
+      required: required.includes('unit'),
     },
     company: {
       label: 'Company',
-      included: requiredFields.includes('company'),
-      required: requiredFields.includes('company'),
+      included: displayed.includes('company') || required.includes('company'),
+      required: required.includes('company'),
     },
     contact: {
       label: 'Contact Person',
-      included: requiredFields.includes('contact'),
-      required: requiredFields.includes('contact'),
+      included: displayed.includes('contact') || required.includes('contact'),
+      required: required.includes('contact'),
     },
     phone: {
       label: 'Contact Phone',
-      included: requiredFields.includes('phone'),
-      required: requiredFields.includes('phone'),
+      included: displayed.includes('phone') || required.includes('phone'),
+      required: required.includes('phone'),
     },
   }
 }
@@ -58,8 +58,11 @@ const CheckoutAddress = () => {
     updateRevenueCenter,
   } = formContext
   const [address, setAddress] = useState(form.address || initialState)
-  const requiredFields = check.config.required.address
-  const addressConfig = makeAddressConfig(requiredFields)
+  const required = check.config.required.address || []
+  const displayed = check.config.displayed
+    ? check.config.displayed.address || []
+    : []
+  const addressConfig = makeAddressConfig(required, displayed)
   const addressErrors = errors.address || {}
   const fullAddress = makeFullAddress(order.address)
 

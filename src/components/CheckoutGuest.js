@@ -11,7 +11,7 @@ const initialState = {
   company: '',
 }
 
-const makeContactConfig = (requiredFields, isCatering) => {
+const makeContactConfig = (required, displayed, isCatering) => {
   return {
     first_name: { label: 'First Name', included: true, required: true },
     last_name: { label: 'Last Name', included: true, required: true },
@@ -20,8 +20,8 @@ const makeContactConfig = (requiredFields, isCatering) => {
     password: { label: 'Password', included: true, required: isCatering },
     company: {
       label: 'Company',
-      included: requiredFields.includes('company'),
-      required: requiredFields.includes('company'),
+      included: displayed.includes('company') || required.includes('company'),
+      required: required.includes('company'),
     },
   }
 }
@@ -40,9 +40,12 @@ const CheckoutGuest = () => {
     FormContext
   )
   const [customer, setCustomer] = useState(form.customer || initialState)
-  const requiredFields = check.config.required.customer
+  const required = check.config.required.customer
+  const displayed = check.config.displayed
+    ? check.config.displayed.customer || []
+    : []
   const isCatering = order.orderType === 'CATERING'
-  const contactConfig = makeContactConfig(requiredFields, isCatering)
+  const contactConfig = makeContactConfig(required, displayed, isCatering)
   const customerErrors = errors.customer || {}
 
   // https://medium.com/p/5489fc3461b3/responses/show

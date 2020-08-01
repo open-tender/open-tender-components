@@ -38,12 +38,19 @@ const CheckoutDetails = () => {
   const isCatering = orderType === 'CATERING'
   const serviceTypeBtnName = makeServiceTypeName(serviceType, isCatering)
   const allowTaxExempt = check.config.allow_tax_exempt
-  const requiredFields = check.config.required.details
+  const displayed = check.config.displayed
+    ? check.config.displayed.details || []
+    : []
+  const required = check.config.required.details
   const tipSettings = check.config.gratuity
-  const eatingUtensilsRequired = requiredFields.includes('eating_utensils')
-  const servingUtensilsRequired = requiredFields.includes('serving_utensils')
-  const personCountRequired = requiredFields.includes('person_count')
-  const notesRequired = requiredFields.includes('notes')
+  const showEatingUtensils =
+    displayed.includes('eatingUtensils') || required.includes('eatingUtensils')
+  const showServingUtensils =
+    displayed.includes('servingUtensils') ||
+    required.includes('servingUtensils')
+  const showPersonCount =
+    displayed.includes('count') || required.includes('count')
+  const showNotes = displayed.includes('notes') || required.includes('notes')
   const detailsErrors = errors.details || {}
   const requestedAtText = makeRequestedAtStr(order.requestedAt, tz)
 
@@ -130,7 +137,7 @@ const CheckoutDetails = () => {
           </>
         )}
 
-        {eatingUtensilsRequired && (
+        {showEatingUtensils && (
           <Switch
             label="Eating Utensils"
             id="details-eating_utensils"
@@ -139,7 +146,7 @@ const CheckoutDetails = () => {
             inputClasses="input--button"
           />
         )}
-        {servingUtensilsRequired && (
+        {showServingUtensils && (
           <Switch
             label="Serving Utensils"
             id="details-serving_utensils"
@@ -159,7 +166,7 @@ const CheckoutDetails = () => {
             required={false}
           />
         )}
-        {personCountRequired && (
+        {showPersonCount && (
           <Input
             label="Person Count"
             name="details-person_count"
@@ -167,17 +174,17 @@ const CheckoutDetails = () => {
             value={details.person_count}
             onChange={handleChange}
             error={detailsErrors.person_count}
-            required={personCountRequired}
+            required={required.includes('count')}
           />
         )}
-        {notesRequired && (
+        {showNotes && (
           <Textarea
             label="Notes"
             name="details-notes"
             value={details.notes}
             onChange={handleChange}
             error={detailsErrors.notes}
-            required={notesRequired}
+            required={required.includes('notes')}
           />
         )}
       </div>

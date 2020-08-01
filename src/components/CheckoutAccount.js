@@ -5,13 +5,13 @@ import debounce from 'lodash/debounce'
 import Button from './Button'
 import { FormContext } from './CheckoutForm'
 
-const makeAccountConfig = (requiredFields) => {
+const makeAccountConfig = (required, displayed) => {
   return {
     phone: { label: 'Phone', included: true, required: true },
     company: {
       label: 'Company',
-      included: requiredFields.includes('company'),
-      required: requiredFields.includes('company'),
+      included: displayed.includes('company') || required.includes('company'),
+      required: required.includes('company'),
     },
   }
 }
@@ -37,8 +37,11 @@ const CheckoutAccount = () => {
     goToAccount,
   } = formContext
   const [customer, setCustomer] = useState(form.customer)
-  const requiredFields = check.config.required.customer
-  const accountConfig = makeAccountConfig(requiredFields)
+  const required = check.config.required.customer
+  const displayed = check.config.displayed
+    ? check.config.displayed.customer || []
+    : []
+  const accountConfig = makeAccountConfig(required, displayed)
   const formErrors = errors.customer || {}
 
   const debouncedUpdate = useCallback(
