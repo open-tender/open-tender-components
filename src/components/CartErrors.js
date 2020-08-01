@@ -17,7 +17,7 @@ const InvalidItems = ({ invalidItems }) => {
               : null
           return (
             <li key={`${item.id}-${index}`}>
-              <span className="validate__invalid__item ot-bold">
+              <span className="validate__invalid__item ot-bold ot-headings-color">
                 {item.name}
               </span>
               {missingOptions ? (

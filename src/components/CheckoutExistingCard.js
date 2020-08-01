@@ -1,6 +1,8 @@
-import React, { useContext } from 'react'
+import React, { useState, useEffect, useContext } from 'react'
 import propTypes from 'prop-types'
+import { isEmpty } from '@open-tender/js'
 import { FormContext } from './CheckoutForm'
+import { Error } from './Inputs'
 import CircleLoader from './CircleLoader'
 
 const CheckoutExistingCard = ({
@@ -10,6 +12,7 @@ const CheckoutExistingCard = ({
   addTender,
   error,
 }) => {
+  const [errors, setErrors] = useState({})
   const formContext = useContext(FormContext)
   const { iconMap = {}, cardIconMap = {} } = formContext
   const tender = { ...card, tender_type: 'CREDIT' }
@@ -17,6 +20,14 @@ const CheckoutExistingCard = ({
   const isDisabled = appliedCards.length && !isApplied
   const disabled = isDisabled ? '-disabled' : ''
   const classes = `cards__card ot-bg-color-primary ot-border-radius ${disabled}`
+  const cardError = !isEmpty(errors) ? Object.values(errors)[0] : null
+
+  useEffect(() => {
+    if (error && !isEmpty(error)) {
+      setErrors(error)
+    }
+  }, [error])
+
   return !isDisabled ? (
     <li>
       <div className={classes}>
@@ -44,6 +55,7 @@ const CheckoutExistingCard = ({
           )}
         </div>
       </div>
+      {cardError && <Error error={cardError} />}
     </li>
   ) : null
 }
