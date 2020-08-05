@@ -34,7 +34,15 @@ import CheckoutTender from './CheckoutTender'
 import CheckoutTip from './CheckoutTip'
 import CircleLoader from './CircleLoader'
 import DeliveryLink from './DeliveryLink'
-import { Label, Error, Input, Textarea, Switch, Checkbox } from './Inputs'
+import {
+  Label,
+  Error,
+  Input,
+  Textarea,
+  Select,
+  Switch,
+  Checkbox,
+} from './Inputs'
 
 export {
   Builder,
@@ -77,6 +85,7 @@ export {
   Input,
   Textarea,
   Label,
+  Select,
   Switch,
   Checkbox,
 }
