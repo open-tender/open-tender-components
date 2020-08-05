@@ -33,7 +33,7 @@ const CheckoutDetails = () => {
   } = useContext(FormContext)
   const [details, setDetails] = useState(form.details)
   const [showTip, setShowTip] = useState(false)
-  const { orderType, serviceType, revenueCenter } = order
+  const { orderType, serviceType, revenueCenter = {} } = order
   const serviceTypeName = serviceTypeNamesMap[serviceType]
   const isCatering = orderType === 'CATERING'
   const serviceTypeBtnName = makeServiceTypeName(serviceType, isCatering)
