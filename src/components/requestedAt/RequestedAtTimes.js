@@ -60,7 +60,7 @@ const RequestedAtTimes = ({
                 }`}
               >
                 <div className="order-time__container">
-                  <div className="order-time__time ot-font-size-small">
+                  <div className="order-time__time">
                     <p className={current ? 'ot-bold ot-color-headings' : ''}>
                       {capitalize(i.weekday)} {makeOrderWindow(i)}{' '}
                       {current ? '(current)' : ''}
