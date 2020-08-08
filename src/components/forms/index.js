@@ -8,6 +8,7 @@ import CreditCardForm from './CreditCardForm'
 import AllergenForm from './AllergenForm'
 import OrderRatingForm from './OrderRatingForm'
 import GiftCardForm from './GiftCardForm'
+import CartGuestForm from './CartGuestForm'
 import SubmitButton from './SubmitButton'
 
 export {
@@ -22,4 +23,5 @@ export {
   AllergenForm,
   OrderRatingForm,
   GiftCardForm,
+  CartGuestForm,
 }
