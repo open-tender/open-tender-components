@@ -35,7 +35,6 @@ const CartGuestForm = ({ loading, error, cartId, joinCart }) => {
     evt.preventDefault()
     setErrors({})
     setSubmitting(true)
-    console.log(data)
     joinCart(data)
     submitButton.current.blur()
   }
