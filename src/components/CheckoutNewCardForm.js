@@ -34,21 +34,21 @@ const fields = [
     label: 'Expiration',
     placeholder: 'MMYY',
     name: 'exp',
-    type: 'number',
+    type: 'text',
     autoComplete: 'cc-exp',
   },
   {
     label: 'CVV',
     placeholder: '###',
     name: 'cvv',
-    type: 'number',
+    type: 'text',
     autoComplete: 'cc-csc',
   },
   {
     label: 'Zip Code',
     placeholder: '#####',
     name: 'zip',
-    type: 'number',
+    type: 'text',
     autoComplete: 'postal-code',
   },
 ]
@@ -152,6 +152,13 @@ const CheckoutNewCardForm = ({
                   <p key={field}>{msg}</p>
                 ))}
               </span>
+              {emptyFields && (
+                <span className="ot-form-error">
+                  * Please note that you may need to tap in any fields that were
+                  automatically completed in order for their values to be
+                  recognized.
+                </span>
+              )}
             </div>
           ) : null}
           {fields.map((field) => {
@@ -187,7 +194,7 @@ const CheckoutNewCardForm = ({
             text="Apply New Card"
             classes="ot-btn ot-btn--cart"
             onClick={submitTender}
-            disabled={emptyFields || isApplied}
+            disabled={isApplied}
           />
           {isApplied ? (
             <Button
