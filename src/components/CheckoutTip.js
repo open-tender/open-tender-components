@@ -95,6 +95,7 @@ const CheckoutTip = ({ setShowTip }) => {
                 onClick={applyCustomTip}
                 className="ot-btn-link"
                 disabled={customTip.length === 0}
+                aria-label="Apply custom tip"
               >
                 {customApplied ? (
                   <CircleLoader complete={true} />

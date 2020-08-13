@@ -36,7 +36,7 @@ const OrderRatingForm = ({
     <form id="rating-form" className="form" onSubmit={handleSubmit} noValidate>
       <div className="form__inputs">
         <div className="order__stars">
-          {stars.map((star) => {
+          {stars.map((star, index) => {
             const classes = star <= rating ? 'ot-color-link' : ''
             return (
               <button
@@ -44,6 +44,7 @@ const OrderRatingForm = ({
                 type="button"
                 className={classes}
                 onClick={(evt) => handleRating(evt, star)}
+                aria-label={`Give ${index + 1} star rating`}
               >
                 <span>{icon}</span>
               </button>

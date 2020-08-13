@@ -51,6 +51,7 @@ export const Input = React.forwardRef(
       disabled = false,
       readOnly = false,
       required = false,
+      autoComplete = null,
       placeholder = '',
       classes = '',
       inputClasses = '',
@@ -58,9 +59,6 @@ export const Input = React.forwardRef(
     },
     ref
   ) => {
-    const autoComplete = ['email', 'password'].includes(type)
-      ? `current-${name}`
-      : null
     return (
       <label
         htmlFor={name}
@@ -74,7 +72,7 @@ export const Input = React.forwardRef(
               id={name}
               name={name}
               type={type}
-              autoComplete={autoComplete}
+              autoComplete={autoComplete || null}
               value={value || ''}
               placeholder={placeholder}
               disabled={disabled}
@@ -105,6 +103,7 @@ Input.propTypes = {
   disabled: propTypes.bool,
   readOnly: propTypes.bool,
   required: propTypes.bool,
+  autoComplete: propTypes.string,
   placeholder: propTypes.string,
   classes: propTypes.string,
   inputClasses: propTypes.string,

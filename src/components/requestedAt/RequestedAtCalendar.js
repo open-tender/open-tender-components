@@ -29,7 +29,10 @@ const RequestedAtCalendar = ({
     <div className="modal__content">
       {forcedUpdate ? (
         <div className="modal__header">
-          <p className="modal__title ot-heading ot-font-size-h3">
+          <p
+            id="dialogTitle"
+            className="modal__title ot-heading ot-font-size-h3"
+          >
             Order date & time updated
           </p>
           <p className="modal__subtitle ot-bold ot-color-alert">
@@ -39,7 +42,10 @@ const RequestedAtCalendar = ({
         </div>
       ) : (
         <div className="modal__header">
-          <p className="modal__title ot-heading ot-font-size-h3">
+          <p
+            id="dialogTitle"
+            className="modal__title ot-heading ot-font-size-h3"
+          >
             Choose an order date & time
           </p>
           <p className="modal__subtitle ot-bold ot-color-alert">

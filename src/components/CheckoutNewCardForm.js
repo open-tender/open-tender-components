@@ -28,10 +28,29 @@ const fields = [
     placeholder: '#### #### #### ####',
     name: 'acct',
     type: 'text',
+    autoComplete: 'cc-number',
   },
-  { label: 'Expiration', placeholder: 'MMYY', name: 'exp', type: 'number' },
-  { label: 'CVV', placeholder: '###', name: 'cvv', type: 'number' },
-  { label: 'Zip Code', placeholder: '#####', name: 'zip', type: 'number' },
+  {
+    label: 'Expiration',
+    placeholder: 'MMYY',
+    name: 'exp',
+    type: 'number',
+    autoComplete: 'cc-exp',
+  },
+  {
+    label: 'CVV',
+    placeholder: '###',
+    name: 'cvv',
+    type: 'number',
+    autoComplete: 'cc-csc',
+  },
+  {
+    label: 'Zip Code',
+    placeholder: '#####',
+    name: 'zip',
+    type: 'number',
+    autoComplete: 'postal-code',
+  },
 ]
 
 const CheckoutNewCardForm = ({
@@ -142,6 +161,7 @@ const CheckoutNewCardForm = ({
                 label={field.label}
                 name={field.name}
                 type={field.type}
+                autoComplete={field.autoComplete}
                 value={newCard[field.name]}
                 placeholder={field.placeholder}
                 onChange={handleChange}

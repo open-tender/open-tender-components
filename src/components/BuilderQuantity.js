@@ -35,6 +35,7 @@ const BuilderQuantity = ({
         className="quantity__increase__zero ot-border-color"
         onClick={handleIncrement}
         disabled={incrementDisabled || item.isSoldOut}
+        aria-label="Increase quantity"
       >
         {iconMap.plus || '+'}
       </button>
@@ -45,6 +46,7 @@ const BuilderQuantity = ({
         className="quantity__decrease"
         onClick={handleDecrement}
         disabled={decrementDisabled}
+        aria-label="Decrease quantity"
       >
         {iconMap.minus || '-'}
       </button>
@@ -62,6 +64,7 @@ const BuilderQuantity = ({
         className="quantity__increase"
         onClick={handleIncrement}
         disabled={incrementDisabled}
+        aria-label="Increase quantity"
       >
         {iconMap.plus || '+'}
       </button>

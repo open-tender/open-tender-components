@@ -15,6 +15,7 @@ const BuilderRadio = ({ option, handler, classes = '' }) => {
         checked={option.quantity >= 1}
         onChange={handler}
         disabled={option.isSoldOut}
+        aria-label={option.name}
       />
       <span className="radio__custom" />
     </label>

@@ -5,7 +5,13 @@ import { Input } from '../index'
 const fields = [
   { label: 'First Name', name: 'first_name', type: 'text', required: true },
   { label: 'Last Name', name: 'last_name', type: 'text', required: true },
-  { label: 'Email', name: 'email', type: 'email', required: true },
+  {
+    label: 'Email',
+    name: 'email',
+    type: 'email',
+    required: true,
+    autoComplete: 'email',
+  },
   { label: 'Phone', name: 'phone', type: 'tel', required: true },
   { label: 'Company', name: 'company', type: 'text' },
 ]
@@ -53,6 +59,7 @@ const AccountProfile = ({ profile, loading, error, update }) => {
             onChange={handleChange}
             error={errors[field.name]}
             required={field.required}
+            autoComplete={field.autoComplete}
           />
         ))}
       </div>

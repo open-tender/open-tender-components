@@ -45,7 +45,9 @@ const BuilderHeader = ({ item, displaySettings }) => {
         </div>
       )}
       <div className="builder__info ot-bg-color-primary">
-        <h2 className="builder__name ot-font-size-h3">{item.name}</h2>
+        <h2 id="dialogTitle" className="builder__name ot-font-size-h3">
+          {item.name}
+        </h2>
         <div className="builder__details">
           <span className="builder__details__price ot-bold ot-color-headings">
             {item.price === '0.00'

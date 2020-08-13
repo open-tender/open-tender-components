@@ -17,7 +17,11 @@ const makeContactConfig = (required, displayed, isCatering) => {
     last_name: { label: 'Last Name', included: true, required: true },
     email: { label: 'Email', included: true, required: true },
     phone: { label: 'Phone', included: true, required: true },
-    password: { label: 'Password', included: true, required: isCatering },
+    password: {
+      label: 'Password',
+      included: true,
+      required: isCatering,
+    },
     company: {
       label: 'Company',
       included: displayed.includes('company') || required.includes('company'),
@@ -31,7 +35,7 @@ const fields = [
   { name: 'last_name', type: 'text' },
   { name: 'email', type: 'email' },
   { name: 'phone', type: 'tel' },
-  { name: 'password', type: 'password' },
+  { name: 'password', type: 'password', autoComplete: 'new-password' },
   { name: 'company', type: 'text' },
 ]
 
@@ -90,6 +94,7 @@ const CheckoutGuest = () => {
                 onChange={handleChange}
                 error={customerErrors[field.name]}
                 required={input.required}
+                autoComplete={field.autoComplete}
               />
             )
           )

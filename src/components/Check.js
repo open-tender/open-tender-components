@@ -68,15 +68,17 @@ const Check = ({ title, check, tenders, loader, updating = false }) => {
         </div>
         <ul className="check__items">
           {cart && cart.length ? (
-            <ul className="check__items__section ot-font-size-small">
-              {cart.map((item, index) => (
-                <CheckItem
-                  key={`${item.id}-${index}`}
-                  label={`${item.name}`}
-                  value={item.price_total}
-                />
-              ))}
-            </ul>
+            <li>
+              <ul className="check__items__section ot-font-size-small">
+                {cart.map((item, index) => (
+                  <CheckItem
+                    key={`${item.id}-${index}`}
+                    label={`${item.name}`}
+                    value={item.price_total}
+                  />
+                ))}
+              </ul>
+            </li>
           ) : null}
           <CheckItem
             label="Cart Total"
@@ -84,7 +86,7 @@ const Check = ({ title, check, tenders, loader, updating = false }) => {
             classes="ot-color-headings"
           />
           {surcharges.length ? (
-            <>
+            <li>
               <ul className="check__items__section ot-font-size-small">
                 {surcharges.map((surcharge) => (
                   <CheckItem
@@ -95,10 +97,10 @@ const Check = ({ title, check, tenders, loader, updating = false }) => {
                 ))}
               </ul>
               {/* <CheckItem label="Surcharge" value={surcharge} /> */}
-            </>
+            </li>
           ) : null}
           {discounts.length ? (
-            <>
+            <li>
               <ul className="check__items__section ot-font-size-small">
                 {discounts.map((discount) => (
                   <CheckItem
@@ -109,7 +111,7 @@ const Check = ({ title, check, tenders, loader, updating = false }) => {
                 ))}
               </ul>
               {/* <CheckItem label="Discount" value={discount} /> */}
-            </>
+            </li>
           ) : null}
           {subtotal !== totalBeforeTax && (
             <CheckItem
@@ -119,15 +121,17 @@ const Check = ({ title, check, tenders, loader, updating = false }) => {
             />
           )}
           {taxes.length ? (
-            <ul className="check__items__section ot-font-size-small">
-              {taxes.map((tax) => (
-                <CheckItem
-                  key={tax.id}
-                  label={`${tax.name}`}
-                  value={tax.amount}
-                />
-              ))}
-            </ul>
+            <li>
+              <ul className="check__items__section ot-font-size-small">
+                {taxes.map((tax) => (
+                  <CheckItem
+                    key={tax.id}
+                    label={`${tax.name}`}
+                    value={tax.amount}
+                  />
+                ))}
+              </ul>
+            </li>
           ) : details.is_tax_exempt ? (
             <CheckItem label="Tax (tax exempt)" value={'0.00'} />
           ) : null}
@@ -143,15 +147,17 @@ const Check = ({ title, check, tenders, loader, updating = false }) => {
           />
           {tenders.length ? (
             <>
-              <ul className="check__items__section ot-font-size-small">
-                {tenders.map((tender, index) => (
-                  <CheckItem
-                    key={`${tender.tender_type}-${tender.amount}-${index}`}
-                    label={`${makeTenderName(tender)}`}
-                    value={tender.amount}
-                  />
-                ))}
-              </ul>
+              <li>
+                <ul className="check__items__section ot-font-size-small">
+                  {tenders.map((tender, index) => (
+                    <CheckItem
+                      key={`${tender.tender_type}-${tender.amount}-${index}`}
+                      label={`${makeTenderName(tender)}`}
+                      value={tender.amount}
+                    />
+                  ))}
+                </ul>
+              </li>
               {/* <CheckItem label="Total Tenders" value={tendersTotal} /> */}
               <CheckItem
                 label="Remaining Amount Due"

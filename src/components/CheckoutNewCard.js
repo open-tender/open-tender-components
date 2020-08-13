@@ -53,6 +53,7 @@ const CheckoutNewCard = ({
                 onClick={handleToggle}
                 className="ot-btn-link"
                 disabled={isApplied || isDisabled}
+                aria-label="Add a new card"
               >
                 {iconMap.add || '+'}
               </button>

@@ -6,8 +6,20 @@ import SubmitButton from './SubmitButton'
 const fields = [
   { label: 'First Name', name: 'first_name', type: 'text', required: true },
   { label: 'Last Name', name: 'last_name', type: 'text', required: true },
-  { label: 'Email', name: 'email', type: 'email', required: true },
-  { label: 'Password', name: 'password', type: 'password', required: true },
+  {
+    label: 'Email',
+    name: 'email',
+    type: 'email',
+    required: true,
+    autoComplete: 'email',
+  },
+  {
+    label: 'Password',
+    name: 'password',
+    type: 'password',
+    required: true,
+    autoComplete: 'new-password',
+  },
   { label: 'Phone', name: 'phone', type: 'tel', required: true },
   // { label: 'Company', name: 'company', type: 'text' },
 ]
@@ -61,6 +73,7 @@ const SignUpForm = ({ loading, error, signUp, callback }) => {
             onChange={handleChange}
             error={errors ? errors[field.name] : ''}
             required={field.required}
+            autoComplete={field.autoComplete}
           />
         ))}
       </div>

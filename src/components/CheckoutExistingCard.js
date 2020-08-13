@@ -21,6 +21,7 @@ const CheckoutExistingCard = ({
   const disabled = isDisabled ? '-disabled' : ''
   const classes = `cards__card ot-bg-color-primary ot-border-radius ${disabled}`
   const cardError = !isEmpty(errors) ? Object.values(errors)[0] : null
+  const cardName = `${card.card_type_name} ending in ${card.last4}`
 
   useEffect(() => {
     if (error && !isEmpty(error)) {
@@ -37,7 +38,7 @@ const CheckoutExistingCard = ({
           )}
         </div>
         <div className="cards__card__name">
-          {card.card_type_name} ending in {card.last4}
+          {cardName}
           {card.is_default ? ' (default)' : ''}
         </div>
         <div className="cards__card__add">
@@ -49,6 +50,7 @@ const CheckoutExistingCard = ({
               onClick={(evt) => addTender(evt, tender)}
               className="ot-btn-link"
               disabled={isApplied || isDisabled}
+              aria-label={`Apply ${cardName}`}
             >
               {iconMap.add || '+'}
             </button>

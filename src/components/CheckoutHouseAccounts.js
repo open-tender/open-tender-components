@@ -76,6 +76,7 @@ const CheckoutHouseAccounts = () => {
                       onClick={(evt) => addTender(evt, tender)}
                       className="ot-btn-link"
                       disabled={isApplied || isDisabled}
+                      aria-label={`Apply house account ${name}`}
                     >
                       {iconMap.add || '+'}
                     </button>
