@@ -9,6 +9,7 @@ import AllergenForm from './AllergenForm'
 import OrderRatingForm from './OrderRatingForm'
 import GiftCardForm from './GiftCardForm'
 import CartGuestForm from './CartGuestForm'
+import LevelUpForm from './LevelUpForm'
 import SubmitButton from './SubmitButton'
 
 export {
@@ -24,4 +25,5 @@ export {
   OrderRatingForm,
   GiftCardForm,
   CartGuestForm,
+  LevelUpForm,
 }
