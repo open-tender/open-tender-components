@@ -191,6 +191,13 @@ const CheckoutForm = ({
     evt.target.blur()
   }
 
+  const handleConnectLevelUp = (evt) => {
+    evt.preventDefault()
+    const validate = () => dispatch(validateOrder(orderValidate))
+    dispatch(setAlert({ type: 'levelup', args: { validate } }))
+    evt.target.blur()
+  }
+
   const handleSubmit = (evt) => {
     evt.preventDefault()
     dispatch(setSubmitting(true))
@@ -219,6 +226,7 @@ const CheckoutForm = ({
         updateRequestedAt: handleRequestedAt,
         updateRevenueCenter: handleRevenueCenter,
         updateServiceType: handleServiceType,
+        connectLevelUp: handleConnectLevelUp,
       }}
     >
       <form

@@ -28,11 +28,6 @@ const LevelUpForm = ({ email, loading, error, connect, callback }) => {
 
   return (
     <form id="levelup-form" className="form" onSubmit={handleSubmit} noValidate>
-      {errors.form && (
-        <div className="form__error form__error--top ot-form-error">
-          {errors.form}
-        </div>
-      )}
       <div className="form__inputs">
         <Input
           label="Email Address"
@@ -44,6 +39,16 @@ const LevelUpForm = ({ email, loading, error, connect, callback }) => {
           required={true}
           autoComplete="email"
         />
+        <Input
+          label="Password"
+          name="password"
+          type="password"
+          value={data.password}
+          onChange={handleChange}
+          error={errors.password}
+          required={true}
+          autoComplete="off"
+        />
       </div>
       <div className="form__submit">
         <button
@@ -52,9 +57,7 @@ const LevelUpForm = ({ email, loading, error, connect, callback }) => {
           disabled={submitting}
           ref={submitButton}
         >
-          {submitting
-            ? 'Sending Connection Request...'
-            : 'Submit Connection Request'}
+          {submitting ? 'Connecting LevelUp...' : 'Connect LevelUp'}
         </button>
       </div>
     </form>

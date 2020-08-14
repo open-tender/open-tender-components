@@ -3,9 +3,16 @@ import { FormContext } from './CheckoutForm'
 import { TendersContext } from './CheckoutTenders'
 import CircleLoader from './CircleLoader'
 
-const CheckoutHouseAccounts = () => {
+const CheckoutLevelUp = () => {
   const formContext = useContext(FormContext)
-  const { iconMap = {}, check, form, goToAccount, signUp } = formContext
+  const {
+    iconMap = {},
+    check,
+    form,
+    signUp,
+    connectLevelUp,
+    loading,
+  } = formContext
   const tenderContext = useContext(TendersContext)
   const { addTender } = tenderContext
   const isCustomer = check.customer.customer_id
@@ -23,7 +30,7 @@ const CheckoutHouseAccounts = () => {
               <div className="cards__card__name ot-line-height">
                 <p className="ot-color-success">
                   {!applied
-                    ? 'Click the "plus" icon to pay with LevelUp'
+                    ? 'Pay with LevelUp (click the "plus" icon to apply)'
                     : 'LevelUp payment applied'}
                 </p>
                 <p className="ot-font-size-small">
@@ -31,16 +38,15 @@ const CheckoutHouseAccounts = () => {
                   <span className="ot-color-headings ot-bold">
                     {levelup.email}
                   </span>{' '}
-                  email address. If you need to change this,{' '}
+                  email address.
                   <button
                     type="button"
-                    onClick={goToAccount}
+                    onClick={connectLevelUp}
                     className="ot-btn-link"
                     aria-label="Go to account page to connect LevelUp"
                   >
-                    visit your account page
-                  </button>{' '}
-                  to disconnect this email address and connect another one.
+                    Click here if you need to change this.
+                  </button>
                 </p>
               </div>
               <div className="cards__card__add">
@@ -64,18 +70,26 @@ const CheckoutHouseAccounts = () => {
               <div className="cards__card__name ot-line-height">
                 <p className="ot-color-error">LevelUp Not Connected</p>
                 <p className="ot-font-size-small">
-                  Your LevelUp account is not currently connected.{' '}
+                  Your LevelUp account is not currently connected so you cannot
+                  use LevelUp for payment.
                   <button
                     type="button"
-                    onClick={goToAccount}
+                    onClick={connectLevelUp}
                     className="ot-btn-link"
                     aria-label="Go to account page to connect LevelUp"
                   >
-                    Please visit your account page
+                    Click here to connect LevelUp
                   </button>{' '}
-                  in order to connect your accounts and enable the LevelUp
-                  payment method. Once {"that's"} done, you can use the cart
-                  button in the lower right to easily get back here.
+                  or{' '}
+                  <a
+                    className="no-link"
+                    href="https://www.thelevelup.com/users/new"
+                    rel="noopener noreferrer"
+                    target="_blank"
+                  >
+                    click here to create a LevelUp account
+                  </a>{' '}
+                  if you {"don't"} have one.
                 </p>
               </div>
             </div>
@@ -104,6 +118,6 @@ const CheckoutHouseAccounts = () => {
   )
 }
 
-CheckoutHouseAccounts.displayName = 'CheckoutHouseAccounts'
+CheckoutLevelUp.displayName = 'CheckoutLevelUp'
 
-export default CheckoutHouseAccounts
+export default CheckoutLevelUp
