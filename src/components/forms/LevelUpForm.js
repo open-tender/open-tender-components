@@ -53,8 +53,8 @@ const LevelUpForm = ({ email, loading, error, connect, callback }) => {
           ref={submitButton}
         >
           {submitting
-            ? 'Sending Permissions Request...'
-            : 'Submit Permissions Request'}
+            ? 'Sending Connection Request...'
+            : 'Submit Connection Request'}
         </button>
       </div>
     </form>

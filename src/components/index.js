@@ -16,6 +16,7 @@ import CheckoutAccount from './CheckoutAccount'
 import CheckoutAddress from './CheckoutAddress'
 import CheckoutCustomer from './CheckoutCustomer'
 import CheckoutCreditCards from './CheckoutCreditCards'
+import CheckoutLevelUp from './CheckoutLevelUp'
 import CheckoutHouseAccounts from './CheckoutHouseAccounts'
 import CheckoutDetails from './CheckoutDetails'
 import CheckoutDiscounts from './CheckoutDiscounts'
@@ -62,6 +63,7 @@ export {
   CheckoutAddress,
   CheckoutCustomer,
   CheckoutCreditCards,
+  CheckoutLevelUp,
   CheckoutDetails,
   CheckoutDiscounts,
   CheckoutExistingCard,

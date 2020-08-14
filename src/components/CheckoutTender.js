@@ -9,6 +9,7 @@ import {
   CheckoutLineItem,
   CheckoutCreditCards,
   CheckoutHouseAccounts,
+  CheckoutLevelUp,
 } from '.'
 
 const CheckoutTenderLabel = ({ icon, name }) => (
@@ -36,6 +37,8 @@ const CheckoutTender = ({ tenderType }) => {
     setShowCredit,
     showHouseAccount,
     setShowHouseAccount,
+    showLevelUp,
+    setShowLevelUp,
     addTender,
     removeTender,
     iconMap,
@@ -54,20 +57,32 @@ const CheckoutTender = ({ tenderType }) => {
     tenderType === 'CREDIT'
       ? (evt) => {
           evt.preventDefault()
-          setShowHouseAccount(false)
           setShowCredit(true)
+          setShowLevelUp(false)
+          setShowHouseAccount(false)
           evt.target.blur()
         }
       : tenderType === 'HOUSE_ACCOUNT'
       ? (evt) => {
           evt.preventDefault()
           setShowCredit(false)
+          setShowLevelUp(false)
           setShowHouseAccount(true)
+
+          evt.target.blur()
+        }
+      : tenderType === 'LEVELUP'
+      ? (evt) => {
+          evt.preventDefault()
+          setShowCredit(false)
+          setShowLevelUp(true)
+          setShowHouseAccount(false)
           evt.target.blur()
         }
       : (evt) => {
           addTender(evt, { tender_type: tenderType })
           setShowCredit(false)
+          setShowLevelUp(false)
           setShowHouseAccount(false)
         }
 
@@ -103,6 +118,7 @@ const CheckoutTender = ({ tenderType }) => {
         </div>
       </CheckoutLineItem>
       {tenderType === 'CREDIT' && showCredit && <CheckoutCreditCards />}
+      {tenderType === 'LEVELUP' && showLevelUp && <CheckoutLevelUp />}
       {tenderType === 'HOUSE_ACCOUNT' &&
         showHouseAccount &&
         houseAccounts.length > 0 && <CheckoutHouseAccounts />}

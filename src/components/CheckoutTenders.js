@@ -9,6 +9,7 @@ export const TendersContext = createContext(null)
 const CheckoutTenders = () => {
   const [showCredit, setShowCredit] = useState(false)
   const [showHouseAccount, setShowHouseAccount] = useState(false)
+  const [showLevelUp, setShowLevelUp] = useState(false)
   const formContext = useContext(FormContext)
   const { iconMap = {}, config, check, form, errors, updateForm } = formContext
   const tenderTypes = check.config.tender_types.filter((i) => i !== 'GIFT_CARD')
@@ -68,6 +69,8 @@ const CheckoutTenders = () => {
     const nonZero = adjusted.filter((i) => i.amount !== '0.00')
     updateForm({ tenders: [...giftCard, ...nonZero] })
     if (tenderType === 'CREDIT') setShowCredit(false)
+    if (tenderType === 'LEVELUP') setShowLevelUp(false)
+    if (tenderType === 'HOUSE_ACCOUNT') setShowHouseAccount(false)
     evt.target.blur()
   }
 
@@ -81,6 +84,8 @@ const CheckoutTenders = () => {
         setShowCredit,
         showHouseAccount,
         setShowHouseAccount,
+        showLevelUp,
+        setShowLevelUp,
         addTender,
         removeTender,
         iconMap,
@@ -97,16 +102,7 @@ const CheckoutTenders = () => {
         </div>
         <div className="form__inputs">
           {tenderTypes.map((tenderType) => (
-            <CheckoutTender
-              key={tenderType}
-              tenderType={tenderType}
-              // isPaid={isPaid}
-              // tenderTypesApplied={tenderTypesApplied}
-              // showCredit={showCredit}
-              // setShowCredit={setShowCredit}
-              // addTender={addTender}
-              // removeTender={removeTender}
-            />
+            <CheckoutTender key={tenderType} tenderType={tenderType} />
           ))}
         </div>
       </fieldset>
