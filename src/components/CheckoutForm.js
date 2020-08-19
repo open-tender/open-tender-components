@@ -78,6 +78,7 @@ const CheckoutForm = ({
   const revenueCenterId = revenueCenter ? revenueCenter.revenue_center_id : null
   const tz = revenueCenter ? timezoneMap[revenueCenter.timezone] : null
   const { surcharges, discounts, promoCodes, tenders, tip } = form
+  const email = form.customer && form.customer.email
   const { profile } = customer
   const total = check && check.totals ? check.totals.total : 0.0
   let amountRemaining = checkAmountRemaining(total, tenders)
@@ -107,6 +108,8 @@ const CheckoutForm = ({
   const orderValidate = useMemo(() => {
     const customerValidate = profile
       ? { customer_id: profile.customer_id }
+      : email
+      ? { email }
       : null
     const dataValidate = {
       orderId,
@@ -134,6 +137,7 @@ const CheckoutForm = ({
     discounts,
     promoCodes,
     tip,
+    email,
   ])
   const prevOrderValidate = usePrevious(orderValidate)
 
