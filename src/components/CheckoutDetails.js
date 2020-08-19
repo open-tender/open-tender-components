@@ -53,6 +53,7 @@ const CheckoutDetails = () => {
   const showNotes = displayed.includes('notes') || required.includes('notes')
   const detailsErrors = errors.details || {}
   const requestedAtText = makeRequestedAtStr(order.requestedAt, tz)
+  const revenueCenterName = revenueCenter ? revenueCenter.name : 'Invalid'
 
   useEffect(() => {
     if (isEmpty(form.details) && check.details) {
@@ -96,8 +97,8 @@ const CheckoutDetails = () => {
       <div className="form__inputs">
         <CheckoutLineItem label="Location">
           <Button
-            text={revenueCenter.name}
-            ariaLabel={`Change location from ${revenueCenter.name}`}
+            text={revenueCenterName}
+            ariaLabel={`Change location from ${revenueCenterName}`}
             icon={iconMap.revenueCenter}
             classes="ot-btn--secondary ot-btn--header"
             onClick={updateRevenueCenter}
