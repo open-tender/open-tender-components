@@ -122,14 +122,14 @@ const GoogleMapsAutocomplete = ({
             <ul>
               {predictions.map((i, index) => {
                 const active =
-                  activeIndex === index ? 'ot-bg-color-secondary' : ''
+                  activeIndex === index ? ' ot-bg-color-secondary' : ''
                 let classes =
-                  'autocomplete__prediction ot-color-body ot-border-color ot-font-size-small'
+                  'autocomplete__prediction ot-border-color ot-font-size-small'
                 classes += active
                 return (
                   <li key={i.place_id} className={classes}>
                     <button
-                      className="ot-font-size-small"
+                      className="ot-color-body ot-font-size-small"
                       onClick={(evt) =>
                         choosePlace(evt, i.place_id, i.description)
                       }
