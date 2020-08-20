@@ -54,6 +54,7 @@ const CheckoutDetails = () => {
   const detailsErrors = errors.details || {}
   const requestedAtText = makeRequestedAtStr(order.requestedAt, tz)
   const revenueCenterName = revenueCenter ? revenueCenter.name : 'Invalid'
+  const serviceTypeLower = serviceType ? serviceType.toLowerCase() : 'pickup'
 
   useEffect(() => {
     if (isEmpty(form.details) && check.details) {
@@ -109,7 +110,7 @@ const CheckoutDetails = () => {
           <Button
             text={serviceTypeBtnName}
             ariaLabel={`Change service type from ${serviceTypeBtnName}`}
-            icon={iconMap[serviceType.toLowerCase()]}
+            icon={iconMap[serviceTypeLower]}
             classes="ot-btn--secondary ot-btn--header"
             onClick={updateServiceType}
           />
