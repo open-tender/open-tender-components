@@ -95,15 +95,19 @@ const CheckoutForm = ({
   ])
 
   useEffect(() => {
-    if (total > 0) {
-      adjustTenders(tenders, isPaid, amountRemaining, dispatchUpdateForm)
-    }
-  }, [tenders, isPaid, amountRemaining, dispatchUpdateForm, total])
+    window.scroll(0, 0)
+  }, [errors.form])
 
   useEffect(() => {
     dispatch(resetErrors())
     if (profile) dispatch(updateCheckoutCustomer(profile))
   }, [dispatch, profile])
+
+  useEffect(() => {
+    if (total > 0) {
+      adjustTenders(tenders, isPaid, amountRemaining, dispatchUpdateForm)
+    }
+  }, [tenders, isPaid, amountRemaining, dispatchUpdateForm, total])
 
   const orderValidate = useMemo(() => {
     const customerValidate = profile
