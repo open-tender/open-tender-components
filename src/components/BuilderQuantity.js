@@ -32,7 +32,7 @@ const BuilderQuantity = ({
   return item.quantity === 0 ? (
     <div className={`quantity quantity--zero ${classes}`}>
       <button
-        className="quantity__increase__zero ot-border-color"
+        className="quantity__increase__zero ot-color-body ot-border-color"
         onClick={handleIncrement}
         disabled={incrementDisabled || item.isSoldOut}
         aria-label="Increase quantity"
@@ -43,7 +43,7 @@ const BuilderQuantity = ({
   ) : (
     <div className={`quantity ot-bg-color-secondary ${classes}`}>
       <button
-        className="quantity__decrease"
+        className="quantity__decrease ot-color-body"
         onClick={handleDecrement}
         disabled={decrementDisabled}
         aria-label="Decrease quantity"
@@ -61,7 +61,7 @@ const BuilderQuantity = ({
         />
       </label>
       <button
-        className="quantity__increase"
+        className="quantity__increase ot-color-body"
         onClick={handleIncrement}
         disabled={incrementDisabled}
         aria-label="Increase quantity"
