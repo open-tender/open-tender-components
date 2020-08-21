@@ -1,6 +1,6 @@
 {
   "name": "@open-tender/components",
-  "version": "1.0.22",
+  "version": "1.0.23",
   "description": "A component library built for use with the Open Tender open source web app",
   "main": "dist/main.js",
   "author": "JC Harrington <jc@opentender.io> (https://www.opentender.io)",
