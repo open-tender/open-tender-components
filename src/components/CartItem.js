@@ -84,18 +84,18 @@ const CartItem = ({
         </span>
         <span className="builder__option__info">
           <span className="builder__option__name ot-font-size-small ot-color-headings ot-bold">
-            {item.name} {madeFor && `(${madeFor})`}
+            {item.name}
           </span>
           {desc && (
             <span className="builder__option__desc ot-font-size-x-small">
               {desc}
             </span>
           )}
-          {/* {madeFor && (
+          {madeFor && (
             <span className="builder__option__made-for ot-color-headings ot-font-size-x-small">
               For <span className="">{madeFor}</span>
             </span>
-          )} */}
+          )}
           <span className="builder__option__details ot-font-size-small">
             <span className="builder__option__details__container">
               <span className="builder__option__details__price ot-color-headings ot-bold">
