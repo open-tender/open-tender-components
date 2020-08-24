@@ -145,6 +145,7 @@ const Builder = ({
   iconMap,
   closeModal,
   displaySettings,
+  cartId,
 }) => {
   const {
     item,
@@ -181,6 +182,22 @@ const Builder = ({
       <div className="builder__content">
         {renderHeader({ item, displaySettings })}
         <div className="builder__body">
+          {displaySettings.madeFor && !cartId && (
+            <div className="builder__made-for ot-bg-color-primary ot-border-radius">
+              <label htmlFor="made-for" className="label">
+                <span className="ot-font-size-h6 ot-heading">
+                  {"Who's"} it for?
+                </span>
+                <input
+                  id="made-for"
+                  type="text"
+                  value={madeFor || ''}
+                  placeholder="enter name (optional)"
+                  onChange={(evt) => setMadeFor(evt.target.value)}
+                />
+              </label>
+            </div>
+          )}
           <div className="builder__groups">
             {groups.map((group) => (
               <div key={group.id} className="builder__group">
@@ -215,19 +232,6 @@ const Builder = ({
               </div>
             ))}
           </div>
-          {displaySettings.madeFor && (
-            <div className="builder__made-for ot-bg-color-primary ot-border-radius">
-              <label htmlFor="made-for" className="label">
-                <span className="ot-font-size-h6 ot-heading">Made For</span>
-                <input
-                  id="made-for"
-                  type="text"
-                  value={madeFor || ''}
-                  onChange={(evt) => setMadeFor(evt.target.value)}
-                />
-              </label>
-            </div>
-          )}
           {displaySettings.notes && (
             <div className="builder__notes ot-bg-color-primary ot-border-radius">
               <label htmlFor="item-notes" className="label">
@@ -297,6 +301,7 @@ Builder.propTypes = {
   iconMap: propTypes.object,
   closeModal: propTypes.func,
   displaySettings: propTypes.object,
+  cartId: propTypes.number,
 }
 
 export default Builder
