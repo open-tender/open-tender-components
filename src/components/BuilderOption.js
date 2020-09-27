@@ -21,12 +21,14 @@ const BuilderOption = ({
   // const optionAtMin = option.min !== 0 && option.quantity === option.min
   // const decrementDisabled = groupAtMin || optionAtMin || option.quantity === 0
   const decrementDisabled = option.quantity === 0
+  const hidePrice = group.included !== 0 && group.included === group.max
   return (
     <li>
       <CartItem
         item={option}
         allergens={allergens}
         displaySettings={displaySettings}
+        hidePrice={hidePrice}
       >
         <BuilderQuantity
           item={option}

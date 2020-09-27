@@ -31,6 +31,7 @@ const CartItem = ({
   editItem,
   removeItem,
   displaySettings,
+  hidePrice = false,
   children,
 }) => {
   const [showInfo, setShowInfo] = useState(false)
@@ -98,9 +99,11 @@ const CartItem = ({
           )}
           <span className="builder__option__details ot-font-size-small">
             <span className="builder__option__details__container">
-              <span className="builder__option__details__price ot-color-headings ot-bold">
-                ${displayPrice(price)}
-              </span>
+              {!hidePrice && (
+                <span className="builder__option__details__price ot-color-headings ot-bold">
+                  ${displayPrice(price)}
+                </span>
+              )}
               {editItem ? (
                 <>
                   <span className="builder__option__details__edit">
