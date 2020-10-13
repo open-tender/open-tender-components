@@ -234,6 +234,57 @@ Select.propTypes = {
   options: propTypes.array,
 }
 
+export const RadioButtonGroup = ({
+  label,
+  name,
+  value,
+  options,
+  onChange,
+  showLabel,
+  required,
+  classes,
+}) => {
+  return (
+    <label className={`form__input ot-border-color ${classes}`}>
+      <span className="form__input__wrapper ot-border-color">
+        {showLabel && <Label text={label} required={required} />}
+        {options.map((option) => (
+          <label
+            key={option.value}
+            htmlFor={option.value}
+            className={`label radio`}
+          >
+            <input
+              id={option.value}
+              name={name}
+              type="radio"
+              value={option.value}
+              className="radio__input"
+              checked={option.value === value}
+              onChange={onChange}
+              aria-label={option.name}
+            />
+            <span className="radio__custom" />
+            <span>{option.name}</span>
+          </label>
+        ))}
+      </span>
+    </label>
+  )
+}
+
+RadioButtonGroup.displayName = 'RadioButtonGroup'
+RadioButtonGroup.propTypes = {
+  label: propTypes.string,
+  name: propTypes.string,
+  showLabel: propTypes.bool,
+  required: propTypes.bool,
+  value: propTypes.oneOfType([propTypes.string, propTypes.number]),
+  onChange: propTypes.func,
+  classes: propTypes.string,
+  options: propTypes.array,
+}
+
 export const Switch = ({
   label,
   id,

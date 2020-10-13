@@ -43,6 +43,7 @@ import {
   Select,
   Switch,
   Checkbox,
+  RadioButtonGroup,
 } from './Inputs'
 
 export {
@@ -90,4 +91,5 @@ export {
   Select,
   Switch,
   Checkbox,
+  RadioButtonGroup,
 }
