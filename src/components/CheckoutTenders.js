@@ -1,4 +1,10 @@
-import React, { useContext, useState, useEffect, createContext } from 'react'
+import React, {
+  useContext,
+  useState,
+  useEffect,
+  createContext,
+  useMemo,
+} from 'react'
 import { FormContext } from './CheckoutForm'
 import { checkAmountRemaining } from '@open-tender/js'
 import { CheckoutTender } from './index'
@@ -13,7 +19,10 @@ const CheckoutTenders = () => {
   const formContext = useContext(FormContext)
   const { iconMap = {}, config, check, form, errors, updateForm } = formContext
   const tenderTypes = check.config.tender_types.filter((i) => i !== 'GIFT_CARD')
-  const tenderTypesApplied = form.tenders.map((i) => i.tender_type)
+  const tenderTypesApplied = useMemo(
+    () => form.tenders.map((i) => i.tender_type),
+    [form.tenders]
+  )
   const amountRemaining = checkAmountRemaining(check.totals.total, form.tenders)
   const isPaid = Math.abs(amountRemaining).toFixed(2) === '0.00'
   const tenderErrors = errors ? errors.tenders || null : null
