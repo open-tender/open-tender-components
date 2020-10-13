@@ -4,6 +4,7 @@ import CartItem from './CartItem'
 import BuilderRadio from './BuilderRadio'
 
 const BuilderRadioGroup = ({ group, handler, displaySettings }) => {
+  const hidePrice = group.included !== 0 && group.included === group.max
   return (
     <fieldset>
       {group.options.map((option) => (
@@ -11,6 +12,7 @@ const BuilderRadioGroup = ({ group, handler, displaySettings }) => {
           key={`${group.id}-${option.id}`}
           item={option}
           displaySettings={displaySettings}
+          hidePrice={hidePrice}
         >
           <BuilderRadio
             key={option.id}
