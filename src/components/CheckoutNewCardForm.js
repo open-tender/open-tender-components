@@ -194,7 +194,7 @@ const CheckoutNewCardForm = ({
             text="Apply New Card"
             classes="ot-btn ot-btn--cart"
             onClick={submitTender}
-            disabled={isApplied}
+            disabled={isApplied && !error}
           />
           {isApplied ? (
             <Button

@@ -74,7 +74,7 @@ const CheckoutNewCard = ({
               setShowNewCard={setShowNewCard}
               setShowCredit={setShowCredit}
               customerId={customerId}
-              error={error}
+              error={isApplied ? error : null}
             />
           </CSSTransition>
         ) : null}

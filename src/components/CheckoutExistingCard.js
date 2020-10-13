@@ -57,7 +57,7 @@ const CheckoutExistingCard = ({
           )}
         </div>
       </div>
-      {cardError && <Error error={cardError} />}
+      {cardError && isApplied && <Error error={cardError} />}
     </li>
   ) : null
 }
