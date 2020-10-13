@@ -1,5 +1,6 @@
 import React, { useRef, useState, useEffect } from 'react'
 import propTypes from 'prop-types'
+import { optionsOrderNotifications } from '@open-tender/js'
 import { Input, Checkbox, RadioButtonGroup } from '../index'
 import SubmitButton from './SubmitButton'
 
@@ -24,18 +25,13 @@ const fields = [
   // { label: 'Company', name: 'company', type: 'text' },
 ]
 
-const optionsOrderNotifications = [
-  { name: 'Neither', value: 'NONE' },
-  { name: 'Email Only', value: 'EMAIL' },
-  { name: 'SMS Only', value: 'SMS' },
-  { name: 'Both Email & SMS', value: 'ALL' },
-]
-
 const SignUpForm = ({ loading, error, signUp, callback, optIns = {} }) => {
   const { accepts_marketing, order_notifications } = optIns
   const initialState = {
-    accepts_marketing: accepts_marketing.default || false,
-    order_notifications: order_notifications.default || 'NONE',
+    accepts_marketing: accepts_marketing ? accepts_marketing.default : false,
+    order_notifications: order_notifications
+      ? order_notifications.default
+      : 'NONE',
   }
   const [data, setData] = useState(initialState)
   const [errors, setErrors] = useState({})
