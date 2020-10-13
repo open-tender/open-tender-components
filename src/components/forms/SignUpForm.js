@@ -1,6 +1,6 @@
 import React, { useRef, useState, useEffect } from 'react'
 import propTypes from 'prop-types'
-import { Input, Switch, Checkbox, Select, RadioButtonGroup } from '../index'
+import { Input, Checkbox, RadioButtonGroup } from '../index'
 import SubmitButton from './SubmitButton'
 
 const fields = [
@@ -24,26 +24,19 @@ const fields = [
   // { label: 'Company', name: 'company', type: 'text' },
 ]
 
-// const optionsMarketing = [
-//   { name: 'Yes, I want to receive periodic promotional emails', value: 1 },
-//   { name: 'No, do not send me promotional emails', value: 0 },
-// ]
-
 const optionsOrderNotifications = [
-  { name: 'Both Email & SMS', value: 'ALL' },
+  { name: 'Neither', value: 'NONE' },
   { name: 'Email Only', value: 'EMAIL' },
   { name: 'SMS Only', value: 'SMS' },
-  { name: 'Neither', value: 'NONE' },
+  { name: 'Both Email & SMS', value: 'ALL' },
 ]
 
-const SignUpForm = ({
-  loading,
-  error,
-  signUp,
-  callback,
-  initialState = {},
-}) => {
-  const { accepts_marketing, order_notifications } = initialState
+const SignUpForm = ({ loading, error, signUp, callback, optIns = {} }) => {
+  const { accepts_marketing, order_notifications } = optIns
+  const initialState = {
+    accepts_marketing: accepts_marketing.default || false,
+    order_notifications: order_notifications.default || 'NONE',
+  }
   const [data, setData] = useState(initialState)
   const [errors, setErrors] = useState({})
   const [submitting, setSubmitting] = useState(false)
@@ -101,41 +94,31 @@ const SignUpForm = ({
             autoComplete={field.autoComplete}
           />
         ))}
-        {accepts_marketing && (
-          <>
-            <Checkbox
-              label="Sign up for promotional emails"
-              id="accepts_marketing"
-              on={data.accepts_marketing}
-              onChange={handleChange}
-            />
-            {/* <Select
-              label="Promotional Emails"
-              name="accepts_marketing"
-              value={data.accepts_marketing}
-              onChange={handleChange}
-              error={errors.accepts_marketing}
-              required={true}
-              options={optionsMarketing}
-            /> */}
-          </>
-        )}
         {order_notifications && (
           <>
-            {/* <Checkbox
-            label="Sign up for order notifications"
-            id="order_notifications"
-            on={data.order_notifications}
-            onChange={handleChange}
-          /> */}
             <RadioButtonGroup
-              label="Order Notifications"
+              label={order_notifications.title}
               name="order_notifications"
               value={data.order_notifications}
               options={optionsOrderNotifications}
               onChange={handleRadio}
               showLabel={true}
               required={true}
+              description={order_notifications.description}
+            />
+          </>
+        )}
+        {accepts_marketing && (
+          <>
+            <Checkbox
+              showLabel={true}
+              required={true}
+              label={accepts_marketing.title}
+              id="accepts_marketing"
+              on={data.accepts_marketing}
+              onChange={handleChange}
+              description={accepts_marketing.description}
+              classes="-input"
             />
           </>
         )}
@@ -153,7 +136,7 @@ SignUpForm.propTypes = {
   error: propTypes.object,
   signUp: propTypes.func,
   callback: propTypes.func,
-  initialState: propTypes.object,
+  optIns: propTypes.object,
 }
 
 export default SignUpForm

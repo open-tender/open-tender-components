@@ -242,33 +242,50 @@ export const RadioButtonGroup = ({
   onChange,
   showLabel,
   required,
-  classes,
+  classes = '',
+  description,
 }) => {
   return (
-    <label className={`form__input ot-border-color ${classes}`}>
-      <span className="form__input__wrapper ot-border-color">
+    <label className={`form__input -input ot-border-color ${classes}`}>
+      <span className={`form__input__wrapper ot-border-color`}>
         {showLabel && <Label text={label} required={required} />}
-        {options.map((option) => (
-          <label
-            key={option.value}
-            htmlFor={option.value}
-            className={`label radio`}
-          >
-            <input
-              id={option.value}
-              name={name}
-              type="radio"
-              value={option.value}
-              className="radio__input"
-              checked={option.value === value}
-              onChange={onChange}
-              aria-label={option.name}
-            />
-            <span className="radio__custom" />
-            <span>{option.name}</span>
-          </label>
-        ))}
+        <span className="radio-group__wrapper">
+          <span className="radio-group">
+            {options.map((option) => (
+              <label
+                key={option.value}
+                htmlFor={option.value}
+                className={`label radio`}
+              >
+                <input
+                  id={option.value}
+                  name={name}
+                  type="radio"
+                  value={option.value}
+                  className="radio__input"
+                  checked={option.value === value}
+                  onChange={onChange}
+                  aria-label={option.name}
+                />
+                <span className="radio__custom" />
+                <span className="radio__desc ot-font-size-small">
+                  {option.name}
+                </span>
+              </label>
+            ))}
+          </span>
+          {/* {description && description.length && (
+            <span className="radio-group__comment ot-font-size-small">
+              {description}
+            </span>
+          )} */}
+        </span>
       </span>
+      {description && description.length && (
+        <span className="form__input__comment ot-font-size-small">
+          {description}
+        </span>
+      )}
     </label>
   )
 }
@@ -283,6 +300,7 @@ RadioButtonGroup.propTypes = {
   onChange: propTypes.func,
   classes: propTypes.string,
   options: propTypes.array,
+  description: propTypes.string,
 }
 
 export const Switch = ({
@@ -339,6 +357,8 @@ export const Checkbox = ({
   disabled,
   classes = '',
   showLabel = false,
+  required = false,
+  description,
 }) => {
   return (
     <label
@@ -346,7 +366,7 @@ export const Checkbox = ({
       className={`form__input ot-border-color checkbox ${classes || ''}`}
     >
       <span className="form__input__wrapper ot-border-color">
-        {showLabel && <Label text={label} />}
+        {showLabel && <Label text={label} required={required} />}
         <span className="input">
           <input
             aria-label={label}
@@ -360,6 +380,10 @@ export const Checkbox = ({
           <span className="checkbox__custom" />
           {label && !showLabel ? (
             <span className="checkbox__desc">{label}</span>
+          ) : description ? (
+            <span className="checkbox__desc ot-font-size-small">
+              {description}
+            </span>
           ) : null}
         </span>
       </span>
@@ -376,4 +400,6 @@ Checkbox.propTypes = {
   disabled: propTypes.bool,
   classes: propTypes.string,
   showLabel: propTypes.bool,
+  required: propTypes.bool,
+  description: propTypes.string,
 }
