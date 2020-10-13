@@ -274,11 +274,6 @@ export const RadioButtonGroup = ({
               </label>
             ))}
           </span>
-          {/* {description && description.length && (
-            <span className="radio-group__comment ot-font-size-small">
-              {description}
-            </span>
-          )} */}
         </span>
       </span>
       {description && description.length && (
