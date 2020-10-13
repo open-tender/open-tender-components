@@ -31,6 +31,7 @@
     "eslint-plugin-react-hooks": "^4.0.4",
     "file-loader": "^6.0.0",
     "google-maps-api-loader": "^1.1.1",
+    "lodash": "^4.17.20",
     "node-sass": "^4.14.1",
     "prop-types": "^15.7.2",
     "react": "^16.13.1",
