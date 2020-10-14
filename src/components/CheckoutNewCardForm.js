@@ -145,22 +145,6 @@ const CheckoutNewCardForm = ({
           </div>
         </div>
         <div className="cards__new__content">
-          {cardErrors.length ? (
-            <div className="cards__new__errors">
-              <span className="ot-form-error">
-                {cardErrors.map(([field, msg]) => (
-                  <p key={field}>{msg}</p>
-                ))}
-              </span>
-              {emptyFields && (
-                <span className="ot-form-error">
-                  * Please note that you may need to tap in any fields that were
-                  automatically completed in order for their values to be
-                  recognized.
-                </span>
-              )}
-            </div>
-          ) : null}
           {fields.map((field) => {
             return (
               <Input
@@ -189,12 +173,28 @@ const CheckoutNewCardForm = ({
             />
           </div>
         )}
+        {cardErrors.length ? (
+          <div className="cards__new__errors">
+            <span className="ot-form-error">
+              {cardErrors.map(([field, msg]) => (
+                <p key={field}>{msg}</p>
+              ))}
+            </span>
+            {emptyFields && (
+              <span className="ot-form-error">
+                * Please note that you may need to tap in any fields that were
+                automatically completed in order for their values to be
+                recognized.
+              </span>
+            )}
+          </div>
+        ) : null}
         <div className="cards__new__footer">
           <Button
             text="Apply New Card"
             classes="ot-btn ot-btn--cart"
             onClick={submitTender}
-            disabled={isApplied}
+            disabled={isApplied && !error}
           />
           {isApplied ? (
             <Button

@@ -189,6 +189,7 @@ CartItem.propTypes = {
   editItem: propTypes.func,
   removeItem: propTypes.func,
   displaySettings: propTypes.object,
+  hidePrice: propTypes.bool,
   children: propTypes.oneOfType([
     propTypes.arrayOf(propTypes.node),
     propTypes.node,

@@ -68,7 +68,6 @@ const CheckoutTender = ({ tenderType }) => {
           setShowCredit(false)
           setShowLevelUp(false)
           setShowHouseAccount(true)
-
           evt.target.blur()
         }
       : tenderType === 'LEVELUP'

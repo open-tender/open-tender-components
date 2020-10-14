@@ -55,6 +55,7 @@ const Check = ({ title, check, tenders, loader, updating = false }) => {
     .reduce((t, i) => (t += parseFloat(i)), 0.0)
     .toFixed(2)
   const amountRemaiing = checkAmountRemaining(total, tenders)
+  const hasTip = check && check.config ? check.config.gratuity.has_tip : false
 
   return (
     <div className="check ot-border-radius ot-bg-color-primary ot-border-color ot-box-shadow">
@@ -73,7 +74,7 @@ const Check = ({ title, check, tenders, loader, updating = false }) => {
                 {cart.map((item, index) => (
                   <CheckItem
                     key={`${item.id}-${index}`}
-                    label={`${item.name}`}
+                    label={`${item.name} x ${item.quantity}`}
                     value={item.price_total}
                   />
                 ))}
@@ -136,7 +137,9 @@ const Check = ({ title, check, tenders, loader, updating = false }) => {
             <CheckItem label="Tax (tax exempt)" value={'0.00'} />
           ) : null}
           {/* <CheckItem label="Tax" value={tax} /> */}
-          <CheckItem label="Tip" value={tip} classes="ot-font-size-small" />
+          {tip !== '0.00' && (
+            <CheckItem label="Tip" value={tip} classes="ot-font-size-small" />
+          )}
           {shipping !== '0.00' && (
             <CheckItem label="Shipping" value={shipping} />
           )}
