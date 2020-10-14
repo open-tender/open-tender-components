@@ -246,7 +246,9 @@ export const RadioButtonGroup = ({
   description,
 }) => {
   return (
-    <label className={`form__input -input ot-border-color ${classes}`}>
+    <label
+      className={`form__input radio-group__label -input ot-border-color ${classes}`}
+    >
       <span className={`form__input__wrapper ot-border-color`}>
         {showLabel && <Label text={label} required={required} />}
         <span className="radio-group__wrapper">

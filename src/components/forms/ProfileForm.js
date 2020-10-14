@@ -17,7 +17,16 @@ const fields = [
   { label: 'Company', name: 'company', type: 'text' },
 ]
 
-const ProfileForm = ({ profile, loading, error, update, optIns = {} }) => {
+const ProfileForm = ({
+  profile,
+  loading,
+  error,
+  update,
+  optIns = {},
+  showFields = true,
+  id = 'account-form',
+  buttonText = 'Update Account',
+}) => {
   const { accepts_marketing, order_notifications } = optIns
   const submitButton = useRef()
   const [data, setData] = useState({})
@@ -61,21 +70,22 @@ const ProfileForm = ({ profile, loading, error, update, optIns = {} }) => {
   }
 
   return (
-    <form id="account-form" className="form" onSubmit={handleSubmit} noValidate>
+    <form id={id} className="form" onSubmit={handleSubmit} noValidate>
       <div className="section__rows">
-        {fields.map((field) => (
-          <Input
-            key={field.name}
-            label={field.label}
-            name={field.name}
-            type={field.type}
-            value={data[field.name]}
-            onChange={handleChange}
-            error={errors[field.name]}
-            required={field.required}
-            autoComplete={field.autoComplete}
-          />
-        ))}
+        {showFields &&
+          fields.map((field) => (
+            <Input
+              key={field.name}
+              label={field.label}
+              name={field.name}
+              type={field.type}
+              value={data[field.name]}
+              onChange={handleChange}
+              error={errors[field.name]}
+              required={field.required}
+              autoComplete={field.autoComplete}
+            />
+          ))}
         {order_notifications && (
           <>
             <RadioButtonGroup
@@ -112,7 +122,7 @@ const ProfileForm = ({ profile, loading, error, update, optIns = {} }) => {
           disabled={submitting}
           ref={submitButton}
         >
-          Update Account
+          {buttonText}
         </button>
       </div>
     </form>
@@ -126,6 +136,9 @@ ProfileForm.propTypes = {
   error: propTypes.object,
   update: propTypes.func,
   optIns: propTypes.object,
+  showFields: propTypes.bool,
+  id: propTypes.string,
+  buttonText: propTypes.string,
 }
 
 export default ProfileForm
