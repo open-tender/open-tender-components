@@ -33,6 +33,7 @@ const CheckoutDetails = () => {
   } = useContext(FormContext)
   const [details, setDetails] = useState(form.details)
   const [showTip, setShowTip] = useState(false)
+  const [showCurbside, setShowCurbside] = useState(false)
   const { orderType, serviceType, revenueCenter = {} } = order
   const serviceTypeName = serviceTypeNamesMap[serviceType]
   const isCatering = orderType === 'CATERING'
@@ -43,6 +44,7 @@ const CheckoutDetails = () => {
     : []
   const required = check.config.required.details
   const tipSettings = check.config.gratuity
+  const curbside = check.config.order_fulfillment
   const showEatingUtensils =
     displayed.includes('eatingUtensils') || required.includes('eatingUtensils')
   const showServingUtensils =
@@ -124,6 +126,48 @@ const CheckoutDetails = () => {
             onClick={updateRequestedAt}
           />
         </CheckoutLineItem>
+        {curbside && (
+          <>
+            <Switch
+              label={
+                <span className="">
+                  {curbside.title}{' '}
+                  <span
+                    className="ot-color-alert"
+                    style={{
+                      textTransform: 'uppercase',
+                      paddingLeft: '0.5rem',
+                    }}
+                  >
+                    NEW!
+                  </span>
+                </span>
+              }
+              id="order_fulfillment"
+              on={showCurbside}
+              onChange={() => setShowCurbside(!showCurbside)}
+              inputClasses="input--button"
+            />
+            {showCurbside && (
+              <div>
+                {curbside.fields.map((field) => {
+                  return (
+                    <Input
+                      key={field.name}
+                      label={field.label}
+                      name={`details-${field.name}`}
+                      type="text"
+                      value={details[field.name]}
+                      onChange={handleChange}
+                      error={null}
+                      // classes={`cards__new__${field.name}`}
+                    />
+                  )
+                })}
+              </div>
+            )}
+          </>
+        )}
         {tipSettings.has_tip && (
           <>
             <CheckoutLineItem label="Tip">
@@ -138,7 +182,6 @@ const CheckoutDetails = () => {
             {showTip && <CheckoutTip setShowTip={setShowTip} />}
           </>
         )}
-
         {showEatingUtensils && (
           <Switch
             label="Eating Utensils"
