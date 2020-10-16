@@ -7,6 +7,7 @@ import AddressForm from './AddressForm'
 import CreditCardForm from './CreditCardForm'
 import AllergenForm from './AllergenForm'
 import OrderRatingForm from './OrderRatingForm'
+import OrderFulfillmentForm from './OrderFulfillmentForm'
 import GiftCardForm from './GiftCardForm'
 import CartGuestForm from './CartGuestForm'
 import LevelUpForm from './LevelUpForm'
@@ -26,4 +27,5 @@ export {
   GiftCardForm,
   CartGuestForm,
   LevelUpForm,
+  OrderFulfillmentForm,
 }

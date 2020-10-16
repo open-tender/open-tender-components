@@ -85,71 +85,144 @@ const CheckoutDetails = () => {
     evt.target.blur()
   }
 
+  const handleShowCurbside = (evt) => {
+    evt.preventDefault()
+    setShowCurbside(!showCurbside)
+    evt.target.blur()
+  }
+
   return (
-    <div className="form__fieldset">
-      <div className="form__legend">
-        <p className="form__legend__title ot-heading ot-font-size-h3">
-          {config.details.title}
-        </p>
-        {config.details.subtitle.length > 0 && (
-          <p className="form__legend__subtitle ot-line-height">
-            {config.details.subtitle}
+    <>
+      <div className="form__fieldset">
+        <div className="form__legend">
+          <p className="form__legend__title ot-heading ot-font-size-h3">
+            {config.details.title}
           </p>
-        )}
-      </div>
-      <div className="form__inputs">
-        <CheckoutLineItem label="Location">
-          <Button
-            text={revenueCenterName}
-            ariaLabel={`Change location from ${revenueCenterName}`}
-            icon={iconMap.revenueCenter}
-            classes="ot-btn--secondary ot-btn--header"
-            onClick={updateRevenueCenter}
-            disabled={autoSelect}
-          />
-        </CheckoutLineItem>
-        <CheckoutLineItem label="Service Type">
-          <Button
-            text={serviceTypeBtnName}
-            ariaLabel={`Change service type from ${serviceTypeBtnName}`}
-            icon={iconMap[serviceTypeLower]}
-            classes="ot-btn--secondary ot-btn--header"
-            onClick={updateServiceType}
-          />
-        </CheckoutLineItem>
-        <CheckoutLineItem label={`${serviceTypeName} Time`}>
-          <Button
-            text={requestedAtText}
-            ariaLabel={`Change time from ${requestedAtText}`}
-            icon={iconMap.requestedAt}
-            classes="ot-btn--secondary ot-btn--header"
-            onClick={updateRequestedAt}
-          />
-        </CheckoutLineItem>
-        {curbside && (
-          <>
+          {config.details.subtitle.length > 0 && (
+            <p className="form__legend__subtitle ot-line-height">
+              {config.details.subtitle}
+            </p>
+          )}
+        </div>
+        <div className="form__inputs">
+          <CheckoutLineItem label="Location">
+            <Button
+              text={revenueCenterName}
+              ariaLabel={`Change location from ${revenueCenterName}`}
+              icon={iconMap.revenueCenter}
+              classes="ot-btn--secondary ot-btn--header"
+              onClick={updateRevenueCenter}
+              disabled={autoSelect}
+            />
+          </CheckoutLineItem>
+          <CheckoutLineItem label="Service Type">
+            <Button
+              text={serviceTypeBtnName}
+              ariaLabel={`Change service type from ${serviceTypeBtnName}`}
+              icon={iconMap[serviceTypeLower]}
+              classes="ot-btn--secondary ot-btn--header"
+              onClick={updateServiceType}
+            />
+          </CheckoutLineItem>
+          <CheckoutLineItem label={`${serviceTypeName} Time`}>
+            <Button
+              text={requestedAtText}
+              ariaLabel={`Change time from ${requestedAtText}`}
+              icon={iconMap.requestedAt}
+              classes="ot-btn--secondary ot-btn--header"
+              onClick={updateRequestedAt}
+            />
+          </CheckoutLineItem>
+          {tipSettings.has_tip && (
+            <>
+              <CheckoutLineItem label="Tip">
+                <Button
+                  text={`${check.totals.tip}`}
+                  ariaLabel={`Adjust tip of $${check.totals.tip}`}
+                  icon={iconMap.tip}
+                  classes="ot-btn--secondary ot-btn--header"
+                  onClick={handleShowTip}
+                />
+              </CheckoutLineItem>
+              {showTip && <CheckoutTip setShowTip={setShowTip} />}
+            </>
+          )}
+          {showEatingUtensils && (
             <Switch
-              label={
-                <span className="">
-                  {curbside.title}{' '}
-                  <span
-                    className="ot-color-alert"
-                    style={{
-                      textTransform: 'uppercase',
-                      paddingLeft: '0.5rem',
-                    }}
-                  >
-                    NEW!
-                  </span>
-                </span>
-              }
-              id="order_fulfillment"
-              on={showCurbside}
-              onChange={() => setShowCurbside(!showCurbside)}
+              label="Eating Utensils"
+              id="details-eating_utensils"
+              on={details.eating_utensils}
+              onChange={handleChange}
               inputClasses="input--button"
             />
-            {showCurbside && (
-              <div>
+          )}
+          {showServingUtensils && (
+            <Switch
+              label="Serving Utensils"
+              id="details-serving_utensils"
+              on={details.serving_utensils}
+              onChange={handleChange}
+              inputClasses="input--button"
+            />
+          )}
+          {allowTaxExempt && (
+            <Input
+              label="Tax Exempt ID"
+              name="details-tax_exempt_id"
+              type="text"
+              value={details.tax_exempt_id}
+              onChange={handleChange}
+              error={detailsErrors.tax_exempt_id}
+              required={false}
+            />
+          )}
+          {showPersonCount && (
+            <Input
+              label="Person Count"
+              name="details-person_count"
+              type="number"
+              value={details.person_count}
+              onChange={handleChange}
+              error={detailsErrors.person_count}
+              required={required.includes('count')}
+            />
+          )}
+          {showNotes && (
+            <Textarea
+              label="Notes"
+              name="details-notes"
+              value={details.notes}
+              onChange={handleChange}
+              error={detailsErrors.notes}
+              required={required.includes('notes')}
+            />
+          )}
+        </div>
+      </div>
+      {curbside && (
+        <div className="form__fieldset">
+          <div className="form__legend">
+            <p className="form__legend__title ot-heading ot-font-size-h3">
+              {curbside.title}
+            </p>
+            {curbside.description.length > 0 && (
+              <p className="form__legend__subtitle ot-line-height">
+                {curbside.description}
+              </p>
+            )}
+          </div>
+          <div className="form__inputs">
+            <Switch
+              label={`Use ${curbside.title}`}
+              id="order_fulfillment"
+              // on={showCurbside}
+              // onChange={handleShowCurbside}
+              on={details.order_fulfillment}
+              onChange={handleChange}
+              inputClasses="input--button"
+            />
+            {details.order_fulfillment && (
+              <div className="form__subsection ot-bg-color-secondary ot-border-color">
                 {curbside.fields.map((field) => {
                   return (
                     <Input
@@ -160,80 +233,16 @@ const CheckoutDetails = () => {
                       value={details[field.name]}
                       onChange={handleChange}
                       error={null}
-                      // classes={`cards__new__${field.name}`}
+                      inputClasses="ot-bg-color-primary ot-border-color"
                     />
                   )
                 })}
               </div>
             )}
-          </>
-        )}
-        {tipSettings.has_tip && (
-          <>
-            <CheckoutLineItem label="Tip">
-              <Button
-                text={`${check.totals.tip}`}
-                ariaLabel={`Adjust tip of $${check.totals.tip}`}
-                icon={iconMap.tip}
-                classes="ot-btn--secondary ot-btn--header"
-                onClick={handleShowTip}
-              />
-            </CheckoutLineItem>
-            {showTip && <CheckoutTip setShowTip={setShowTip} />}
-          </>
-        )}
-        {showEatingUtensils && (
-          <Switch
-            label="Eating Utensils"
-            id="details-eating_utensils"
-            on={details.eating_utensils}
-            onChange={handleChange}
-            inputClasses="input--button"
-          />
-        )}
-        {showServingUtensils && (
-          <Switch
-            label="Serving Utensils"
-            id="details-serving_utensils"
-            on={details.serving_utensils}
-            onChange={handleChange}
-            inputClasses="input--button"
-          />
-        )}
-        {allowTaxExempt && (
-          <Input
-            label="Tax Exempt ID"
-            name="details-tax_exempt_id"
-            type="text"
-            value={details.tax_exempt_id}
-            onChange={handleChange}
-            error={detailsErrors.tax_exempt_id}
-            required={false}
-          />
-        )}
-        {showPersonCount && (
-          <Input
-            label="Person Count"
-            name="details-person_count"
-            type="number"
-            value={details.person_count}
-            onChange={handleChange}
-            error={detailsErrors.person_count}
-            required={required.includes('count')}
-          />
-        )}
-        {showNotes && (
-          <Textarea
-            label="Notes"
-            name="details-notes"
-            value={details.notes}
-            onChange={handleChange}
-            error={detailsErrors.notes}
-            required={required.includes('notes')}
-          />
-        )}
-      </div>
-    </div>
+          </div>
+        </div>
+      )}
+    </>
   )
 }
 
