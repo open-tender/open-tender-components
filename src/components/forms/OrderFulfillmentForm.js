@@ -2,6 +2,9 @@ import React, { useState, useRef, useEffect } from 'react'
 import propTypes from 'prop-types'
 import { Input } from '../index'
 
+const arrivedText =
+  "Thanks for letting us know you've arrived! We'll be out with your order shortly."
+
 const OrderFulfillmentForm = ({
   orderId,
   fulfillment,
@@ -64,14 +67,18 @@ const OrderFulfillmentForm = ({
         ))}
       </div>
       <div className="section__submit">
-        <button
-          className="ot-btn"
-          type="submit"
-          disabled={submitting || data.has_arrived}
-          ref={submitButton}
-        >
-          {settings.button}
-        </button>
+        {data.has_arrived ? (
+          <p>{arrivedText}</p>
+        ) : (
+          <button
+            className="ot-btn"
+            type="submit"
+            disabled={submitting || data.has_arrived}
+            ref={submitButton}
+          >
+            {settings.button}
+          </button>
+        )}
       </div>
     </form>
   )
