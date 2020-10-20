@@ -33,7 +33,6 @@ const CheckoutDetails = () => {
   } = useContext(FormContext)
   const [details, setDetails] = useState(form.details)
   const [showTip, setShowTip] = useState(false)
-  const [showCurbside, setShowCurbside] = useState(false)
   const { orderType, serviceType, revenueCenter = {} } = order
   const serviceTypeName = serviceTypeNamesMap[serviceType]
   const isCatering = orderType === 'CATERING'
@@ -82,12 +81,6 @@ const CheckoutDetails = () => {
   const handleShowTip = (evt) => {
     evt.preventDefault()
     setShowTip(!showTip)
-    evt.target.blur()
-  }
-
-  const handleShowCurbside = (evt) => {
-    evt.preventDefault()
-    setShowCurbside(!showCurbside)
     evt.target.blur()
   }
 
@@ -215,8 +208,6 @@ const CheckoutDetails = () => {
             <Switch
               label={`Use ${curbside.title}`}
               id="order_fulfillment"
-              // on={showCurbside}
-              // onChange={handleShowCurbside}
               on={details.order_fulfillment}
               onChange={handleChange}
               inputClasses="input--button"
@@ -230,6 +221,7 @@ const CheckoutDetails = () => {
                       label={field.label}
                       name={`details-${field.name}`}
                       type="text"
+                      placeholder={field.placeholder}
                       value={details[field.name]}
                       onChange={handleChange}
                       error={null}

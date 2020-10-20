@@ -11,6 +11,7 @@ import { CheckoutTender } from '.'
 
 export const TendersContext = createContext(null)
 
+// https://developer.apple.com/documentation/apple_pay_on_the_web/apple_pay_js_api/checking_for_apple_pay_availability
 const checkApplePay = (testing = false) => {
   if (testing) return new Promise((resolve) => resolve(true))
   if (window.ApplePaySession) {
@@ -19,8 +20,12 @@ const checkApplePay = (testing = false) => {
       merchantIdentifier
     )
     return promise
-      .then((canMakePayments) => (canMakePayments ? true : false))
-      .catch((err) => console.log(err) || false)
+      .then(
+        (canMakePayments) =>
+          console.log('canMakePayments', canMakePayments) ||
+          (canMakePayments ? true : false)
+      )
+      .catch((err) => console.log('catch', err) || false)
   } else {
     return new Promise((resolve) => resolve(false))
   }
@@ -53,7 +58,9 @@ const CheckoutTenders = () => {
 
   useEffect(() => {
     if (hasApplePay) {
-      checkApplePay().then((show) => setShowApplePay(show))
+      checkApplePay().then(
+        (show) => console.log('show', show) || setShowApplePay(show)
+      )
     }
   }, [hasApplePay])
 

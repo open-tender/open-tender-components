@@ -56,12 +56,11 @@ const OrderFulfillmentForm = ({
             key={field.name}
             label={field.label}
             name={field.name}
-            type={field.type}
+            type="text"
+            placeholder={field.placeholder}
             value={data[field.name]}
             onChange={handleChange}
             error={errors[field.name]}
-            required={field.required}
-            autoComplete={field.autoComplete}
             disabled={data.has_arrived}
           />
         ))}
