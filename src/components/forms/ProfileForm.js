@@ -1,6 +1,6 @@
 import React, { useState, useRef, useEffect } from 'react'
 import propTypes from 'prop-types'
-import { optionsOrderNotifications } from '@open-tender/js'
+import { optionsOrderNotificationsTemp } from '@open-tender/js'
 import { Input, RadioButtonGroup, Checkbox } from '../index'
 
 const fields = [
@@ -92,7 +92,7 @@ const ProfileForm = ({
               label={order_notifications.title}
               name="order_notifications"
               value={data.order_notifications}
-              options={optionsOrderNotifications}
+              options={optionsOrderNotificationsTemp}
               onChange={handleRadio}
               showLabel={true}
               required={true}
