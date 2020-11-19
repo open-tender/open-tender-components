@@ -13,8 +13,8 @@ const CheckoutCreditCards = () => {
   const appliedCards = form.tenders.filter((i) => i.tender_type === 'CREDIT')
   const existingCards = appliedCards.map((i) => i.customer_card_id)
   const tenderErrors = errors ? errors.tenders || null : null
-  const index = form.tenders ? form.tenders.length - 1 : 0
-  const tenderError = tenderErrors ? tenderErrors[index] : null
+  const index = form.tenders.map((i) => i.tender_type).indexOf('CREDIT')
+  const tenderError = tenderErrors && index !== -1 ? tenderErrors[index] : null
 
   useEffect(() => {
     if (!customerId) setShowNewCard(true)

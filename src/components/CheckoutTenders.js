@@ -75,10 +75,10 @@ const CheckoutTenders = () => {
   useEffect(() => {
     if (tenderError) {
       const appliedTender = form.tenders[tenderIndex]
-      const newTenders = form.tenders.filter(
-        (i, index) => index !== tenderIndex
-      )
-      updateForm({ tenders: [...newTenders] })
+      // const newTenders = form.tenders.filter(
+      //   (i, index) => index !== tenderIndex
+      // )
+      // updateForm({ tenders: [...newTenders] })
       if (appliedTender.tender_type === 'CREDIT') setShowCredit(true)
     }
   }, [form.tenders, tenderError, tenderIndex, updateForm])

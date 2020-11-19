@@ -1,6 +1,7 @@
 import React from 'react'
 import propTypes from 'prop-types'
 import {
+  fmtDate,
   serviceTypeNamesMap,
   capitalize,
   makeOrderTimes,
@@ -62,8 +63,8 @@ const RequestedAtTimes = ({
                 <div className="order-time__container">
                   <div className="order-time__time">
                     <p className={current ? 'ot-bold ot-color-headings' : ''}>
-                      {capitalize(i.weekday)} {makeOrderWindow(i)}{' '}
-                      {current ? '(current)' : ''}
+                      {capitalize(i.weekday)}, {fmtDate(i.date, 'MMM d')}{' '}
+                      {makeOrderWindow(i)} {current ? '(current)' : ''}
                     </p>
                     <p className="order-time__order-by ot-font-size-x-small">
                       {' '}
