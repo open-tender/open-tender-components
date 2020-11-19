@@ -65,6 +65,7 @@ const CheckoutAddress = () => {
   const addressConfig = makeAddressConfig(required, displayed)
   const addressErrors = errors.address || {}
   const fullAddress = makeFullAddress(order.address)
+  const isOutpost = order.revenueCenter ? order.revenueCenter.is_outpost : false
 
   useEffect(() => {
     if (isEmpty(form.address) && check.address) {
@@ -112,7 +113,7 @@ const CheckoutAddress = () => {
             icon={iconMap.address}
             classes="ot-btn--secondary ot-btn--header"
             onClick={updateRevenueCenter}
-            disabled={order.revenueCenter.is_outpost}
+            disabled={isOutpost}
           />
         </CheckoutLineItem>
         {fields.map((field) => {
