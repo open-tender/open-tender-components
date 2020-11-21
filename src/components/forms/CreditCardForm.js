@@ -19,7 +19,14 @@ const fields = [
   { label: 'Zip Code', placeholder: '#####', name: 'zip', type: 'number' },
 ]
 
-const CreditCardForm = ({ windowRef, loading, error, addCard, callback }) => {
+const CreditCardForm = ({
+  windowRef,
+  loading,
+  error,
+  addCard,
+  callback,
+  submitText = 'Add New Card',
+}) => {
   const submitButton = useRef()
   const formRef = useRef()
   const [data, setData] = useState({})
@@ -99,7 +106,7 @@ const CreditCardForm = ({ windowRef, loading, error, addCard, callback }) => {
           disabled={submitting}
           ref={submitButton}
         >
-          {submitting ? 'Authorizing Card...' : 'Add New Card'}
+          {submitting ? 'Authorizing Card...' : submitText}
         </button>
       </div>
     </form>
@@ -113,6 +120,7 @@ CreditCardForm.propTypes = {
   error: propTypes.object,
   addCard: propTypes.func,
   callback: propTypes.func,
+  submitText: propTypes.string,
 }
 
 export default CreditCardForm

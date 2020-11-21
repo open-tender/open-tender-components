@@ -48,7 +48,12 @@ const GiftCardForm = ({
   }
 
   return (
-    <form id="address-form" className="form" onSubmit={handleSubmit} noValidate>
+    <form
+      id="gift-card-form"
+      className="form"
+      onSubmit={handleSubmit}
+      noValidate
+    >
       {errors.form && (
         <div className="form__error form__error--top ot-form-error">
           {errors.form}

@@ -11,6 +11,7 @@ import OrderFulfillmentForm from './OrderFulfillmentForm'
 import GiftCardForm from './GiftCardForm'
 import CartGuestForm from './CartGuestForm'
 import LevelUpForm from './LevelUpForm'
+import GiftCardsForm from './GiftCardsForm'
 import SubmitButton from './SubmitButton'
 
 export {
@@ -28,4 +29,5 @@ export {
   CartGuestForm,
   LevelUpForm,
   OrderFulfillmentForm,
+  GiftCardsForm,
 }
