@@ -2,6 +2,7 @@ import React, { useState, useRef, useEffect } from 'react'
 import propTypes from 'prop-types'
 import { CreditCardForm } from '.'
 import { Input } from '../index'
+import Button from '../Button'
 
 const initState = { amount: '10.00', quantity: 1, email: '' }
 
@@ -9,8 +10,16 @@ const amounts = ['10.00', '25.00', '50.00', '100.00', '500.00']
 
 const options = amounts.map((i) => ({ name: `$${i}`, value: i }))
 
-const Select = ({ label, name, value, onChange, disabled, options }) => (
-  <span className="input gift-cards__input__amount select__wrapper">
+const Select = ({
+  label,
+  name,
+  value,
+  onChange,
+  disabled,
+  options,
+  className = '',
+}) => (
+  <span className={`input select__wrapper ${className}`}>
     <select
       aria-label={label}
       id={name}
@@ -40,6 +49,7 @@ Select.propTypes = {
   onChange: propTypes.func,
   disabled: propTypes.bool,
   options: propTypes.array,
+  className: propTypes.string,
 }
 
 const InputEmail = ({ label, name, value, onChange, disabled }) => (
@@ -125,26 +135,49 @@ Quantity.propTypes = {
   iconMap: propTypes.object,
 }
 
+const makeGiftCards = (giftCards) => {
+  return giftCards.reduce((arr, card) => {
+    const { amount, quantity, email } = card
+    const giftCard = !email || !email.length ? { amount, quantity } : card
+    return [...arr, giftCard]
+  }, [])
+}
+
 const GiftCardsForm = ({
   purchase,
-  success,
+  reset,
   loading,
   error,
+  success,
+  purchasedCards,
   iconMap,
+  customer = {},
   creditCards = [],
 }) => {
   const submitButton = useRef()
+  const [name, setName] = useState(customer ? customer.first_name : null)
+  const [email, setEmail] = useState(customer ? customer.email : null)
   const [cards, setCards] = useState([initState])
-  const [email, setEmail] = useState(null)
   const [isNewCard, setIsNewCard] = useState(creditCards.length ? false : true)
-  const [creditCard, setCreditCard] = useState(null)
+  const defaultCard = creditCards.length
+    ? { customer_card_id: creditCards[0].customer_card_id }
+    : {}
+  const [creditCard, setCreditCard] = useState(defaultCard)
   const [errors, setErrors] = useState({})
   const [submitting, setSubmitting] = useState(false)
+  const creditCardOptions = creditCards.map((i) => ({
+    name: `${i.card_type_name} ending in ${i.last4}`,
+    value: i.customer_card_id,
+  }))
 
   useEffect(() => {
     if (loading === 'idle') setSubmitting(false)
     if (error) setErrors(error)
   }, [loading, error])
+
+  const handleName = (evt) => {
+    setName(evt.target.value)
+  }
 
   const handleEmail = (evt) => {
     setEmail(evt.target.value)
@@ -177,22 +210,53 @@ const GiftCardsForm = ({
     evt.target.blur()
   }
 
-  const handleSubmitNewCard = (card) => {
-    purchase({ credit_card: card, email, cards })
+  const handleCreditCard = (evt) => {
+    const customerCardId = parseInt(evt.target.value)
+    setCreditCard({ customer_card_id: customerCardId })
   }
 
-  const handleSubmit = (evt, card) => {
+  const handleSubmitNewCard = (card) => {
+    setErrors({})
+    const gift_cards = makeGiftCards(cards)
+    purchase({ credit_card: card, name, email, gift_cards })
+  }
+
+  const handleSubmit = (evt) => {
     evt.preventDefault()
-    setSubmitting(true)
-    purchase({ credit_card: card, email, cards })
-    submitButton.current.blur()
+    if (!name || !email) {
+      setErrors({ form: 'Both name and email are required' })
+      window.scroll(0, 0)
+    } else {
+      setErrors({})
+      setSubmitting(true)
+      const gift_cards = makeGiftCards(cards)
+      purchase({ credit_card: creditCard, name, email, gift_cards })
+      submitButton.current.blur()
+    }
+  }
+
+  const handleReset = (evt) => {
+    evt.preventDefault()
+    setCards([initState])
+    setErrors({})
+    reset()
+    evt.target.blur()
   }
 
   return success ? (
-    <div className="gift-cards__success">
-      <p className="ot-bold ot-color-success">
-        Success! Please check your email for your receipt and assigned gift
-        cards.
+    <div className="gift-cards__section">
+      <div className="gift-cards__section__header">
+        <p className="gift-cards__section__header__title ot-heading ot-font-size-h4 ot-color-success">
+          Success! Please check your email for your receipt and assigned gift
+          cards.
+        </p>
+      </div>
+      <p>
+        <Button
+          text="Purchase more gift cards"
+          onClick={handleReset}
+          classes="ot-btn-link"
+        />
       </p>
     </div>
   ) : (
@@ -208,28 +272,39 @@ const GiftCardsForm = ({
             {errors.form}
           </div>
         )}
-        <div className="gift-cards__section">
-          <div className="gift-cards__section__header">
-            <p className="gift-cards__section__header__title ot-heading ot-font-size-h4">
-              Enter your email address for your receipt
-            </p>
-            <p className="gift-cards__section__header__subtitle ot-font-size-small">
-              {"We'll"} send a receipt and your purchased gift card numbers to
-              the email address you enter below.
-            </p>
+        {!customer && (
+          <div className="gift-cards__section">
+            <div className="gift-cards__section__header">
+              <p className="gift-cards__section__header__title ot-heading ot-font-size-h4">
+                Enter your name and email address for your receipt
+              </p>
+              <p className="gift-cards__section__header__subtitle ot-font-size-small">
+                {"We'll"} send a receipt and your purchased gift card numbers to
+                the email address you enter below.
+              </p>
+            </div>
+            <div className="form__inputs">
+              <Input
+                label="Your Name"
+                name="name"
+                type="text"
+                value={name}
+                onChange={handleName}
+                error={errors.name}
+                required={true}
+              />
+              <Input
+                label="Your Email"
+                name="email"
+                type="email"
+                value={email}
+                onChange={handleEmail}
+                error={errors.email}
+                required={true}
+              />
+            </div>
           </div>
-          <div className="form__inputs">
-            <Input
-              label="Your Email"
-              name="email"
-              type="email"
-              value={email}
-              onChange={handleEmail}
-              error={errors.email}
-              required={true}
-            />
-          </div>
-        </div>
+        )}
         <div className="gift-cards__section">
           <div className="gift-cards__section__header">
             <p className="gift-cards__section__header__title ot-heading ot-font-size-h4">
@@ -257,6 +332,7 @@ const GiftCardsForm = ({
                   error={errors[`amount-${index}`]}
                   required={true}
                   options={options}
+                  className="gift-cards__input__amount"
                 />
                 <Quantity
                   name={`Gift card ${index}`}
@@ -288,19 +364,29 @@ const GiftCardsForm = ({
             </div>
           </div>
         </div>
-        {!isNewCard && (
+        {!isNewCard && creditCards.length && (
           <div className="gift-cards__section">
             <div className="gift-cards__section__header">
               <p className="gift-cards__section__header__title ot-heading ot-font-size-h4">
                 Add your payment information
               </p>
               <p className="gift-cards__section__header__subtitle ot-font-size-small">
-                Choose an existing credit card or add new one.
+                Choose an existing credit card or add new one from your account
+                page.
               </p>
             </div>
-            <div className="form__submit">
+            <Select
+              label="Choose existing credit card"
+              name="credit_card"
+              value={creditCard.customer_card_id}
+              onChange={handleCreditCard}
+              error={errors.credit_card}
+              required={true}
+              options={creditCardOptions}
+            />
+            <div className="form__submit gift-cards__submit">
               <button
-                className="ot-btn"
+                className="ot-btn ot-btn--big"
                 type="submit"
                 disabled={submitting}
                 ref={submitButton}
@@ -322,12 +408,19 @@ const GiftCardsForm = ({
             </p>
           </div>
           <div className="gift-cards__new-card">
-            <CreditCardForm
-              loading={loading}
-              error={error}
-              addCard={handleSubmitNewCard}
-              submitText="Purchase Gift Cards"
-            />
+            {name && email ? (
+              <CreditCardForm
+                loading={loading}
+                error={error}
+                addCard={handleSubmitNewCard}
+                submitText="Purchase Gift Cards"
+              />
+            ) : (
+              <p className="ot-color-error">
+                Please enter your name & email before adding your payment
+                information.
+              </p>
+            )}
           </div>
         </div>
       )}
@@ -338,11 +431,14 @@ const GiftCardsForm = ({
 GiftCardsForm.displayName = 'GiftCardsForm'
 GiftCardsForm.propTypes = {
   purchase: propTypes.func,
-  success: propTypes.bool,
+  reset: propTypes.func,
   loading: propTypes.string,
   error: propTypes.object,
-  creditCards: propTypes.array,
+  success: propTypes.bool,
+  purchasedCards: propTypes.array,
   iconMap: propTypes.object,
+  customer: propTypes.object,
+  creditCards: propTypes.array,
 }
 
 export default GiftCardsForm
