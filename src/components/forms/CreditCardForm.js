@@ -26,6 +26,7 @@ const CreditCardForm = ({
   addCard,
   callback,
   submitText = 'Add New Card',
+  submittingText = 'Authorizing Card...',
 }) => {
   const submitButton = useRef()
   const formRef = useRef()
@@ -106,7 +107,7 @@ const CreditCardForm = ({
           disabled={submitting}
           ref={submitButton}
         >
-          {submitting ? 'Authorizing Card...' : submitText}
+          {submitting ? submittingText : submitText}
         </button>
       </div>
     </form>
@@ -121,6 +122,7 @@ CreditCardForm.propTypes = {
   addCard: propTypes.func,
   callback: propTypes.func,
   submitText: propTypes.string,
+  submittingText: propTypes.string,
 }
 
 export default CreditCardForm

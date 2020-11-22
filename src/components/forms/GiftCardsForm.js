@@ -1,14 +1,18 @@
 import React, { useState, useRef, useEffect } from 'react'
-import propTypes from 'prop-types'
+import propTypes, { object } from 'prop-types'
 import { CreditCardForm } from '.'
 import { Input } from '../index'
 import Button from '../Button'
+import { Error } from '../Inputs'
 
 const initState = { amount: '10.00', quantity: 1, email: '' }
 
 const amounts = ['10.00', '25.00', '50.00', '100.00', '500.00']
 
-const options = amounts.map((i) => ({ name: `$${i}`, value: i }))
+const options = amounts.map((i) => ({
+  name: `$${parseFloat(i).toFixed(0)}`,
+  value: i,
+}))
 
 const Select = ({
   label,
@@ -52,7 +56,7 @@ Select.propTypes = {
   className: propTypes.string,
 }
 
-const InputEmail = ({ label, name, value, onChange, disabled }) => (
+const InputEmail = ({ label, name, value, onChange, disabled, error }) => (
   <span className="input gift-cards__input__email">
     <input
       aria-label={label}
@@ -65,6 +69,7 @@ const InputEmail = ({ label, name, value, onChange, disabled }) => (
       disabled={disabled}
       onChange={onChange}
     />
+    {error ? <Error error={error} /> : null}
   </span>
 )
 
@@ -75,6 +80,7 @@ InputEmail.propTypes = {
   value: propTypes.string,
   onChange: propTypes.func,
   disabled: propTypes.bool,
+  error: propTypes.string,
 }
 
 const Quantity = ({ name, quantity, update, classes = '', iconMap = {} }) => {
@@ -155,25 +161,40 @@ const GiftCardsForm = ({
   creditCards = [],
 }) => {
   const submitButton = useRef()
+  const url = window.location.origin
   const [name, setName] = useState(customer ? customer.first_name : null)
   const [email, setEmail] = useState(customer ? customer.email : null)
   const [cards, setCards] = useState([initState])
-  const [isNewCard, setIsNewCard] = useState(creditCards.length ? false : true)
-  const defaultCard = creditCards.length
-    ? { customer_card_id: creditCards[0].customer_card_id }
-    : {}
-  const [creditCard, setCreditCard] = useState(defaultCard)
+  const [isNewCard, setIsNewCard] = useState(true)
+  const [creditCard, setCreditCard] = useState(null)
+  const [creditCardOptions, setCreditCardOptions] = useState([])
   const [errors, setErrors] = useState({})
   const [submitting, setSubmitting] = useState(false)
-  const creditCardOptions = creditCards.map((i) => ({
-    name: `${i.card_type_name} ending in ${i.last4}`,
-    value: i.customer_card_id,
-  }))
+  const newCardError = error
+    ? Object.entries(error)
+        .filter(([key]) => key !== 'form')
+        .reduce((obj, [key, value]) => ({ ...obj, [key]: value }), {})
+    : null
 
   useEffect(() => {
     if (loading === 'idle') setSubmitting(false)
     if (error) setErrors(error)
   }, [loading, error])
+
+  useEffect(() => {
+    if (creditCards.length) {
+      const options = creditCards.map((i) => ({
+        name: `${i.card_type_name} ending in ${i.last4}`,
+        value: i.customer_card_id,
+      }))
+      setCreditCardOptions(options)
+      const defaultCard = creditCards.length
+        ? { customer_card_id: creditCards[0].customer_card_id }
+        : {}
+      setCreditCard(defaultCard)
+      setIsNewCard(false)
+    }
+  }, [creditCards])
 
   const handleName = (evt) => {
     setName(evt.target.value)
@@ -218,11 +239,12 @@ const GiftCardsForm = ({
   const handleSubmitNewCard = (card) => {
     setErrors({})
     const gift_cards = makeGiftCards(cards)
-    purchase({ credit_card: card, name, email, gift_cards })
+    purchase({ credit_card: card, name, email, url, gift_cards })
   }
 
   const handleSubmit = (evt) => {
     evt.preventDefault()
+    const { first_name: name, email } = customer || {}
     if (!name || !email) {
       setErrors({ form: 'Both name and email are required' })
       window.scroll(0, 0)
@@ -230,7 +252,7 @@ const GiftCardsForm = ({
       setErrors({})
       setSubmitting(true)
       const gift_cards = makeGiftCards(cards)
-      purchase({ credit_card: creditCard, name, email, gift_cards })
+      purchase({ credit_card: creditCard, name, email, url, gift_cards })
       submitButton.current.blur()
     }
   }
@@ -246,16 +268,39 @@ const GiftCardsForm = ({
   return success ? (
     <div className="gift-cards__section">
       <div className="gift-cards__section__header">
-        <p className="gift-cards__section__header__title ot-heading ot-font-size-h4 ot-color-success">
+        <p className="gift-cards__section__header__title ot-heading ot-font-size-h4">
           Success! Please check your email for your receipt and assigned gift
           cards.
         </p>
+        <p className="gift-cards__section__header__subtitle ot-font-size-small">
+          Below is the list of gift cards you purchased.
+        </p>
       </div>
+      {purchasedCards && (
+        <table className="gift-cards__table">
+          <thead>
+            <tr className="ot-border-color ot-color-headings">
+              <th>Card Number</th>
+              <th>Recipient</th>
+              <th>Balance</th>
+            </tr>
+          </thead>
+          <tbody>
+            {purchasedCards.map((i) => (
+              <tr key={i.card_number} className="ot-border-color">
+                <td>{i.card_number}</td>
+                <td>{i.email || 'none'}</td>
+                <td>${i.balance}</td>
+              </tr>
+            ))}
+          </tbody>
+        </table>
+      )}
       <p>
         <Button
           text="Purchase more gift cards"
           onClick={handleReset}
-          classes="ot-btn-link"
+          classes="ot-btn ot-btn--secondary"
         />
       </p>
     </div>
@@ -269,7 +314,9 @@ const GiftCardsForm = ({
       >
         {errors.form && (
           <div className="form__error form__error--top ot-form-error">
-            {errors.form}
+            {errors.form.includes('parameters')
+              ? 'There are one or more errors below'
+              : errors.form}
           </div>
         )}
         {!customer && (
@@ -346,7 +393,7 @@ const GiftCardsForm = ({
                   type="email"
                   value={card.email}
                   onChange={handleChange}
-                  error={errors[`email-${index}`]}
+                  error={errors[`gift_cards.${index}.email`]}
                   required={true}
                   disabled={submitting}
                 />
@@ -411,9 +458,10 @@ const GiftCardsForm = ({
             {name && email ? (
               <CreditCardForm
                 loading={loading}
-                error={error}
+                error={newCardError}
                 addCard={handleSubmitNewCard}
                 submitText="Purchase Gift Cards"
+                submittingText="Submitting..."
               />
             ) : (
               <p className="ot-color-error">

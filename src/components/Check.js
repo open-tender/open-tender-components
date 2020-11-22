@@ -35,6 +35,7 @@ const Check = ({ title, check, tenders, loader, updating = false }) => {
   const {
     order_id,
     cart,
+    gift_cards,
     surcharges,
     discounts,
     taxes,
@@ -43,6 +44,7 @@ const Check = ({ title, check, tenders, loader, updating = false }) => {
   } = check
   const {
     subtotal,
+    gift_card,
     surcharge,
     discount,
     // tax,
@@ -51,7 +53,7 @@ const Check = ({ title, check, tenders, loader, updating = false }) => {
     total,
   } = totals
 
-  const totalBeforeTax = [subtotal, surcharge, discount]
+  const totalBeforeTax = [subtotal, gift_card, surcharge, discount]
     .reduce((t, i) => (t += parseFloat(i)), 0.0)
     .toFixed(2)
   const amountRemaiing = checkAmountRemaining(total, tenders)
@@ -86,6 +88,20 @@ const Check = ({ title, check, tenders, loader, updating = false }) => {
             value={subtotal}
             classes="ot-color-headings"
           />
+          {gift_cards && gift_cards.length ? (
+            <li>
+              <ul className="check__items__section ot-font-size-small">
+                {gift_cards.map((giftCard) => (
+                  <CheckItem
+                    key={giftCard.gift_card_id}
+                    label={`Gift Card ${giftCard.card_number}`}
+                    value={giftCard.amount}
+                  />
+                ))}
+              </ul>
+              {/* <CheckItem label="Gift Cards" value={gift_card} /> */}
+            </li>
+          ) : null}
           {surcharges.length ? (
             <li>
               <ul className="check__items__section ot-font-size-small">
