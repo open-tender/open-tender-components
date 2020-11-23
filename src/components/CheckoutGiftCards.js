@@ -28,13 +28,20 @@ CheckoutGiftCardLabel.propTypes = {
 
 const CheckoutGiftCards = () => {
   const formContext = useContext(FormContext)
-  const { iconMap = {}, config, check, form, updateForm } = formContext
-
+  const {
+    iconMap = {},
+    config,
+    check,
+    form,
+    updateForm,
+    addGiftCard,
+  } = formContext
+  const hasCustomer = check.customer && check.customer.customer_id
   const giftCards =
     check.customer && check.customer.gift_cards
       ? check.customer.gift_cards
       : null
-  if (!giftCards) return null
+  // if (!giftCards) return null
   const giftCardsApplied = form.tenders
     .filter((i) => i.tender_type === 'GIFT_CARD')
     .reduce((obj, i) => ({ ...obj, [i.card_number]: i.amount }), {})
@@ -85,47 +92,59 @@ const CheckoutGiftCards = () => {
           {config.giftCards.title}
         </p>
         <p className="form__legend__subtitle ot-line-height">
-          {config.giftCards.subtitle}
+          {hasCustomer
+            ? config.giftCards.subtitle
+            : 'Have a gift card number? Please log into your account or create one via the button above in order to use the gift card here.'}
         </p>
       </div>
       <div className="form__inputs">
-        {giftCards.map((i) => {
-          const amount = giftCardsApplied[i.card_number]
-          return (
-            <CheckoutLineItem
-              key={i.card_number}
-              label={<CheckoutGiftCardLabel giftCard={i} amount={amount} />}
-            >
-              <div className="input__wrapper">
-                {amount ? (
-                  <>
-                    <span className="input__success">
-                      <CircleLoader complete={true} />
-                    </span>
+        {giftCards &&
+          giftCards.map((i) => {
+            const amount = giftCardsApplied[i.card_number]
+            return (
+              <CheckoutLineItem
+                key={i.card_number}
+                label={<CheckoutGiftCardLabel giftCard={i} amount={amount} />}
+              >
+                <div className="input__wrapper">
+                  {amount ? (
+                    <>
+                      <span className="input__success">
+                        <CircleLoader complete={true} />
+                      </span>
+                      <Button
+                        text="Remove"
+                        ariaLabel={`Remove gift card ${i.card_number} with amount of ${amount}`}
+                        icon={iconMap.remove}
+                        classes="ot-btn--secondary ot-btn--header"
+                        onClick={(evt) => removeGiftCard(evt, i.card_number)}
+                      />
+                    </>
+                  ) : (
                     <Button
-                      text="Remove"
-                      ariaLabel={`Remove gift card ${i.card_number} with amount of ${amount}`}
-                      icon={iconMap.remove}
+                      text="Apply"
+                      ariaLabel={`Apply gift card ${i.card_number} with balance of ${i.balance}`}
+                      icon={iconMap.add}
                       classes="ot-btn--secondary ot-btn--header"
-                      onClick={(evt) => removeGiftCard(evt, i.card_number)}
+                      onClick={(evt) =>
+                        applyGiftCard(evt, i.card_number, i.balance)
+                      }
+                      disabled={isPaid}
                     />
-                  </>
-                ) : (
-                  <Button
-                    text="Apply"
-                    ariaLabel={`Apply gift card ${i.card_number} with balance of ${i.balance}`}
-                    icon={iconMap.add}
-                    classes="ot-btn--secondary ot-btn--header"
-                    onClick={(evt) =>
-                      applyGiftCard(evt, i.card_number, i.balance)
-                    }
-                    disabled={isPaid}
-                  />
-                )}
-              </div>
-            </CheckoutLineItem>
-          )
-        })}
+                  )}
+                </div>
+              </CheckoutLineItem>
+            )
+          })}
+        <CheckoutLineItem label="Add New Gift Card">
+          <Button
+            text="Add Gift Card"
+            icon={iconMap.add}
+            classes="ot-btn--secondary ot-btn--header"
+            onClick={addGiftCard}
+            disabled={!hasCustomer}
+          />
+        </CheckoutLineItem>
       </div>
     </fieldset>
   )

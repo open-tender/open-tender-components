@@ -206,6 +206,13 @@ const CheckoutForm = ({
     evt.target.blur()
   }
 
+  const handleAddGiftCard = (evt) => {
+    evt.preventDefault()
+    const validate = () => dispatch(validateOrder(orderValidate))
+    dispatch(setAlert({ type: 'giftCardAssign', args: { validate } }))
+    evt.target.blur()
+  }
+
   const handleSubmit = (evt) => {
     evt.preventDefault()
     dispatch(setSubmitting(true))
@@ -235,6 +242,7 @@ const CheckoutForm = ({
         updateRevenueCenter: handleRevenueCenter,
         updateServiceType: handleServiceType,
         connectLevelUp: handleConnectLevelUp,
+        addGiftCard: handleAddGiftCard,
       }}
     >
       <form
