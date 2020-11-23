@@ -1,5 +1,5 @@
 import React, { useState, useRef, useEffect } from 'react'
-import propTypes, { object } from 'prop-types'
+import propTypes from 'prop-types'
 import { CreditCardForm } from '.'
 import { Input } from '../index'
 import Button from '../Button'
@@ -298,9 +298,9 @@ const GiftCardsForm = ({
       )}
       <p>
         <Button
-          text="Purchase more gift cards"
+          text="Purchase More Gift Cards"
           onClick={handleReset}
-          classes="ot-btn ot-btn--secondary"
+          classes="ot-btn"
         />
       </p>
     </div>
