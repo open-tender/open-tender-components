@@ -8,9 +8,11 @@ import CreditCardForm from './CreditCardForm'
 import AllergenForm from './AllergenForm'
 import OrderRatingForm from './OrderRatingForm'
 import OrderFulfillmentForm from './OrderFulfillmentForm'
-import GiftCardForm from './GiftCardForm'
 import CartGuestForm from './CartGuestForm'
 import LevelUpForm from './LevelUpForm'
+import GiftCardForm from './GiftCardForm'
+import GiftCardAssignForm from './GiftCardAssignForm'
+import GiftCardAssignOtherForm from './GiftCardAssignOtherForm'
 import GiftCardsForm from './GiftCardsForm'
 import SubmitButton from './SubmitButton'
 
@@ -18,16 +20,18 @@ export {
   SignUpForm,
   LoginForm,
   SendResetForm,
-  SubmitButton,
   ResetPasswordForm,
   ProfileForm,
   AddressForm,
   CreditCardForm,
   AllergenForm,
   OrderRatingForm,
-  GiftCardForm,
+  OrderFulfillmentForm,
   CartGuestForm,
   LevelUpForm,
-  OrderFulfillmentForm,
+  GiftCardForm,
+  GiftCardAssignForm,
+  GiftCardAssignOtherForm,
   GiftCardsForm,
+  SubmitButton,
 }
