@@ -2,7 +2,7 @@ import React, { useState, useRef } from 'react'
 import propTypes from 'prop-types'
 import { Input } from '../index'
 
-const LoginForm = ({ loading, error, login, callback }) => {
+const LoginForm = ({ loading, error, login, callback, hasThanx }) => {
   const [data, setData] = useState({})
   const submitButton = useRef()
   const isLoading = loading === 'pending'
@@ -38,15 +38,17 @@ const LoginForm = ({ loading, error, login, callback }) => {
           required={true}
           classes="form__input"
         />
-        <Input
-          label="Password"
-          name="password"
-          type="password"
-          value={data.password}
-          onChange={handleChange}
-          required={true}
-          classes="form__input"
-        />
+        {!hasThanx && (
+          <Input
+            label="Password"
+            name="password"
+            type="password"
+            value={data.password}
+            onChange={handleChange}
+            required={true}
+            classes="form__input"
+          />
+        )}
       </div>
       <div className="form__submit">
         <button
@@ -68,6 +70,7 @@ LoginForm.propTypes = {
   error: propTypes.string,
   login: propTypes.func,
   callback: propTypes.func,
+  hasThanx: propTypes.bool,
 }
 
 export default LoginForm

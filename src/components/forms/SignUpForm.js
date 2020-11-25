@@ -25,7 +25,14 @@ const fields = [
   // { label: 'Company', name: 'company', type: 'text' },
 ]
 
-const SignUpForm = ({ loading, error, signUp, callback, optIns = {} }) => {
+const SignUpForm = ({
+  loading,
+  error,
+  signUp,
+  callback,
+  optIns = {},
+  hasThanx = false,
+}) => {
   const { accepts_marketing, order_notifications } = optIns
   const initialState = {
     accepts_marketing: accepts_marketing ? accepts_marketing.default : false,
@@ -37,6 +44,9 @@ const SignUpForm = ({ loading, error, signUp, callback, optIns = {} }) => {
   const [errors, setErrors] = useState({})
   const [submitting, setSubmitting] = useState(false)
   const submitButton = useRef()
+  const formfields = hasThanx
+    ? fields.filter((i) => i.name !== 'password')
+    : fields
 
   useEffect(() => {
     return () => {
@@ -77,7 +87,7 @@ const SignUpForm = ({ loading, error, signUp, callback, optIns = {} }) => {
         </div>
       )}
       <div className="form__inputs">
-        {fields.map((field) => (
+        {formfields.map((field) => (
           <Input
             key={field.name}
             label={field.label}
@@ -133,6 +143,7 @@ SignUpForm.propTypes = {
   signUp: propTypes.func,
   callback: propTypes.func,
   optIns: propTypes.object,
+  hasThanx: propTypes.bool,
 }
 
 export default SignUpForm
