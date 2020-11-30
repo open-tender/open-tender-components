@@ -56,6 +56,7 @@ const CheckoutForm = ({
   order,
   customer,
   autoSelect,
+  hasThanx,
 }) => {
   const submitButton = useRef()
   const {
@@ -227,6 +228,7 @@ const CheckoutForm = ({
         cardIconMap,
         config,
         autoSelect,
+        hasThanx,
         order,
         tz,
         check,
@@ -306,6 +308,7 @@ CheckoutForm.propTypes = {
   order: propTypes.object,
   customer: propTypes.object,
   autoSelect: propTypes.bool,
+  hasThanx: propTypes.bool,
 }
 
 export default CheckoutForm
