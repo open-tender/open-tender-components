@@ -175,7 +175,8 @@ const Builder = ({
 
   const { groups, notes, madeFor, totalPrice } = item
   const isEdit = menuItem.index !== undefined
-  const isIncomplete = groups.filter((g) => g.quantity < g.min).length > 0
+  const isIncomplete =
+    groups.filter((g) => g.quantity < g.min).length > 0 || item.quantity === ''
 
   return (
     <form className="builder__item">

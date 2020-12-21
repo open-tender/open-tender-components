@@ -12,6 +12,7 @@ const BuilderQuantity = ({
   iconMap = {},
 }) => {
   const handleAdjust = (evt) => {
+    if (item.increment > 1 || item.min > 1 || item.max || !adjust) return
     const value = parseInt(evt.target.value)
     const quantity = isNaN(value) || value < 1 ? '' : value
     adjust(quantity)
