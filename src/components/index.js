@@ -7,6 +7,7 @@ import BuilderQuantity from './BuilderQuantity'
 import BuilderRadioGroup from './BuilderRadioGroup'
 import BuilderRadio from './BuilderRadio'
 import Button from './Button'
+import ButtonStyled from './ButtonStyled'
 import CartItem from './CartItem'
 import CartCounts from './CartCounts'
 import CartErrors from './CartErrors'
@@ -56,6 +57,7 @@ export {
   BuilderRadioGroup,
   BuilderRadio,
   Button,
+  ButtonStyled,
   CartItem,
   CartCounts,
   CartErrors,
