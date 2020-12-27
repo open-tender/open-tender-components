@@ -2,7 +2,7 @@ import React from 'react'
 import propTypes from 'prop-types'
 import styled from '@emotion/styled'
 
-const ButtonView = styled('button')`
+const ButtonStyledView = styled('button')`
   cursor: pointer;
   display: inline-block;
   line-height: 1;
@@ -47,17 +47,26 @@ const ButtonView = styled('button')`
   }
 `
 
+const ButtonStyledIcon = styled('span')`
+  display: block;
+  flex-shrink: 0;
+  line-height: 0;
+  width: ${(props) => (props.isSmall ? '1.2rem' : '1.4rem')};
+  width: ${(props) => (props.isSmall ? '1.2rem' : '1.4rem')};
+  margin-right: ${(props) => (props.isSmall ? '0.6rem' : '0.8rem')};
+`
+
 const ButtonStyled = ({
   label,
   children,
   disabled,
   onClick,
+  icon,
   size = 'default',
   color = 'primary',
   style = null,
 }) => {
   const onUp = (evt) => {
-    console.log('this is happening')
     evt.target.blur()
     evt.preventDefault()
     evt.stopPropagation()
@@ -65,7 +74,7 @@ const ButtonStyled = ({
   }
 
   return (
-    <ButtonView
+    <ButtonStyledView
       type="button"
       aria-label={label || null}
       onPointerUp={(evt) => onUp(evt)}
@@ -74,14 +83,22 @@ const ButtonStyled = ({
       color={color}
       style={style}
     >
-      <span>{children}</span>
-    </ButtonView>
+      <span>
+        {icon && (
+          <ButtonStyledIcon isSmall={['header', 'small'].includes(size)}>
+            {icon}
+          </ButtonStyledIcon>
+        )}
+        {children}
+      </span>
+    </ButtonStyledView>
   )
 }
 
 ButtonStyled.displayName = 'ButtonStyled'
 ButtonStyled.propTypes = {
   label: propTypes.string,
+  icon: propTypes.oneOfType([propTypes.string, propTypes.element]),
   children: propTypes.oneOfType([
     propTypes.arrayOf(propTypes.node),
     propTypes.node,

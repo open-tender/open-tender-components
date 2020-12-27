@@ -1,3 +1,4 @@
+import Box from './Box'
 import Builder from './Builder'
 import BuilderGroupHeader from './BuilderGroupHeader'
 import BuilderGroupWarning from './BuilderGroupWarning'
@@ -7,6 +8,8 @@ import BuilderQuantity from './BuilderQuantity'
 import BuilderRadioGroup from './BuilderRadioGroup'
 import BuilderRadio from './BuilderRadio'
 import Button from './Button'
+import ButtonIcon from './ButtonIcon'
+import ButtonLink from './ButtonLink'
 import ButtonStyled from './ButtonStyled'
 import CartItem from './CartItem'
 import CartCounts from './CartCounts'
@@ -36,6 +39,7 @@ import CheckoutTender from './CheckoutTender'
 import CheckoutTip from './CheckoutTip'
 import CircleLoader from './CircleLoader'
 import DeliveryLink from './DeliveryLink'
+import Heading from './Heading'
 import {
   Label,
   Error,
@@ -48,6 +52,7 @@ import {
 } from './Inputs'
 
 export {
+  Box,
   Builder,
   BuilderGroupHeader,
   BuilderGroupWarning,
@@ -57,6 +62,8 @@ export {
   BuilderRadioGroup,
   BuilderRadio,
   Button,
+  ButtonIcon,
+  ButtonLink,
   ButtonStyled,
   CartItem,
   CartCounts,
@@ -86,6 +93,7 @@ export {
   Check,
   CircleLoader,
   DeliveryLink,
+  Heading,
   Error,
   Input,
   Textarea,

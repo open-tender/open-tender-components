@@ -25,6 +25,7 @@ import {
 } from '@open-tender/redux'
 import {
   Error,
+  Check,
   CheckoutAddress,
   CheckoutCustomer,
   CheckoutDetails,
@@ -34,7 +35,6 @@ import {
   CheckoutSurcharges,
   CheckoutTenders,
 } from '.'
-import Check from './Check'
 
 export const FormContext = createContext(null)
 
