@@ -63,7 +63,7 @@ CheckItem.propTypes = {
   value: propTypes.string,
   color: propTypes.string,
   isBold: propTypes.bool,
-  isTotal: propTypes.isTotal,
+  isTotal: propTypes.bool,
 }
 
 const Check = ({ title, check, tenders, loader, updating = false }) => {

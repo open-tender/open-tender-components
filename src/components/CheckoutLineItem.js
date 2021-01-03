@@ -56,7 +56,13 @@ CheckoutLineItem.propTypes = {
     propTypes.string,
     propTypes.object,
   ]),
+  required: propTypes.bool,
+  error: propTypes.string,
   classes: propTypes.string,
+  children: propTypes.oneOfType([
+    propTypes.arrayOf(propTypes.node),
+    propTypes.node,
+  ]),
 }
 
 export default CheckoutLineItem

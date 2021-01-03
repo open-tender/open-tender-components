@@ -276,7 +276,7 @@ const Builder = ({
             </div>
           </div>
         </div>
-        <div className="builder__footer__cancel">
+        {/* <div className="builder__footer__cancel">
           <div className="builder__footer__cancel__button ot-font-size-small">
             <button
               className="ot-btn-link-subtle ot-preface"
@@ -285,7 +285,7 @@ const Builder = ({
               {isEdit ? 'Cancel Changes' : 'Cancel / Back To Menu'}
             </button>
           </div>
-        </div>
+        </div> */}
       </div>
     </form>
   )

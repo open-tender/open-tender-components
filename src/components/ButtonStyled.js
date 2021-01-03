@@ -39,11 +39,19 @@ const ButtonStyledView = styled('button')`
       props.theme.buttons.colors[`${props.color}Hover`].borderColor};
   }
 
+  &:disabled {
+    color: ${(props) => props.theme.buttons.colors[props.color].color};
+    background-color: ${(props) =>
+      props.theme.buttons.colors[props.color].bgColor};
+    border-color: ${(props) =>
+      props.theme.buttons.colors[props.color].borderColor};
+  }
+
   & > span {
     display: flex;
     justify-content: center;
     align-items: center;
-    line-height: 1.2;
+    // line-height: 1.2;
   }
 `
 

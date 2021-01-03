@@ -12,6 +12,24 @@ import {
   todayDate,
   errMessages,
 } from '@open-tender/js'
+import { Box, ButtonStyled, Text } from '..'
+import styled from '@emotion/styled'
+
+const DatepickerView = styled(Box)`
+  margin-top: 1.5rem;
+  font-size: ${(props) => props.theme.fonts.sizes.small};
+  @media (max-width: ${(props) => props.theme.breakpoints.mobile}) {
+    font-size: 1rem;
+  }
+`
+
+const RequestedAtPickerButtons = styled('div')`
+  margin: 1.5rem 0 0;
+
+  button + button {
+    margin: 0 0 0 1rem;
+  }
+`
 
 const RequestedAtPicker = ({
   revenueCenter,
@@ -27,11 +45,9 @@ const RequestedAtPicker = ({
   const [date, setDate] = useState(requestedAtDate)
   const [error, setError] = useState(null)
 
-  const submitDate = (evt) => {
-    evt.preventDefault()
+  const submitDate = () => {
     const reqestedAtIso = date ? dateToIso(date, tz) : 'asap'
     setRequestedAt(reqestedAtIso)
-    evt.target.blur()
   }
 
   let args = {}
@@ -80,9 +96,11 @@ const RequestedAtPicker = ({
 
   return (
     <>
-      <div className="datepicker-inline ot-font-size-small ot-border ot-border-radius-small ot-bg-color-primary">
+      <DatepickerView>
         {error ? (
-          <p className="ot-color-error">{error}</p>
+          <Text as="p" color="error">
+            {error}
+          </Text>
         ) : (
           <DatePicker
             showPopperArrow={false}
@@ -102,21 +120,21 @@ const RequestedAtPicker = ({
             shouldCloseOnSelect={false}
           />
         )}
-      </div>
-      <div className="form__submit">
+      </DatepickerView>
+      <RequestedAtPickerButtons>
         {!error && (
           <>
             {hasAsap && (
-              <button className="ot-btn" onClick={() => setRequestedAt('asap')}>
+              <ButtonStyled onClick={() => setRequestedAt('asap')}>
                 {requestedAt === 'asap' ? 'Keep ASAP' : 'Change to ASAP'}
-              </button>
+              </ButtonStyled>
             )}
-            <button className="ot-btn" onClick={submitDate}>
+            <ButtonStyled onClick={submitDate}>
               {hasAsap ? 'Update Order Time' : 'Choose Order Time'}
-            </button>
+            </ButtonStyled>
           </>
         )}
-      </div>
+      </RequestedAtPickerButtons>
     </>
   )
 }

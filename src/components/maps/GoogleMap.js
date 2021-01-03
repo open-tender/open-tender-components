@@ -2,8 +2,39 @@
 import React, { useEffect } from 'react'
 import propTypes from 'prop-types'
 import useGoogleMap from './useGoogleMap'
+import styled from '@emotion/styled'
 
 // https://codesandbox.io/s/lx947qjv0z?file=/src/Consumer.jsx
+
+const Map = styled('div')`
+  position: fixed;
+  z-index: 0;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: ${(props) => props.theme.breakpoints.tablet};
+
+  @media (max-width: ${(props) => props.theme.breakpoints.tablet}) {
+    top: 12rem;
+    right: 0;
+    bottom: auto;
+    height: 38rem;
+  }
+
+  @media (max-width: ${(props) => props.theme.breakpoints.mobile}) {
+    height: 20rem;
+  }
+`
+
+const MapLoading = styled('div')`
+  position: absolute;
+  z-index: 1;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+`
 
 const GoogleMap = ({
   apiKey,
@@ -47,10 +78,10 @@ const GoogleMap = ({
             })
           )
         })}
-      <div className="map">
-        {loading && loader && <div className="map__loading">{loader}</div>}
-        <div ref={mapRef} className="map-ref" />
-      </div>
+      <Map>
+        {loading && loader && <MapLoading>{loader}</MapLoading>}
+        <div ref={mapRef} style={{ height: '100%' }} />
+      </Map>
     </>
   )
 }

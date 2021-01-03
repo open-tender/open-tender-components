@@ -1,13 +1,15 @@
 import styled from '@emotion/styled'
 
 const Heading = styled('span')`
-  font-family: ${(props) => props.theme.fonts.headings.family};
-  font-weight: ${(props) => props.theme.fonts.headings.weight};
-  letter-spacing: ${(props) => props.theme.fonts.headings.letterSpacing};
-  text-transform: ${(props) => props.theme.fonts.headings.textTransform};
-  -webkit-font-smoothing: ${(props) =>
-    props.theme.fonts.headings.fontSmoothing};
-  color: ${(props) => props.theme.fonts.headings.color};
+  ${({ theme, size }) => `
+    font-family: ${theme.fonts.headings.family};
+    font-weight: ${theme.fonts.headings.weight};
+    letter-spacing: ${theme.fonts.headings.letterSpacing};
+    text-transform: ${theme.fonts.headings.textTransform};
+    -webkit-font-smoothing: ${theme.fonts.headings.fontSmoothing};
+    color: ${theme.fonts.headings.color};
+    ${size && `font-size: ${theme.fonts.sizes[size]}`}
+  `}
 `
 
 export default Heading

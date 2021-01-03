@@ -265,12 +265,14 @@ const CheckoutForm = ({
         <CheckoutDiscounts />
         <CheckoutPromoCodes />
         {hasGiftCardTender && <CheckoutGiftCards />}
-        <Check
-          title={config.checkTitle}
-          check={check}
-          tenders={tenders}
-          updating={checkUpdating}
-        />
+        <div style={{ margin: '0 0 4rem' }}>
+          <Check
+            title={config.checkTitle}
+            check={check}
+            tenders={tenders}
+            updating={checkUpdating}
+          />
+        </div>
         <CheckoutTenders />
         <div className="form__footer">
           <div className="form__message">

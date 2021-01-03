@@ -1,6 +1,21 @@
 import React, { useState, useRef } from 'react'
 import propTypes from 'prop-types'
 import { Textarea } from '../index'
+import styled from '@emotion/styled'
+
+const OrderStars = styled('div')`
+  display: flex;
+  margin: 0.25rem 0 0.5rem;
+`
+
+const OrderStar = styled('span')`
+  display: block;
+  margin: 0 0.5rem 0 0;
+  width: 2rem;
+  height: 2rem;
+  ${(props) =>
+    props.filled ? `color: ${props.theme.links.primary.color}` : null}
+`
 
 const OrderRatingForm = ({
   orderId,
@@ -35,22 +50,20 @@ const OrderRatingForm = ({
   return (
     <form id="rating-form" className="form" onSubmit={handleSubmit} noValidate>
       <div className="form__inputs">
-        <div className="order__stars">
+        <OrderStars>
           {stars.map((star, index) => {
-            const classes = star <= rating ? 'ot-color-link' : ''
             return (
               <button
                 key={star}
                 type="button"
-                className={classes}
                 onClick={(evt) => handleRating(evt, star)}
                 aria-label={`Give ${index + 1} star rating`}
               >
-                <span>{icon}</span>
+                <OrderStar filled={star <= rating}>{icon}</OrderStar>
               </button>
             )
           })}
-        </div>
+        </OrderStars>
         <Textarea
           label="Comments"
           name="commments"
