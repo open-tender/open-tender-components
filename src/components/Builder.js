@@ -1,139 +1,178 @@
-import React, { useState } from 'react'
+import React from 'react'
 import propTypes from 'prop-types'
-import { displayPrice, makeOrderItem, calcPrices } from '@open-tender/js'
-import BuilderGroupHeader from './BuilderGroupHeader'
-import BuilderRadioGroup from './BuilderRadioGroup'
-import BuilderQuantity from './BuilderQuantity'
+import styled from '@emotion/styled'
+import { displayPrice } from '@open-tender/js'
+import { useBuilder } from '../hooks'
+import {
+  BuilderGroupHeader,
+  BuilderRadioGroup,
+  BuilderQuantity,
+  ButtonStyled,
+  Heading,
+  Text,
+} from '.'
 
-const useBuilder = (menuItem, soldOut) => {
-  const orderItem =
-    menuItem.index !== undefined
-      ? menuItem
-      : makeOrderItem(menuItem, null, soldOut)
-  const [item, setItem] = useState(orderItem)
+const footerHeight = '8rem'
+const footerHeightMobile = '7rem'
 
-  const increment = () => {
-    const newQuantity = item.max
-      ? Math.min(item.quantity + item.increment, item.max)
-      : item.quantity + item.increment
-    setItem(calcPrices({ ...item, quantity: newQuantity }))
+const BuilderView = styled('form')`
+  position: relative;
+  display: block;
+  width: 100%;
+  height: 100%;
+  padding: 0 0 ${footerHeight};
+  margin: 0;
+  @media (max-width: ${(props) => props.theme.breakpoints.mobile}) {
+    padding: 0 0 ${footerHeightMobile};
+  }
+`
+
+const BuilderContent = styled('div')`
+  width: 100%;
+  height: 100%;
+  overflow-y: scroll;
+`
+
+const BuilderBody = styled('div')`
+  padding: 0 ${(props) => props.theme.layout.padding};
+  @media (max-width: ${(props) => props.theme.breakpoints.mobile}) {
+    padding: ${(props) => props.theme.layout.paddingMobile};
+    padding-bottom: 0;
+  }
+`
+
+const BuilderMadeFor = styled('div')`
+  width: 100%;
+  padding: 0 0 2rem;
+  margin: -1rem 0 0;
+  border-radius: ${(props) => props.theme.border.radius};
+  background-color: ${(props) => props.theme.bgColors.primary};
+
+  label {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 0;
+
+    span {
+      display: block;
+    }
+
+    input {
+      display: block;
+      width: 15rem;
+      padding: 1rem 1.3rem;
+      font-size: 1.2rem;
+      text-align: center;
+    }
+  }
+`
+
+const BuilderGroup = styled('div')`
+  margin: 0 0 3rem;
+`
+
+const BuilderOptions = styled('div')`
+  width: 100%;
+  border-radius: ${(props) => props.theme.border.radius};
+  background-color: ${(props) => props.theme.bgColors.primary};
+`
+
+const BuilderNotes = styled('div')`
+  width: 100%;
+  padding: 0 0 1.5rem;
+  border-radius: ${(props) => props.theme.border.radius};
+  background-color: ${(props) => props.theme.bgColors.primary};
+
+  span {
+    display: block;
+    margin-bottom: 0.8rem;
+    line-height: 1;
   }
 
-  const decrement = () => {
-    const newQuantity = Math.max(item.quantity - item.increment, item.min)
-    setItem(calcPrices({ ...item, quantity: newQuantity }))
+  textarea {
+    height: 7.3rem;
+    padding: 1rem 1.3rem;
+    font-size: 1.2rem;
+  }
+`
+
+const BuilderFooter = styled('div')`
+  position: absolute;
+  z-index: 1;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  background-color: ${(props) => props.theme.bgColors.primary};
+  height: ${footerHeight};
+  @media (max-width: ${(props) => props.theme.breakpoints.mobile}) {
+    height: ${footerHeightMobile};
+  }
+`
+
+const BuilderFooterContainer = styled('div')`
+  width: 100%;
+  padding: 0 ${(props) => props.theme.layout.padding};
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  height: ${footerHeight};
+  @media (max-width: ${(props) => props.theme.breakpoints.mobile}) {
+    padding: 0 ${(props) => props.theme.layout.paddingMobile};
+    height: ${footerHeightMobile};
+  }
+`
+
+const BuilderPrice = styled('div')`
+  font-size: ${(props) => props.theme.fonts.sizes.h5};
+  font-weight: ${(props) => props.theme.boldWeight};
+  @media (max-width: ${(props) => props.theme.breakpoints.mobile}) {
+    width: 8rem;
   }
 
-  const setQuantity = (quantity) => {
-    setItem(calcPrices({ ...item, quantity: quantity }))
+  span {
+    display: inline-block;
   }
 
-  const setMadeFor = (madeFor) => {
-    setItem({ ...item, madeFor })
+  span {
+    @media (max-width: ${(props) => props.theme.breakpoints.mobile}) {
+      width: 100%;
+      font-size: 1.6rem;
+    }
   }
 
-  const setNotes = (notes) => {
-    setItem({ ...item, notes })
+  span + span {
+    font-weight: normal;
+    margin: 0 0 0 2rem;
+    @media (max-width: ${(props) => props.theme.breakpoints.mobile}) {
+      margin: 0.25rem 0 0;
+      font-size: 1.4rem;
+    }
   }
+`
 
-  const toggleOption = (groupId, optionId) => {
-    const groups = item.groups.map((group) => {
-      if (group.id === groupId) {
-        const options = group.options.map((option) => {
-          const newQuantity = option.id === optionId ? 1 : 0
-          return { ...option, quantity: newQuantity }
-        })
-        return { ...group, options }
-      }
-      return group
-    })
-    setItem(calcPrices({ ...item, groups: groups }))
+const BuilderActions = styled('div')`
+  display: flex;
+  align-items: center;
+  @media (max-width: ${(props) => props.theme.breakpoints.mobile}) {
+    flex-grow: 1;
   }
+`
 
-  const incrementOption = (groupId, optionId) => {
-    const groups = item.groups.map((group) => {
-      if (group.id === groupId) {
-        const count = group.options
-          .filter((o) => o.id !== optionId)
-          .reduce((t, o) => t + o.quantity, 0)
-        if (group.max !== 0 && count >= group.max) return group
-        const options = group.options.map((option) => {
-          if (option.id === optionId) {
-            let quantity = option.quantity + option.increment
-            const quantities = [quantity]
-            if (option.max !== 0) quantities.push(option.max)
-            if (group.max !== 0) quantities.push(group.max - count)
-            quantity = Math.min(...quantities)
-            return { ...option, quantity }
-          }
-          return option
-        })
-        return { ...group, options }
-      }
-      return group
-    })
-    setItem(calcPrices({ ...item, groups: groups }))
-  }
+const BuilderQuantityView = styled('div')`
+  display: inline-block;
+`
 
-  const decrementOption = (groupId, optionId) => {
-    const groups = item.groups.map((group) => {
-      if (group.id === groupId) {
-        const options = group.options.map((option) => {
-          if (option.id === optionId) {
-            const quantity = Math.max(option.quantity - option.increment, 0)
-            return { ...option, quantity }
-          }
-          return option
-        })
-        return { ...group, options }
-      }
-      return group
-    })
-    setItem(calcPrices({ ...item, groups: groups }))
+const BuilderSubmit = styled('div')`
+  display: inline-block;
+  margin: 0 0 0 1rem;
+  @media (max-width: ${(props) => props.theme.breakpoints.mobile}) {
+    flex-grow: 1;
+    button {
+      width: 100%;
+    }
   }
-
-  const setOptionQuantity = (groupId, optionId, quantity) => {
-    const groups = item.groups.map((group) => {
-      if (group.id === groupId) {
-        const count = group.options
-          .filter((o) => o.id !== optionId)
-          .reduce((t, o) => t + o.quantity, 0)
-        if (group.max !== 0 && count >= group.max) return group
-        const options = group.options.map((option) => {
-          if (option.id === optionId) {
-            if (quantity === '') {
-              return { ...option, quantity }
-            } else {
-              const quantities = [quantity]
-              if (option.max !== 0) quantities.push(option.max)
-              if (group.max !== 0) quantities.push(group.max - count)
-              quantity = Math.min(...quantities)
-              quantity = Math.max(quantity, option.min)
-              return { ...option, quantity }
-            }
-          }
-          return option
-        })
-        return { ...group, options }
-      }
-      return group
-    })
-    setItem(calcPrices({ ...item, groups: groups }))
-  }
-
-  return {
-    item,
-    increment,
-    decrement,
-    setQuantity,
-    setMadeFor,
-    setNotes,
-    toggleOption,
-    incrementOption,
-    decrementOption,
-    setOptionQuantity,
-  }
-}
+`
 
 const Builder = ({
   menuItem,
@@ -143,7 +182,6 @@ const Builder = ({
   renderHeader,
   renderOption,
   iconMap,
-  closeModal,
   displaySettings,
   cartId,
 }) => {
@@ -159,36 +197,20 @@ const Builder = ({
     decrementOption,
     setOptionQuantity,
   } = useBuilder(menuItem, soldOut)
-  // const theme = useTheme()
-
-  const handleSubmit = (evt) => {
-    evt.preventDefault()
-    addItemToCart(item)
-    evt.target.blur()
-  }
-
-  const handleCancel = (evt) => {
-    evt.preventDefault()
-    closeModal()
-    evt.target.blur()
-  }
 
   const { groups, notes, madeFor, totalPrice } = item
-  const isEdit = menuItem.index !== undefined
   const isIncomplete =
     groups.filter((g) => g.quantity < g.min).length > 0 || item.quantity === ''
 
   return (
-    <form className="builder__item">
-      <div className="builder__content">
+    <BuilderView>
+      <BuilderContent>
         {renderHeader({ item, displaySettings })}
-        <div className="builder__body">
+        <BuilderBody>
           {displaySettings.madeFor && !cartId && (
-            <div className="builder__made-for ot-bg-color-primary ot-border-radius">
+            <BuilderMadeFor>
               <label htmlFor="made-for" className="label">
-                <span className="ot-font-size-h6 ot-heading">
-                  {"Who's"} it for?
-                </span>
+                <Heading size="h6">{"Who's"} it for?</Heading>
                 <input
                   id="made-for"
                   type="text"
@@ -197,13 +219,13 @@ const Builder = ({
                   onChange={(evt) => setMadeFor(evt.target.value)}
                 />
               </label>
-            </div>
+            </BuilderMadeFor>
           )}
-          <div className="builder__groups">
+          <div>
             {groups.map((group) => (
-              <div key={group.id} className="builder__group">
+              <BuilderGroup key={group.id}>
                 <BuilderGroupHeader group={group} />
-                <div className="builder__options ot-bg-color-primary ot-border-radius">
+                <BuilderOptions>
                   {group.min === 1 && group.max === 1 ? (
                     <BuilderRadioGroup
                       group={group}
@@ -229,34 +251,32 @@ const Builder = ({
                       })}
                     </ul>
                   )}
-                </div>
-              </div>
+                </BuilderOptions>
+              </BuilderGroup>
             ))}
           </div>
           {displaySettings.notes && (
-            <div className="builder__notes ot-bg-color-primary ot-border-radius">
+            <BuilderNotes>
               <label htmlFor="item-notes" className="label">
-                <span className="ot-font-size-h6 ot-heading">Notes</span>
+                <Heading size="h6">Notes</Heading>
                 <textarea
                   id="item-notes"
                   value={notes || ''}
                   onChange={(evt) => setNotes(evt.target.value)}
                 />
               </label>
-            </div>
+            </BuilderNotes>
           )}
-        </div>
-      </div>
-      <div className="builder__footer ot-bg-color-primary">
-        <div className="builder__footer__container">
-          <div className="builder__price ot-font-size-h5 ot-bold">
-            <span className="ot-color-headings">
-              ${displayPrice(totalPrice)}
-            </span>
+        </BuilderBody>
+      </BuilderContent>
+      <BuilderFooter>
+        <BuilderFooterContainer>
+          <BuilderPrice>
+            <Text color="primary">${displayPrice(totalPrice)}</Text>
             {item.cals && <span>{item.cals} cal</span>}
-          </div>
-          <div className="builder__actions">
-            <div className="builder__quantity">
+          </BuilderPrice>
+          <BuilderActions>
+            <BuilderQuantityView>
               <BuilderQuantity
                 item={item}
                 adjust={setQuantity}
@@ -264,30 +284,20 @@ const Builder = ({
                 decrement={decrement}
                 iconMap={iconMap}
               />
-            </div>
-            <div className="builder__submit">
-              <button
-                className="ot-btn ot-btn--big"
-                onClick={handleSubmit}
+            </BuilderQuantityView>
+            <BuilderSubmit>
+              <ButtonStyled
+                onClick={() => addItemToCart(item)}
                 disabled={isIncomplete}
+                size="big"
               >
                 Add To Cart
-              </button>
-            </div>
-          </div>
-        </div>
-        {/* <div className="builder__footer__cancel">
-          <div className="builder__footer__cancel__button ot-font-size-small">
-            <button
-              className="ot-btn-link-subtle ot-preface"
-              onClick={handleCancel}
-            >
-              {isEdit ? 'Cancel Changes' : 'Cancel / Back To Menu'}
-            </button>
-          </div>
-        </div> */}
-      </div>
-    </form>
+              </ButtonStyled>
+            </BuilderSubmit>
+          </BuilderActions>
+        </BuilderFooterContainer>
+      </BuilderFooter>
+    </BuilderView>
   )
 }
 

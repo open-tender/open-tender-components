@@ -1,20 +1,35 @@
 import propTypes from 'prop-types'
 import React from 'react'
+import styled from '@emotion/styled'
 import BuilderGroupWarning from './BuilderGroupWarning'
+
+const BuilderGroupHeaderView = styled('div')`
+  display: flex;
+  margin: 0 0 1rem;
+  justify-content: space-between;
+  align-items: flex-end;
+`
+
+const BuilderGroupHeaderName = styled('h3')`
+  margin-bottom: 0.5rem;
+  font-size: ${(props) => props.theme.fonts.sizes.h6};
+`
+
+const BuilderGroupHeaderDescription = styled('p')`
+  font-size: ${(props) => props.theme.fonts.sizes.small};
+`
 
 const BuilderGroupHeader = ({ group }) => {
   return (
-    <div className="builder__group__header">
-      <div className="builder__group__info">
-        <h3 className="builder__group__name ot-font-size-h6 ot-color-headings">
-          {group.name}
-        </h3>
-        <p className="builder__group__desc ot-font-size-small">
+    <BuilderGroupHeaderView>
+      <div>
+        <BuilderGroupHeaderName>{group.name}</BuilderGroupHeaderName>
+        <BuilderGroupHeaderDescription>
           {group.description}
-        </p>
+        </BuilderGroupHeaderDescription>
       </div>
       <BuilderGroupWarning {...group} />
-    </div>
+    </BuilderGroupHeaderView>
   )
 }
 
