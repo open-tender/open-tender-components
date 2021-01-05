@@ -1,6 +1,7 @@
-import propTypes from 'prop-types'
 import React from 'react'
+import propTypes from 'prop-types'
 import { TransitionGroup, CSSTransition } from 'react-transition-group'
+import { BuilderNutritionView, BuilderNutritionList } from './BuilderNutrition'
 
 const BuilderIngredients = ({ ingredients, show = true }) => {
   return (
@@ -11,11 +12,11 @@ const BuilderIngredients = ({ ingredients, show = true }) => {
           classNames="reveal"
           timeout={{ enter: 250, exit: 250 }}
         >
-          <div className="nutrition ot-bg-color-secondary">
-            <div className="nutrition__list ot-bg-color-primary ot-border-radius ot-font-size-small ot-line-height">
+          <BuilderNutritionView>
+            <BuilderNutritionList>
               <p>{ingredients}</p>
-            </div>
-          </div>
+            </BuilderNutritionList>
+          </BuilderNutritionView>
         </CSSTransition>
       ) : null}
     </TransitionGroup>

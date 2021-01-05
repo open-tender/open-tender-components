@@ -1,13 +1,15 @@
 import BgImage from './BgImage'
 import Box from './Box'
-import Builder from './Builder'
-import BuilderGroupHeader from './BuilderGroupHeader'
-import BuilderGroupWarning from './BuilderGroupWarning'
-import BuilderHeader from './BuilderHeader'
-import BuilderOption from './BuilderOption'
-import BuilderQuantity from './BuilderQuantity'
-import BuilderRadioGroup from './BuilderRadioGroup'
-import BuilderRadio from './BuilderRadio'
+import Builder, {
+  BuilderGroupHeader,
+  BuilderGroupWarning,
+  BuilderHeader,
+  BuilderOption,
+  BuilderQuantity,
+  BuilderRadioGroup,
+  BuilderRadio,
+  useBuilder,
+} from './Builder'
 import Button from './Button'
 import ButtonIcon from './ButtonIcon'
 import ButtonLink from './ButtonLink'
@@ -114,4 +116,5 @@ export {
   Switch,
   Checkbox,
   RadioButtonGroup,
+  useBuilder,
 }

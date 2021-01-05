@@ -1,6 +1,6 @@
 import propTypes from 'prop-types'
 import React from 'react'
-import CartItem from './CartItem'
+import { CartItem } from '..'
 import BuilderRadio from './BuilderRadio'
 
 const BuilderRadioGroup = ({ group, handler, displaySettings }) => {

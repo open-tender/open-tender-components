@@ -2,15 +2,11 @@ import React from 'react'
 import propTypes from 'prop-types'
 import styled from '@emotion/styled'
 import { displayPrice } from '@open-tender/js'
-import { useBuilder } from '../hooks'
-import {
-  BuilderGroupHeader,
-  BuilderRadioGroup,
-  BuilderQuantity,
-  ButtonStyled,
-  Heading,
-  Text,
-} from '.'
+import { ButtonStyled, Heading, Text } from '..'
+import useBuilder from './useBuilder'
+import BuilderGroupHeader from './BuilderGroupHeader'
+import BuilderRadioGroup from './BuilderRadioGroup'
+import BuilderQuantity from './BuilderQuantity'
 
 const footerHeight = '8rem'
 const footerHeightMobile = '7rem'

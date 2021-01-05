@@ -1,8 +1,7 @@
 import React, { useState } from 'react'
 import propTypes from 'prop-types'
 import { displayPrice, makeModifierNames } from '@open-tender/js'
-import BuilderNutrition from './BuilderNutrition'
-import BuilderIngredients from './BuilderIngredients'
+import { BuilderNutrition, BuilderIngredients } from './Builder'
 
 const SoldOutOverlay = () => (
   <div className="builder__option__overlay ot-opacity-dark ot-border-radius-small">

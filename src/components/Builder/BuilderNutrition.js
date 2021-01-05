@@ -1,15 +1,53 @@
-import propTypes from 'prop-types'
 import React from 'react'
+import propTypes from 'prop-types'
+import styled from '@emotion/styled'
 import { TransitionGroup, CSSTransition } from 'react-transition-group'
 
+export const BuilderNutritionView = styled('div')`
+  padding: ${(props) => props.theme.layout.padding};
+  margin: 0 0 ${(props) => props.theme.layout.padding};
+  background-color: ${(props) => props.theme.bgColors.secondary};
+  @media (max-width: ${(props) => props.theme.breakpoints.tablet}) {
+    padding: ${(props) => props.theme.layout.paddingMobile};
+    margin: 0;
+  }
+`
+
+export const BuilderNutritionList = styled('ul')`
+  padding: 1rem 2rem;
+  line-height: ${(props) => props.theme.lineHeight};
+  font-size: ${(props) => props.theme.fonts.sizes.small};
+  border-radius: ${(props) => props.theme.border.radius};
+  background-color: ${(props) => props.theme.bgColors.primary};
+`
+
+export const BuilderNutritionListItem = styled('li')`
+  width: 100%;
+  padding: 1rem 0;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  border-bottom-style: solid;
+  border-bottom-width: ${(props) => props.theme.border.width};
+  border-bottom-color: ${(props) => props.theme.border.color};
+
+  &:last-of-type {
+    border: 0;
+  }
+
+  span {
+    display: block;
+  }
+`
+
 const LineItem = ({ name, value, unit = '' }) => (
-  <li className="nutrition__item ot-border-color">
+  <BuilderNutritionListItem>
     <span>{name}</span>
     <span>
       {value}
       {unit}
     </span>
-  </li>
+  </BuilderNutritionListItem>
 )
 
 LineItem.displayName = 'LineItem'
@@ -41,8 +79,8 @@ const BuilderNutrition = ({ nutritionalInfo = {}, show = true }) => {
           classNames="reveal"
           timeout={{ enter: 250, exit: 250 }}
         >
-          <div className="nutrition ot-bg-color-secondary">
-            <ul className="nutrition__list ot-bg-color-primary ot-border-radius ot-font-size-small">
+          <BuilderNutritionView>
+            <BuilderNutritionList>
               <LineItem name="Serving Size" value={serving_size} unit="oz" />
               <LineItem name="Calories" value={calories} />
               <LineItem name="Total Fat" value={total_fat} unit="g" />
@@ -54,8 +92,8 @@ const BuilderNutrition = ({ nutritionalInfo = {}, show = true }) => {
               <LineItem name="Dietary Fiber" value={dietary_fiber} unit="g" />
               <LineItem name="Sugars" value={sugars} unit="g" />
               <LineItem name="Protein" value={protein} unit="g" />
-            </ul>
-          </div>
+            </BuilderNutritionList>
+          </BuilderNutritionView>
         </CSSTransition>
       ) : null}
     </TransitionGroup>

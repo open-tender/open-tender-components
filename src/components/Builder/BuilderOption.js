@@ -1,6 +1,6 @@
 import React from 'react'
 import propTypes from 'prop-types'
-import CartItem from './CartItem'
+import { CartItem } from '..'
 import BuilderQuantity from './BuilderQuantity'
 
 const BuilderOption = ({
