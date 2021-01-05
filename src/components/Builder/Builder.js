@@ -205,7 +205,7 @@ const Builder = ({
         <BuilderBody>
           {displaySettings.madeFor && !cartId && (
             <BuilderMadeFor>
-              <label htmlFor="made-for" className="label">
+              <label htmlFor="made-for">
                 <Heading size="h6">{"Who's"} it for?</Heading>
                 <input
                   id="made-for"
@@ -253,7 +253,7 @@ const Builder = ({
           </div>
           {displaySettings.notes && (
             <BuilderNotes>
-              <label htmlFor="item-notes" className="label">
+              <label htmlFor="item-notes">
                 <Heading size="h6">Notes</Heading>
                 <textarea
                   id="item-notes"

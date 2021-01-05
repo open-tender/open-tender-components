@@ -119,7 +119,7 @@ const BuilderQuantity = ({
       >
         {iconMap.minus || '-'}
       </BuilderQuantityIncrement>
-      <label htmlFor={item.id} className={`label`}>
+      <label htmlFor={item.id}>
         <BuilderQuantityInput
           id={item.id}
           type="number"

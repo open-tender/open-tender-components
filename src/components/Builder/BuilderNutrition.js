@@ -7,7 +7,7 @@ export const BuilderNutritionView = styled('div')`
   padding: ${(props) => props.theme.layout.padding};
   margin: 0 0 ${(props) => props.theme.layout.padding};
   background-color: ${(props) => props.theme.bgColors.secondary};
-  @media (max-width: ${(props) => props.theme.breakpoints.tablet}) {
+  @media (max-width: ${(props) => props.theme.breakpoints.mobile}) {
     padding: ${(props) => props.theme.layout.paddingMobile};
     margin: 0;
   }

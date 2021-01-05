@@ -3,6 +3,72 @@ import React, { useState } from 'react'
 import { displayPrice } from '@open-tender/js'
 import BuilderNutrition from './BuilderNutrition'
 import BuilderIngredients from './BuilderIngredients'
+import styled from '@emotion/styled'
+import { BgImage, ButtonLink } from '..'
+
+const BuilderImage = styled(BgImage)`
+  height: 24rem;
+  background-color: ${(props) => props.theme.bgColors.secondary};
+`
+
+const BuilderInfo = styled('div')`
+  background-color: ${(props) => props.theme.bgColors.primary};
+  padding: ${(props) => props.theme.layout.padding};
+  @media (max-width: ${(props) => props.theme.breakpoints.mobile}) {
+    padding: ${(props) => props.theme.layout.paddingMobile};
+  }
+`
+
+const BuilderName = styled('h2')`
+  font-size: ${(props) => props.theme.fonts.sizes.h3};
+`
+
+const BuilderDetails = styled('div')`
+  display: flex;
+  align-items: baseline;
+  margin: 0.5rem 0 1.5rem;
+  flex-wrap: wrap;
+
+  span {
+    display: block;
+    padding: 0.5rem 0;
+    margin: 0 2rem 0 0;
+    &:last-of-type {
+      margin: 0;
+    }
+  }
+`
+
+const BuilderDetailsPrice = styled('span')`
+  font-weight: ${(props) => props.theme.boldWeight};
+  color: ${(props) => props.theme.colors.primary};
+`
+
+const BuilderDetailsCals = styled('span')`
+  font-weight: ${(props) => props.theme.boldWeight};
+`
+
+const BuilderDetailsAllergens = styled('span')`
+  font-size: ${(props) => props.theme.fonts.sizes.small};
+  color: ${(props) => props.theme.colors.alert};
+`
+
+const BuilderDetailsTags = styled('span')`
+  font-size: ${(props) => props.theme.fonts.sizes.small};
+`
+
+const BuilderDesc = styled('p')`
+  line-height: 1.3;
+`
+
+const BuilderNutritionButtons = styled('div')`
+  margin-top: 1.5rem;
+
+  & > span,
+  button > span {
+    font-size: ${(props) => props.theme.fonts.sizes.small};
+  }
+`
 
 const BuilderHeader = ({ item, displaySettings }) => {
   const [showInfo, setShowInfo] = useState(false)
@@ -16,18 +82,14 @@ const BuilderHeader = ({ item, displaySettings }) => {
   const hasCals = showCals && item.cals
   const hasIngredients = item.ingredients && item.ingredients.length > 0
 
-  const toggleShowInfo = (evt) => {
-    evt.preventDefault()
+  const toggleShowInfo = () => {
     if (showIngredients) setShowIngredients(false)
     setShowInfo(!showInfo)
-    evt.target.blur()
   }
 
-  const toggleShowIngredients = (evt) => {
-    evt.preventDefault()
+  const toggleShowIngredients = () => {
     if (showInfo) setShowInfo(false)
     setShowIngredients(!showIngredients)
-    evt.target.blur()
   }
 
   const bgStyle =
@@ -35,66 +97,45 @@ const BuilderHeader = ({ item, displaySettings }) => {
       ? { backgroundImage: `url(${item.imageUrl}` }
       : null
   return (
-    <div className="builder__header">
-      {bgStyle && (
-        <div
-          className="builder__image bg-image ot-bg-color-secondary"
-          style={bgStyle}
-        >
-          &nbsp;
-        </div>
-      )}
-      <div className="builder__info ot-bg-color-primary">
-        <h2 id="dialogTitle" className="builder__name ot-font-size-h3">
-          {item.name}
-        </h2>
-        <div className="builder__details">
-          <span className="builder__details__price ot-bold ot-color-headings">
+    <div>
+      {bgStyle && <BuilderImage style={bgStyle}>&nbsp;</BuilderImage>}
+      <BuilderInfo>
+        <BuilderName id="dialogTitle">{item.name}</BuilderName>
+        <BuilderDetails>
+          <BuilderDetailsPrice>
             {item.price === '0.00'
               ? 'Price varies'
               : `$${displayPrice(item.price)}`}
-          </span>
+          </BuilderDetailsPrice>
           {showCals && item.cals && (
-            <span className="builder__details__cals ot-bold">
-              {item.cals} cal
-            </span>
+            <BuilderDetailsCals>{item.cals} cal</BuilderDetailsCals>
           )}
           {showAllergens && item.allergens.length > 0 && (
-            <span className="builder__details__cals ot-color-alert ot-font-size-small">
+            <BuilderDetailsAllergens>
               {item.allergens.join(', ')}
-            </span>
+            </BuilderDetailsAllergens>
           )}
           {showTags && item.tags.length > 0 && (
-            <span className="builder__details__cals ot-font-size-small">
-              {item.tags.join(', ')}
-            </span>
+            <BuilderDetailsTags>{item.tags.join(', ')}</BuilderDetailsTags>
           )}
-        </div>
-        {item.description && (
-          <p className="builder__desc">{item.description}</p>
-        )}
+        </BuilderDetails>
+        {item.description && <BuilderDesc>{item.description}</BuilderDesc>}
         {(hasCals || hasIngredients) && (
-          <div className="builder__nutrition">
+          <BuilderNutritionButtons>
             {hasCals && (
-              <button className="ot-btn-link" onClick={toggleShowInfo}>
-                <span className="ot-font-size-small">
-                  {!showInfo ? 'show' : 'hide'} nutritional info
-                </span>
-              </button>
+              <ButtonLink onClick={toggleShowInfo}>
+                <span>{!showInfo ? 'show' : 'hide'} nutritional info</span>
+              </ButtonLink>
             )}
-            {hasCals && hasIngredients ? (
-              <span className="ot-font-size-small">{' | '}</span>
-            ) : null}
+            {hasCals && hasIngredients ? <span>{' | '}</span> : null}
             {hasIngredients && (
-              <button className="ot-btn-link" onClick={toggleShowIngredients}>
-                <span className="ot-font-size-small">
-                  {!showIngredients ? 'show' : 'hide'} ingredients
-                </span>
-              </button>
+              <ButtonLink onClick={toggleShowIngredients}>
+                <span>{!showIngredients ? 'show' : 'hide'} ingredients</span>
+              </ButtonLink>
             )}
-          </div>
+          </BuilderNutritionButtons>
         )}
-      </div>
+      </BuilderInfo>
       {showCals && (
         <BuilderNutrition
           nutritionalInfo={item.nutritionalInfo}
