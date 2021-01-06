@@ -1,5 +1,5 @@
 import React, { useContext } from 'react'
-import Button from './Button'
+import { Button } from '..'
 import { FormContext } from './CheckoutForm'
 
 const CheckoutSignUp = () => {

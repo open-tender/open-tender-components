@@ -1,7 +1,7 @@
 import React from 'react'
 import propTypes from 'prop-types'
 import { TransitionGroup, CSSTransition } from 'react-transition-group'
-import { Label } from './Inputs'
+import { Label } from '..'
 
 export const Error = ({ error }) => {
   return (

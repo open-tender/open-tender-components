@@ -1,8 +1,7 @@
 import React, { useState, useContext } from 'react'
 import propTypes from 'prop-types'
+import { CircleLoader, Input } from '..'
 import { FormContext } from './CheckoutForm'
-import CircleLoader from './CircleLoader'
-import { Input } from './Inputs'
 
 const CheckoutTip = ({ setShowTip }) => {
   const formContext = useContext(FormContext)

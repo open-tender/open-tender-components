@@ -23,9 +23,8 @@ import {
   resetErrors,
   setAlert,
 } from '@open-tender/redux'
+import { Error, Check } from '..'
 import {
-  Error,
-  Check,
   CheckoutAddress,
   CheckoutCustomer,
   CheckoutDetails,

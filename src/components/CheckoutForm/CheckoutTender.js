@@ -1,11 +1,10 @@
 import React, { useContext } from 'react'
 import propTypes from 'prop-types'
 import { tenderTypeNamesMap } from '@open-tender/js'
+import { Button, CircleLoader } from '..'
 import { FormContext } from './CheckoutForm'
 import { TendersContext } from './CheckoutTenders'
 import {
-  Button,
-  CircleLoader,
   CheckoutLineItem,
   CheckoutCreditCards,
   CheckoutHouseAccounts,

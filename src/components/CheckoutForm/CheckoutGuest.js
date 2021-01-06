@@ -1,6 +1,6 @@
 import React, { useState, useCallback, useContext } from 'react'
 import debounce from 'lodash/debounce'
-import { Input } from './Inputs'
+import { Input } from '..'
 import { FormContext } from './CheckoutForm'
 
 const initialState = {

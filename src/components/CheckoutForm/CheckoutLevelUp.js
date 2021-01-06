@@ -1,18 +1,11 @@
 import React, { useContext } from 'react'
+import { CircleLoader } from '..'
 import { FormContext } from './CheckoutForm'
 import { TendersContext } from './CheckoutTenders'
-import CircleLoader from './CircleLoader'
 
 const CheckoutLevelUp = () => {
   const formContext = useContext(FormContext)
-  const {
-    iconMap = {},
-    check,
-    form,
-    signUp,
-    connectLevelUp,
-    loading,
-  } = formContext
+  const { iconMap = {}, check, form, signUp, connectLevelUp } = formContext
   const tenderContext = useContext(TendersContext)
   const { addTender } = tenderContext
   const isCustomer = check.customer.customer_id

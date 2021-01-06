@@ -1,10 +1,8 @@
 import React, { useContext, useState, useEffect } from 'react'
-import CheckoutLineItem from './CheckoutLineItem'
-import Button from './Button'
-import { FormContext } from './CheckoutForm'
-import { CheckoutLabel } from './index'
-import CircleLoader from './CircleLoader'
 import { displayPrice } from '@open-tender/js'
+import { Button, CircleLoader } from '..'
+import { FormContext } from './CheckoutForm'
+import { CheckoutLabel, CheckoutLineItem } from '.'
 
 const CheckoutSurcharges = () => {
   const formContext = useContext(FormContext)

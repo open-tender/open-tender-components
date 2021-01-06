@@ -1,9 +1,8 @@
 import React, { useState, useEffect, useContext } from 'react'
 import propTypes from 'prop-types'
 import { isEmpty } from '@open-tender/js'
+import { CircleLoader, Error } from '..'
 import { FormContext } from './CheckoutForm'
-import { Error } from './Inputs'
-import CircleLoader from './CircleLoader'
 
 const CheckoutExistingCard = ({
   card,

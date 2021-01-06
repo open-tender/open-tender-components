@@ -1,9 +1,8 @@
 import React, { useContext, useState, useEffect } from 'react'
 import propTypes from 'prop-types'
-import CheckoutLineItem from './CheckoutLineItem'
-import Button from './Button'
+import { Button, CircleLoader } from '..'
 import { FormContext } from './CheckoutForm'
-import CircleLoader from './CircleLoader'
+import { CheckoutLineItem } from '.'
 
 const CheckoutDiscountLabel = ({ discount }) => (
   <span className="form__input__discount">

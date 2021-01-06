@@ -1,9 +1,9 @@
 import React, { useState, useCallback, useContext } from 'react'
-import { Input } from './Inputs'
-import CheckoutLineItem from './CheckoutLineItem'
+import { Input } from '../Inputs'
 import debounce from 'lodash/debounce'
-import Button from './Button'
+import { Button } from '..'
 import { FormContext } from './CheckoutForm'
+import { CheckoutLineItem } from '.'
 
 const makeAccountConfig = (required, displayed) => {
   return {

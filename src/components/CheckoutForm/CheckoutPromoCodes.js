@@ -1,9 +1,6 @@
 import React, { useContext, useState, useEffect } from 'react'
-import Button from './Button'
+import { Button, ButtonClear, CircleLoader, Input } from '..'
 import { FormContext } from './CheckoutForm'
-import CircleLoader from './CircleLoader'
-import { Input } from './Inputs'
-import ButtonClear from './ButtonClear'
 
 const CheckoutPromoCodes = () => {
   const [promoCode, setPromoCode] = useState('')

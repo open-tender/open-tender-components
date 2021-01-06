@@ -1,10 +1,10 @@
 import React, { useState, useEffect, useCallback, useContext } from 'react'
 import debounce from 'lodash/debounce'
-import { Input } from './Inputs'
-import CheckoutLineItem from './CheckoutLineItem'
-import { FormContext } from './CheckoutForm'
-import { Button } from '.'
 import { isEmpty, makeFullAddress } from '@open-tender/js'
+import { Input } from '../Inputs'
+import { Button } from '..'
+import { FormContext } from './CheckoutForm'
+import { CheckoutLineItem } from '.'
 
 const initialState = {
   unit: '',

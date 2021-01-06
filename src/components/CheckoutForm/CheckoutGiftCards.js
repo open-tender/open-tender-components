@@ -1,10 +1,9 @@
 import React, { useContext } from 'react'
 import propTypes from 'prop-types'
-import CheckoutLineItem from './CheckoutLineItem'
-import Button from './Button'
-import { FormContext } from './CheckoutForm'
-import CircleLoader from './CircleLoader'
 import { checkAmountRemaining } from '@open-tender/js'
+import { Button, CircleLoader } from '..'
+import { FormContext } from './CheckoutForm'
+import { CheckoutLineItem } from '.'
 
 const CheckoutGiftCardLabel = ({ giftCard, amount }) => {
   return (

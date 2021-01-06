@@ -1,7 +1,7 @@
 import React, { useContext } from 'react'
+import { CircleLoader } from '..'
 import { FormContext } from './CheckoutForm'
 import { TendersContext } from './CheckoutTenders'
-import CircleLoader from './CircleLoader'
 
 const CheckoutHouseAccounts = () => {
   const formContext = useContext(FormContext)

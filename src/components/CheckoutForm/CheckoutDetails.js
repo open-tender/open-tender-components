@@ -1,19 +1,13 @@
 import React, { useState, useEffect, useCallback, useContext } from 'react'
 import debounce from 'lodash/debounce'
 import {
-  Button,
-  CheckoutLineItem,
-  CheckoutTip,
-  Input,
-  Textarea,
-  Switch,
-} from '.'
-import {
   isEmpty,
   serviceTypeNamesMap,
   makeServiceTypeName,
   makeRequestedAtStr,
 } from '@open-tender/js'
+import { Button, Input, Textarea, Switch } from '..'
+import { CheckoutLineItem, CheckoutTip } from '.'
 import { FormContext } from './CheckoutForm'
 
 const CheckoutDetails = () => {
