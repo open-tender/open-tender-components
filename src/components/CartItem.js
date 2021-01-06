@@ -2,25 +2,162 @@ import React, { useState } from 'react'
 import propTypes from 'prop-types'
 import { displayPrice, makeModifierNames } from '@open-tender/js'
 import { BuilderNutrition, BuilderIngredients } from './Builder'
+import styled from '@emotion/styled'
+import { BgImage, ButtonLink } from '.'
+
+const BuilderOptionOverlay = styled('div')`
+  position: absolute;
+  z-index: 1;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  border-radius: ${(props) => props.theme.border.radiusSmall};
+  background-color: ${(props) => props.theme.overlay[props.overlay]};
+
+  p {
+    font-weight: bold;
+    text-transform: uppercase;
+    color: ${(props) => props.theme.colors.light};
+    font-size: ${(props) => props.theme.fonts.sizes.main};
+  }
+`
+
+const BuilderOptionOverlayAlert = styled('div')`
+  width: 2.4rem;
+  height: 2.4rem;
+  border-radius: 1.2rem;
+  padding: 0.3rem 0.2rem 0.4rem;
+  text-align: center;
+  border-style: solid;
+  border-width: ${(props) => props.theme.border.width};
+  border-color: ${(props) => props.theme.colors.light};
+  color: ${(props) => props.theme.colors.light};
+`
+
+const BuilderOption = styled('span')`
+  display: flex;
+  align-items: center;
+  width: 100%;
+  padding: 1rem 0;
+  border-bottom-style: solid;
+  border-bottom-width: ${(props) => props.theme.border.width};
+  border-bottom-color: ${(props) => props.theme.border.color};
+
+  &:last-of-type {
+    border: 0;
+  }
+`
+
+const BuilderOptionImage = styled(BgImage)`
+  position: relative;
+  width: 6rem;
+  min-width: 6rem;
+  height: 6rem;
+  background-color: ${(props) => props.theme.bgColors.secondary};
+  border-radius: ${(props) => props.theme.border.radiusSmall};
+`
+
+const BuilderOptionInfo = styled('span')`
+  display: block;
+  flex-grow: 1;
+  padding: 0 1.75rem;
+  line-height: 1.3;
+
+  > span {
+    display: block;
+  }
+`
+
+const BuilderOptionName = styled('span')`
+  font-size: ${(props) => props.theme.fonts.sizes.small};
+  font-weight: ${(props) => props.theme.boldWeight};
+  color: ${(props) => props.theme.colors.primary};
+`
+
+const BuilderOptionDescription = styled('span')`
+  margin-top: 0.2rem;
+  font-size: ${(props) => props.theme.fonts.sizes.xSmall};
+
+  @media (max-width: ${(props) => props.theme.breakpoints.mobile}) {
+    display: none !important;
+  }
+`
+
+const BuilderOptionMadeFor = styled('span')`
+  margin-top: 0.2rem;
+  font-size: ${(props) => props.theme.fonts.sizes.xSmall};
+  color: ${(props) => props.theme.colors.primary};
+`
+
+const BuilderOptionDetails = styled('span')`
+  margin-top: 0.6rem;
+  font-size: ${(props) => props.theme.fonts.sizes.small};
+`
+
+const BuilderOptionDetailsContainer = styled('span')`
+  display: flex;
+  align-items: flex-end;
+  @media (max-width: ${(props) => props.theme.breakpoints.mobile}) {
+    flex-wrap: wrap;
+  }
+
+  span {
+    display: block;
+  }
+
+  span + span {
+    padding-left: 2rem;
+  }
+
+}
+`
+
+const BuilderOptionDetailsPrice = styled('span')`
+  font-weight: ${(props) => props.theme.boldWeight};
+  color: ${(props) => props.theme.colors.primary};
+`
+
+const BuilderOptionDetailsTag = styled('span')`
+  font-size: ${(props) => props.theme.fonts.sizes.xSmall};
+  color: ${(props) => props.theme.colors[props.color || 'secondary']};
+  @media (max-width: ${(props) => props.theme.breakpoints.mobile}) {
+    width: 100% !important;
+    flex-shrink: 0 !important;
+    padding: 0.5rem 0 0 !important;
+  }
+`
+
+const BuilderOptionNutrition = styled('span')`
+  display: block;
+  margin: 0;
+
+  & > span,
+  button > span {
+    font-size: ${(props) => props.theme.fonts.sizes.xSmall};
+  }
+`
 
 const SoldOutOverlay = () => (
-  <div className="builder__option__overlay ot-opacity-dark ot-border-radius-small">
-    <div className="builder__option__overlay__container">
-      <p className="builder__option__overlay__message ot-color-light ot-font-size">
-        Sold Out
-      </p>
+  <BuilderOptionOverlay overlay="dark">
+    <div>
+      <p>Sold Out</p>
     </div>
-  </div>
+  </BuilderOptionOverlay>
 )
 
 const AllergenOverlay = () => (
-  <div className="builder__option__overlay ot-opacity-alert ot-border-radius-small">
-    <div className="builder__option__overlay__container">
-      <div className="builder__option__alert ot-color-light">
+  <BuilderOptionOverlay overlay="alert">
+    <div>
+      <BuilderOptionOverlayAlert>
         <span>!</span>
-      </div>
+      </BuilderOptionOverlayAlert>
     </div>
-  </div>
+  </BuilderOptionOverlay>
 )
 
 const CartItem = ({
@@ -48,122 +185,90 @@ const CartItem = ({
   const desc = showModifiers ? makeModifierNames(item) : item.description
   const price = editItem || showModifiers ? item.totalPrice : item.price
   const madeFor = editItem || showModifiers ? item.madeFor : null
-  const soldOutClass = item.isSoldOut ? '-sold-out' : ''
-  const classes = `builder__option ot-border-color ${soldOutClass}`
   const itemAllergens = item.allergens.length
     ? item.allergens.filter((allergen) => allergens.includes(allergen))
     : []
   const allergenAlert = itemAllergens.length > 0
 
-  const toggleShowInfo = (evt) => {
-    evt.preventDefault()
+  const toggleShowInfo = () => {
     if (showIngredients) setShowIngredients(false)
     setShowInfo(!showInfo)
-    evt.target.blur()
   }
 
-  const toggleShowIngredients = (evt) => {
-    evt.preventDefault()
+  const toggleShowIngredients = () => {
     if (showInfo) setShowInfo(false)
     setShowIngredients(!showIngredients)
-    evt.target.blur()
   }
 
   return (
     <>
-      <span className={classes}>
-        <span
-          className="builder__option__image bg-image ot-bg-color-secondary ot-border-radius-small"
-          style={bgStyle}
-        >
+      <BuilderOption>
+        <BuilderOptionImage as="span" style={bgStyle}>
           {item.isSoldOut ? (
             <SoldOutOverlay />
           ) : allergenAlert ? (
             <AllergenOverlay />
           ) : null}
-        </span>
-        <span className="builder__option__info">
-          <span className="builder__option__name ot-font-size-small ot-color-headings ot-bold">
-            {item.name}
-          </span>
-          {desc && (
-            <span className="builder__option__desc ot-font-size-x-small">
-              {desc}
-            </span>
-          )}
+        </BuilderOptionImage>
+        <BuilderOptionInfo>
+          <BuilderOptionName>{item.name}</BuilderOptionName>
+          {desc && <BuilderOptionDescription>{desc}</BuilderOptionDescription>}
           {madeFor && (
-            <span className="builder__option__made-for ot-color-headings ot-font-size-x-small">
-              For <span className="">{madeFor}</span>
-            </span>
+            <BuilderOptionMadeFor>
+              For <span>{madeFor}</span>
+            </BuilderOptionMadeFor>
           )}
-          <span className="builder__option__details ot-font-size-small">
-            <span className="builder__option__details__container">
+          <BuilderOptionDetails>
+            <BuilderOptionDetailsContainer>
               {!hidePrice && (
-                <span className="builder__option__details__price ot-color-headings ot-bold">
+                <BuilderOptionDetailsPrice>
                   ${displayPrice(price)}
-                </span>
+                </BuilderOptionDetailsPrice>
               )}
               {editItem ? (
                 <>
-                  <span className="builder__option__details__edit">
-                    <button className="ot-btn-link" onClick={editItem}>
-                      edit
-                    </button>
+                  <span>
+                    <ButtonLink onClick={editItem}>edit</ButtonLink>
                   </span>
-                  <span className="builder__option__details__remove">
-                    <button
-                      className="ot-btn-link ot-color-error"
-                      onClick={removeItem}
-                    >
-                      remove
-                    </button>
+                  <span>
+                    <ButtonLink onClick={removeItem}>remove</ButtonLink>
                   </span>
                 </>
               ) : (
                 <>
-                  {showCals && item.cals && (
-                    <span className="builder__option__details__cals">
-                      {item.cals} cal
-                    </span>
-                  )}
+                  {showCals && item.cals && <span>{item.cals} cal</span>}
                   {showAllergens && item.allergens.length > 0 && (
-                    <span className="builder__option__details__allergens ot-color-alert ot-font-size-x-small">
+                    <BuilderOptionDetailsTag color="alert">
                       {item.allergens.join(', ')}
-                    </span>
+                    </BuilderOptionDetailsTag>
                   )}
                   {showTags && item.tags.length > 0 && (
-                    <span className="builder__option__details__tags ot-font-size-x-small">
+                    <BuilderOptionDetailsTag>
                       {item.tags.join(', ')}
-                    </span>
+                    </BuilderOptionDetailsTag>
                   )}
                 </>
               )}
-            </span>
-          </span>
+            </BuilderOptionDetailsContainer>
+          </BuilderOptionDetails>
           {!editItem && (hasCals || hasIngredients) && (
-            <div className="builder__option__nutrition">
+            <BuilderOptionNutrition>
               {hasCals && (
-                <button className="ot-btn-link" onClick={toggleShowInfo}>
-                  <span className="ot-font-size-x-small">
-                    {!showInfo ? 'show' : 'hide'} nutritional info
-                  </span>
-                </button>
+                <ButtonLink onClick={toggleShowInfo}>
+                  <span>{!showInfo ? 'show' : 'hide'} nutritional info</span>
+                </ButtonLink>
               )}
-              {hasCals && hasIngredients ? (
-                <span className="ot-font-size-x-small">{' | '}</span>
-              ) : null}
+              {hasCals && hasIngredients ? <span>{' | '}</span> : null}
               {hasIngredients && (
-                <button className="ot-btn-link" onClick={toggleShowIngredients}>
-                  <span className="ot-font-size-x-small">
-                    {!showIngredients ? 'show' : 'hide'} ingredients
-                  </span>
-                </button>
+                <ButtonLink onClick={toggleShowIngredients}>
+                  <span>{!showIngredients ? 'show' : 'hide'} ingredients</span>
+                </ButtonLink>
               )}
-            </div>
+            </BuilderOptionNutrition>
           )}
-        </span>
-        <span className="builder__option__quantity">{children}</span>
-      </span>
+        </BuilderOptionInfo>
+        <span>{children}</span>
+      </BuilderOption>
       {showCals && (
         <BuilderNutrition
           nutritionalInfo={item.nutritionalInfo}
