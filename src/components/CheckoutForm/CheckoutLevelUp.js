@@ -1,5 +1,5 @@
 import React, { useContext } from 'react'
-import { CircleLoader } from '..'
+import { Checkmark } from '..'
 import { FormContext } from './CheckoutForm'
 import { TendersContext } from './CheckoutTenders'
 
@@ -44,7 +44,7 @@ const CheckoutLevelUp = () => {
               </div>
               <div className="cards__card__add">
                 {applied ? (
-                  <CircleLoader complete={true} />
+                  <Checkmark />
                 ) : (
                   <button
                     type="button"

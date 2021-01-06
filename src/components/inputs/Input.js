@@ -65,8 +65,6 @@ Input.propTypes = {
   required: propTypes.bool,
   autoComplete: propTypes.string,
   placeholder: propTypes.string,
-  classes: propTypes.string,
-  inputClasses: propTypes.string,
   children: propTypes.oneOfType([
     propTypes.arrayOf(propTypes.node),
     propTypes.node,

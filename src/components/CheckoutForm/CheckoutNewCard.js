@@ -1,7 +1,7 @@
 import React, { useContext } from 'react'
 import propTypes from 'prop-types'
 import { TransitionGroup, CSSTransition } from 'react-transition-group'
-import { CircleLoader } from '..'
+import { Checkmark } from '..'
 import { FormContext } from './CheckoutForm'
 import { CheckoutNewCardForm } from '.'
 
@@ -46,7 +46,7 @@ const CheckoutNewCard = ({
           </div>
           <div className="cards__card__add">
             {isApplied ? (
-              <CircleLoader complete={true} />
+              <Checkmark />
             ) : (
               <button
                 type="button"

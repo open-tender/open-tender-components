@@ -6,9 +6,10 @@ import {
   makeServiceTypeName,
   makeRequestedAtStr,
 } from '@open-tender/js'
-import { Button, Input, Textarea, Switch } from '..'
-import { CheckoutLineItem, CheckoutTip } from '.'
+import { Input, Textarea, Switch, ButtonStyled, Preface } from '..'
+import { CheckoutTip } from '.'
 import { FormContext } from './CheckoutForm'
+import { FormFieldset, FormInputs, FormLegend, FormRow } from '../inputs'
 
 const CheckoutDetails = () => {
   const {
@@ -72,65 +73,78 @@ const CheckoutDetails = () => {
     debouncedUpdate(newDetails)
   }
 
-  const handleShowTip = (evt) => {
-    evt.preventDefault()
-    setShowTip(!showTip)
-    evt.target.blur()
-  }
-
   return (
     <>
-      <div className="form__fieldset">
-        <div className="form__legend">
-          <p className="form__legend__title ot-heading ot-font-size-h3">
-            {config.details.title}
-          </p>
-          {config.details.subtitle.length > 0 && (
-            <p className="form__legend__subtitle ot-line-height">
-              {config.details.subtitle}
-            </p>
-          )}
-        </div>
-        <div className="form__inputs">
-          <CheckoutLineItem label="Location">
-            <Button
-              text={revenueCenterName}
-              ariaLabel={`Change location from ${revenueCenterName}`}
-              icon={iconMap.revenueCenter}
-              classes="ot-btn--secondary ot-btn--header"
-              onClick={updateRevenueCenter}
-              disabled={autoSelect}
-            />
-          </CheckoutLineItem>
-          <CheckoutLineItem label="Service Type">
-            <Button
-              text={serviceTypeBtnName}
-              ariaLabel={`Change service type from ${serviceTypeBtnName}`}
-              icon={iconMap[serviceTypeLower]}
-              classes="ot-btn--secondary ot-btn--header"
-              onClick={updateServiceType}
-            />
-          </CheckoutLineItem>
-          <CheckoutLineItem label={`${serviceTypeName} Time`}>
-            <Button
-              text={requestedAtText}
-              ariaLabel={`Change time from ${requestedAtText}`}
-              icon={iconMap.requestedAt}
-              classes="ot-btn--secondary ot-btn--header"
-              onClick={updateRequestedAt}
-            />
-          </CheckoutLineItem>
+      <FormFieldset>
+        <FormLegend
+          as="div"
+          title={config.details.title}
+          subtitle={config.details.subtitle}
+        />
+        <FormInputs>
+          <FormRow
+            as="div"
+            label={<Preface size="xSmall">Location</Preface>}
+            input={
+              <ButtonStyled
+                label={`Change location from ${revenueCenterName}`}
+                icon={iconMap.revenueCenter}
+                onClick={updateRevenueCenter}
+                disabled={autoSelect}
+                size="header"
+                color="header"
+              >
+                {revenueCenterName}
+              </ButtonStyled>
+            }
+          />
+          <FormRow
+            as="div"
+            label={<Preface size="xSmall">Service Type</Preface>}
+            input={
+              <ButtonStyled
+                label={`Change service type from ${serviceTypeBtnName}`}
+                icon={iconMap[serviceTypeLower]}
+                onClick={updateServiceType}
+                size="header"
+                color="header"
+              >
+                {serviceTypeBtnName}
+              </ButtonStyled>
+            }
+          />
+          <FormRow
+            as="div"
+            label={<Preface size="xSmall">{serviceTypeName} Time</Preface>}
+            input={
+              <ButtonStyled
+                label={`Change time from ${requestedAtText}`}
+                icon={iconMap.requestedAt}
+                onClick={updateRequestedAt}
+                size="header"
+                color="header"
+              >
+                {requestedAtText}
+              </ButtonStyled>
+            }
+          />
           {tipSettings.has_tip && (
             <>
-              <CheckoutLineItem label="Tip">
-                <Button
-                  text={`${check.totals.tip}`}
-                  ariaLabel={`Adjust tip of $${check.totals.tip}`}
-                  icon={iconMap.tip}
-                  classes="ot-btn--secondary ot-btn--header"
-                  onClick={handleShowTip}
-                />
-              </CheckoutLineItem>
+              <FormRow
+                as="div"
+                label={<Preface size="xSmall">Tip</Preface>}
+                input={
+                  <ButtonStyled
+                    label={`Adjust tip of $${check.totals.tip}`}
+                    icon={iconMap.tip}
+                    onClick={() => setShowTip(!showTip)}
+                    size="header"
+                    color="header"
+                  >
+                    {check.totals.tip}
+                  </ButtonStyled>
+                }
+              />
               {showTip && <CheckoutTip setShowTip={setShowTip} />}
             </>
           )}
@@ -184,21 +198,16 @@ const CheckoutDetails = () => {
               required={required.includes('notes')}
             />
           )}
-        </div>
-      </div>
+        </FormInputs>
+      </FormFieldset>
       {curbside && (
-        <div className="form__fieldset">
-          <div className="form__legend">
-            <p className="form__legend__title ot-heading ot-font-size-h3">
-              {curbside.title}
-            </p>
-            {curbside.description.length > 0 && (
-              <p className="form__legend__subtitle ot-line-height">
-                {curbside.description}
-              </p>
-            )}
-          </div>
-          <div className="form__inputs">
+        <FormFieldset>
+          <FormLegend
+            as="div"
+            title={curbside.title}
+            subtitle={curbside.description}
+          />
+          <FormInputs>
             <Switch
               label={`Use ${curbside.title}`}
               id="order_fulfillment"
@@ -206,27 +215,23 @@ const CheckoutDetails = () => {
               onChange={handleChange}
               inputClasses="input--button"
             />
-            {details.order_fulfillment && (
-              <div className="form__subsection ot-bg-color-secondary ot-border-color">
-                {curbside.fields.map((field) => {
-                  return (
-                    <Input
-                      key={field.name}
-                      label={field.label}
-                      name={`details-${field.name}`}
-                      type="text"
-                      placeholder={field.placeholder}
-                      value={details[field.name]}
-                      onChange={handleChange}
-                      error={null}
-                      inputClasses="ot-bg-color-primary ot-border-color"
-                    />
-                  )
-                })}
-              </div>
-            )}
-          </div>
-        </div>
+            {details.order_fulfillment &&
+              curbside.fields.map((field) => {
+                return (
+                  <Input
+                    key={field.name}
+                    label={field.label}
+                    name={`details-${field.name}`}
+                    type="text"
+                    placeholder={field.placeholder}
+                    value={details[field.name]}
+                    onChange={handleChange}
+                    error={null}
+                  />
+                )
+              })}
+          </FormInputs>
+        </FormFieldset>
       )}
     </>
   )

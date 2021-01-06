@@ -1,9 +1,10 @@
 import React, { useContext } from 'react'
 import propTypes from 'prop-types'
 import { checkAmountRemaining } from '@open-tender/js'
-import { Button, CircleLoader } from '..'
+import { Button } from '..'
 import { FormContext } from './CheckoutForm'
 import { CheckoutLineItem } from '.'
+import { FormApplied } from '../inputs'
 
 const CheckoutGiftCardLabel = ({ giftCard, amount }) => {
   return (
@@ -108,9 +109,7 @@ const CheckoutGiftCards = () => {
                 <div className="input__wrapper">
                   {amount ? (
                     <>
-                      <span className="input__success">
-                        <CircleLoader complete={true} />
-                      </span>
+                      <FormApplied />
                       <Button
                         text="Remove"
                         ariaLabel={`Remove gift card ${i.card_number} with amount of ${amount}`}

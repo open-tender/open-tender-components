@@ -10,7 +10,7 @@ import CartItem from './CartItem'
 import CartCounts from './CartCounts'
 import CartErrors from './CartErrors'
 import Check from './Check'
-import CircleLoader from './CircleLoader'
+import Checkmark from './Checkmark'
 import DeliveryLink from './DeliveryLink'
 import Heading from './Heading'
 import Message from './Message'
@@ -105,6 +105,8 @@ export {
   CartItem,
   CartCounts,
   CartErrors,
+  Check,
+  Checkmark,
   CheckoutForm,
   CheckoutAccount,
   CheckoutAddress,
@@ -127,8 +129,6 @@ export {
   CheckoutTenders,
   CheckoutTender,
   CheckoutTip,
-  Check,
-  CircleLoader,
   DeliveryLink,
   Heading,
   Message,

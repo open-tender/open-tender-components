@@ -1,6 +1,6 @@
 import React from 'react'
 import propTypes from 'prop-types'
-import { FormError, Label } from '.'
+import { FormRow, Label } from '.'
 
 export const Textarea = ({
   label,
@@ -13,17 +13,13 @@ export const Textarea = ({
   readOnly = false,
   required = false,
   placeholder = '',
-  classes = '',
-  inputClasses = '',
 }) => {
   return (
-    <label
-      htmlFor={name}
-      className={`form__input -input ot-border-color ${classes}`}
-    >
-      <span className="form__input__wrapper ot-border-color">
-        {showLabel && <Label text={label} required={required} />}
-        <span className="input">
+    <>
+      <FormRow
+        htmlFor={name}
+        label={showLabel && <Label text={label} required={required} />}
+        input={
           <textarea
             aria-label={label}
             id={name}
@@ -33,13 +29,13 @@ export const Textarea = ({
             disabled={disabled}
             readOnly={readOnly}
             required={required}
-            className={inputClasses}
             onChange={onChange}
           />
-        </span>
-      </span>
-      {error ? <FormError error={error} /> : null}
-    </label>
+        }
+        errMsg={error}
+        isInput={true}
+      />
+    </>
   )
 }
 
@@ -55,8 +51,6 @@ Textarea.propTypes = {
   readOnly: propTypes.bool,
   required: propTypes.bool,
   placeholder: propTypes.string,
-  classes: propTypes.string,
-  inputClasses: propTypes.string,
 }
 
 export default Textarea

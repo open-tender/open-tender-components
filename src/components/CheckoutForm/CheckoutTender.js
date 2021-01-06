@@ -1,7 +1,7 @@
 import React, { useContext } from 'react'
 import propTypes from 'prop-types'
 import { tenderTypeNamesMap } from '@open-tender/js'
-import { Button, CircleLoader } from '..'
+import { Button } from '..'
 import { FormContext } from './CheckoutForm'
 import { TendersContext } from './CheckoutTenders'
 import {
@@ -10,6 +10,7 @@ import {
   CheckoutHouseAccounts,
   CheckoutLevelUp,
 } from '.'
+import { FormApplied } from '../inputs'
 
 const CheckoutTenderLabel = ({ icon, name }) => (
   <span className="form__input__tender">
@@ -93,9 +94,7 @@ const CheckoutTender = ({ tenderType }) => {
         <div className="input__wrapper">
           {isApplied ? (
             <>
-              <span className="input__success">
-                <CircleLoader complete={true} />
-              </span>
+              <FormApplied />
               <Button
                 // text={`Remove ${name} Payment`}
                 text={`Remove`}

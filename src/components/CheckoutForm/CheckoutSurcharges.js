@@ -1,8 +1,15 @@
 import React, { useContext, useState, useEffect } from 'react'
 import { displayPrice } from '@open-tender/js'
-import { Button, CircleLoader } from '..'
+import { ButtonStyled } from '..'
 import { FormContext } from './CheckoutForm'
-import { CheckoutLabel, CheckoutLineItem } from '.'
+import { CheckoutLabel } from '.'
+import {
+  FormApplied,
+  FormFieldset,
+  FormInputs,
+  FormLegend,
+  FormRow,
+} from '../inputs'
 
 const CheckoutSurcharges = () => {
   const formContext = useContext(FormContext)
@@ -19,32 +26,25 @@ const CheckoutSurcharges = () => {
     : null
   if (!surchargesOptional) return null
 
-  const applySurcharge = (evt, surchargeId) => {
-    evt.preventDefault()
+  const applySurcharge = (surchargeId) => {
     setPendingSurcharge(surchargeId)
     const newSurcharge = { id: surchargeId }
     updateForm({ surcharges: [...form.surcharges, newSurcharge] })
-    evt.target.blur()
   }
 
-  const removeSurcharge = (evt, surchargeId) => {
-    evt.preventDefault()
+  const removeSurcharge = (surchargeId) => {
     const filtered = form.surcharges.filter((i) => i.id !== surchargeId)
     updateForm({ surcharges: filtered })
-    evt.target.blur()
   }
 
   return (
-    <fieldset className="form__fieldset">
-      <div className="form__legend">
-        <p className="form__legend__title ot-heading ot-font-size-h3">
-          {config.surcharges.title}
-        </p>
-        <p className="form__legend__subtitle ot-line-height">
-          {config.surcharges.subtitle}
-        </p>
-      </div>
-      <div className="form__inputs">
+    <FormFieldset>
+      <FormLegend
+        as="div"
+        title={config.surcharges.title}
+        subtitle={config.surcharges.subtitle}
+      />
+      <FormInputs>
         {surchargesOptional.map((i) => {
           const isApplied = surchargeIds.includes(i.id)
           const isPending = i.id === pendingSurcharge
@@ -53,46 +53,51 @@ const CheckoutSurcharges = () => {
               ? `$${displayPrice(i.amount)} fee`
               : 'No additional charge'
           return (
-            <CheckoutLineItem
-              key={i.id}
-              label={
-                <CheckoutLabel
-                  title={i.label || i.name}
-                  description={i.description}
-                  alert={<span className="ot-color-success">{cost}</span>}
-                />
-              }
-            >
-              <div className="input__wrapper">
-                {isApplied && (
-                  <span className="input__success">
-                    <CircleLoader complete={!isPending} />
-                  </span>
-                )}
-                {isApplied ? (
-                  <Button
-                    text="Remove"
-                    ariaLabel={`Remove ${i.name} surcharge of ${i.amount}`}
-                    icon={iconMap.remove}
-                    classes="ot-btn--secondary ot-btn--header"
-                    disabled={isPending || !i.is_optional}
-                    onClick={(evt) => removeSurcharge(evt, i.id)}
+            <>
+              <FormRow
+                key={i.id}
+                type="div"
+                label={
+                  <CheckoutLabel
+                    title={i.label || i.name}
+                    description={i.description}
+                    alert={<span className="ot-color-success">{cost}</span>}
                   />
-                ) : (
-                  <Button
-                    text="Apply"
-                    ariaLabel={`Apply ${i.name} surcharge of ${i.amount}`}
-                    icon={iconMap.add}
-                    classes="ot-btn--secondary ot-btn--header"
-                    onClick={(evt) => applySurcharge(evt, i.id)}
-                  />
-                )}
-              </div>
-            </CheckoutLineItem>
+                }
+                input={
+                  <>
+                    {isApplied && <FormApplied />}
+                    {isApplied ? (
+                      <ButtonStyled
+                        label={`Remove ${i.name} surcharge of ${i.amount}`}
+                        icon={iconMap.remove}
+                        onClick={() => removeSurcharge(i.id)}
+                        disabled={isPending || !i.is_optional}
+                        size="header"
+                        color="header"
+                      >
+                        Remove
+                      </ButtonStyled>
+                    ) : (
+                      <ButtonStyled
+                        label={`Apply ${i.name} surcharge of ${i.amount}`}
+                        icon={iconMap.add}
+                        onClick={() => applySurcharge(i.id)}
+                        disabled={isPending}
+                        size="header"
+                        color="header"
+                      >
+                        Apply
+                      </ButtonStyled>
+                    )}
+                  </>
+                }
+              />
+            </>
           )
         })}
-      </div>
-    </fieldset>
+      </FormInputs>
+    </FormFieldset>
   )
 }
 

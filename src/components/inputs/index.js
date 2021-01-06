@@ -1,4 +1,5 @@
 import Checkbox from './Checkbox'
+import FormApplied from './FormApplied'
 import FormError from './FormError'
 import FormLegend from './FormLegend'
 import FormRow from './FormRow'
@@ -12,6 +13,7 @@ import { FormInputs, FormFieldset } from './Styled'
 
 export {
   Checkbox,
+  FormApplied,
   FormError,
   FormFieldset,
   FormInputs,

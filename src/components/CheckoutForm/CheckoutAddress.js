@@ -1,9 +1,15 @@
 import React, { useState, useEffect, useCallback, useContext } from 'react'
 import debounce from 'lodash/debounce'
 import { isEmpty, makeFullAddress } from '@open-tender/js'
-import { Button, Input } from '..'
+import { ButtonStyled, Input, Preface } from '..'
 import { FormContext } from './CheckoutForm'
-import { CheckoutLineItem } from '.'
+import {
+  FormError,
+  FormFieldset,
+  FormInputs,
+  FormLegend,
+  FormRow,
+} from '../inputs'
 
 const initialState = {
   unit: '',
@@ -93,28 +99,28 @@ const CheckoutAddress = () => {
   }
 
   return (
-    <fieldset className="form__fieldset">
-      <legend className="form__legend">
-        <p className="form__legend__title ot-heading ot-font-size-h3">
-          {config.address.title}
-        </p>
-      </legend>
+    <FormFieldset>
+      <FormLegend title={config.address.title} />
       {typeof addressErrors === 'string' && (
-        <div className="form__error form__error--top ot-form-error">
-          {addressErrors}
-        </div>
+        <FormError errMsg={addressErrors} style={{ margin: '0 0 2rem' }} />
       )}
-      <div className="form__inputs">
-        <CheckoutLineItem label="Address">
-          <Button
-            text={fullAddress}
-            ariaLabel={`Current address: ${fullAddress}. Click to update.`}
-            icon={iconMap.address}
-            classes="ot-btn--secondary ot-btn--header"
-            onClick={updateRevenueCenter}
-            disabled={isOutpost}
-          />
-        </CheckoutLineItem>
+      <FormInputs>
+        <FormRow
+          as="div"
+          label={<Preface size="xSmall">Address</Preface>}
+          input={
+            <ButtonStyled
+              label={`Current address: ${fullAddress}. Click to update.`}
+              icon={iconMap.address}
+              onClick={updateRevenueCenter}
+              disabled={isOutpost}
+              size="header"
+              color="header"
+            >
+              {fullAddress}
+            </ButtonStyled>
+          }
+        />
         {fields.map((field) => {
           const input = addressConfig[field.name]
           return (
@@ -133,8 +139,8 @@ const CheckoutAddress = () => {
             )
           )
         })}
-      </div>
-    </fieldset>
+      </FormInputs>
+    </FormFieldset>
   )
 }
 

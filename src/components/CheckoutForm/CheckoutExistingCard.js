@@ -1,7 +1,7 @@
 import React, { useState, useEffect, useContext } from 'react'
 import propTypes from 'prop-types'
 import { isEmpty } from '@open-tender/js'
-import { CircleLoader, FormError } from '..'
+import { Checkmark, FormError } from '..'
 import { FormContext } from './CheckoutForm'
 
 const CheckoutExistingCard = ({
@@ -42,7 +42,7 @@ const CheckoutExistingCard = ({
         </div>
         <div className="cards__card__add">
           {isApplied ? (
-            <CircleLoader complete={true} />
+            <Checkmark />
           ) : (
             <button
               type="button"

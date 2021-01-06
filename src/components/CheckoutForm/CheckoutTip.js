@@ -1,6 +1,6 @@
 import React, { useState, useContext } from 'react'
 import propTypes from 'prop-types'
-import { CircleLoader, Input } from '..'
+import { Checkmark, Input } from '..'
 import { FormContext } from './CheckoutForm'
 
 const CheckoutTip = ({ setShowTip }) => {
@@ -60,7 +60,7 @@ const CheckoutTip = ({ setShowTip }) => {
                   </div>
                   <div className="cards__card__add">
                     {isApplied ? (
-                      <CircleLoader complete={true} />
+                      <Checkmark />
                     ) : (
                       <span className="ot-btn-link">{iconMap.add || '+'}</span>
                     )}
@@ -96,11 +96,7 @@ const CheckoutTip = ({ setShowTip }) => {
                 disabled={customTip.length === 0}
                 aria-label="Apply custom tip"
               >
-                {customApplied ? (
-                  <CircleLoader complete={true} />
-                ) : (
-                  iconMap.add || '+'
-                )}
+                {customApplied ? <Checkmark /> : iconMap.add || '+'}
               </button>
             </div>
           </div>

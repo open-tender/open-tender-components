@@ -1,8 +1,9 @@
 import React, { useContext, useState, useEffect } from 'react'
 import propTypes from 'prop-types'
-import { Button, CircleLoader } from '..'
+import { Button } from '..'
 import { FormContext } from './CheckoutForm'
 import { CheckoutLineItem } from '.'
+import { FormApplied } from '../inputs'
 
 const CheckoutDiscountLabel = ({ discount }) => (
   <span className="form__input__discount">
@@ -83,11 +84,7 @@ const CheckoutDiscounts = () => {
               label={<CheckoutDiscountLabel discount={i} />}
             >
               <div className="input__wrapper">
-                {isApplied && (
-                  <span className="input__success">
-                    <CircleLoader complete={!isPending} />
-                  </span>
-                )}
+                {isApplied && <FormApplied />}
                 {isApplied ? (
                   <Button
                     text="Remove"

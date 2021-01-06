@@ -93,7 +93,6 @@ const CheckoutForm = ({
   const dispatchUpdateForm = useCallback((form) => dispatch(updateForm(form)), [
     dispatch,
   ])
-  console.log(errors.form)
 
   useEffect(() => {
     dispatch(resetErrors())

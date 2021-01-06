@@ -1,5 +1,6 @@
 import React, { useContext, useState, useEffect } from 'react'
-import { Button, ButtonClear, CircleLoader, Input } from '..'
+import { Button, ButtonClear, Input } from '..'
+import { FormApplied } from '../inputs'
 import { FormContext } from './CheckoutForm'
 
 const CheckoutPromoCodes = () => {
@@ -103,9 +104,7 @@ const CheckoutPromoCodes = () => {
                 required={false}
                 disabled={true}
               />
-              <span className="input__success">
-                <CircleLoader complete={true} />
-              </span>
+              <FormApplied />
               <Button
                 text="Remove"
                 ariaLabel={`Remove promo code ${checkPromoCode}`}

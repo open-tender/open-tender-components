@@ -77,9 +77,16 @@ const FormRowInput = styled('span')`
   }
 `
 
-const FormRow = ({ label, input, errMsg, as = 'label', isInput = false }) => {
+const FormRow = ({
+  label,
+  input,
+  errMsg,
+  as = 'label',
+  isInput = false,
+  style,
+}) => {
   return (
-    <FormRowView as={as} isInput={isInput}>
+    <FormRowView as={as} isInput={isInput} style={style}>
       <FormRowContainer isInput={isInput}>
         {label && (
           <span>
@@ -112,6 +119,7 @@ FormRow.propTypes = {
   errMsg: propTypes.string,
   as: propTypes.string,
   isInput: propTypes.bool,
+  style: propTypes.object,
 }
 
 export default FormRow
