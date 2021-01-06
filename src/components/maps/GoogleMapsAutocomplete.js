@@ -115,11 +115,9 @@ const GoogleMapsAutocomplete = ({
     evt.target.blur()
   }
 
-  const clearInput = (evt) => {
-    evt.preventDefault()
+  const clearInput = () => {
     setInput('')
     setPredictions([])
-    evt.target.blur()
     inputRef.current.focus()
   }
 

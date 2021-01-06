@@ -1,14 +1,59 @@
 import React from 'react'
 import propTypes from 'prop-types'
-import { Button } from './index'
 import { isoToDate } from '@open-tender/js'
+import styled from '@emotion/styled'
+import { ButtonStyled } from '.'
+
+export const InvalidView = styled('div')`
+  margin: 3rem 0 0;
+`
+
+export const InvalidItemsView = styled('div')`
+  margin: 0 0 3rem;
+
+  > p {
+    font-size: ${(props) => props.theme.fonts.sizes.small};
+  }
+
+  ul {
+    list-style: disc inside;
+    margin: 1.5rem 0 0;
+
+    li {
+      margin: 1rem 0;
+
+      span:first-of-type {
+        position: relative;
+        left: -0.5rem;
+        font-weight: ${(props) => props.theme.boldWeight};
+        color: ${(props) => props.theme.colors.primary};
+      }
+
+      span + span {
+        font-size: ${(props) => props.theme.fonts.sizes.small};
+      }
+    }
+  }
+`
+
+const InvalidButtons = styled('div')`
+  margin-top: 3rem;
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+
+  button {
+    display: block;
+    & + button {
+      margin-left: 1rem;
+    }
+  }
+`
 
 const InvalidItems = ({ invalidItems }) => {
   return invalidItems.length ? (
-    <div className="validate__invalid">
-      <p className="ot-font-size-small">
-        The following items will need to be removed from your cart:
-      </p>
+    <InvalidItemsView>
+      <p>The following items will need to be removed from your cart:</p>
       <ul>
         {invalidItems.map((item, index) => {
           const missingOptions =
@@ -17,20 +62,15 @@ const InvalidItems = ({ invalidItems }) => {
               : null
           return (
             <li key={`${item.id}-${index}`}>
-              <span className="validate__invalid__item ot-bold ot-headings-color">
-                {item.name}
-              </span>
+              <span>{item.name}</span>
               {missingOptions ? (
-                <span className="ot-font-size-small">
-                  {' '}
-                  (unavailable modifiers: {missingOptions})
-                </span>
+                <span> (unavailable modifiers: {missingOptions})</span>
               ) : null}
             </li>
           )
         })}
       </ul>
-    </div>
+    </InvalidItemsView>
   ) : null
 }
 
@@ -66,9 +106,9 @@ const CartErrors = ({
 }) => {
   const isRevertable = isCartRevertable(previousMenuVars, menuVars)
 
-  const handleRevert = (evt) => {
+  const handleRevert = () => {
     const { newMenuVars } = isRevertable
-    revert(evt, newMenuVars)
+    revert(newMenuVars)
   }
 
   const unavailable = errors
@@ -76,30 +116,24 @@ const CartErrors = ({
     : []
 
   return (
-    <div className="validate">
+    <InvalidView>
       <InvalidItems invalidItems={unavailable} />
       <p>
         {isRevertable
           ? 'Please either remove these items or switch back to your previous menu.'
           : 'Please click the button below to remove these items and proceed with your order.'}
       </p>
-      <div className="validate__buttons">
+      <InvalidButtons>
         {isRevertable && (
-          <Button
-            text="Back to Previous Menu"
-            icon={revertIcon}
-            onClick={handleRevert}
-            classes="ot-btn"
-          />
+          <ButtonStyled icon={revertIcon} onClick={handleRevert}>
+            Back to Previous Menu
+          </ButtonStyled>
         )}
-        <Button
-          text="Remove Items"
-          icon={proceedIcon}
-          onClick={proceed}
-          classes="ot-btn"
-        />
-      </div>
-    </div>
+        <ButtonStyled icon={proceedIcon} onClick={proceed}>
+          Remove Items
+        </ButtonStyled>
+      </InvalidButtons>
+    </InvalidView>
   )
 }
 
