@@ -3,7 +3,7 @@ import propTypes from 'prop-types'
 import { CreditCardForm } from '.'
 import { Input } from '../index'
 import Button from '../Button'
-import { Error } from '../Inputs'
+import { FormError } from '..'
 
 const initState = { amount: '10.00', quantity: 1, email: '' }
 
@@ -69,7 +69,7 @@ const InputEmail = ({ label, name, value, onChange, disabled, error }) => (
       disabled={disabled}
       onChange={onChange}
     />
-    {error ? <Error error={error} /> : null}
+    {error ? <FormError error={error} /> : null}
   </span>
 )
 

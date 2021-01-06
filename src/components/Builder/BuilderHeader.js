@@ -1,9 +1,9 @@
 import propTypes from 'prop-types'
 import React, { useState } from 'react'
+import styled from '@emotion/styled'
 import { displayPrice } from '@open-tender/js'
 import BuilderNutrition from './BuilderNutrition'
 import BuilderIngredients from './BuilderIngredients'
-import styled from '@emotion/styled'
 import { BgImage, ButtonLink } from '..'
 
 const BuilderImage = styled(BgImage)`

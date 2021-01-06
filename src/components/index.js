@@ -1,15 +1,5 @@
 import BgImage from './BgImage'
 import Box from './Box'
-import Builder, {
-  BuilderGroupHeader,
-  BuilderGroupWarning,
-  BuilderHeader,
-  BuilderOption,
-  BuilderQuantity,
-  BuilderRadioGroup,
-  BuilderRadio,
-  useBuilder,
-} from './Builder'
 import Button from './Button'
 import ButtonIcon from './ButtonIcon'
 import ButtonClear from './ButtonClear'
@@ -20,6 +10,24 @@ import CartItem from './CartItem'
 import CartCounts from './CartCounts'
 import CartErrors from './CartErrors'
 import Check from './Check'
+import CircleLoader from './CircleLoader'
+import DeliveryLink from './DeliveryLink'
+import Heading from './Heading'
+import Message from './Message'
+import Preface from './Preface'
+import Text from './Text'
+
+import Builder, {
+  BuilderGroupHeader,
+  BuilderGroupWarning,
+  BuilderHeader,
+  BuilderOption,
+  BuilderQuantity,
+  BuilderRadioGroup,
+  BuilderRadio,
+  useBuilder,
+} from './Builder'
+
 import {
   CheckoutAccount,
   CheckoutAddress,
@@ -44,25 +52,40 @@ import {
   CheckoutTip,
 } from './CheckoutForm'
 import CheckoutForm from './CheckoutForm'
-import CircleLoader from './CircleLoader'
-import DeliveryLink from './DeliveryLink'
-import FormRow from './FormRow'
-import Heading from './Heading'
-import Message from './Message'
-import Preface from './Preface'
-import Text from './Text'
+
+// import {
+//   Label,
+//   Error,
+//   Input,
+//   Textarea,
+//   Select,
+//   Switch,
+//   Checkbox,
+//   RadioButtonGroup,
+// } from './Inputs'
+
 import {
-  Label,
-  Error,
+  Checkbox,
+  FormError,
+  FormRow,
   Input,
-  Textarea,
+  Label,
+  RadioButtonGroup,
   Select,
   Switch,
-  Checkbox,
-  RadioButtonGroup,
-} from './Inputs'
+  Textarea,
+} from './inputs'
 
 export {
+  Checkbox,
+  FormError,
+  FormRow,
+  Input,
+  Label,
+  RadioButtonGroup,
+  Select,
+  Switch,
+  Textarea,
   BgImage,
   Box,
   Builder,
@@ -107,18 +130,9 @@ export {
   Check,
   CircleLoader,
   DeliveryLink,
-  FormRow,
   Heading,
   Message,
   Preface,
   Text,
-  Error,
-  Input,
-  Textarea,
-  Label,
-  Select,
-  Switch,
-  Checkbox,
-  RadioButtonGroup,
   useBuilder,
 }

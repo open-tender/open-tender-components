@@ -2,7 +2,7 @@ import React from 'react'
 import propTypes from 'prop-types'
 import { TransitionGroup, CSSTransition } from 'react-transition-group'
 
-const InputError = ({ errMsg }) => {
+const FormError = ({ errMsg }) => {
   return (
     <TransitionGroup component={null}>
       {errMsg ? (
@@ -11,7 +11,7 @@ const InputError = ({ errMsg }) => {
           classNames="reveal"
           timeout={{ enter: 250, exit: 250 }}
         >
-          <span className="ot-form-error">
+          <span className="form__error ot-form-error">
             <p>{errMsg}</p>
           </span>
         </CSSTransition>
@@ -20,9 +20,9 @@ const InputError = ({ errMsg }) => {
   )
 }
 
-InputError.displayName = 'InputError'
-InputError.propTypes = {
+FormError.displayName = 'FormError'
+FormError.propTypes = {
   errMsg: propTypes.string,
 }
 
-export default InputError
+export default FormError

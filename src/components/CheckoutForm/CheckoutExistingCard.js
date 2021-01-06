@@ -1,7 +1,7 @@
 import React, { useState, useEffect, useContext } from 'react'
 import propTypes from 'prop-types'
 import { isEmpty } from '@open-tender/js'
-import { CircleLoader, Error } from '..'
+import { CircleLoader, FormError } from '..'
 import { FormContext } from './CheckoutForm'
 
 const CheckoutExistingCard = ({
@@ -56,7 +56,7 @@ const CheckoutExistingCard = ({
           )}
         </div>
       </div>
-      {cardError && isApplied && <Error error={cardError} />}
+      {cardError && isApplied && <FormError error={cardError} />}
     </li>
   ) : null
 }

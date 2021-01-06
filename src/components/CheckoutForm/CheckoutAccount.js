@@ -1,9 +1,9 @@
 import React, { useState, useCallback, useContext } from 'react'
-import { Input } from '../Inputs'
 import debounce from 'lodash/debounce'
-import { Button } from '..'
+import { Button, ButtonLink, ButtonStyled, FormRow, Input, Preface } from '..'
 import { FormContext } from './CheckoutForm'
 import { CheckoutLineItem } from '.'
+import { Label } from '../inputs'
 
 const makeAccountConfig = (required, displayed) => {
   return {
@@ -64,25 +64,26 @@ const CheckoutAccount = () => {
           {config.account.title}
         </p>
         <p className="form__legend__subtitle ot-line-height">
-          <Button
-            text="Click here to logout"
-            ariaLabel="Log out of your account"
-            classes="ot-btn-link"
-            onClick={logout}
-          />{' '}
-          if you want to switch accounts or check out as a guest.
+          <ButtonLink onClick={logout}>Click here to logout</ButtonLink> if you
+          want to switch accounts or check out as a guest.
         </p>
       </div>
       <div className="form__inputs">
-        <CheckoutLineItem label="Account">
-          <Button
-            text={`${customer.first_name} ${customer.last_name}`}
-            ariaLabel="Go to account to update name or email"
-            icon={iconMap.account || null}
-            classes="ot-btn--secondary ot-btn--header"
-            onClick={goToAccount}
-          />
-        </CheckoutLineItem>
+        <FormRow
+          type="div"
+          label={<Label text="Account" />}
+          input={
+            <ButtonStyled
+              label="Go to account to update name or email"
+              icon={iconMap.account || null}
+              onClick={goToAccount}
+              size="header"
+              color="header"
+            >
+              {customer.first_name} {customer.last_name}
+            </ButtonStyled>
+          }
+        />
         {fields.map((field) => {
           const input = accountConfig[field.name]
           return (

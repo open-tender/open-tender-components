@@ -23,7 +23,7 @@ import {
   resetErrors,
   setAlert,
 } from '@open-tender/redux'
-import { Error, Check } from '..'
+import { Check, FormError } from '..'
 import {
   CheckoutAddress,
   CheckoutCustomer,
@@ -153,68 +153,50 @@ const CheckoutForm = ({
 
   if (!check || !check.config) return null
 
-  const handleSignUp = (evt) => {
-    evt.preventDefault()
+  const handleSignUp = () => {
     dispatch(setAlert({ type: 'signUp' }))
-    evt.target.blur()
   }
 
-  const handleLogin = (evt) => {
-    evt.preventDefault()
+  const handleLogin = () => {
     dispatch(setAlert({ type: 'login' }))
-    evt.target.blur()
   }
 
-  const handleLogout = (evt) => {
-    evt.preventDefault()
+  const handleLogout = () => {
     dispatch(logoutCustomer())
-    evt.target.blur()
   }
 
-  const handleAccount = (evt) => {
-    evt.preventDefault()
+  const handleAccount = () => {
     history.push(`/account`)
-    evt.target.blur()
   }
 
-  const handleServiceType = (evt) => {
-    evt.preventDefault()
+  const handleServiceType = () => {
     if (orderType === 'CATERING') {
       history.push(`/catering`)
     } else {
       const startOver = () => history.push(`/`)
       dispatch(setAlert({ type: 'orderType', args: { startOver } }))
     }
-    evt.target.blur()
   }
 
-  const handleRevenueCenter = (evt) => {
-    evt.preventDefault()
-    return history.push(`/locations`)
+  const handleRevenueCenter = () => {
+    history.push(`/locations`)
   }
 
-  const handleRequestedAt = (evt) => {
-    evt.preventDefault()
+  const handleRequestedAt = () => {
     dispatch(setAlert({ type: 'requestedAt' }))
-    evt.target.blur()
   }
 
-  const handleConnectLevelUp = (evt) => {
-    evt.preventDefault()
+  const handleConnectLevelUp = () => {
     const validate = () => dispatch(validateOrder(orderValidate))
     dispatch(setAlert({ type: 'levelup', args: { validate } }))
-    evt.target.blur()
   }
 
-  const handleAddGiftCard = (evt) => {
-    evt.preventDefault()
+  const handleAddGiftCard = () => {
     const validate = () => dispatch(validateOrder(orderValidate))
     dispatch(setAlert({ type: 'giftCardAssign', args: { validate } }))
-    evt.target.blur()
   }
 
-  const handleSubmit = (evt) => {
-    evt.preventDefault()
+  const handleSubmit = () => {
     dispatch(setSubmitting(true))
     dispatch(submitOrder())
     submitButton.current.blur()
@@ -254,7 +236,7 @@ const CheckoutForm = ({
       >
         {errors.form && (
           <div className="form__error--top">
-            <Error error={errors.form} />
+            <FormError error={errors.form} />
           </div>
         )}
         <CheckoutCustomer />

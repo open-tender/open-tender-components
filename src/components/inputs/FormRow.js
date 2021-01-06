@@ -1,8 +1,9 @@
 import React from 'react'
 import propTypes from 'prop-types'
 import styled from '@emotion/styled'
+import { Label } from '.'
 
-const FormRowView = styled('div')`
+const FormRowView = styled('label')`
   display: block;
   padding: 1.25rem 0;
   border-bottom-style: solid;
@@ -12,28 +13,32 @@ const FormRowView = styled('div')`
     padding: 0.75rem 0;
   }
 
-  &:last-of-type {
+  &:last-child {
     border: 0;
   }
 `
 
-const FormRowContainer = styled('div')`
+const FormRowContainer = styled('span')`
   display: flex;
   justify-content: space-between;
   align-items: center;
 
-  > div:first-of-type {
-    width: 15rem;
-    flex-shrink: 0;
-  }
+  > span {
+    display: block;
 
-  > div:last-of-type {
-    position: relative;
-    flex: 1;
+    &:first-of-type {
+      width: 15rem;
+      flex-shrink: 0;
+    }
+
+    &:last-of-type {
+      position: relative;
+      flex: 1;
+    }
   }
 `
 
-const FormRowLabel = styled('div')`
+const FormRowLabel = styled('span')`
   display: flex;
   justify-content: flex-start;
   align-items: center;
@@ -44,7 +49,7 @@ const FormRowLabel = styled('div')`
   }
 `
 
-const FormRowInput = styled('div')`
+const FormRowInput = styled('span')`
   display: flex;
   justify-content: flex-end;
   align-items: center;
@@ -52,18 +57,24 @@ const FormRowInput = styled('div')`
   button {
     display: block;
   }
+
+  input,
+  select,
+  textarea {
+    line-height: ${(props) => props.theme.lineHeight};
+  }
 `
 
-const FormRow = ({ label, input }) => {
+const FormRow = ({ label, input, type = 'label' }) => {
   return (
-    <FormRowView>
+    <FormRowView as={type}>
       <FormRowContainer>
-        <div>
+        <span>
           <FormRowLabel>{label}</FormRowLabel>
-        </div>
-        <div>
+        </span>
+        <span>
           <FormRowInput>{input}</FormRowInput>
-        </div>
+        </span>
       </FormRowContainer>
     </FormRowView>
   )
@@ -83,6 +94,7 @@ FormRow.propTypes = {
     propTypes.string,
     propTypes.object,
   ]),
+  type: propTypes.string,
 }
 
 export default FormRow

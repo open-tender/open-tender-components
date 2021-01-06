@@ -1,8 +1,7 @@
 import React, { useState, useEffect, useCallback, useContext } from 'react'
 import debounce from 'lodash/debounce'
 import { isEmpty, makeFullAddress } from '@open-tender/js'
-import { Input } from '../Inputs'
-import { Button } from '..'
+import { Button, Input } from '..'
 import { FormContext } from './CheckoutForm'
 import { CheckoutLineItem } from '.'
 

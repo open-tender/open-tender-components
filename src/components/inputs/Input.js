@@ -1,6 +1,6 @@
 import React from 'react'
 import propTypes from 'prop-types'
-import { InputError, Label } from '.'
+import { FormError, Label } from '.'
 
 const Input = React.forwardRef(
   (
@@ -49,7 +49,7 @@ const Input = React.forwardRef(
             {children}
           </span>
         </span>
-        {error ? <InputError error={error} /> : null}
+        {error ? <FormError error={error} /> : null}
       </label>
     )
   }

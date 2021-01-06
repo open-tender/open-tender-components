@@ -1,11 +1,17 @@
 import React from 'react'
 import propTypes from 'prop-types'
+import styled from '@emotion/styled'
+import { Preface } from '..'
+
+const LabelRequired = styled('span')`
+  color: ${(props) => props.theme.colors.warning};
+`
 
 const Label = ({ text, required }) => (
-  <span className="label ot-preface ot-font-size-x-small">
-    {text}
-    {required ? <span className="ot-color-alert"> *</span> : null}
-  </span>
+  <>
+    <Preface size="xSmall">{text}</Preface>
+    {required ? <LabelRequired> *</LabelRequired> : null}
+  </>
 )
 
 Label.displayName = 'Label'
