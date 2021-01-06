@@ -1,6 +1,6 @@
 import React from 'react'
 import propTypes from 'prop-types'
-import { FormError, Label } from '.'
+import { FormRow, Label } from '.'
 
 const Input = React.forwardRef(
   (
@@ -17,20 +17,16 @@ const Input = React.forwardRef(
       required = false,
       autoComplete = null,
       placeholder = '',
-      classes = '',
-      inputClasses = '',
       children,
     },
     ref
   ) => {
     return (
-      <label
+      <FormRow
         htmlFor={name}
-        className={`form__input -input ot-border-color ${classes}`}
-      >
-        <span className="form__input__wrapper ot-border-color">
-          {showLabel && <Label text={label} required={required} />}
-          <span className="input">
+        label={showLabel && <Label text={label} required={required} />}
+        input={
+          <>
             <input
               aria-label={label}
               id={name}
@@ -42,15 +38,15 @@ const Input = React.forwardRef(
               disabled={disabled}
               readOnly={readOnly}
               required={required}
-              className={inputClasses}
               onChange={onChange}
               ref={ref}
             />
             {children}
-          </span>
-        </span>
-        {error ? <FormError error={error} /> : null}
-      </label>
+          </>
+        }
+        errMsg={error}
+        isInput={true}
+      />
     )
   }
 )

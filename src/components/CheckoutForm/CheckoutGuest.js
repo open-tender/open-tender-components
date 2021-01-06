@@ -2,6 +2,7 @@ import React, { useState, useCallback, useContext } from 'react'
 import debounce from 'lodash/debounce'
 import { Input } from '..'
 import { FormContext } from './CheckoutForm'
+import { FormFieldset, FormInputs, FormLegend } from '../inputs'
 
 const initialState = {
   emaiil: '',
@@ -79,18 +80,9 @@ const CheckoutGuest = () => {
   }
 
   return (
-    <fieldset className="form__fieldset">
-      <legend className="form__legend">
-        <p className="form__legend__title ot-heading ot-font-size-h3">
-          {config.guest.title}
-        </p>
-        {config.guest.subtitle.length > 0 && (
-          <p className="form__legend__subtitle ot-line-height">
-            {config.guest.subtitle}
-          </p>
-        )}
-      </legend>
-      <div className="form__inputs">
+    <FormFieldset>
+      <FormLegend title={config.guest.title} subtitle={config.guest.subtitle} />
+      <FormInputs>
         {fields.map((field) => {
           const input = contactConfig[field.name]
           return (
@@ -110,8 +102,8 @@ const CheckoutGuest = () => {
             )
           )
         })}
-      </div>
-    </fieldset>
+      </FormInputs>
+    </FormFieldset>
   )
 }
 

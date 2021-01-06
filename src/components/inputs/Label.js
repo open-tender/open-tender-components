@@ -4,13 +4,13 @@ import styled from '@emotion/styled'
 import { Preface } from '..'
 
 const LabelRequired = styled('span')`
-  color: ${(props) => props.theme.colors.warning};
+  color: ${(props) => props.theme.colors.error};
 `
 
 const Label = ({ text, required }) => (
   <>
     <Preface size="xSmall">{text}</Preface>
-    {required ? <LabelRequired> *</LabelRequired> : null}
+    {required ? <LabelRequired>&nbsp;*</LabelRequired> : null}
   </>
 )
 

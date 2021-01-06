@@ -1,7 +1,7 @@
 import React from 'react'
 import propTypes from 'prop-types'
 import styled from '@emotion/styled'
-import { Label } from '.'
+import { FormError } from '.'
 
 const FormRowView = styled('label')`
   display: block;
@@ -11,6 +11,7 @@ const FormRowView = styled('label')`
   border-bottom-color: ${(props) => props.theme.border.color};
   @media (max-width: ${(props) => props.theme.breakpoints.mobile}) {
     padding: 0.75rem 0;
+    ${(props) => (props.isInput ? `border: 0;` : null)}
   }
 
   &:last-child {
@@ -22,6 +23,10 @@ const FormRowContainer = styled('span')`
   display: flex;
   justify-content: space-between;
   align-items: center;
+  @media (max-width: ${(props) => props.theme.breakpoints.mobile}) {
+    ${(props) =>
+      props.isInput ? `flex-direction: column; align-items: flex-start;` : null}
+  }
 
   > span {
     display: block;
@@ -29,11 +34,18 @@ const FormRowContainer = styled('span')`
     &:first-of-type {
       width: 15rem;
       flex-shrink: 0;
+      @media (max-width: ${(props) => props.theme.breakpoints.mobile}) {
+        ${(props) =>
+          props.isInput ? `width: 100%; margin: 0 0 0.75rem;` : null}
+      }
     }
 
     &:last-of-type {
       position: relative;
       flex: 1;
+      @media (max-width: ${(props) => props.theme.breakpoints.mobile}) {
+        ${(props) => (props.isInput ? `width: 100%;` : null)}
+      }
     }
   }
 `
@@ -65,17 +77,20 @@ const FormRowInput = styled('span')`
   }
 `
 
-const FormRow = ({ label, input, type = 'label' }) => {
+const FormRow = ({ label, input, errMsg, as = 'label', isInput = false }) => {
   return (
-    <FormRowView as={type}>
-      <FormRowContainer>
-        <span>
-          <FormRowLabel>{label}</FormRowLabel>
-        </span>
+    <FormRowView as={as} isInput={isInput}>
+      <FormRowContainer isInput={isInput}>
+        {label && (
+          <span>
+            <FormRowLabel>{label}</FormRowLabel>
+          </span>
+        )}
         <span>
           <FormRowInput>{input}</FormRowInput>
         </span>
       </FormRowContainer>
+      <FormError errMsg={errMsg} />
     </FormRowView>
   )
 }
@@ -94,7 +109,9 @@ FormRow.propTypes = {
     propTypes.string,
     propTypes.object,
   ]),
-  type: propTypes.string,
+  errMsg: propTypes.string,
+  as: propTypes.string,
+  isInput: propTypes.bool,
 }
 
 export default FormRow

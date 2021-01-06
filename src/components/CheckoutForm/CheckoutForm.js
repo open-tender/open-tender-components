@@ -23,7 +23,7 @@ import {
   resetErrors,
   setAlert,
 } from '@open-tender/redux'
-import { Check, FormError } from '..'
+import { FormError, Check } from '..'
 import {
   CheckoutAddress,
   CheckoutCustomer,
@@ -93,10 +93,7 @@ const CheckoutForm = ({
   const dispatchUpdateForm = useCallback((form) => dispatch(updateForm(form)), [
     dispatch,
   ])
-
-  useEffect(() => {
-    window.scroll(0, 0)
-  }, [errors.form])
+  console.log(errors.form)
 
   useEffect(() => {
     dispatch(resetErrors())
@@ -196,7 +193,8 @@ const CheckoutForm = ({
     dispatch(setAlert({ type: 'giftCardAssign', args: { validate } }))
   }
 
-  const handleSubmit = () => {
+  const handleSubmit = (evt) => {
+    evt.preventDefault()
     dispatch(setSubmitting(true))
     dispatch(submitOrder())
     submitButton.current.blur()
@@ -234,11 +232,7 @@ const CheckoutForm = ({
         onSubmit={handleSubmit}
         noValidate
       >
-        {errors.form && (
-          <div className="form__error--top">
-            <FormError error={errors.form} />
-          </div>
-        )}
+        <FormError errMsg={errors.form} style={{ margin: '0 0 2rem' }} />
         <CheckoutCustomer />
         <CheckoutDetails />
         {isDelivery && <CheckoutAddress />}

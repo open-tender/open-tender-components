@@ -1,34 +1,43 @@
+import styled from '@emotion/styled'
 import React, { useContext } from 'react'
-import { Button } from '..'
+import { ButtonLink, ButtonStyled } from '..'
+import { FormFieldset, FormLegend } from '../inputs'
 import { FormContext } from './CheckoutForm'
+
+const CheckoutSignUpView = styled('div')`
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+  @media (max-width: ${(props) => props.theme.breakpoints.mobile}) {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  button + button {
+    margin: 0 0 0 1rem;
+    @media (max-width: ${(props) => props.theme.breakpoints.mobile}) {
+      margin: 1rem 0 0 0;
+    }
+  }
+`
 
 const CheckoutSignUp = () => {
   const formContext = useContext(FormContext)
   const { config, login, signUp, iconMap = {} } = formContext
   return (
-    <div className="form__fieldset">
-      <div className="form__legend">
-        <p className="form__legend__title ot-heading ot-font-size-h3">
-          {config.signUp.title}
-        </p>
-        <p className="form__legend__subtitle ot-line-height">
-          {config.signUp.subtitle}
-        </p>
-      </div>
-      <div className="form__signup">
-        <Button
-          classes="ot-btn"
-          text="Create An Account"
-          icon={iconMap.signUp || null}
-          onClick={signUp}
-        />
-        <Button
-          classes="ot-btn-link"
-          text="or log into an existing account"
-          onClick={login}
-        />
-      </div>
-    </div>
+    <FormFieldset>
+      <FormLegend
+        as="div"
+        title={config.signUp.title}
+        subtitle={config.signUp.subtitle}
+      />
+      <CheckoutSignUpView>
+        <ButtonStyled icon={iconMap.signUp || null} onClick={signUp}>
+          Create An Account
+        </ButtonStyled>
+        <ButtonLink onClick={login}>or log into an existing account</ButtonLink>
+      </CheckoutSignUpView>
+    </FormFieldset>
   )
 }
 

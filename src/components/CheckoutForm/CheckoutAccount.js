@@ -1,9 +1,8 @@
 import React, { useState, useCallback, useContext } from 'react'
 import debounce from 'lodash/debounce'
-import { Button, ButtonLink, ButtonStyled, FormRow, Input, Preface } from '..'
+import { ButtonLink, ButtonStyled, FormRow, Heading, Input, Preface } from '..'
 import { FormContext } from './CheckoutForm'
-import { CheckoutLineItem } from '.'
-import { Label } from '../inputs'
+import { FormFieldset, FormInputs, FormLegend, Label } from '../inputs'
 
 const makeAccountConfig = (required, displayed) => {
   return {
@@ -58,17 +57,18 @@ const CheckoutAccount = () => {
   }
 
   return (
-    <fieldset className="form__fieldset">
-      <div className="form__legend">
-        <p className="form__legend__title ot-heading ot-font-size-h3">
-          {config.account.title}
-        </p>
-        <p className="form__legend__subtitle ot-line-height">
-          <ButtonLink onClick={logout}>Click here to logout</ButtonLink> if you
-          want to switch accounts or check out as a guest.
-        </p>
-      </div>
-      <div className="form__inputs">
+    <FormFieldset>
+      <FormLegend
+        as="div"
+        title={config.account.title}
+        subtitle={
+          <>
+            <ButtonLink onClick={logout}>Click here to logout</ButtonLink> if
+            you want to switch accounts or check out as a guest.
+          </>
+        }
+      />
+      <FormInputs>
         <FormRow
           type="div"
           label={<Label text="Account" />}
@@ -102,8 +102,8 @@ const CheckoutAccount = () => {
             )
           )
         })}
-      </div>
-    </fieldset>
+      </FormInputs>
+    </FormFieldset>
   )
 }
 

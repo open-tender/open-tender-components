@@ -1,19 +1,33 @@
 import React from 'react'
 import propTypes from 'prop-types'
 import { TransitionGroup, CSSTransition } from 'react-transition-group'
+import styled from '@emotion/styled'
 
-const FormError = ({ errMsg }) => {
+const FormErrorView = styled('span')`
+  outline: 0;
+  display: inline-block;
+  width: 100%;
+  margin: 1rem 0 0;
+  line-height: ${(props) => props.theme.inputs.lineHeight};
+  padding: ${(props) => props.theme.inputs.padding};
+  margin: ${(props) => props.theme.inputs.padding} 0 0;
+  border-radius: ${(props) => props.theme.border.radiusSmall};
+  color: ${(props) => props.theme.colors.error};
+  background-color: ${(props) => props.theme.bgColors.error};
+`
+
+const FormError = ({ errMsg, style }) => {
   return (
     <TransitionGroup component={null}>
       {errMsg ? (
         <CSSTransition
-          key="ot-form-error"
+          key="form-error"
           classNames="reveal"
           timeout={{ enter: 250, exit: 250 }}
         >
-          <span className="form__error ot-form-error">
+          <FormErrorView style={style}>
             <p>{errMsg}</p>
-          </span>
+          </FormErrorView>
         </CSSTransition>
       ) : null}
     </TransitionGroup>
@@ -23,6 +37,7 @@ const FormError = ({ errMsg }) => {
 FormError.displayName = 'FormError'
 FormError.propTypes = {
   errMsg: propTypes.string,
+  style: propTypes.object,
 }
 
 export default FormError
