@@ -1,5 +1,7 @@
 import CheckoutAccount from './CheckoutAccount'
 import CheckoutAddress from './CheckoutAddress'
+import CheckoutCard from './CheckoutCard'
+import CheckoutCards from './CheckoutCards'
 import CheckoutCreditCards from './CheckoutCreditCards'
 import CheckoutCustomer from './CheckoutCustomer'
 import CheckoutDetails from './CheckoutDetails'
@@ -24,6 +26,8 @@ import CheckoutTip from './CheckoutTip'
 export {
   CheckoutAccount,
   CheckoutAddress,
+  CheckoutCard,
+  CheckoutCards,
   CheckoutCreditCards,
   CheckoutCustomer,
   CheckoutDetails,

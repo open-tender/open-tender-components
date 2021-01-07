@@ -58,9 +58,7 @@ const CheckoutTenders = () => {
 
   useEffect(() => {
     if (hasApplePay) {
-      checkApplePay().then(
-        (show) => console.log('show', show) || setShowApplePay(show)
-      )
+      checkApplePay().then((show) => setShowApplePay(show))
     }
   }, [hasApplePay])
 
@@ -83,18 +81,15 @@ const CheckoutTenders = () => {
     }
   }, [form.tenders, tenderError, tenderIndex, updateForm])
 
-  const addTender = (evt, tender) => {
-    evt.preventDefault()
+  const addTender = (tender) => {
     const newTender = { ...tender, amount: amountRemaining.toFixed(2) }
     const currentTenders = form.tenders.filter(
       (i) => i.tender_type !== newTender.tender_type
     )
     updateForm({ tenders: [...currentTenders, newTender] })
-    evt.target.blur()
   }
 
-  const removeTender = (evt, tenderType) => {
-    evt.preventDefault()
+  const removeTender = (tenderType) => {
     const filtered = form.tenders.filter((i) => i.tender_type !== tenderType)
     const nonGiftCard = filtered.filter((i) => i.tender_type !== 'GIFT_CARD')
     const giftCard = filtered.filter((i) => i.tender_type === 'GIFT_CARD')
@@ -109,7 +104,6 @@ const CheckoutTenders = () => {
     if (tenderType === 'CREDIT') setShowCredit(false)
     if (tenderType === 'LEVELUP') setShowLevelUp(false)
     if (tenderType === 'HOUSE_ACCOUNT') setShowHouseAccount(false)
-    evt.target.blur()
   }
 
   return (

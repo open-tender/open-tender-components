@@ -1,8 +1,9 @@
 import React, { useState, useEffect, useContext } from 'react'
 import propTypes from 'prop-types'
 import { isEmpty } from '@open-tender/js'
-import { Checkmark, FormError } from '..'
+import { ButtonLink, Checkmark, FormError } from '..'
 import { FormContext } from './CheckoutForm'
+import { CheckoutCard } from '.'
 
 const CheckoutExistingCard = ({
   card,
@@ -17,8 +18,6 @@ const CheckoutExistingCard = ({
   const tender = { ...card, tender_type: 'CREDIT' }
   const isApplied = existingCards.includes(card.customer_card_id)
   const isDisabled = appliedCards.length && !isApplied
-  const disabled = isDisabled ? '-disabled' : ''
-  const classes = `cards__card ot-bg-color-primary ot-border-radius ${disabled}`
   const cardError = !isEmpty(errors) ? Object.values(errors)[0] : null
   const cardName = `${card.card_type_name} ending in ${card.last4}`
 
@@ -30,32 +29,28 @@ const CheckoutExistingCard = ({
 
   return !isDisabled ? (
     <li>
-      <div className={classes}>
-        <div className="cards__card__image">
-          {cardIconMap && (
+      <CheckoutCard
+        isDisabled={isDisabled}
+        icon={
+          cardIconMap && (
             <img src={cardIconMap[card.card_type]} alt={card.card_type_name} />
-          )}
-        </div>
-        <div className="cards__card__name">
-          {cardName}
-          {card.is_default ? ' (default)' : ''}
-        </div>
-        <div className="cards__card__add">
-          {isApplied ? (
+          )
+        }
+        name={`${cardName}${card.is_default ? ' (default)' : ''}`}
+        action={
+          isApplied ? (
             <Checkmark />
           ) : (
-            <button
-              type="button"
-              onClick={(evt) => addTender(evt, tender)}
-              className="ot-btn-link"
+            <ButtonLink
+              onClick={() => addTender(tender)}
               disabled={isApplied || isDisabled}
-              aria-label={`Apply ${cardName}`}
+              label={`Apply ${cardName}`}
             >
               {iconMap.add || '+'}
-            </button>
-          )}
-        </div>
-      </div>
+            </ButtonLink>
+          )
+        }
+      />
       {cardError && isApplied && <FormError error={cardError} />}
     </li>
   ) : null

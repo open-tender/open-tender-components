@@ -1,5 +1,6 @@
 import React, { useContext } from 'react'
-import { Checkmark } from '..'
+import { CheckoutCard, CheckoutCards } from '.'
+import { ButtonLink, Checkmark, Text } from '..'
 import { FormContext } from './CheckoutForm'
 import { TendersContext } from './CheckoutTenders'
 
@@ -15,64 +16,62 @@ const CheckoutLevelUp = () => {
   const tender = { tender_type: 'LEVELUP' }
 
   return (
-    <div className="cards ot-bg-color-secondary">
-      <ul className="cards__list">
-        <li>
-          {levelup.connected ? (
-            <div className="cards__card ot-bg-color-primary ot-border-radius">
-              <div className="cards__card__name ot-line-height">
-                <p className="ot-color-success">
+    <CheckoutCards>
+      <li>
+        {levelup.connected ? (
+          <CheckoutCard
+            name={
+              <>
+                <Text as="p" color={applied ? 'success' : 'secondary'}>
                   {!applied
                     ? 'Pay with LevelUp (click the "plus" icon to apply)'
                     : 'LevelUp payment applied'}
-                </p>
-                <p className="ot-font-size-small">
+                </Text>
+                <Text as="p" size="small">
                   Your LevelUp account is currently connected via your{' '}
-                  <span className="ot-color-headings ot-bold">
+                  <Text color="primary" bold={true}>
                     {levelup.email}
-                  </span>{' '}
+                  </Text>{' '}
                   email address.
-                  <button
-                    type="button"
+                  <ButtonLink
                     onClick={connectLevelUp}
-                    className="ot-btn-link"
-                    aria-label="Go to account page to connect LevelUp"
+                    label="Go to account page to connect LevelUp"
                   >
                     Click here if you need to change this.
-                  </button>
-                </p>
-              </div>
-              <div className="cards__card__add">
-                {applied ? (
-                  <Checkmark />
-                ) : (
-                  <button
-                    type="button"
-                    onClick={(evt) => addTender(evt, tender)}
-                    className="ot-btn-link"
-                    disabled={applied}
-                    aria-label={`Apply house account ${name}`}
-                  >
-                    {iconMap.add || '+'}
-                  </button>
-                )}
-              </div>
-            </div>
-          ) : isCustomer ? (
-            <div className="cards__card ot-bg-color-primary ot-border-radius">
-              <div className="cards__card__name ot-line-height">
-                <p className="ot-color-error">LevelUp Not Connected</p>
-                <p className="ot-font-size-small">
+                  </ButtonLink>
+                </Text>
+              </>
+            }
+            action={
+              applied ? (
+                <Checkmark />
+              ) : (
+                <ButtonLink
+                  onClick={() => addTender(tender)}
+                  disabled={applied}
+                  label="Apply LevelUp"
+                >
+                  {iconMap.add || '+'}
+                </ButtonLink>
+              )
+            }
+          />
+        ) : isCustomer ? (
+          <CheckoutCard
+            name={
+              <>
+                <Text as="p" color="error">
+                  LevelUp Not Connected
+                </Text>
+                <Text as="p" size="small">
                   Your LevelUp account is not currently connected so you cannot
                   use LevelUp for payment.
-                  <button
-                    type="button"
+                  <ButtonLink
                     onClick={connectLevelUp}
-                    className="ot-btn-link"
-                    aria-label="Go to account page to connect LevelUp"
+                    label="Go to account page to connect LevelUp"
                   >
                     Click here to connect LevelUp
-                  </button>{' '}
+                  </ButtonLink>{' '}
                   or{' '}
                   <a
                     className="no-link"
@@ -83,31 +82,30 @@ const CheckoutLevelUp = () => {
                     click here to create a LevelUp account
                   </a>{' '}
                   if you {"don't"} have one.
-                </p>
-              </div>
-            </div>
-          ) : (
-            <div className="cards__card ot-bg-color-primary ot-border-radius">
-              <div className="cards__card__name ot-line-height">
-                <p className="ot-color-error">Account Required</p>
-                <p className="ot-font-size-small">
+                </Text>
+              </>
+            }
+          />
+        ) : (
+          <CheckoutCard
+            name={
+              <>
+                <Text as="p" color="error">
+                  Account Required
+                </Text>
+                <Text as="p" size="small">
                   In order to pay with LevelUp, you must first create an account
                   and then connect your LevelUp account to your account here.{' '}
-                  <button
-                    type="button"
-                    onClick={signUp}
-                    className="ot-btn-link"
-                    aria-label="Sign up for an account"
-                  >
+                  <ButtonLink onClick={signUp} label="Sign up for an account">
                     Click here to sign up for an account.
-                  </button>
-                </p>
-              </div>
-            </div>
-          )}
-        </li>
-      </ul>
-    </div>
+                  </ButtonLink>
+                </Text>
+              </>
+            }
+          />
+        )}
+      </li>
+    </CheckoutCards>
   )
 }
 

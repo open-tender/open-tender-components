@@ -11,6 +11,7 @@ const ButtonLinkView = styled('button')`
   margin: 0;
   display: inline;
   font-size: inherit;
+  letter-spacing: inherit;
   text-decoration: ${(props) => props.theme.links.textDecoration};
   transition: ${(props) => props.theme.links.transition};
   color: ${(props) => props.theme.links[props.color].color};
