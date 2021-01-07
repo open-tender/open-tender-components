@@ -1,5 +1,6 @@
 import React, { useContext } from 'react'
-import { Checkmark } from '..'
+import { ButtonLink, Checkmark, Preface, Text } from '..'
+import { CheckoutCard, CheckoutCards } from '.'
 import { FormContext } from './CheckoutForm'
 import { TendersContext } from './CheckoutTenders'
 
@@ -14,80 +15,75 @@ const CheckoutHouseAccounts = () => {
     .map((i) => i.house_account_id)
 
   return (
-    <div className="cards ot-bg-color-secondary">
-      <ul className="cards__list">
-        {houseAccounts.map((houseAccount) => {
-          const {
-            house_account_id,
-            name,
-            pin,
-            service_type,
-            order_type,
-            revenue_centers,
-          } = houseAccount
-          const tender = { ...houseAccount, tender_type: 'HOUSE_ACCOUNT' }
-          const isOrderType = order_type
-            ? order_type === check.order_type
-            : true
-          const isServiceType = order_type
-            ? service_type === check.service_type
-            : true
-          const revenueCenterId = check.revenue_center.revenue_center_id
-          const revenueCenterIds = revenue_centers.map(
-            (i) => i.revenue_center_id
-          )
-          const isRevenueCenter = revenueCenterIds.length
-            ? revenueCenterIds.includes(revenueCenterId)
-            : true
-          const isApplied = applied.includes(house_account_id)
-          const isDisabled =
-            !isOrderType ||
-            !isServiceType ||
-            !isRevenueCenter ||
-            (applied.length && !isApplied)
-          const disabled = isDisabled ? '-disabled' : ''
-          const classes = `cards__card ot-bg-color-primary ot-border-radius ${disabled}`
-          return (
-            <li key={house_account_id}>
-              <div className={classes}>
-                <div className="cards__card__image">{pin}</div>
-                <div className="cards__card__name">
-                  <p>{name}</p>
+    <CheckoutCards>
+      {houseAccounts.map((houseAccount) => {
+        const {
+          house_account_id,
+          name,
+          pin,
+          service_type,
+          order_type,
+          revenue_centers,
+        } = houseAccount
+        const tender = { ...houseAccount, tender_type: 'HOUSE_ACCOUNT' }
+        const isOrderType = order_type ? order_type === check.order_type : true
+        const isServiceType = order_type
+          ? service_type === check.service_type
+          : true
+        const revenueCenterId = check.revenue_center.revenue_center_id
+        const revenueCenterIds = revenue_centers.map((i) => i.revenue_center_id)
+        const isRevenueCenter = revenueCenterIds.length
+          ? revenueCenterIds.includes(revenueCenterId)
+          : true
+        const isApplied = applied.includes(house_account_id)
+        const isDisabled =
+          !isOrderType ||
+          !isServiceType ||
+          !isRevenueCenter ||
+          (applied.length && !isApplied)
+        return (
+          <li key={house_account_id}>
+            <CheckoutCard
+              isDisabled={isDisabled}
+              icon={<Preface size="xSmall">{pin}</Preface>}
+              name={
+                <>
+                  <Text as="p" color="primary">
+                    {name}
+                  </Text>
                   {!isRevenueCenter ? (
-                    <p className="ot-font-size-x-small">
+                    <Text as="p" size="xSmall">
                       Cannot be used with this location
-                    </p>
+                    </Text>
                   ) : !isOrderType ? (
-                    <p className="ot-font-size-x-small">
+                    <Text as="p" size="xSmall">
                       Cannot be used with this order type
-                    </p>
+                    </Text>
                   ) : !isServiceType ? (
-                    <p className="ot-font-size-x-small">
+                    <Text as="p" size="xSmall">
                       Cannot be used with this service type
-                    </p>
+                    </Text>
                   ) : null}
-                </div>
-                <div className="cards__card__add">
-                  {isApplied ? (
-                    <Checkmark />
-                  ) : (
-                    <button
-                      type="button"
-                      onClick={(evt) => addTender(evt, tender)}
-                      className="ot-btn-link"
-                      disabled={isApplied || isDisabled}
-                      aria-label={`Apply house account ${name}`}
-                    >
-                      {iconMap.add || '+'}
-                    </button>
-                  )}
-                </div>
-              </div>
-            </li>
-          )
-        })}
-      </ul>
-    </div>
+                </>
+              }
+              action={
+                isApplied ? (
+                  <Checkmark />
+                ) : (
+                  <ButtonLink
+                    onClick={() => addTender(tender)}
+                    disabled={isApplied || isDisabled}
+                    label={`Apply house account ${name}`}
+                  >
+                    {iconMap.add || '+'}
+                  </ButtonLink>
+                )
+              }
+            />
+          </li>
+        )
+      })}
+    </CheckoutCards>
   )
 }
 

@@ -13,7 +13,6 @@ import CheckoutGuest from './CheckoutGuest'
 import CheckoutHouseAccounts from './CheckoutHouseAccounts'
 import CheckoutLabel from './CheckoutLabel'
 import CheckoutLevelUp from './CheckoutLevelUp'
-import CheckoutLineItem from './CheckoutLineItem'
 import CheckoutNewCard from './CheckoutNewCard'
 import CheckoutNewCardForm from './CheckoutNewCardForm'
 import CheckoutPromoCodes from './CheckoutPromoCodes'
@@ -39,7 +38,6 @@ export {
   CheckoutHouseAccounts,
   CheckoutLabel,
   CheckoutLevelUp,
-  CheckoutLineItem,
   CheckoutNewCard,
   CheckoutNewCardForm,
   CheckoutPromoCodes,

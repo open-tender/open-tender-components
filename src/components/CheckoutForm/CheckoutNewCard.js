@@ -1,9 +1,9 @@
 import React, { useContext } from 'react'
 import propTypes from 'prop-types'
 import { TransitionGroup, CSSTransition } from 'react-transition-group'
-import { Checkmark } from '..'
+import { ButtonLink, Checkmark } from '..'
 import { FormContext } from './CheckoutForm'
-import { CheckoutNewCardForm } from '.'
+import { CheckoutCard, CheckoutNewCardForm } from '.'
 
 const CheckoutNewCard = ({
   appliedCards,
@@ -21,45 +21,36 @@ const CheckoutNewCard = ({
   const newCardType = newCard ? newCard.card_type : 'OTHER'
   const isApplied = !!newCard
   const isDisabled = appliedCards.length && !isApplied
-  const disabled = isDisabled ? '-disabled' : ''
-  const classes = `cards__card ot-bg-color-primary ot-border-radius ${disabled}`
-
-  const handleToggle = (evt) => {
-    evt.preventDefault()
-    setShowNewCard(true)
-    evt.target.blur()
-  }
 
   return !isDisabled ? (
     <li>
       {customerId && (
-        <div className={classes}>
-          <div className="cards__card__image">
-            {cardIconMap && (
+        <CheckoutCard
+          isDisabled={isDisabled}
+          icon={
+            cardIconMap && (
               <img src={cardIconMap[newCardType]} alt="New Credit Card" />
-            )}
-          </div>
-          <div className="cards__card__name">
-            {isApplied
+            )
+          }
+          name={
+            isApplied
               ? `New ${newCard.card_type} ending in ${newCard.last4}`
-              : 'Add a new credit card'}
-          </div>
-          <div className="cards__card__add">
-            {isApplied ? (
+              : 'Add a new credit card'
+          }
+          action={
+            isApplied ? (
               <Checkmark />
             ) : (
-              <button
-                type="button"
-                onClick={handleToggle}
-                className="ot-btn-link"
+              <ButtonLink
+                onClick={() => setShowNewCard(true)}
                 disabled={isApplied || isDisabled}
-                aria-label="Add a new card"
+                label="Add a new card"
               >
                 {iconMap.add || '+'}
-              </button>
-            )}
-          </div>
-        </div>
+              </ButtonLink>
+            )
+          }
+        />
       )}
       <TransitionGroup component={null}>
         {showNewCard ? (

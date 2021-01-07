@@ -7,8 +7,10 @@ import {
   makeAcctNumber,
   validateCreditCard,
 } from '@open-tender/js'
-import { Button, Checkbox, Input } from '..'
+import { Box, ButtonStyled, Checkbox, Heading, Input } from '..'
 import { FormContext } from './CheckoutForm'
+import styled from '@emotion/styled'
+import { FormError } from '../inputs'
 
 // https://github.com/muffinresearch/payment-icons
 // https://github.com/jasminmif/react-interactive-paycard
@@ -52,6 +54,53 @@ const fields = [
   },
 ]
 
+const CheckoutNewCardFormView = styled('div')`
+  max-width: 48rem;
+  padding: 2rem 0 0;
+  margin: 0 auto;
+`
+
+const CheckoutNewCardFormContainer = styled(Box)`
+  padding: 2rem;
+`
+
+const CheckoutNewCardFormHeader = styled('div')`
+  position: relative;
+  padding: 0rem 0 2rem;
+`
+
+const CheckoutNewCardFormImage = styled('div')`
+  position: absolute;
+  top: 0;
+  right: 0;
+  width: 6rem;
+  min-width: 6rem;
+  height: auto;
+`
+
+const CheckoutNewCardFormErrors = styled('div')`
+  margin: 0 0 1rem;
+
+  & > span {
+    margin-top: 0;
+  }
+
+  // p {
+  //   margin: 0.5em 0;
+  // }
+`
+
+const CheckoutNewCardFormFooter = styled('div')`
+  display: flex;
+  justify-content: space-between;
+  padding: 1.5rem 0 0;
+
+  button {
+    display: block;
+    width: 47.5%;
+  }
+`
+
 const CheckoutNewCardForm = ({
   addTender,
   removeTender,
@@ -92,21 +141,17 @@ const CheckoutNewCardForm = ({
     setNewCard({ ...newCard, [id]: value })
   }
 
-  const handleCancel = (evt) => {
-    evt.preventDefault()
+  const handleCancel = () => {
     setShowNewCard(false)
     setShowCredit(false)
-    evt.target.blur()
   }
 
-  const handleRemove = (evt) => {
-    removeTender(evt, 'CREDIT')
+  const handleRemove = () => {
+    removeTender('CREDIT')
     setNewCard(initialState)
-    // setShowNewCard(false)
-    // setShowCredit(false)
   }
 
-  const submitTender = (evt) => {
+  const submitTender = () => {
     const { card, errors } = validateCreditCard(newCard, cardType)
     if (errors) {
       setErrors(errors)
@@ -118,10 +163,9 @@ const CheckoutNewCardForm = ({
         card_type_name: cardNames[cardType],
         last4: newCard.acct.slice(-4),
       }
-      addTender(evt, tender)
+      addTender(tender)
       setIsApplied(true)
       setErrors({})
-      // setShowNewCard(false)
     }
   }
 
@@ -131,19 +175,17 @@ const CheckoutNewCardForm = ({
   const cardErrors = Object.entries(errors)
 
   return (
-    <div className="cards__new">
-      <div className="cards__new__container ot-bg-color-primary ot-border-radius">
-        <div className="cards__new__header">
-          <p className="cards__new__title ot-font-size-big ot-color-headings ot-bold">
-            Add a new card
-          </p>
-          <div className="cards__new__image">
+    <CheckoutNewCardFormView>
+      <CheckoutNewCardFormContainer>
+        <CheckoutNewCardFormHeader>
+          <Heading size="big">Add a new card</Heading>
+          <CheckoutNewCardFormImage>
             {cardIconMap && (
               <img src={cardIconMap[cardType]} alt={cardNames[cardType]} />
             )}
-          </div>
-        </div>
-        <div className="cards__new__content">
+          </CheckoutNewCardFormImage>
+        </CheckoutNewCardFormHeader>
+        <div>
           {fields.map((field) => {
             return (
               <Input
@@ -157,13 +199,12 @@ const CheckoutNewCardForm = ({
                 onChange={handleChange}
                 error={null}
                 required={true}
-                classes={`cards__new__${field.name}`}
               />
             )
           })}
         </div>
         {customerId && (
-          <div className="cards__new__save">
+          <div>
             <Checkbox
               label="Save card to account"
               id="save"
@@ -173,45 +214,35 @@ const CheckoutNewCardForm = ({
           </div>
         )}
         {cardErrors.length ? (
-          <div className="cards__new__errors">
-            <span className="ot-form-error">
-              {cardErrors.map(([field, msg]) => (
-                <p key={field}>{msg}</p>
-              ))}
-            </span>
+          <CheckoutNewCardFormErrors>
+            {cardErrors.map(([field, msg]) => (
+              <FormError key={field} errMsg={msg} />
+            ))}
             {emptyFields && (
-              <span className="ot-form-error">
-                * Please note that you may need to tap in any fields that were
+              <FormError
+                errMsg="* Please note that you may need to tap in any fields that were
                 automatically completed in order for their values to be
-                recognized.
-              </span>
+                recognized."
+              />
             )}
-          </div>
+          </CheckoutNewCardFormErrors>
         ) : null}
-        <div className="cards__new__footer">
-          <Button
-            text="Apply New Card"
-            classes="ot-btn ot-btn--cart"
-            onClick={submitTender}
-            disabled={isApplied && !error}
-          />
+        <CheckoutNewCardFormFooter>
+          <ButtonStyled onClick={submitTender} disabled={isApplied && !error}>
+            Apply New Card
+          </ButtonStyled>
           {isApplied ? (
-            <Button
-              text="Remove Applied Card"
-              classes="ot-btn"
-              onClick={handleRemove}
-            />
+            <ButtonStyled onClick={handleRemove}>
+              Remove Applied Card
+            </ButtonStyled>
           ) : (
-            <Button
-              text="Cancel"
-              ariaLabel="Cancel Add New Card"
-              classes="ot-btn"
-              onClick={handleCancel}
-            />
+            <ButtonStyled label="Cancel Add New Card" onClick={handleCancel}>
+              Cancel
+            </ButtonStyled>
           )}
-        </div>
-      </div>
-    </div>
+        </CheckoutNewCardFormFooter>
+      </CheckoutNewCardFormContainer>
+    </CheckoutNewCardFormView>
   )
 }
 

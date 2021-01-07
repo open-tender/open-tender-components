@@ -66,18 +66,20 @@ const CheckoutSurcharges = () => {
               }
               input={
                 <>
-                  {isApplied && <FormApplied />}
                   {isApplied ? (
-                    <ButtonStyled
-                      label={`Remove ${i.name} surcharge of ${i.amount}`}
-                      icon={iconMap.remove}
-                      onClick={() => removeSurcharge(i.id)}
-                      disabled={isPending || !i.is_optional}
-                      size="header"
-                      color="header"
-                    >
-                      Remove
-                    </ButtonStyled>
+                    <>
+                      <FormApplied />
+                      <ButtonStyled
+                        label={`Remove ${i.name} surcharge of ${i.amount}`}
+                        icon={iconMap.remove}
+                        onClick={() => removeSurcharge(i.id)}
+                        disabled={isPending || !i.is_optional}
+                        size="header"
+                        color="header"
+                      >
+                        Remove
+                      </ButtonStyled>
+                    </>
                   ) : (
                     <ButtonStyled
                       label={`Apply ${i.name} surcharge of ${i.amount}`}

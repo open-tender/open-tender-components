@@ -23,7 +23,7 @@ import {
   resetErrors,
   setAlert,
 } from '@open-tender/redux'
-import { FormError, Check } from '..'
+import { FormError, Check, Message, ButtonStyled } from '..'
 import {
   CheckoutAddress,
   CheckoutCustomer,
@@ -34,6 +34,7 @@ import {
   CheckoutSurcharges,
   CheckoutTenders,
 } from '.'
+import styled from '@emotion/styled'
 
 export const FormContext = createContext(null)
 
@@ -44,6 +45,14 @@ const usePrevious = (value) => {
   })
   return ref.current
 }
+
+const CheckoutFormFooter = styled('div')`
+  margin: 3rem 0 0;
+
+  > div {
+    margin: 0 0 3rem;
+  }
+`
 
 const CheckoutForm = ({
   dispatch,
@@ -192,11 +201,10 @@ const CheckoutForm = ({
     dispatch(setAlert({ type: 'giftCardAssign', args: { validate } }))
   }
 
-  const handleSubmit = (evt) => {
-    evt.preventDefault()
+  const handleSubmit = () => {
     dispatch(setSubmitting(true))
     dispatch(submitOrder())
-    submitButton.current.blur()
+    // submitButton.current.blur()
   }
 
   return (
@@ -227,8 +235,7 @@ const CheckoutForm = ({
     >
       <form
         id="checkout-form"
-        className="form"
-        onSubmit={handleSubmit}
+        // onSubmit={handleSubmit}
         noValidate
       >
         <FormError errMsg={errors.form} style={{ margin: '0 0 2rem' }} />
@@ -248,26 +255,30 @@ const CheckoutForm = ({
           />
         </div>
         <CheckoutTenders />
-        <div className="form__footer">
-          <div className="form__message">
+        <CheckoutFormFooter>
+          <div>
             {!isPaid ? (
-              <div className="form__message__content ot-border-radius-small ot-color-error ot-bg-color-error ot-font-size-small">
-                <p>
-                  There is a balance of ${amountRemaining.toFixed(2)} remaining
-                  on your order. Please add a payment above.
-                </p>
-              </div>
+              <Message
+                as="div"
+                size="small"
+                color="error"
+                style={{ width: '100%', padding: '1rem 1.5rem' }}
+              >
+                There is a balance of ${amountRemaining.toFixed(2)} remaining on
+                your order. Please add a payment above.
+              </Message>
             ) : null}
           </div>
-          <button
-            className="ot-btn ot-btn--big"
+          <ButtonStyled
             type="submit"
+            onClick={handleSubmit}
             disabled={submitting || !isPaid}
             ref={submitButton}
+            size="big"
           >
             Submit Order
-          </button>
-        </div>
+          </ButtonStyled>
+        </CheckoutFormFooter>
       </form>
     </FormContext.Provider>
   )

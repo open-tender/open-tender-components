@@ -1,5 +1,4 @@
 import React, { useContext } from 'react'
-import propTypes from 'prop-types'
 import { checkAmountRemaining } from '@open-tender/js'
 import { ButtonStyled, Preface, Text } from '..'
 import { FormContext } from './CheckoutForm'
@@ -11,26 +10,6 @@ import {
   FormLegend,
   FormRow,
 } from '../inputs'
-
-const CheckoutGiftCardLabel = ({ giftCard, amount }) => {
-  return (
-    <span className="form__input__discount">
-      <span className="ot-font-size ot-color-headings">
-        Gift Card {giftCard.card_number}
-      </span>
-      <span className="ot-font-size-small ot-color-success">
-        Balance of ${giftCard.balance}{' '}
-        {amount && `($${amount} applied to check)`}
-      </span>
-    </span>
-  )
-}
-
-CheckoutGiftCardLabel.displayName = 'CheckoutGiftCardLabel'
-CheckoutGiftCardLabel.propTypes = {
-  giftCard: propTypes.object,
-  amount: propTypes.string,
-}
 
 const CheckoutGiftCards = () => {
   const formContext = useContext(FormContext)

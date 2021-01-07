@@ -74,7 +74,6 @@ const CheckoutLevelUp = () => {
                   </ButtonLink>{' '}
                   or{' '}
                   <a
-                    className="no-link"
                     href="https://www.thelevelup.com/users/new"
                     rel="noopener noreferrer"
                     target="_blank"

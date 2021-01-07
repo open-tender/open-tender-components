@@ -72,6 +72,7 @@ const ButtonStyled = ({
   icon,
   size = 'default',
   color = 'primary',
+  type = 'button',
   style = null,
 }) => {
   const onUp = (evt) => {
@@ -83,7 +84,7 @@ const ButtonStyled = ({
 
   return (
     <ButtonStyledView
-      type="button"
+      type={type}
       aria-label={label || null}
       onPointerUp={(evt) => onUp(evt)}
       disabled={disabled}
@@ -115,6 +116,7 @@ ButtonStyled.propTypes = {
   onClick: propTypes.func,
   size: propTypes.string,
   color: propTypes.string,
+  type: propTypes.string,
   style: propTypes.object,
 }
 

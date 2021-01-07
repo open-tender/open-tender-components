@@ -1,28 +1,14 @@
 import React, { useContext, useState, useEffect } from 'react'
-import propTypes from 'prop-types'
-import { Button } from '..'
+import { ButtonStyled, Text } from '..'
 import { FormContext } from './CheckoutForm'
-import { CheckoutLineItem } from '.'
-import { FormApplied } from '../inputs'
-
-const CheckoutDiscountLabel = ({ discount }) => (
-  <span className="form__input__discount">
-    <span className="ot-font-size ot-color-headings">{discount.name}</span>
-    <span className="ot-font-size-small ot-color-success">
-      {discount.description}
-    </span>
-    {discount.is_auto && (
-      <span className="ot-font-size-small ot-color-alert">
-        Credit has automatically been applied to your order.
-      </span>
-    )}
-  </span>
-)
-
-CheckoutDiscountLabel.displayName = 'CheckoutDiscountLabel'
-CheckoutDiscountLabel.propTypes = {
-  discount: propTypes.object,
-}
+import { CheckoutLabel } from '.'
+import {
+  FormApplied,
+  FormFieldset,
+  FormInputs,
+  FormLegend,
+  FormRow,
+} from '../inputs'
 
 const CheckoutDiscounts = () => {
   const formContext = useContext(FormContext)
@@ -49,66 +35,82 @@ const CheckoutDiscounts = () => {
     : null
   if (!discountsOptional) return null
 
-  const applyDiscount = (evt, discountId, extId) => {
-    evt.preventDefault()
+  const applyDiscount = (discountId, extId) => {
     setPendingDiscount(discountId)
     const newDiscount = { id: discountId, ext_id: extId || '' }
     updateForm({ discounts: [...form.discounts, newDiscount] })
-    evt.target.blur()
   }
 
-  const removeDiscount = (evt, discountId) => {
-    evt.preventDefault()
+  const removeDiscount = (discountId) => {
     const filtered = form.discounts.filter((i) => i.id !== discountId)
     updateForm({ discounts: filtered })
-    evt.target.blur()
   }
 
   return (
-    <fieldset className="form__fieldset">
-      <div className="form__legend">
-        <p className="form__legend__title ot-heading ot-font-size-h3">
-          {config.discounts.title}
-        </p>
-        <p className="form__legend__subtitle ot-line-height">
-          {config.discounts.subtitle}
-        </p>
-      </div>
-      <div className="form__inputs">
+    <FormFieldset>
+      <FormLegend
+        as="div"
+        title={config.discounts.title}
+        subtitle={config.discounts.subtitle}
+      />
+      <FormInputs>
         {discountsOptional.map((i) => {
           const isApplied = discountIds.includes(i.id)
           const isPending = i.id === pendingDiscount
           return (
-            <CheckoutLineItem
-              key={i.id}
-              label={<CheckoutDiscountLabel discount={i} />}
-            >
-              <div className="input__wrapper">
-                {isApplied && <FormApplied />}
-                {isApplied ? (
-                  <Button
-                    text="Remove"
-                    ariaLabel={`Remove ${i.name} discount of ${i.amount}`}
-                    icon={iconMap.remove}
-                    classes="ot-btn--secondary ot-btn--header"
-                    disabled={isPending || !i.is_optional}
-                    onClick={(evt) => removeDiscount(evt, i.id)}
+            <>
+              <FormRow
+                key={i.id}
+                type="div"
+                labelWidth="auto"
+                label={
+                  <CheckoutLabel
+                    title={i.name}
+                    description={i.description}
+                    alert={
+                      !i.is_optional && (
+                        <Text color="success">
+                          Credit has automatically been applied to your order.
+                        </Text>
+                      )
+                    }
                   />
-                ) : (
-                  <Button
-                    text="Apply"
-                    ariaLabel={`Apply ${i.name} discount of ${i.amount}`}
-                    icon={iconMap.add}
-                    classes="ot-btn--secondary ot-btn--header"
-                    onClick={(evt) => applyDiscount(evt, i.id, i.ext_id)}
-                  />
-                )}
-              </div>
-            </CheckoutLineItem>
+                }
+                input={
+                  <>
+                    {isApplied ? (
+                      <>
+                        <FormApplied />
+                        <ButtonStyled
+                          label={`Remove ${i.name} discount of ${i.amount}`}
+                          icon={iconMap.remove}
+                          onClick={() => removeDiscount(i.id)}
+                          disabled={isPending || !i.is_optional}
+                          size="header"
+                          color="header"
+                        >
+                          Remove
+                        </ButtonStyled>
+                      </>
+                    ) : (
+                      <ButtonStyled
+                        label={`Apply ${i.name} discount of ${i.amount}`}
+                        icon={iconMap.add}
+                        onClick={() => applyDiscount(i.id, i.ext_id)}
+                        size="header"
+                        color="header"
+                      >
+                        Apply
+                      </ButtonStyled>
+                    )}
+                  </>
+                }
+              />
+            </>
           )
         })}
-      </div>
-    </fieldset>
+      </FormInputs>
+    </FormFieldset>
   )
 }
 

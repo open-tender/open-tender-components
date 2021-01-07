@@ -5,9 +5,10 @@ import React, {
   createContext,
   useMemo,
 } from 'react'
-import { FormContext } from './CheckoutForm'
 import { isEmpty, checkAmountRemaining } from '@open-tender/js'
+import { FormFieldset, FormInputs, FormLegend } from '../inputs'
 import { CheckoutTender } from '.'
+import { FormContext } from './CheckoutForm'
 
 export const TendersContext = createContext(null)
 
@@ -124,21 +125,18 @@ const CheckoutTenders = () => {
         showApplePay,
       }}
     >
-      <fieldset className="form__fieldset">
-        <div className="form__legend">
-          <p className="form__legend__title ot-heading ot-font-size-h3">
-            {config.tenders.title}
-          </p>
-          <p className="form__legend__subtitle ot-line-height">
-            {config.tenders.subtitle}
-          </p>
-        </div>
-        <div className="form__inputs">
+      <FormFieldset>
+        <FormLegend
+          as="div"
+          title={config.tenders.title}
+          subtitle={config.tenders.subtitle}
+        />
+        <FormInputs>
           {tenderTypes.map((tenderType) => (
             <CheckoutTender key={tenderType} tenderType={tenderType} />
           ))}
-        </div>
-      </fieldset>
+        </FormInputs>
+      </FormFieldset>
     </TendersContext.Provider>
   )
 }

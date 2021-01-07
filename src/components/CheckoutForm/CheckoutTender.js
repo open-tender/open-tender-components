@@ -1,22 +1,35 @@
 import React, { useContext } from 'react'
 import propTypes from 'prop-types'
 import { tenderTypeNamesMap } from '@open-tender/js'
-import { Button } from '..'
+import { ButtonStyled } from '..'
 import { FormContext } from './CheckoutForm'
 import { TendersContext } from './CheckoutTenders'
-import {
-  CheckoutLineItem,
-  CheckoutCreditCards,
-  CheckoutHouseAccounts,
-  CheckoutLevelUp,
-} from '.'
-import { FormApplied } from '../inputs'
+import { CheckoutCreditCards, CheckoutHouseAccounts, CheckoutLevelUp } from '.'
+import { FormApplied, FormRow } from '../inputs'
+import styled from '@emotion/styled'
+
+const CheckoutTenderLabelView = styled('span')`
+  display: flex !important;
+  justify-content: flex-end;
+  align-items: center;
+
+  span {
+    display: block;
+    color: ${(props) => props.theme.colors.primary};
+
+    &:first-of-type {
+      width: 1.8rem;
+      height: 1.8rem;
+      margin: 0 1rem 0 0;
+    }
+  }
+`
 
 const CheckoutTenderLabel = ({ icon, name }) => (
-  <span className="form__input__tender">
-    <span className="form__input__icon ot-color-headings">{icon}</span>
-    <span className="ot-color-headings">{name}</span>
-  </span>
+  <CheckoutTenderLabelView>
+    <span>{icon}</span>
+    <span>{name}</span>
+  </CheckoutTenderLabelView>
 )
 
 CheckoutTenderLabel.displayName = 'CheckoutTenderLabel'
@@ -56,31 +69,25 @@ const CheckoutTender = ({ tenderType }) => {
 
   const applyTender =
     tenderType === 'CREDIT'
-      ? (evt) => {
-          evt.preventDefault()
+      ? () => {
           setShowCredit(true)
           setShowLevelUp(false)
           setShowHouseAccount(false)
-          evt.target.blur()
         }
       : tenderType === 'HOUSE_ACCOUNT'
-      ? (evt) => {
-          evt.preventDefault()
+      ? () => {
           setShowCredit(false)
           setShowLevelUp(false)
           setShowHouseAccount(true)
-          evt.target.blur()
         }
       : tenderType === 'LEVELUP'
-      ? (evt) => {
-          evt.preventDefault()
+      ? () => {
           setShowCredit(false)
           setShowLevelUp(true)
           setShowHouseAccount(false)
-          evt.target.blur()
         }
-      : (evt) => {
-          addTender(evt, { tender_type: tenderType })
+      : () => {
+          addTender({ tender_type: tenderType })
           setShowCredit(false)
           setShowLevelUp(false)
           setShowHouseAccount(false)
@@ -90,33 +97,38 @@ const CheckoutTender = ({ tenderType }) => {
 
   return (
     <>
-      <CheckoutLineItem key={tenderType} label={label}>
-        <div className="input__wrapper">
-          {isApplied ? (
+      <FormRow
+        as="div"
+        labelWidth="auto"
+        label={label}
+        input={
+          isApplied ? (
             <>
               <FormApplied />
-              <Button
-                // text={`Remove ${name} Payment`}
-                text={`Remove`}
-                ariaLabel={`Remove ${name} Payment`}
+              <ButtonStyled
+                label={`Remove ${name} Payment`}
                 icon={iconMap.remove}
-                classes="ot-btn--secondary ot-btn--header"
-                onClick={(evt) => removeTender(evt, tenderType)}
-              />
+                onClick={() => removeTender(tenderType)}
+                size="header"
+                color="header"
+              >
+                Remove
+              </ButtonStyled>
             </>
           ) : (
-            <Button
-              // text={`Pay with ${name}`}
-              text={`Apply`}
-              ariaLabel={`Pay with ${name}`}
+            <ButtonStyled
+              label={`Pay with ${name}`}
               icon={iconMap.add}
-              classes="ot-btn--secondary ot-btn--header"
               onClick={applyTender}
               disabled={isPaid || isDisabled}
-            />
-          )}
-        </div>
-      </CheckoutLineItem>
+              size="header"
+              color="header"
+            >
+              Apply
+            </ButtonStyled>
+          )
+        }
+      />
       {tenderType === 'CREDIT' && showCredit && <CheckoutCreditCards />}
       {tenderType === 'LEVELUP' && showLevelUp && <CheckoutLevelUp />}
       {tenderType === 'HOUSE_ACCOUNT' &&
