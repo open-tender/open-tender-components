@@ -32,8 +32,8 @@ const FormRowContainer = styled('span')`
     display: block;
 
     &:first-of-type {
-      width: 15rem;
-      flex-shrink: 0;
+      width: ${(props) => props.labelWidth || '15rem'};
+      flex-shrink: ${(props) => (props.labelWidth ? '1' : '0')};
       @media (max-width: ${(props) => props.theme.breakpoints.mobile}) {
         ${(props) =>
           props.isInput ? `width: 100%; margin: 0 0 0.75rem;` : null}
@@ -43,6 +43,7 @@ const FormRowContainer = styled('span')`
     &:last-of-type {
       position: relative;
       flex: 1;
+      flex-shrink: ${(props) => (props.labelWidth ? '0' : '1')};
       @media (max-width: ${(props) => props.theme.breakpoints.mobile}) {
         ${(props) => (props.isInput ? `width: 100%;` : null)}
       }
@@ -83,11 +84,12 @@ const FormRow = ({
   errMsg,
   as = 'label',
   isInput = false,
+  labelWidth,
   style,
 }) => {
   return (
     <FormRowView as={as} isInput={isInput} style={style}>
-      <FormRowContainer isInput={isInput}>
+      <FormRowContainer isInput={isInput} labelWidth={labelWidth}>
         {label && (
           <span>
             <FormRowLabel>{label}</FormRowLabel>
@@ -119,6 +121,7 @@ FormRow.propTypes = {
   errMsg: propTypes.string,
   as: propTypes.string,
   isInput: propTypes.bool,
+  labelWidth: propTypes.string,
   style: propTypes.object,
 }
 

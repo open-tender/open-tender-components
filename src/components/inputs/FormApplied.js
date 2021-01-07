@@ -4,7 +4,7 @@ import { Checkmark } from '..'
 
 const FormAppliedView = styled('span')`
   display: inline-block;
-  margin: 0 1rem 0 0;
+  margin: 0 0.5rem 0 0;
 `
 
 const FormApplied = () => {

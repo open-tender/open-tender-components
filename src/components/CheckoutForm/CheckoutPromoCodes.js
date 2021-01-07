@@ -1,7 +1,71 @@
 import React, { useContext, useState, useEffect } from 'react'
-import { Button, ButtonClear, Input } from '..'
-import { FormApplied } from '../inputs'
+import propTypes from 'prop-types'
+import styled from '@emotion/styled'
+import { ButtonClear, ButtonStyled, Preface } from '..'
+import {
+  FormApplied,
+  FormFieldset,
+  FormInputs,
+  FormLegend,
+  FormRow,
+} from '../inputs'
 import { FormContext } from './CheckoutForm'
+
+const PromoCodeInputView = styled('span')`
+  display: block;
+  position: relative;
+  flex-grow: 1;
+  margin-right: ${(props) => props.theme.layout.padding};
+  @media (max-width: ${(props) => props.theme.breakpoints.mobile}) {
+    margin-right: ${(props) => props.theme.layout.paddingMobile};
+  }
+`
+
+const PromoCodeInput = ({
+  label,
+  name,
+  type,
+  placeholder,
+  value,
+  onChange,
+  required,
+  disabled,
+  children,
+}) => {
+  return (
+    <PromoCodeInputView>
+      <input
+        aria-label={label}
+        id={name}
+        name={name}
+        type={type}
+        autoComplete={null}
+        value={value || ''}
+        placeholder={placeholder}
+        disabled={disabled}
+        required={required}
+        onChange={onChange}
+      />
+      {children}
+    </PromoCodeInputView>
+  )
+}
+
+PromoCodeInput.displayName = 'PromoCodeInput'
+PromoCodeInput.propTypes = {
+  label: propTypes.string,
+  name: propTypes.string,
+  type: propTypes.string,
+  value: propTypes.oneOfType([propTypes.string, propTypes.number]),
+  disabled: propTypes.bool,
+  required: propTypes.bool,
+  placeholder: propTypes.string,
+  onChange: propTypes.func,
+  children: propTypes.oneOfType([
+    propTypes.arrayOf(propTypes.node),
+    propTypes.node,
+  ]),
+}
 
 const CheckoutPromoCodes = () => {
   const [promoCode, setPromoCode] = useState('')
@@ -42,110 +106,110 @@ const CheckoutPromoCodes = () => {
     setPromoCode(evt.target.value)
   }
 
-  const applyPromoCode = (evt) => {
-    evt.preventDefault()
+  const applyPromoCode = () => {
     setPendingPromoCode(promoCode)
     updateForm({ promoCodes: [...checkPromoCodes, promoCode] })
-    evt.target.blur()
   }
 
-  const removePromoCode = (evt, promoCode) => {
-    evt.preventDefault()
+  const removePromoCode = (promoCode) => {
     setPendingPromoCode(promoCode)
     const filtered = form.promoCodes.filter((i) => i !== promoCode)
     updateForm({ promoCodes: filtered })
-    evt.target.blur()
   }
 
-  const removePendingPromoCode = (evt) => {
-    evt.preventDefault()
+  const removePendingPromoCode = () => {
     setPromoCode('')
     setPendingPromoCode(null)
+    setError('')
     if (form.promoCodes.length > checkPromoCodes.length) {
       updateForm({ promoCodes: checkPromoCodes })
     }
-    evt.target.blur()
   }
 
   return (
-    <fieldset className="form__fieldset">
-      <div className="form__legend">
-        <p className="form__legend__title ot-heading ot-font-size-h3">
-          {config.promoCodes.title}
-        </p>
-        {!email ? (
-          <p className="form__legend__subtitle ot-line-height">
-            Please add a valid email address before adding a promo code
-          </p>
-        ) : (
-          config.promoCodes.subtitle && (
-            <p className="form__legend__subtitle ot-line-height">
-              {config.promoCodes.subtitle}
-            </p>
-          )
-        )}
-      </div>
-      <div className="form__inputs">
+    <FormFieldset>
+      <FormLegend
+        as="div"
+        title={config.promoCodes.title}
+        subtitle={
+          email
+            ? config.promoCodes.subtitle
+            : 'Please add a valid email address before adding a promo code'
+        }
+      />
+      <FormInputs>
         {checkPromoCodes.map((checkPromoCode) => {
           return (
-            <div
+            <FormRow
               key={checkPromoCode}
-              className="form__input-with-button ot-border-color"
-            >
-              <Input
-                key={checkPromoCode}
-                label={checkPromoCode}
-                name={`promo_code_${checkPromoCode}`}
-                type="text"
-                placeholder="enter a promo code"
-                value={checkPromoCode}
-                onChange={handleChange}
-                error={null}
-                required={false}
-                disabled={true}
-              />
-              <FormApplied />
-              <Button
-                text="Remove"
-                ariaLabel={`Remove promo code ${checkPromoCode}`}
-                icon={iconMap.remove}
-                classes="ot-btn--secondary ot-btn--header"
-                onClick={(evt) => removePromoCode(evt, checkPromoCode)}
-              />
-            </div>
+              type="div"
+              label={<Preface size="xSmall">{checkPromoCode}</Preface>}
+              input={
+                <>
+                  <PromoCodeInput
+                    name={`promo_code_${checkPromoCode}`}
+                    type="text"
+                    value={checkPromoCode}
+                    onChange={handleChange}
+                    error={null}
+                    required={false}
+                    disabled={true}
+                  />
+                  <FormApplied />
+                  <ButtonStyled
+                    label={`Remove promo code ${checkPromoCode}`}
+                    icon={iconMap.remove}
+                    onClick={() => removePromoCode(checkPromoCode)}
+                    size="header"
+                    color="header"
+                  >
+                    Remove
+                  </ButtonStyled>
+                </>
+              }
+            />
           )
         })}
         {email && (
-          <div className="form__input-with-button ot-border-color">
-            <Input
-              label="New Promo Code"
-              name="promo_code"
-              type="text"
-              placeholder="enter a promo code"
-              value={promoCode}
-              onChange={handleChange}
-              error={error}
-              required={false}
-            >
-              {promoCode.length ? (
-                <ButtonClear
-                  ariaLabel={`Remove promo code ${promoCode}`}
-                  onClick={(evt) => removePendingPromoCode(evt)}
-                />
-              ) : null}
-            </Input>
-            <Button
-              text="Apply"
-              ariaLabel="Apply Promo Code"
-              icon={iconMap.add}
-              classes="ot-btn--secondary ot-btn--header"
-              onClick={applyPromoCode}
-              disabled={!promoCode || pendingPromoCode === promoCode}
-            />
-          </div>
+          <FormRow
+            type="div"
+            label={<Preface size="xSmall">New Promo Code</Preface>}
+            input={
+              <>
+                <PromoCodeInput
+                  label="New Promo Code"
+                  name="promo_code"
+                  type="text"
+                  placeholder="enter a promo code"
+                  value={promoCode}
+                  onChange={handleChange}
+                  error={error}
+                  required={false}
+                >
+                  {promoCode.length ? (
+                    <ButtonClear
+                      ariaLabel={`Remove promo code ${promoCode}`}
+                      onClick={removePendingPromoCode}
+                    />
+                  ) : null}
+                </PromoCodeInput>
+                <ButtonStyled
+                  label="Apply Promo Code"
+                  icon={iconMap.add}
+                  onClick={applyPromoCode}
+                  disabled={!promoCode || pendingPromoCode === promoCode}
+                  size="header"
+                  color="header"
+                >
+                  Apply
+                </ButtonStyled>
+              </>
+            }
+            errMsg={error}
+          />
         )}
-      </div>
-    </fieldset>
+      </FormInputs>
+    </FormFieldset>
   )
 }
 

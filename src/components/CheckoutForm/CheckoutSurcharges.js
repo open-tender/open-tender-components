@@ -1,6 +1,6 @@
 import React, { useContext, useState, useEffect } from 'react'
 import { displayPrice } from '@open-tender/js'
-import { ButtonStyled } from '..'
+import { ButtonStyled, Text } from '..'
 import { FormContext } from './CheckoutForm'
 import { CheckoutLabel } from '.'
 import {
@@ -53,47 +53,46 @@ const CheckoutSurcharges = () => {
               ? `$${displayPrice(i.amount)} fee`
               : 'No additional charge'
           return (
-            <>
-              <FormRow
-                key={i.id}
-                type="div"
-                label={
-                  <CheckoutLabel
-                    title={i.label || i.name}
-                    description={i.description}
-                    alert={<span className="ot-color-success">{cost}</span>}
-                  />
-                }
-                input={
-                  <>
-                    {isApplied && <FormApplied />}
-                    {isApplied ? (
-                      <ButtonStyled
-                        label={`Remove ${i.name} surcharge of ${i.amount}`}
-                        icon={iconMap.remove}
-                        onClick={() => removeSurcharge(i.id)}
-                        disabled={isPending || !i.is_optional}
-                        size="header"
-                        color="header"
-                      >
-                        Remove
-                      </ButtonStyled>
-                    ) : (
-                      <ButtonStyled
-                        label={`Apply ${i.name} surcharge of ${i.amount}`}
-                        icon={iconMap.add}
-                        onClick={() => applySurcharge(i.id)}
-                        disabled={isPending}
-                        size="header"
-                        color="header"
-                      >
-                        Apply
-                      </ButtonStyled>
-                    )}
-                  </>
-                }
-              />
-            </>
+            <FormRow
+              key={i.id}
+              type="div"
+              labelWidth="auto"
+              label={
+                <CheckoutLabel
+                  title={i.label || i.name}
+                  description={i.description}
+                  alert={<Text color="success">{cost}</Text>}
+                />
+              }
+              input={
+                <>
+                  {isApplied && <FormApplied />}
+                  {isApplied ? (
+                    <ButtonStyled
+                      label={`Remove ${i.name} surcharge of ${i.amount}`}
+                      icon={iconMap.remove}
+                      onClick={() => removeSurcharge(i.id)}
+                      disabled={isPending || !i.is_optional}
+                      size="header"
+                      color="header"
+                    >
+                      Remove
+                    </ButtonStyled>
+                  ) : (
+                    <ButtonStyled
+                      label={`Apply ${i.name} surcharge of ${i.amount}`}
+                      icon={iconMap.add}
+                      onClick={() => applySurcharge(i.id)}
+                      disabled={isPending}
+                      size="header"
+                      color="header"
+                    >
+                      Apply
+                    </ButtonStyled>
+                  )}
+                </>
+              }
+            />
           )
         })}
       </FormInputs>

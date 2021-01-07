@@ -1,12 +1,36 @@
 import React from 'react'
 import propTypes from 'prop-types'
+import styled from '@emotion/styled'
+
+const CheckoutLabelView = styled('span')`
+  padding-right: ${(props) => props.theme.layout.padding};
+  @media (max-width: ${(props) => props.theme.breakpoints.mobile}) {
+    padding-right: ${(props) => props.theme.layout.paddingMobile};
+  }
+
+  > span {
+    display: block;
+
+    &:first-of-type {
+      margin: 0 0 0.4rem;
+      font-size: ${(props) => props.theme.fonts.sizes.main};
+      color: ${(props) => props.theme.colors.primary};
+    }
+  }
+
+  span + span {
+    margin-top: 0;
+    line-height: ${(props) => props.theme.lineHeight};
+    font-size: ${(props) => props.theme.fonts.sizes.small};
+  }
+`
 
 const CheckoutLabel = ({ title, description, alert = null }) => (
-  <span className="form__input__discount">
-    <span className="ot-font-size ot-color-headings">{title}</span>
-    <span className="ot-font-size-small">{description}</span>
-    {alert && <span className="ot-font-size-small">{alert}</span>}
-  </span>
+  <CheckoutLabelView>
+    <span>{title}</span>
+    <span>{description}</span>
+    {alert && <span>{alert}</span>}
+  </CheckoutLabelView>
 )
 
 CheckoutLabel.displayName = 'CheckoutLabel'

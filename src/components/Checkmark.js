@@ -21,7 +21,7 @@ const CheckmarkTick = styled('span')`
 
   &:after {
     position: absolute;
-    left: 0.3rem;
+    left: 0.2rem;
     top: 0.8rem;
     height: 1rem;
     width: 0.5rem;

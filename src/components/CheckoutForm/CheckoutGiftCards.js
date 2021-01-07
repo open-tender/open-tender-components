@@ -1,10 +1,16 @@
 import React, { useContext } from 'react'
 import propTypes from 'prop-types'
 import { checkAmountRemaining } from '@open-tender/js'
-import { Button } from '..'
+import { ButtonStyled, Preface, Text } from '..'
 import { FormContext } from './CheckoutForm'
-import { CheckoutLineItem } from '.'
-import { FormApplied } from '../inputs'
+import { CheckoutLabel } from '.'
+import {
+  FormApplied,
+  FormFieldset,
+  FormInputs,
+  FormLegend,
+  FormRow,
+} from '../inputs'
 
 const CheckoutGiftCardLabel = ({ giftCard, amount }) => {
   return (
@@ -48,8 +54,7 @@ const CheckoutGiftCards = () => {
   const amountRemaining = checkAmountRemaining(check.totals.total, form.tenders)
   const isPaid = Math.abs(amountRemaining).toFixed(2) === '0.00'
 
-  const applyGiftCard = (evt, cardNumber, balance) => {
-    evt.preventDefault()
+  const applyGiftCard = (cardNumber, balance) => {
     const remaining = checkAmountRemaining(check.totals.total, form.tenders)
     const amount = Math.min(remaining, parseFloat(balance)).toFixed(2)
     const newGiftCard = {
@@ -59,11 +64,9 @@ const CheckoutGiftCards = () => {
       amount: amount,
     }
     updateForm({ tenders: [...form.tenders, newGiftCard] })
-    evt.target.blur()
   }
 
-  const removeGiftCard = (evt, cardNumber) => {
-    evt.preventDefault()
+  const removeGiftCard = (cardNumber) => {
     // const removed = form.tenders.find((i) => i.card_number === cardNumber)
     const filtered = form.tenders.filter((i) => i.card_number !== cardNumber)
     const nonGiftCard = filtered.filter((i) => i.tender_type !== 'GIFT_CARD')
@@ -82,69 +85,88 @@ const CheckoutGiftCards = () => {
     })
     const nonZeroOther = adjustedOther.filter((i) => i.amount !== '0.00')
     updateForm({ tenders: [...nonZeroOther, ...nonZero] })
-    evt.target.blur()
   }
 
   return (
-    <fieldset className="form__fieldset">
-      <div className="form__legend">
-        <p className="form__legend__title ot-heading ot-font-size-h3">
-          {config.giftCards.title}
-        </p>
-        <p className="form__legend__subtitle ot-line-height">
-          {hasCustomer
+    <FormFieldset>
+      <FormLegend
+        as="div"
+        title={config.giftCards.title}
+        subtitle={
+          hasCustomer
             ? config.giftCards.subtitle
-            : 'Have a gift card number? Please log into your account or create one via the button above in order to use the gift card here.'}
-        </p>
-      </div>
-      <div className="form__inputs">
+            : 'Have a gift card number? Please log into your account or create one via the button above in order to use the gift card here.'
+        }
+      />
+      <FormInputs>
         {giftCards &&
           giftCards.map((i) => {
             const amount = giftCardsApplied[i.card_number]
             return (
-              <CheckoutLineItem
+              <FormRow
                 key={i.card_number}
-                label={<CheckoutGiftCardLabel giftCard={i} amount={amount} />}
-              >
-                <div className="input__wrapper">
-                  {amount ? (
-                    <>
-                      <FormApplied />
-                      <Button
-                        text="Remove"
-                        ariaLabel={`Remove gift card ${i.card_number} with amount of ${amount}`}
-                        icon={iconMap.remove}
-                        classes="ot-btn--secondary ot-btn--header"
-                        onClick={(evt) => removeGiftCard(evt, i.card_number)}
-                      />
-                    </>
-                  ) : (
-                    <Button
-                      text="Apply"
-                      ariaLabel={`Apply gift card ${i.card_number} with balance of ${i.balance}`}
-                      icon={iconMap.add}
-                      classes="ot-btn--secondary ot-btn--header"
-                      onClick={(evt) =>
-                        applyGiftCard(evt, i.card_number, i.balance)
-                      }
-                      disabled={isPaid}
-                    />
-                  )}
-                </div>
-              </CheckoutLineItem>
+                type="div"
+                labelWidth="auto"
+                label={
+                  <CheckoutLabel
+                    title={`Gift Card ${i.card_number}`}
+                    description={`Balance of $${i.balance}`}
+                    alert={
+                      amount && (
+                        <Text color="success">${amount} applied to check</Text>
+                      )
+                    }
+                  />
+                }
+                input={
+                  <>
+                    {amount ? (
+                      <>
+                        <FormApplied />
+                        <ButtonStyled
+                          label={`Remove gift card ${i.card_number} with amount of ${amount}`}
+                          icon={iconMap.remove}
+                          onClick={() => removeGiftCard(i.card_number)}
+                          size="header"
+                          color="header"
+                        >
+                          Remove
+                        </ButtonStyled>
+                      </>
+                    ) : (
+                      <ButtonStyled
+                        label={`Apply gift card ${i.card_number} with balance of ${i.balance}`}
+                        icon={iconMap.add}
+                        onClick={() => applyGiftCard(i.card_number, i.balance)}
+                        disable={isPaid}
+                        size="header"
+                        color="header"
+                      >
+                        Apply
+                      </ButtonStyled>
+                    )}
+                  </>
+                }
+              />
             )
           })}
-        <CheckoutLineItem label="Add New Gift Card">
-          <Button
-            text="Add Gift Card"
-            icon={iconMap.add}
-            classes="ot-btn--secondary ot-btn--header"
-            onClick={addGiftCard}
-            disabled={!hasCustomer}
-          />
-        </CheckoutLineItem>
-      </div>
-    </fieldset>
+        <FormRow
+          as="div"
+          label={<Preface size="xSmall">Add New Gift Card</Preface>}
+          input={
+            <ButtonStyled
+              icon={iconMap.add}
+              onClick={addGiftCard}
+              disabled={!hasCustomer}
+              size="header"
+              color="header"
+            >
+              Add Gift Card
+            </ButtonStyled>
+          }
+        />
+      </FormInputs>
+    </FormFieldset>
   )
 }
 
