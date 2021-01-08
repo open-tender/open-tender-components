@@ -1,6 +1,5 @@
 import BgImage from './BgImage'
 import Box from './Box'
-import Button from './Button'
 import ButtonIcon from './ButtonIcon'
 import ButtonClear from './ButtonClear'
 import ButtonLink from './ButtonLink'
@@ -100,7 +99,6 @@ export {
   BuilderQuantity,
   BuilderRadioGroup,
   BuilderRadio,
-  Button,
   ButtonClear,
   ButtonIcon,
   ButtonLink,
