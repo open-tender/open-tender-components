@@ -1,6 +1,7 @@
-import React, { useState, useRef, useEffect } from 'react'
+import React, { useState, useEffect } from 'react'
 import propTypes from 'prop-types'
-import { Input, Select } from '../index'
+import { ButtonStyled } from '..'
+import { FormError, FormInputs, FormSubmit, Input, Select } from '../inputs'
 
 const GiftCardForm = ({
   giftCard,
@@ -11,7 +12,6 @@ const GiftCardForm = ({
   add,
   callback,
 }) => {
-  const submitButton = useRef()
   const customerCardId = creditCards[0].customer_card_id
   const [data, setData] = useState({ customer_card_id: customerCardId })
   const [errors, setErrors] = useState({})
@@ -34,8 +34,7 @@ const GiftCardForm = ({
     setData({ ...data, [id]: inputValue })
   }
 
-  const handleSubmit = (evt) => {
-    evt.preventDefault()
+  const handleSubmit = () => {
     setSubmitting(true)
     if (!data.customer_card_id) {
       data.customer_card_id = customerCardId
@@ -44,22 +43,12 @@ const GiftCardForm = ({
     giftCard
       ? update(giftCard.gift_card_id, data, callback)
       : add(data, callback)
-    submitButton.current.blur()
   }
 
   return (
-    <form
-      id="gift-card-form"
-      className="form"
-      onSubmit={handleSubmit}
-      noValidate
-    >
-      {errors.form && (
-        <div className="form__error form__error--top ot-form-error">
-          {errors.form}
-        </div>
-      )}
-      <div className="form__inputs">
+    <form id="gift-card-form" noValidate>
+      <FormError errMsg={errors.form} style={{ margin: '0 0 2rem' }} />
+      <FormInputs>
         <Input
           label="Amount"
           name="amount"
@@ -78,17 +67,12 @@ const GiftCardForm = ({
           required={true}
           options={options}
         />
-      </div>
-      <div className="form__submit">
-        <button
-          className="ot-btn"
-          type="submit"
-          disabled={submitting}
-          ref={submitButton}
-        >
+      </FormInputs>
+      <FormSubmit>
+        <ButtonStyled onClick={handleSubmit} disabled={submitting}>
           {submitting ? 'Submitting' : giftCard ? 'Add Value' : 'Purchase'}
-        </button>
-      </div>
+        </ButtonStyled>
+      </FormSubmit>
     </form>
   )
 }

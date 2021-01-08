@@ -1,50 +1,15 @@
-import React, { useState, useRef, useEffect } from 'react'
+import React, { useState, useEffect } from 'react'
 import propTypes from 'prop-types'
 import { CreditCardForm } from '.'
-import { Input } from '../index'
-import Button from '../Button'
-
-const Select = ({
-  label,
-  name,
-  value,
-  onChange,
-  disabled,
-  options,
-  className = '',
-}) => (
-  <span className={`input select__wrapper ${className}`}>
-    <select
-      aria-label={label}
-      id={name}
-      value={value}
-      onChange={onChange}
-      disabled={disabled}
-    >
-      {options ? (
-        options.map((option, index) => (
-          <option key={`${option.value}-${index}`} value={option.value}>
-            {option.name}
-          </option>
-        ))
-      ) : (
-        <option>loading...</option>
-      )}
-    </select>
-    <span className="select__arrow ot-color-headings" />
-  </span>
-)
-
-Select.displayName = 'Select'
-Select.propTypes = {
-  label: propTypes.string,
-  name: propTypes.string,
-  value: propTypes.string,
-  onChange: propTypes.func,
-  disabled: propTypes.bool,
-  options: propTypes.array,
-  className: propTypes.string,
-}
+import { ButtonStyled, Input, Text } from '../index'
+import {
+  FormError,
+  FormFieldset,
+  FormInputs,
+  FormLegend,
+  FormSubmit,
+  Select,
+} from '../inputs'
 
 const handleAmountError = (error) => {
   if (!error) return null
@@ -54,6 +19,7 @@ const handleAmountError = (error) => {
 const DonationForm = ({
   purchase,
   reset,
+  setAlert,
   loading,
   error,
   success,
@@ -61,7 +27,6 @@ const DonationForm = ({
   customer = {},
   creditCards = [],
 }) => {
-  const submitButton = useRef()
   const [amount, setAmount] = useState('')
   const [email, setEmail] = useState(customer ? customer.email : '')
   const [isNewCard, setIsNewCard] = useState(true)
@@ -74,11 +39,18 @@ const DonationForm = ({
         .filter(([key]) => key !== 'form')
         .reduce((obj, [key, value]) => ({ ...obj, [key]: value }), {})
     : null
+  const errMsg =
+    errors.form && errors.form.includes('parameters')
+      ? 'There are one or more errors below'
+      : errors.form || null
 
   useEffect(() => {
-    if (loading === 'idle') setSubmitting(false)
+    if (loading === 'idle') {
+      setSubmitting(false)
+      setAlert({ type: 'close' })
+    }
     if (error) setErrors(error)
-  }, [loading, error])
+  }, [loading, error, setAlert])
 
   useEffect(() => {
     if (creditCards.length) {
@@ -110,72 +82,60 @@ const DonationForm = ({
 
   const handleSubmitNewCard = (card) => {
     setErrors({})
+    setSubmitting(true)
+    const alert = {
+      type: 'working',
+      args: { text: 'Submitting your contribution...' },
+    }
+    setAlert(alert)
     purchase({ amount, email, credit_card: card })
   }
 
-  const handleSubmit = (evt) => {
-    evt.preventDefault()
+  const handleSubmit = () => {
     const { email } = customer || {}
     if (!amount || !email) {
       setErrors({ form: 'Both amount and email are required' })
-      window.scroll(0, 0)
     } else {
       setSubmitting(true)
+      const alert = {
+        type: 'working',
+        args: { text: 'Submitting your contribution...' },
+      }
+      setAlert(alert)
       purchase({ amount, email, credit_card: creditCard })
-      submitButton.current.blur()
     }
   }
 
-  const handleReset = (evt) => {
-    evt.preventDefault()
+  const handleReset = () => {
+    setErrors({})
     reset()
-    evt.target.blur()
   }
 
   return success ? (
-    <div className="gift-cards__section">
-      <div className="gift-cards__section__header">
-        <p className="gift-cards__section__header__title ot-heading ot-font-size-h4">
-          Success! Please check your email for your receipt.
-        </p>
-        <p className="gift-cards__section__header__subtitle ot-font-size-small">
-          Thanks for your contribution of ${donation.amount}. We really
-          appreciate it.
-        </p>
-      </div>
-      <p>
-        <Button
-          text="Make Another Contribution"
-          onClick={handleReset}
-          classes="ot-btn"
-        />
-      </p>
-    </div>
+    <FormFieldset>
+      <FormLegend
+        as="div"
+        title="Success! Please check your email for your receipt."
+        subtitle={`Thanks for your contribution of $${donation.amount}. We really
+            appreciate it.`}
+      />
+      <FormSubmit>
+        <ButtonStyled onClick={handleReset}>
+          Make Another Contribution
+        </ButtonStyled>
+      </FormSubmit>
+    </FormFieldset>
   ) : (
     <>
-      <form
-        id="donation-form"
-        className="form"
-        onSubmit={handleSubmit}
-        noValidate
-      >
-        {errors.form && (
-          <div className="form__error form__error--top ot-form-error">
-            {errors.form.includes('parameters')
-              ? 'There are one or more errors below'
-              : errors.form}
-          </div>
-        )}
-        <div className="gift-cards__section">
-          <div className="gift-cards__section__header">
-            <p className="gift-cards__section__header__title ot-heading ot-font-size-h4">
-              Enter an amount and an email address
-            </p>
-            <p className="gift-cards__section__header__subtitle ot-font-size-small">
-              {"We'll"} send a receipt to the email address you enter below.
-            </p>
-          </div>
-          <div className="form__inputs">
+      <form id="donation-form" noValidate>
+        <FormError errMsg={errMsg} style={{ margin: '0 0 2rem' }} />
+        <FormFieldset>
+          <FormLegend
+            as="div"
+            title="Enter an amount and an email address"
+            subtitle="We'll send a receipt to the email address you enter below."
+          />
+          <FormInputs>
             <Input
               label="Contribution Amount"
               name="amount"
@@ -195,68 +155,63 @@ const DonationForm = ({
               required={true}
               disabled={customer ? true : false}
             />
-          </div>
-        </div>
+          </FormInputs>
+        </FormFieldset>
         {!isNewCard && creditCards.length && (
-          <div className="gift-cards__section">
-            <div className="gift-cards__section__header">
-              <p className="gift-cards__section__header__title ot-heading ot-font-size-h4">
-                Add your payment information
-              </p>
-              <p className="gift-cards__section__header__subtitle ot-font-size-small">
-                Choose an existing credit card or add new one from your account
-                page.
-              </p>
-            </div>
-            <Select
-              label="Choose existing credit card"
-              name="credit_card"
-              value={creditCard.customer_card_id}
-              onChange={handleCreditCard}
-              error={errors.credit_card}
-              required={true}
-              options={creditCardOptions}
+          <FormFieldset>
+            <FormLegend
+              as="div"
+              title="Add your payment information"
+              subtitle="Choose an existing credit card or add new one from your
+                  account page."
             />
-            <div className="form__submit gift-cards__submit">
-              <button
-                className="ot-btn ot-btn--big"
-                type="submit"
+            <FormInputs>
+              <Select
+                label="Choose Card"
+                name="credit_card"
+                value={creditCard.customer_card_id}
+                onChange={handleCreditCard}
+                error={errors.credit_card}
+                required={true}
+                options={creditCardOptions}
+              />
+            </FormInputs>
+            <FormSubmit style={{ margin: '3rem 0 0' }}>
+              <ButtonStyled
+                onClick={handleSubmit}
                 disabled={submitting}
-                ref={submitButton}
+                size="big"
               >
                 {submitting ? 'Submitting...' : 'Submit Contribution'}
-              </button>
-            </div>
-          </div>
+              </ButtonStyled>
+            </FormSubmit>
+          </FormFieldset>
         )}
       </form>
       {isNewCard && (
-        <div className="gift-cards__section">
-          <div className="gift-cards__section__header">
-            <p className="gift-cards__section__header__title ot-heading ot-font-size-h4">
-              Add your payment information
-            </p>
-            <p className="gift-cards__section__header__subtitle ot-font-size-small">
-              Please enter your payment info below.
-            </p>
-          </div>
-          <div className="gift-cards__new-card">
-            {amount && email ? (
-              <CreditCardForm
-                loading={loading}
-                error={newCardError}
-                addCard={handleSubmitNewCard}
-                submitText="Submit Contribution"
-                submittingText="Submitting..."
-              />
-            ) : (
-              <p className="ot-color-error">
-                Please enter an amount & email address before adding your
-                payment information.
-              </p>
-            )}
-          </div>
-        </div>
+        <FormFieldset>
+          <FormLegend
+            as="div"
+            title="Add your payment information"
+            subtitle="Please enter your payment info below."
+          />
+          {amount && email ? (
+            <CreditCardForm
+              loading={loading}
+              error={newCardError}
+              addCard={handleSubmitNewCard}
+              submitText="Submit Contribution"
+              submittingText="Submitting..."
+            />
+          ) : (
+            <FormInputs>
+              <Text as="p" color="error">
+                Please enter your name & email before adding your payment
+                information.
+              </Text>
+            </FormInputs>
+          )}
+        </FormFieldset>
       )}
     </>
   )
@@ -266,6 +221,7 @@ DonationForm.displayName = 'DonationForm'
 DonationForm.propTypes = {
   purchase: propTypes.func,
   reset: propTypes.func,
+  setAlert: propTypes.func,
   loading: propTypes.string,
   error: propTypes.object,
   success: propTypes.bool,

@@ -22,6 +22,10 @@ const AutocompleteView = styled('div')`
     padding: 0;
     margin-bottom: 0;
 
+    & > span > span:first-of-type {
+      margin: 0;
+    }
+
     input {
       padding-left: 3.2rem;
       padding-right: 3.2rem;
