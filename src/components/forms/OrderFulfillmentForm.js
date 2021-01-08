@@ -1,6 +1,7 @@
-import React, { useState, useRef, useEffect } from 'react'
+import React, { useState, useEffect } from 'react'
 import propTypes from 'prop-types'
-import { Input } from '../index'
+import { ButtonStyled, Input } from '../index'
+import { FormInputs, FormSubmit } from '../inputs'
 
 const arrivedText =
   "Thanks for letting us know you've arrived! We'll be out with your order shortly."
@@ -13,7 +14,6 @@ const OrderFulfillmentForm = ({
   update,
   settings,
 }) => {
-  const submitButton = useRef()
   const [data, setData] = useState({})
   const [submitting, setSubmitting] = useState(false)
   const errors = error || {}
@@ -36,21 +36,14 @@ const OrderFulfillmentForm = ({
     setData({ ...data, [id]: inputValue })
   }
 
-  const handleSubmit = (evt) => {
-    evt.preventDefault()
+  const handleSubmit = () => {
     setSubmitting(true)
     update(orderId, { ...data, has_arrived: true })
-    submitButton.current.blur()
   }
 
   return (
-    <form
-      id="order-fulfillment-form"
-      className="form"
-      onSubmit={handleSubmit}
-      noValidate
-    >
-      <div className="section__rows">
+    <form id="order-fulfillment-form" noValidate>
+      <FormInputs>
         {fields.map((field) => (
           <Input
             key={field.name}
@@ -64,21 +57,19 @@ const OrderFulfillmentForm = ({
             disabled={data.has_arrived}
           />
         ))}
-      </div>
-      <div className="section__submit">
+      </FormInputs>
+      <FormSubmit>
         {data.has_arrived ? (
           <p>{arrivedText}</p>
         ) : (
-          <button
-            className="ot-btn"
-            type="submit"
+          <ButtonStyled
+            onClick={handleSubmit}
             disabled={submitting || data.has_arrived}
-            ref={submitButton}
           >
-            {settings.button}
-          </button>
+            {submitting ? 'Submitting' : settings.button}
+          </ButtonStyled>
         )}
-      </div>
+      </FormSubmit>
     </form>
   )
 }

@@ -9,8 +9,10 @@ const LabelRequired = styled('span')`
 
 const Label = ({ text, required }) => (
   <>
-    <Preface size="xSmall">{text}</Preface>
-    {required ? <LabelRequired>&nbsp;*</LabelRequired> : null}
+    <Preface size="xSmall">
+      {text}
+      {required ? <LabelRequired>&nbsp;*</LabelRequired> : null}
+    </Preface>
   </>
 )
 

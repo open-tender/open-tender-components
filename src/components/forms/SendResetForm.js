@@ -1,39 +1,29 @@
-import React, { useState, useRef } from 'react'
+import React, { useState } from 'react'
 import propTypes from 'prop-types'
-import { Input } from '../index'
+import { ButtonStyled } from '..'
+import { FormError, FormInputs, FormSubmit, Input } from '../inputs'
 
 const SendResetForm = ({ loading, error, sendReset, callback }) => {
   const [data, setData] = useState({})
-  const submitButton = useRef()
   const isLoading = loading === 'pending'
+  const errMsg = error && error.email ? error.email : null
 
   const handleChange = (evt) => {
     const { id, value } = evt.target
     setData({ ...data, [id]: value })
   }
 
-  const handleSubmit = (evt) => {
-    evt.preventDefault()
+  const handleSubmit = () => {
     const linkUrl = `${window.location.origin}/reset-password`
     sendReset(data.email, linkUrl).then(() => {
       if (callback) callback()
     })
-    submitButton.current.blur()
   }
 
   return (
-    <form
-      id="send-reset-form"
-      className="form"
-      onSubmit={handleSubmit}
-      noValidate
-    >
-      {error && error.email && (
-        <div className="form__error form__error--top ot-form-error">
-          {error.email}
-        </div>
-      )}
-      <div className="form__inputs">
+    <form id="send-reset-form" noValidate>
+      <FormError errMsg={errMsg} style={{ margin: '0 0 2rem' }} />
+      <FormInputs>
         <Input
           label="Email"
           name="email"
@@ -43,17 +33,12 @@ const SendResetForm = ({ loading, error, sendReset, callback }) => {
           required={true}
           classes="form__input"
         />
-      </div>
-      <div className="form__submit">
-        <button
-          className="ot-btn"
-          type="submit"
-          disabled={isLoading}
-          ref={submitButton}
-        >
+      </FormInputs>
+      <FormSubmit>
+        <ButtonStyled onClick={handleSubmit} disabled={isLoading}>
           {isLoading ? 'Submitting' : 'Submit'}
-        </button>
-      </div>
+        </ButtonStyled>
+      </FormSubmit>
     </form>
   )
 }

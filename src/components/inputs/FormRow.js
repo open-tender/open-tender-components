@@ -57,7 +57,7 @@ const FormRowLabel = styled('span')`
   align-items: center;
   line-height: 1;
 
-  span {
+  > span {
     display: block;
   }
 `

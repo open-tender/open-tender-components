@@ -56,7 +56,6 @@ SelectOnly.propTypes = {
   onChange: propTypes.func,
   disabled: propTypes.bool,
   options: propTypes.array,
-  className: propTypes.string,
 }
 
 export default SelectOnly

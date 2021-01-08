@@ -1,7 +1,8 @@
-import React, { useState, useRef } from 'react'
+import React, { useState } from 'react'
 import propTypes from 'prop-types'
-import { Textarea } from '../index'
 import styled from '@emotion/styled'
+import { ButtonStyled, Textarea } from '../index'
+import { FormInputs, FormSubmit } from '../inputs'
 
 const OrderStars = styled('div')`
   display: flex;
@@ -24,7 +25,6 @@ const OrderRatingForm = ({
   updateRating,
   callback,
 }) => {
-  const submitButton = useRef()
   const [rating, setRating] = useState(orderRating.rating || 0)
   const [comments, setComments] = useState(orderRating.comments || '')
   const stars = [1, 2, 3, 4, 5]
@@ -39,17 +39,15 @@ const OrderRatingForm = ({
     setComments(evt.target.value)
   }
 
-  const handleSubmit = (evt) => {
-    evt.preventDefault()
-    submitButton.current.blur()
+  const handleSubmit = () => {
     const data = { rating, comments }
     updateRating(orderId, data)
     if (callback) callback()
   }
 
   return (
-    <form id="rating-form" className="form" onSubmit={handleSubmit} noValidate>
-      <div className="form__inputs">
+    <form id="rating-form" noValidate>
+      <FormInputs>
         <OrderStars>
           {stars.map((star, index) => {
             return (
@@ -73,12 +71,10 @@ const OrderRatingForm = ({
           showLabel={false}
           placeholder="add comments (optional)"
         />
-      </div>
-      <div className="form__submit">
-        <button className="ot-btn" type="submit" ref={submitButton}>
-          Submit
-        </button>
-      </div>
+      </FormInputs>
+      <FormSubmit>
+        <ButtonStyled onClick={handleSubmit}>Submit Rating</ButtonStyled>
+      </FormSubmit>
     </form>
   )
 }

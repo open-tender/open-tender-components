@@ -1,7 +1,8 @@
-import React, { useState, useRef, useEffect } from 'react'
+import React, { useState, useEffect } from 'react'
 import propTypes from 'prop-types'
 import { optionsOrderNotificationsTemp } from '@open-tender/js'
-import { Input, RadioButtonGroup, Checkbox } from '../index'
+import { ButtonStyled, Input, RadioButtonGroup, Checkbox } from '../index'
+import { FormInputs, FormSubmit } from '../inputs'
 
 const fields = [
   { label: 'First Name', name: 'first_name', type: 'text', required: true },
@@ -28,7 +29,6 @@ const ProfileForm = ({
   buttonText = 'Update Account',
 }) => {
   const { accepts_marketing, order_notifications } = optIns
-  const submitButton = useRef()
   const [data, setData] = useState({})
   const [submitting, setSubmitting] = useState(false)
   const errors = error || {}
@@ -52,8 +52,7 @@ const ProfileForm = ({
     setData({ ...data, [name]: value })
   }
 
-  const handleSubmit = (evt) => {
-    evt.preventDefault()
+  const handleSubmit = () => {
     setSubmitting(true)
     const updatedData = fields.reduce(
       (obj, i) => ({ ...obj, [i.name]: data[i.name] }),
@@ -66,12 +65,11 @@ const ProfileForm = ({
       updatedData.order_notifications = data.order_notifications
     }
     update(updatedData)
-    submitButton.current.blur()
   }
 
   return (
-    <form id={id} className="form" onSubmit={handleSubmit} noValidate>
-      <div className="section__rows">
+    <form id={id} noValidate>
+      <FormInputs>
         {showFields &&
           fields.map((field) => (
             <Input
@@ -114,17 +112,12 @@ const ProfileForm = ({
             />
           </>
         )}
-      </div>
-      <div className="section__submit">
-        <button
-          className="ot-btn"
-          type="submit"
-          disabled={submitting}
-          ref={submitButton}
-        >
+      </FormInputs>
+      <FormSubmit>
+        <ButtonStyled onClick={handleSubmit} disabled={submitting}>
           {buttonText}
-        </button>
-      </div>
+        </ButtonStyled>
+      </FormSubmit>
     </form>
   )
 }

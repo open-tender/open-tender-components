@@ -1,4 +1,4 @@
-import React, { useState, useRef, useEffect } from 'react'
+import React, { useState, useEffect } from 'react'
 import propTypes from 'prop-types'
 import { Input, Textarea, Switch, ButtonStyled } from '..'
 import { FormError, FormInputs, FormSubmit } from '../inputs'

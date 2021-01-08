@@ -1,7 +1,12 @@
-import React, { useRef, useState, useEffect } from 'react'
+import React, { useState, useEffect } from 'react'
 import propTypes from 'prop-types'
-import { Input } from '..'
-import { SubmitButton } from '../inputs'
+import {
+  FormError,
+  FormInputs,
+  FormSubmit,
+  Input,
+  SubmitButton,
+} from '../inputs'
 
 const fields = [
   { label: 'New Password', name: 'new_password', type: 'password' },
@@ -15,7 +20,6 @@ const ResetPasswordForm = ({
   resetForm,
   resetToken,
 }) => {
-  const submitButton = useRef()
   const [data, setData] = useState({})
   const [errors, setErrors] = useState({})
   const [submitting, setSubmitting] = useState(false)
@@ -42,8 +46,7 @@ const ResetPasswordForm = ({
     setData({ ...data, [id]: value })
   }
 
-  const handleSubmit = (evt) => {
-    evt.preventDefault()
+  const handleSubmit = () => {
     const { new_password, confirm } = data
     if (!new_password || new_password.length < 8) {
       setErrors({ new_password: 'Must be at least 8 characters' })
@@ -54,22 +57,12 @@ const ResetPasswordForm = ({
       setSubmitting(true)
       reset(new_password, resetToken)
     }
-    submitButton.current.blur()
   }
 
   return (
-    <form
-      id="reset-password-form"
-      className="form"
-      onSubmit={handleSubmit}
-      noValidate
-    >
-      {formError && (
-        <div className="form__error form__error--top ot-form-error">
-          {formError}
-        </div>
-      )}
-      <div className="form__inputs">
+    <form id="reset-password-form" noValidate>
+      <FormError errMsg={formError} style={{ margin: '0 0 2rem' }} />
+      <FormInputs>
         {fields.map((field) => (
           <Input
             key={field.name}
@@ -82,10 +75,10 @@ const ResetPasswordForm = ({
             required={field.required}
           />
         ))}
-      </div>
-      <div className="form__submit">
-        <SubmitButton submitRef={submitButton} submitting={submitting} />
-      </div>
+      </FormInputs>
+      <FormSubmit>
+        <SubmitButton onClick={handleSubmit} submitting={submitting} />
+      </FormSubmit>
     </form>
   )
 }

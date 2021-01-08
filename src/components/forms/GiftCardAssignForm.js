@@ -1,12 +1,13 @@
-import React, { useState, useRef, useEffect } from 'react'
+import React, { useState, useEffect } from 'react'
 import propTypes from 'prop-types'
-import { Input } from '../index'
+import { ButtonStyled } from '..'
+import { FormError, FormInputs, FormSubmit, Input } from '../inputs'
 
 const GiftCardAssignForm = ({ loading, error, assign, callback }) => {
-  const submitButton = useRef()
   const [cardNumber, setCardNumber] = useState('')
   const [errors, setErrors] = useState({})
   const [submitting, setSubmitting] = useState(false)
+  const errMsg = errors.form && !errors.card_number ? errors.form : null
 
   useEffect(() => {
     if (loading === 'idle') setSubmitting(false)
@@ -17,8 +18,7 @@ const GiftCardAssignForm = ({ loading, error, assign, callback }) => {
     setCardNumber(evt.target.value)
   }
 
-  const handleSubmit = (evt) => {
-    evt.preventDefault()
+  const handleSubmit = () => {
     setSubmitting(true)
     const card_number = parseInt(cardNumber)
     if (isNaN(card_number)) {
@@ -26,22 +26,12 @@ const GiftCardAssignForm = ({ loading, error, assign, callback }) => {
     } else {
       assign(card_number, callback)
     }
-    submitButton.current.blur()
   }
 
   return (
-    <form
-      id="gift-card-form"
-      className="form"
-      onSubmit={handleSubmit}
-      noValidate
-    >
-      {errors.form && !errors.card_number && (
-        <div className="form__error form__error--top ot-form-error">
-          {errors.form}
-        </div>
-      )}
-      <div className="form__inputs">
+    <form id="gift-card-assign-form" noValidate>
+      <FormError errMsg={errMsg} style={{ margin: '0 0 2rem' }} />
+      <FormInputs>
         <Input
           label="Card Number"
           name="card_number"
@@ -51,17 +41,12 @@ const GiftCardAssignForm = ({ loading, error, assign, callback }) => {
           error={errors.card_number}
           required={true}
         />
-      </div>
-      <div className="form__submit">
-        <button
-          className="ot-btn"
-          type="submit"
-          disabled={submitting}
-          ref={submitButton}
-        >
+      </FormInputs>
+      <FormSubmit>
+        <ButtonStyled onClick={handleSubmit} disabled={submitting}>
           {submitting ? 'Submitting' : 'Assign Gift Card'}
-        </button>
-      </div>
+        </ButtonStyled>
+      </FormSubmit>
     </form>
   )
 }

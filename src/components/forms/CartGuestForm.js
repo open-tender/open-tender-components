@@ -1,51 +1,41 @@
-import React, { useRef, useState, useEffect } from 'react'
+import React, { useState, useEffect } from 'react'
 import propTypes from 'prop-types'
 import { Input, SubmitButton } from '..'
+import { FormError, FormInputs, FormSubmit } from '../inputs'
 
 const fields = [
   { label: 'First Name', name: 'first_name', type: 'text', required: true },
   { label: 'Last Name', name: 'last_name', type: 'text', required: true },
 ]
 
-const CartGuestForm = ({ loading, error, cartId, joinCart }) => {
+const CartGuestForm = ({ loading, errMsg, cartId, joinCart }) => {
   const [data, setData] = useState({ cart_id: cartId })
-  const [errors, setErrors] = useState({})
   const [submitting, setSubmitting] = useState(false)
-  const submitButton = useRef()
 
   useEffect(() => {
     return () => {
       setData({})
-      setErrors({})
     }
   }, [])
 
   useEffect(() => {
     if (loading === 'idle') setSubmitting(false)
-    if (error) setErrors(error)
-  }, [loading, error])
+  }, [loading])
 
   const handleChange = (evt) => {
     const { id, value } = evt.target
     setData({ ...data, [id]: value })
   }
 
-  const handleSubmit = (evt) => {
-    evt.preventDefault()
-    setErrors({})
+  const handleSubmit = () => {
     setSubmitting(true)
     joinCart(data)
-    submitButton.current.blur()
   }
 
   return (
-    <form id="signup-form" className="form" onSubmit={handleSubmit} noValidate>
-      {error && (
-        <div className="form__error form__error--top ot-form-error">
-          There are one or more errors below.
-        </div>
-      )}
-      <div className="form__inputs">
+    <form id="cart-guest-form" noValidate>
+      <FormError errMsg={errMsg} style={{ margin: '0 0 2rem' }} />
+      <FormInputs>
         {fields.map((field) => (
           <Input
             key={field.name}
@@ -54,14 +44,13 @@ const CartGuestForm = ({ loading, error, cartId, joinCart }) => {
             type={field.type}
             value={data[field.name]}
             onChange={handleChange}
-            error={errors ? errors[field.name] : ''}
             required={field.required}
           />
         ))}
-      </div>
-      <div className="form__submit">
-        <SubmitButton submitRef={submitButton} submitting={submitting} />
-      </div>
+      </FormInputs>
+      <FormSubmit>
+        <SubmitButton onClick={handleSubmit} submitting={submitting} />
+      </FormSubmit>
     </form>
   )
 }
@@ -69,7 +58,7 @@ const CartGuestForm = ({ loading, error, cartId, joinCart }) => {
 CartGuestForm.displayName = 'CartGuestForm'
 CartGuestForm.propTypes = {
   loading: propTypes.string,
-  error: propTypes.object,
+  errMsg: propTypes.string,
   cartId: propTypes.number,
   joinCart: propTypes.func,
 }

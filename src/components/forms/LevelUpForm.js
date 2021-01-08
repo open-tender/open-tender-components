@@ -1,9 +1,9 @@
-import React, { useState, useRef, useEffect } from 'react'
+import React, { useState, useEffect } from 'react'
 import propTypes from 'prop-types'
-import { Input } from '../index'
+import { FormInputs, FormSubmit, Input } from '../inputs'
+import { ButtonStyled } from '..'
 
 const LevelUpForm = ({ email, loading, error, connect, callback }) => {
-  const submitButton = useRef()
   const [data, setData] = useState({ email })
   const [errors, setErrors] = useState({})
   const [submitting, setSubmitting] = useState(false)
@@ -19,16 +19,14 @@ const LevelUpForm = ({ email, loading, error, connect, callback }) => {
     setData({ ...data, [id]: inputValue })
   }
 
-  const handleSubmit = (evt) => {
-    evt.preventDefault()
+  const handleSubmit = () => {
     setSubmitting(true)
     connect(data, callback)
-    submitButton.current.blur()
   }
 
   return (
-    <form id="levelup-form" className="form" onSubmit={handleSubmit} noValidate>
-      <div className="form__inputs">
+    <form id="levelup-form" noValidate>
+      <FormInputs>
         <Input
           label="Email Address"
           name="email"
@@ -49,17 +47,12 @@ const LevelUpForm = ({ email, loading, error, connect, callback }) => {
           required={true}
           autoComplete="off"
         />
-      </div>
-      <div className="form__submit">
-        <button
-          className="ot-btn"
-          type="submit"
-          disabled={submitting}
-          ref={submitButton}
-        >
+      </FormInputs>
+      <FormSubmit>
+        <ButtonStyled onClick={handleSubmit} disabled={submitting}>
           {submitting ? 'Connecting LevelUp...' : 'Connect LevelUp'}
-        </button>
-      </div>
+        </ButtonStyled>
+      </FormSubmit>
     </form>
   )
 }

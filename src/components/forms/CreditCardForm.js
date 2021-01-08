@@ -1,11 +1,12 @@
-import React, { useState, useRef, useEffect } from 'react'
+import React, { useState, useEffect } from 'react'
 import propTypes from 'prop-types'
 import {
   getCardType,
   makeAcctNumber,
   validateCreditCard,
 } from '@open-tender/js'
-import { Input } from '../index'
+import { ButtonStyled, Input } from '../index'
+import { FormError, FormInputs, FormSubmit } from '../inputs'
 
 const fields = [
   {
@@ -28,8 +29,6 @@ const CreditCardForm = ({
   submitText = 'Add New Card',
   submittingText = 'Authorizing Card...',
 }) => {
-  const submitButton = useRef()
-  const formRef = useRef()
   const [data, setData] = useState({})
   const [cardType, setCardType] = useState('OTHER')
   const [errors, setErrors] = useState({})
@@ -58,8 +57,7 @@ const CreditCardForm = ({
     setData({ ...data, [id]: value })
   }
 
-  const handleSubmit = (evt) => {
-    evt.preventDefault()
+  const handleSubmit = () => {
     setErrors({})
     const { card, errors } = validateCreditCard(data, cardType)
     if (errors) {
@@ -69,23 +67,12 @@ const CreditCardForm = ({
       setSubmitting(true)
       addCard(card, callback)
     }
-    submitButton.current.blur()
   }
 
   return (
-    <form
-      id="credit-card-form"
-      className="form"
-      onSubmit={handleSubmit}
-      ref={formRef}
-      noValidate
-    >
-      {errors.form && (
-        <div className="form__error form__error--top ot-form-error">
-          {errors.form}
-        </div>
-      )}
-      <div className="form__inputs">
+    <form id="credit-card-form" noValidate>
+      <FormError errMsg={errors.form} style={{ margin: '0 0 2rem' }} />
+      <FormInputs>
         {fields.map((field) => (
           <Input
             key={field.name}
@@ -99,17 +86,12 @@ const CreditCardForm = ({
             required={field.required}
           />
         ))}
-      </div>
-      <div className="form__submit">
-        <button
-          className="ot-btn"
-          type="submit"
-          disabled={submitting}
-          ref={submitButton}
-        >
+      </FormInputs>
+      <FormSubmit>
+        <ButtonStyled onClick={handleSubmit} disabled={submitting}>
           {submitting ? submittingText : submitText}
-        </button>
-      </div>
+        </ButtonStyled>
+      </FormSubmit>
     </form>
   )
 }
