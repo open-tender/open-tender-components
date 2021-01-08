@@ -1,6 +1,76 @@
 import React from 'react'
 import propTypes from 'prop-types'
-import { Label } from '.'
+import styled from '@emotion/styled'
+import { FormRow, Label } from '.'
+
+const CheckboxInput = styled('input')`
+  position: absolute;
+  border: 0;
+  clip: rect(0 0 0 0);
+  clip-path: inset(50%);
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  white-space: nowrap;
+`
+
+const CheckboxContainer = styled('span')`
+  width: 100%;
+  flex-grow: 1;
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+`
+
+const CheckboxView = styled('span')`
+  content: '';
+  flex-shrink: 0;
+  display: block;
+  position: relative;
+  width: 1.9rem;
+  height: 1.9rem;
+  padding: 0;
+  margin: 0 1rem 0 0;
+  border-radius: 0.2rem;
+  background-color: ${(props) => props.theme.bgColors.secondary};
+
+  &:before {
+    content: '';
+    position: absolute;
+    width: 1.1rem;
+    height: 0.6rem;
+    background: transparent;
+    top: 0.5rem;
+    left: 0.4rem;
+    border-width: 0.2rem;
+    border-style: solid;
+    border-top: none;
+    border-right: none;
+    transform: scale(1) rotate(-45deg);
+    opacity: 0;
+    color: ${(props) => props.theme.fonts.headings.color};
+  }
+
+  input:checked + &:before {
+    opacity: 1;
+  }
+
+  input:disabled + & {
+    opacity: 0.5;
+  }
+
+  input:disabled + &:before {
+    opacity: 0.5;
+  }
+`
+
+const CheckboxDescription = styled('span')`
+  display: block;
+  line-height: ${(props) => props.theme.lineHeight};
+  font-size: ${(props) => props.theme.fonts.sizes[props.fontSize || 'main']};
+`
 
 export const Checkbox = ({
   label,
@@ -8,39 +78,36 @@ export const Checkbox = ({
   on,
   onChange,
   disabled,
-  classes = '',
   showLabel = false,
   required = false,
   description,
 }) => {
   return (
-    <label
+    <FormRow
       htmlFor={id}
-      className={`form__input ot-border-color checkbox ${classes || ''}`}
-    >
-      <span className="form__input__wrapper ot-border-color">
-        {showLabel && <Label text={label} required={required} />}
-        <span className="input">
-          <input
+      style={{ cursor: 'pointer' }}
+      label={showLabel && <Label text={label} required={required} />}
+      input={
+        <CheckboxContainer>
+          <CheckboxInput
             aria-label={label}
             id={id}
             type="checkbox"
-            className="checkbox__input"
             checked={on}
             disabled={disabled}
             onChange={onChange}
           />
-          <span className="checkbox__custom" />
+          <CheckboxView />
           {label && !showLabel ? (
-            <span className="checkbox__desc">{label}</span>
+            <CheckboxDescription>{label}</CheckboxDescription>
           ) : description ? (
-            <span className="checkbox__desc ot-font-size-small">
+            <CheckboxDescription fontSize="small">
               {description}
-            </span>
+            </CheckboxDescription>
           ) : null}
-        </span>
-      </span>
-    </label>
+        </CheckboxContainer>
+      }
+    />
   )
 }
 

@@ -1,6 +1,7 @@
 import React, { useRef, useState, useEffect } from 'react'
 import propTypes from 'prop-types'
-import { Switch } from '../index'
+import { ButtonStyled, Switch } from '../index'
+import { FormError, FormInputs, FormSubmit } from '../inputs'
 
 const AllergenForm = ({
   allergens,
@@ -11,7 +12,6 @@ const AllergenForm = ({
   updateAllergens,
   callback,
 }) => {
-  const submitButton = useRef()
   const [data, setData] = useState([])
   const [submitting, setSubmitting] = useState(false)
   const allergenIds = data.map((i) => i.allergen_id)
@@ -35,9 +35,7 @@ const AllergenForm = ({
     setData(newData)
   }
 
-  const handleSubmit = (evt) => {
-    evt.preventDefault()
-    submitButton.current.blur()
+  const handleSubmit = () => {
     setSubmitting(true)
     const newData = data.map((i) => ({ allergen_id: i.allergen_id }))
     setAllergens(data)
@@ -47,18 +45,9 @@ const AllergenForm = ({
 
   return allergens ? (
     allergens.length > 0 ? (
-      <form
-        id="allergen-form"
-        className="form"
-        onSubmit={handleSubmit}
-        noValidate
-      >
-        {formError && (
-          <div className="form__error form__error--top ot-form-error">
-            {formError}
-          </div>
-        )}
-        <div className="form__inputs">
+      <form id="allergen-form" noValidate>
+        <FormError errMsg={formError} style={{ margin: '0 0 2rem' }} />
+        <FormInputs>
           {allergens.map((allergen) => (
             <Switch
               key={allergen.allergen_id}
@@ -68,17 +57,12 @@ const AllergenForm = ({
               onChange={handleChange}
             />
           ))}
-        </div>
-        <div className="form__submit">
-          <button
-            className="ot-btn"
-            type="submit"
-            disabled={submitting}
-            ref={submitButton}
-          >
-            Update Selected Allergens
-          </button>
-        </div>
+        </FormInputs>
+        <FormSubmit>
+          <ButtonStyled onClick={handleSubmit} disabled={submitting}>
+            Submit Updates
+          </ButtonStyled>
+        </FormSubmit>
       </form>
     ) : (
       <p>This brand {"doesn't"} currently have any allergens configured</p>

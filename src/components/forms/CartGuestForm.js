@@ -1,7 +1,6 @@
 import React, { useRef, useState, useEffect } from 'react'
 import propTypes from 'prop-types'
-import { Input } from '../index'
-import SubmitButton from './SubmitButton'
+import { Input, SubmitButton } from '..'
 
 const fields = [
   { label: 'First Name', name: 'first_name', type: 'text', required: true },

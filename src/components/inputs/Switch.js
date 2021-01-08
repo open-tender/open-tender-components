@@ -71,7 +71,6 @@ export const Switch = ({
             aria-label={label}
             id={id}
             type="checkbox"
-            className="switch__input"
             checked={on}
             disabled={disabled}
             onChange={onChange}

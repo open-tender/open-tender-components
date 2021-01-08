@@ -1,7 +1,7 @@
 import React, { useRef, useState, useEffect } from 'react'
 import propTypes from 'prop-types'
-import { Input } from '../index'
-import SubmitButton from './SubmitButton'
+import { Input } from '..'
+import { SubmitButton } from '../inputs'
 
 const fields = [
   { label: 'New Password', name: 'new_password', type: 'password' },

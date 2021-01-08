@@ -15,7 +15,6 @@ import GiftCardAssignForm from './GiftCardAssignForm'
 import GiftCardAssignOtherForm from './GiftCardAssignOtherForm'
 import GiftCardsForm from './GiftCardsForm'
 import DonationForm from './DonationForm'
-import SubmitButton from './SubmitButton'
 
 export {
   SignUpForm,
@@ -35,5 +34,4 @@ export {
   GiftCardAssignOtherForm,
   GiftCardsForm,
   DonationForm,
-  SubmitButton,
 }

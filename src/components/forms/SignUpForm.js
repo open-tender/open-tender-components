@@ -1,8 +1,8 @@
-import React, { useRef, useState, useEffect } from 'react'
+import React, { useState, useEffect } from 'react'
 import propTypes from 'prop-types'
 import { optionsOrderNotificationsTemp } from '@open-tender/js'
-import { Input, Checkbox, RadioButtonGroup } from '../index'
-import SubmitButton from './SubmitButton'
+import { Input, Checkbox, RadioButtonGroup } from '..'
+import { FormError, FormInputs, FormSubmit, SubmitButton } from '../inputs'
 
 const fields = [
   { label: 'First Name', name: 'first_name', type: 'text', required: true },
@@ -43,10 +43,10 @@ const SignUpForm = ({
   const [data, setData] = useState(initialState)
   const [errors, setErrors] = useState({})
   const [submitting, setSubmitting] = useState(false)
-  const submitButton = useRef()
   const formfields = hasThanx
     ? fields.filter((i) => i.name !== 'password')
     : fields
+  const errMsg = error ? 'There are one or more errors below.' : null
 
   useEffect(() => {
     return () => {
@@ -71,22 +71,16 @@ const SignUpForm = ({
     setData({ ...data, [name]: value })
   }
 
-  const handleSubmit = (evt) => {
-    evt.preventDefault()
+  const handleSubmit = () => {
     setErrors({})
     setSubmitting(true)
     signUp(data, callback)
-    submitButton.current.blur()
   }
 
   return (
-    <form id="signup-form" className="form" onSubmit={handleSubmit} noValidate>
-      {error && (
-        <div className="form__error form__error--top ot-form-error">
-          There are one or more errors below.
-        </div>
-      )}
-      <div className="form__inputs">
+    <form id="signup-form" noValidate>
+      <FormError errMsg={errMsg} style={{ margin: '0 0 2rem' }} />
+      <FormInputs>
         {formfields.map((field) => (
           <Input
             key={field.name}
@@ -101,37 +95,32 @@ const SignUpForm = ({
           />
         ))}
         {order_notifications && (
-          <>
-            <RadioButtonGroup
-              label={order_notifications.title}
-              name="order_notifications"
-              value={data.order_notifications}
-              options={optionsOrderNotificationsTemp}
-              onChange={handleRadio}
-              showLabel={true}
-              required={true}
-              description={order_notifications.description}
-            />
-          </>
+          <RadioButtonGroup
+            label={order_notifications.title}
+            name="order_notifications"
+            value={data.order_notifications}
+            options={optionsOrderNotificationsTemp}
+            onChange={handleRadio}
+            showLabel={true}
+            required={true}
+            description={order_notifications.description}
+          />
         )}
         {accepts_marketing && (
-          <>
-            <Checkbox
-              showLabel={true}
-              required={true}
-              label={accepts_marketing.title}
-              id="accepts_marketing"
-              on={data.accepts_marketing}
-              onChange={handleChange}
-              description={accepts_marketing.description}
-              classes="-input"
-            />
-          </>
+          <Checkbox
+            showLabel={true}
+            required={true}
+            label={accepts_marketing.title}
+            id="accepts_marketing"
+            on={data.accepts_marketing}
+            onChange={handleChange}
+            description={accepts_marketing.description}
+          />
         )}
-      </div>
-      <div className="form__submit">
-        <SubmitButton submitRef={submitButton} submitting={submitting} />
-      </div>
+      </FormInputs>
+      <FormSubmit>
+        <SubmitButton onClick={handleSubmit} submitting={submitting} />
+      </FormSubmit>
     </form>
   )
 }

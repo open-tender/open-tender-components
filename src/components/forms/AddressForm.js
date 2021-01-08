@@ -1,6 +1,7 @@
 import React, { useState, useRef, useEffect } from 'react'
 import propTypes from 'prop-types'
-import { Input, Textarea, Switch } from '../index'
+import { Input, Textarea, Switch, ButtonStyled } from '..'
+import { FormError, FormInputs, FormSubmit } from '../inputs'
 
 const fields = [
   { label: 'Company', name: 'company', type: 'text' },
@@ -12,7 +13,6 @@ const fields = [
 ]
 
 const AddressForm = ({ address, loading, error, update, callback }) => {
-  const submitButton = useRef()
   const [data, setData] = useState(address)
   const [errors, setErrors] = useState({})
   const [submitting, setSubmitting] = useState(false)
@@ -28,8 +28,7 @@ const AddressForm = ({ address, loading, error, update, callback }) => {
     setData({ ...data, [id]: inputValue })
   }
 
-  const handleSubmit = (evt) => {
-    evt.preventDefault()
+  const handleSubmit = () => {
     setSubmitting(true)
     const updatedData = { ...data }
     delete updatedData.customer_address_id
@@ -37,17 +36,12 @@ const AddressForm = ({ address, loading, error, update, callback }) => {
     delete updatedData.last_used_at
     const addressId = data.customer_address_id
     update(addressId, updatedData, callback)
-    submitButton.current.blur()
   }
 
   return (
-    <form id="address-form" className="form" onSubmit={handleSubmit} noValidate>
-      {errors.form && (
-        <div className="form__error form__error--top ot-form-error">
-          {errors.form}
-        </div>
-      )}
-      <div className="form__inputs">
+    <form id="address-form" noValidate>
+      <FormError errMsg={errors.form} style={{ margin: '0 0 2rem' }} />
+      <FormInputs>
         {fields.map((field) => {
           switch (field.type) {
             case 'textarea':
@@ -88,17 +82,12 @@ const AddressForm = ({ address, loading, error, update, callback }) => {
               )
           }
         })}
-      </div>
-      <div className="form__submit">
-        <button
-          className="ot-btn"
-          type="submit"
-          disabled={submitting}
-          ref={submitButton}
-        >
+      </FormInputs>
+      <FormSubmit>
+        <ButtonStyled onClick={handleSubmit} disabled={submitting}>
           Submit Updates
-        </button>
-      </div>
+        </ButtonStyled>
+      </FormSubmit>
     </form>
   )
 }

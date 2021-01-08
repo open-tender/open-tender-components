@@ -54,37 +54,38 @@ import {
 } from './CheckoutForm'
 import CheckoutForm from './CheckoutForm'
 
-// import {
-//   Label,
-//   Error,
-//   Input,
-//   Textarea,
-//   Select,
-//   Switch,
-//   Checkbox,
-//   RadioButtonGroup,
-// } from './Inputs'
-
 import {
   Checkbox,
+  FormApplied,
   FormError,
+  FormFieldset,
+  FormInputs,
+  FormLegend,
   FormRow,
+  FormSubmit,
   Input,
   Label,
   RadioButtonGroup,
   Select,
+  SubmitButton,
   Switch,
   Textarea,
 } from './inputs'
 
 export {
   Checkbox,
+  FormApplied,
   FormError,
+  FormFieldset,
+  FormInputs,
+  FormLegend,
   FormRow,
+  FormSubmit,
   Input,
   Label,
   RadioButtonGroup,
   Select,
+  SubmitButton,
   Switch,
   Textarea,
   BgImage,

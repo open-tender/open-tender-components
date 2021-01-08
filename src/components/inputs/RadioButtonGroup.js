@@ -1,6 +1,118 @@
 import React from 'react'
 import propTypes from 'prop-types'
-import { Label } from '.'
+import styled from '@emotion/styled'
+import { FormRow, Label } from '.'
+
+const RadioGroupView = styled('span')`
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+
+  > span {
+    width: 100%;
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    flex-wrap: wrap;
+
+    &:first-of-type {
+      @media (max-width: ${(props) => props.theme.breakpoints.mobile}) {
+        flex-direction: column;
+      }
+    }
+  }
+`
+
+const RadioButtonLabel = styled('label')`
+  position: relative;
+  line-height: 1;
+  cursor: pointer;
+  width: auto;
+  margin: 0 2.5rem 1rem 0;
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+`
+
+const RadioButtonInput = styled('input')`
+  position: absolute;
+  border: 0;
+  clip: rect(0 0 0 0);
+  clip-path: inset(50%);
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  white-space: nowrap;
+`
+
+const RadioButtonView = styled('span')`
+  content: '';
+  display: block;
+  position: relative;
+  width: 2.4rem;
+  height: 2.4rem;
+  padding: 0;
+  border-radius: 100%;
+  border-width: 0.2rem;
+  border-style: solid;
+  transition: all 0.15s ease;
+  background-color: ${(props) => props.theme.bgColors.primary};
+  border-color: ${(props) => props.theme.border.color};
+
+  input:checked + & {
+    border-color: ${(props) => props.theme.fonts.headings.color};
+  }
+
+  input:checked + &:before {
+    content: '';
+    position: absolute;
+    top: 0.3rem;
+    left: 0.3rem;
+    width: 1.4rem;
+    height: 1.4rem;
+    border-radius: 100%;
+    background-color: ${(props) => props.theme.fonts.headings.color};
+  }
+`
+
+const RadioButtonDescription = styled('span')`
+  display: block;
+  margin: 0 0 0 0.8rem;
+  font-size: ${(props) => props.theme.fonts.sizes.small};
+`
+
+const RadioButtonComment = styled('span')`
+  display: block;
+  font-size: ${(props) => props.theme.fonts.sizes.small};
+`
+
+const RadioButton = ({ option, name, value, onChange }) => {
+  return (
+    <RadioButtonLabel htmlFor={option.value}>
+      <RadioButtonInput
+        id={option.value}
+        name={name}
+        type="radio"
+        value={option.value}
+        checked={option.value === value}
+        onChange={onChange}
+        aria-label={option.name}
+      />
+      <RadioButtonView />
+      <RadioButtonDescription>{option.name}</RadioButtonDescription>
+    </RadioButtonLabel>
+  )
+}
+
+RadioButton.displayName = 'RadioButton'
+RadioButton.propTypes = {
+  option: propTypes.object,
+  name: propTypes.string,
+  value: propTypes.oneOfType([propTypes.string, propTypes.number]),
+  onChange: propTypes.func,
+}
 
 export const RadioButtonGroup = ({
   label,
@@ -10,48 +122,32 @@ export const RadioButtonGroup = ({
   onChange,
   showLabel,
   required,
-  classes = '',
   description,
 }) => {
   return (
-    <label
-      className={`form__input radio-group__label -input ot-border-color ${classes}`}
-    >
-      <span className={`form__input__wrapper ot-border-color`}>
-        {showLabel && <Label text={label} required={required} />}
-        <span className="radio-group__wrapper">
-          <span className="radio-group">
+    <FormRow
+      as="div"
+      style={{ cursor: 'pointer' }}
+      label={showLabel && <Label text={label} required={required} />}
+      input={
+        <RadioGroupView>
+          <span>
             {options.map((option) => (
-              <label
+              <RadioButton
                 key={option.value}
-                htmlFor={option.value}
-                className={`label radio`}
-              >
-                <input
-                  id={option.value}
-                  name={name}
-                  type="radio"
-                  value={option.value}
-                  className="radio__input"
-                  checked={option.value === value}
-                  onChange={onChange}
-                  aria-label={option.name}
-                />
-                <span className="radio__custom" />
-                <span className="radio__desc ot-font-size-small">
-                  {option.name}
-                </span>
-              </label>
+                option={option}
+                name={name}
+                value={value}
+                onChange={onChange}
+              />
             ))}
           </span>
-        </span>
-      </span>
-      {description && description.length && (
-        <span className="form__input__comment ot-font-size-small">
-          {description}
-        </span>
-      )}
-    </label>
+          {description && description.length && (
+            <RadioButtonComment>{description}</RadioButtonComment>
+          )}
+        </RadioGroupView>
+      }
+    />
   )
 }
 

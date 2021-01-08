@@ -7,9 +7,10 @@ import Input from './Input'
 import Label from './Label'
 import RadioButtonGroup from './RadioButtonGroup'
 import Select from './Select'
+import SubmitButton from './SubmitButton'
 import Switch from './Switch'
 import Textarea from './Textarea'
-import { FormInputs, FormFieldset } from './Styled'
+import { FormInputs, FormFieldset, FormSubmit } from './Styled'
 
 export {
   Checkbox,
@@ -19,10 +20,12 @@ export {
   FormInputs,
   FormLegend,
   FormRow,
+  FormSubmit,
   Input,
   Label,
   RadioButtonGroup,
   Select,
+  SubmitButton,
   Switch,
   Textarea,
 }
