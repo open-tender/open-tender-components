@@ -37,7 +37,7 @@ CheckoutLabel.displayName = 'CheckoutLabel'
 CheckoutLabel.propTypes = {
   title: propTypes.string,
   description: propTypes.string,
-  alert: propTypes.oneOfType([propTypes.string, propTypes.object]),
+  alert: propTypes.oneOfType([propTypes.string, propTypes.element]),
 }
 
 export default CheckoutLabel

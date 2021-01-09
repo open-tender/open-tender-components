@@ -10,6 +10,7 @@ import { Input, Textarea, Switch, ButtonStyled, Preface } from '..'
 import { CheckoutTip } from '.'
 import { FormContext } from './CheckoutForm'
 import { FormFieldset, FormInputs, FormLegend, FormRow } from '../inputs'
+import Checkmark from '../Checkmark'
 
 const CheckoutDetails = () => {
   const {
@@ -41,9 +42,10 @@ const CheckoutDetails = () => {
   const curbside = check.config.order_fulfillment
   const showEatingUtensils =
     displayed.includes('eatingUtensils') || required.includes('eatingUtensils')
-  const showServingUtensils =
-    displayed.includes('servingUtensils') ||
-    required.includes('servingUtensils')
+  const showServingUtensils = !isCatering
+    ? false
+    : displayed.includes('servingUtensils') ||
+      required.includes('servingUtensils')
   const showPersonCount =
     displayed.includes('count') || required.includes('count')
   const showNotes = displayed.includes('notes') || required.includes('notes')
@@ -54,10 +56,13 @@ const CheckoutDetails = () => {
 
   useEffect(() => {
     if (isEmpty(form.details) && check.details) {
-      setDetails(check.details)
-      updateForm({ details: check.details })
+      const checkDetails = isCatering
+        ? check.details
+        : { ...check.details, serving_utensils: false }
+      setDetails(checkDetails)
+      updateForm({ details: checkDetails })
     }
-  }, [form.details, check.details, updateForm])
+  }, [form.details, check.details, updateForm, isCatering])
 
   const debouncedUpdate = useCallback(
     debounce((newDetails) => updateForm({ details: newDetails }), 500),

@@ -66,7 +66,6 @@ const CheckoutForm = ({
   autoSelect,
   hasThanx,
 }) => {
-  const submitButton = useRef()
   const {
     check,
     form,
@@ -204,7 +203,6 @@ const CheckoutForm = ({
   const handleSubmit = () => {
     dispatch(setSubmitting(true))
     dispatch(submitOrder())
-    // submitButton.current.blur()
   }
 
   return (
@@ -273,7 +271,6 @@ const CheckoutForm = ({
             type="submit"
             onClick={handleSubmit}
             disabled={submitting || !isPaid}
-            ref={submitButton}
             size="big"
           >
             Submit Order

@@ -58,55 +58,53 @@ const CheckoutDiscounts = () => {
           const isApplied = discountIds.includes(i.id)
           const isPending = i.id === pendingDiscount
           return (
-            <>
-              <FormRow
-                key={i.id}
-                type="div"
-                labelWidth="auto"
-                label={
-                  <CheckoutLabel
-                    title={i.name}
-                    description={i.description}
-                    alert={
-                      !i.is_optional && (
-                        <Text color="success">
-                          Credit has automatically been applied to your order.
-                        </Text>
-                      )
-                    }
-                  />
-                }
-                input={
-                  <>
-                    {isApplied ? (
-                      <>
-                        <FormApplied />
-                        <ButtonStyled
-                          label={`Remove ${i.name} discount of ${i.amount}`}
-                          icon={iconMap.remove}
-                          onClick={() => removeDiscount(i.id)}
-                          disabled={isPending || !i.is_optional}
-                          size="header"
-                          color="header"
-                        >
-                          Remove
-                        </ButtonStyled>
-                      </>
-                    ) : (
+            <FormRow
+              key={i.id}
+              type="div"
+              labelWidth="auto"
+              label={
+                <CheckoutLabel
+                  title={i.name}
+                  description={i.description}
+                  alert={
+                    i.is_optional ? null : (
+                      <Text color="success">
+                        Credit has automatically been applied to your order.
+                      </Text>
+                    )
+                  }
+                />
+              }
+              input={
+                <>
+                  {isApplied ? (
+                    <>
+                      <FormApplied />
                       <ButtonStyled
-                        label={`Apply ${i.name} discount of ${i.amount}`}
-                        icon={iconMap.add}
-                        onClick={() => applyDiscount(i.id, i.ext_id)}
+                        label={`Remove ${i.name} discount of ${i.amount}`}
+                        icon={iconMap.remove}
+                        onClick={() => removeDiscount(i.id)}
+                        disabled={isPending || !i.is_optional}
                         size="header"
                         color="header"
                       >
-                        Apply
+                        Remove
                       </ButtonStyled>
-                    )}
-                  </>
-                }
-              />
-            </>
+                    </>
+                  ) : (
+                    <ButtonStyled
+                      label={`Apply ${i.name} discount of ${i.amount}`}
+                      icon={iconMap.add}
+                      onClick={() => applyDiscount(i.id, i.ext_id)}
+                      size="header"
+                      color="header"
+                    >
+                      Apply
+                    </ButtonStyled>
+                  )}
+                </>
+              }
+            />
           )
         })}
       </FormInputs>
