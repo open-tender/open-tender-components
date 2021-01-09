@@ -6,15 +6,15 @@ import { FormError } from '.'
 const FormRowView = styled('label')`
   display: block;
   padding: 1.25rem 0;
-  border-bottom-style: solid;
-  border-bottom-width: ${(props) => props.theme.border.width};
-  border-bottom-color: ${(props) => props.theme.border.color};
+  border-top-style: solid;
+  border-top-width: ${(props) => props.theme.border.width};
+  border-top-color: ${(props) => props.theme.border.color};
   @media (max-width: ${(props) => props.theme.breakpoints.mobile}) {
     padding: 0.75rem 0;
     ${(props) => (props.isInput ? `border: 0;` : null)}
   }
 
-  &:last-child {
+  &:first-child {
     border: 0;
   }
 `

@@ -143,6 +143,7 @@ const CheckoutPromoCodes = () => {
             <FormRow
               key={checkPromoCode}
               type="div"
+              isInput={true}
               label={<Preface size="xSmall">{checkPromoCode}</Preface>}
               input={
                 <>
@@ -173,6 +174,7 @@ const CheckoutPromoCodes = () => {
         {email && (
           <FormRow
             type="div"
+            isInput={true}
             label={<Preface size="xSmall">New Promo Code</Preface>}
             input={
               <>
