@@ -2,7 +2,7 @@ import React, { useState, useCallback, useContext } from 'react'
 import debounce from 'lodash/debounce'
 import { Input } from '..'
 import { FormContext } from './CheckoutForm'
-import { FormFieldset, FormInputs, FormLegend } from '../inputs'
+import { FormError, FormFieldset, FormInputs, FormLegend } from '../inputs'
 
 const initialState = {
   emaiil: '',
@@ -62,7 +62,7 @@ const CheckoutGuest = () => {
     isCatering,
     hasThanx
   )
-  const customerErrors = errors.customer || {}
+  const formErrors = errors.customer || {}
 
   // https://medium.com/p/5489fc3461b3/responses/show
   // https://codesandbox.io/s/functional-component-debounce-cunf7
@@ -83,6 +83,12 @@ const CheckoutGuest = () => {
     <FormFieldset>
       <FormLegend title={config.guest.title} subtitle={config.guest.subtitle} />
       <FormInputs>
+        {formErrors.account ? (
+          <FormError
+            errMsg={formErrors.account}
+            style={{ margin: '0 0 2rem' }}
+          />
+        ) : null}
         {fields.map((field) => {
           const input = contactConfig[field.name]
           return (
@@ -95,7 +101,7 @@ const CheckoutGuest = () => {
                 type={field.type}
                 value={customer[field.name]}
                 onChange={handleChange}
-                error={customerErrors[field.name]}
+                error={formErrors[field.name]}
                 required={input.required}
                 autoComplete={field.autoComplete}
               />

@@ -2,7 +2,13 @@ import React, { useState, useCallback, useContext } from 'react'
 import debounce from 'lodash/debounce'
 import { ButtonLink, ButtonStyled, FormRow, Heading, Input, Preface } from '..'
 import { FormContext } from './CheckoutForm'
-import { FormFieldset, FormInputs, FormLegend, Label } from '../inputs'
+import {
+  FormError,
+  FormFieldset,
+  FormInputs,
+  FormLegend,
+  Label,
+} from '../inputs'
 
 const makeAccountConfig = (required, displayed) => {
   return {
@@ -69,6 +75,12 @@ const CheckoutAccount = () => {
         }
       />
       <FormInputs>
+        {formErrors.account ? (
+          <FormError
+            errMsg={formErrors.account}
+            style={{ margin: '0 0 2rem' }}
+          />
+        ) : null}
         <FormRow
           type="div"
           label={<Label text="Account" />}
