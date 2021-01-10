@@ -52,7 +52,7 @@ SelectOnly.displayName = 'SelectOnly'
 SelectOnly.propTypes = {
   label: propTypes.string,
   name: propTypes.string,
-  value: propTypes.string,
+  value: propTypes.oneOfType([propTypes.string, propTypes.number]),
   onChange: propTypes.func,
   disabled: propTypes.bool,
   options: propTypes.array,

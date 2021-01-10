@@ -28,7 +28,7 @@ export const Select = ({
         />
       }
       errMsg={error}
-      // isInput={true}
+      isInput={true}
     />
   )
 }

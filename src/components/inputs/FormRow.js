@@ -6,12 +6,9 @@ import { FormError } from '.'
 const FormRowView = styled('label')`
   display: block;
   padding: 1.25rem 0;
-  // border-top-style: solid;
-  // border-top-width: ${(props) => props.theme.border.width};
-  // border-top-color: ${(props) => props.theme.border.color};
   @media (max-width: ${(props) => props.theme.breakpoints.mobile}) {
     padding: 0.75rem 0;
-    ${(props) => (props.isInput ? `border: 0;` : null)}
+    ${(props) => (props.isInput ? `border: 0 !important;` : null)}
   }
 
   & + * {
@@ -19,10 +16,6 @@ const FormRowView = styled('label')`
     border-top-width: ${(props) => props.theme.border.width};
     border-top-color: ${(props) => props.theme.border.color};
   }
-
-  // &:first-child {
-  //   border: 0;
-  // }
 `
 
 const FormRowContainer = styled('span')`
