@@ -41,8 +41,10 @@ const GiftCardsRow = styled('span')`
   > span {
     &:first-of-type {
       flex: 0 0 12rem;
-      // width: 12rem;
       margin: 0 1rem 0 0;
+      @media (max-width: ${(props) => props.theme.breakpoints.mobile}) {
+        flex: 0 0 8rem;
+      }
     }
 
     &:last-of-type {

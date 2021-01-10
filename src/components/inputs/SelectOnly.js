@@ -13,7 +13,7 @@ const SelectArrow = styled('span')`
   display: block;
   content: ' ';
   z-index: 2;
-  bottom: 1.8rem;
+  bottom: 2rem;
   right: 1.5rem;
   width: 1.1rem;
   height: 1.1rem;
