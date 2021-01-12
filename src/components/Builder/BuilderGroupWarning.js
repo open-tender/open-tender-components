@@ -8,19 +8,19 @@ const BuilderGroupWarningContainer = styled('div')`
   align-items: center;
 `
 
-const BuilderGroupIncluded = styled('div')`
-  max-width: 9.2rem;
-  padding: 0 1rem 0 0;
-  text-align: center;
-  color: ${(props) =>
-    props.theme.colors[props.remaining ? 'success' : 'secondary']};
-  font-size: ${(props) => props.theme.fonts.sizes.small};
-  @media (max-width: ${(props) => props.theme.breakpoints.mobile}) {
-    max-width: 7.2rem;
-    padding: 0 0.25rem 0 0;
-    font-size: ${(props) => props.theme.fonts.sizes.xSmall};
-  }
-`
+// const BuilderGroupIncluded = styled('div')`
+//   max-width: 9.2rem;
+//   padding: 0 1rem 0 0;
+//   text-align: center;
+//   color: ${(props) =>
+//     props.theme.colors[props.remaining ? 'success' : 'secondary']};
+//   font-size: ${(props) => props.theme.fonts.sizes.small};
+//   @media (max-width: ${(props) => props.theme.breakpoints.mobile}) {
+//     max-width: 7.2rem;
+//     padding: 0 0.25rem 0 0;
+//     font-size: ${(props) => props.theme.fonts.sizes.xSmall};
+//   }
+// `
 
 const BuilderGroupWarningView = styled('div')`
   min-width: 9.2rem;
@@ -68,14 +68,14 @@ const BuildGroupAlert = styled('span')`
   border-color: ${(props) => props.theme.colors.light};
 `
 
-const BuilderGroupWarning = ({ quantity, included, min, max }) => {
+const BuilderGroupWarning = ({ quantity, min, max }) => {
   return (
     <BuilderGroupWarningContainer>
-      {included !== 0 && max !== 1 && (
+      {/* {included !== 0 && max !== 1 && (
         <BuilderGroupIncluded remaining={quantity < included}>
-          {included} included at no charge
+          ({included} included)
         </BuilderGroupIncluded>
-      )}
+      )} */}
       <BuilderGroupWarningView>
         {quantity < min ? (
           <BuilderGroupQuantity>

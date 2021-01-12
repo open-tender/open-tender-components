@@ -20,10 +20,14 @@ const BuilderGroupHeaderDescription = styled('p')`
 `
 
 const BuilderGroupHeader = ({ group }) => {
+  const { included, max } = group
   return (
     <BuilderGroupHeaderView>
       <div>
-        <BuilderGroupHeaderName>{group.name}</BuilderGroupHeaderName>
+        <BuilderGroupHeaderName>
+          {group.name}
+          {included !== 0 && max !== 1 ? ` (${included} included)` : null}
+        </BuilderGroupHeaderName>
         <BuilderGroupHeaderDescription>
           {group.description}
         </BuilderGroupHeaderDescription>
