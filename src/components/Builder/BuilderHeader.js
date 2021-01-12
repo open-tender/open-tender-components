@@ -4,12 +4,8 @@ import styled from '@emotion/styled'
 import { displayPrice } from '@open-tender/js'
 import BuilderNutrition from './BuilderNutrition'
 import BuilderIngredients from './BuilderIngredients'
-import { BgImage, ButtonLink } from '..'
-
-const BuilderImage = styled(BgImage)`
-  height: 24rem;
-  background-color: ${(props) => props.theme.bgColors.secondary};
-`
+import BuilderImage from './BuilderImage'
+import { ButtonLink } from '..'
 
 const BuilderInfo = styled('div')`
   background-color: ${(props) => props.theme.bgColors.primary};
@@ -70,7 +66,7 @@ const BuilderNutritionButtons = styled('div')`
   }
 `
 
-const BuilderHeader = ({ item, displaySettings }) => {
+const BuilderHeader = ({ item, displaySettings, spinner }) => {
   const [showInfo, setShowInfo] = useState(false)
   const [showIngredients, setShowIngredients] = useState(false)
   const {
@@ -81,6 +77,7 @@ const BuilderHeader = ({ item, displaySettings }) => {
   } = displaySettings
   const hasCals = showCals && item.cals
   const hasIngredients = item.ingredients && item.ingredients.length > 0
+  const imageUrl = showImage && item.imageUrl ? item.imageUrl : null
 
   const toggleShowInfo = () => {
     if (showIngredients) setShowIngredients(false)
@@ -92,13 +89,9 @@ const BuilderHeader = ({ item, displaySettings }) => {
     setShowIngredients(!showIngredients)
   }
 
-  const bgStyle =
-    showImage && item.imageUrl
-      ? { backgroundImage: `url(${item.imageUrl}` }
-      : null
   return (
     <div>
-      {bgStyle && <BuilderImage style={bgStyle}>&nbsp;</BuilderImage>}
+      {imageUrl && <BuilderImage imageUrl={imageUrl} spinner={spinner} />}
       <BuilderInfo>
         <BuilderName id="dialogTitle">{item.name}</BuilderName>
         <BuilderDetails>
@@ -156,6 +149,7 @@ BuilderHeader.displayName = 'BuilderHeader'
 BuilderHeader.propTypes = {
   item: propTypes.object,
   displaySettings: propTypes.object,
+  spinner: propTypes.oneOfType([propTypes.node, propTypes.element]),
 }
 
 export default BuilderHeader

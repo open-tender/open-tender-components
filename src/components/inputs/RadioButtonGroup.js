@@ -18,6 +18,7 @@ const RadioGroupView = styled('span')`
     &:first-of-type {
       @media (max-width: ${(props) => props.theme.breakpoints.mobile}) {
         flex-direction: column;
+        align-items: flex-start;
       }
     }
   }

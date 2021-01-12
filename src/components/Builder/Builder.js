@@ -180,6 +180,7 @@ const Builder = ({
   iconMap,
   displaySettings,
   cartId,
+  spinner,
 }) => {
   const {
     item,
@@ -201,7 +202,7 @@ const Builder = ({
   return (
     <BuilderView>
       <BuilderContent>
-        {renderHeader({ item, displaySettings })}
+        {renderHeader({ item, displaySettings, spinner })}
         <BuilderBody>
           {displaySettings.madeFor && !cartId && (
             <BuilderMadeFor>
@@ -309,6 +310,7 @@ Builder.propTypes = {
   closeModal: propTypes.func,
   displaySettings: propTypes.object,
   cartId: propTypes.number,
+  spinner: propTypes.oneOfType([propTypes.node, propTypes.element]),
 }
 
 export default Builder

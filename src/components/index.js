@@ -72,6 +72,8 @@ import {
   Textarea,
 } from './inputs'
 
+import { useImage } from './hooks'
+
 export {
   Checkbox,
   FormApplied,
@@ -138,4 +140,5 @@ export {
   Preface,
   Text,
   useBuilder,
+  useImage,
 }
