@@ -1,6 +1,6 @@
 import React, { useContext } from 'react'
 import propTypes from 'prop-types'
-import { tenderTypeNamesMap } from '@open-tender/js'
+import { tenderTypeNamesMap, capitalize } from '@open-tender/js'
 import { ButtonStyled } from '..'
 import { FormContext } from './CheckoutForm'
 import { TendersContext } from './CheckoutTenders'
@@ -38,6 +38,10 @@ CheckoutTenderLabel.propTypes = {
   name: propTypes.string,
 }
 
+const makeTenderName = (tenderType) => {
+  return capitalize(tenderType.replace('_', ''))
+}
+
 const CheckoutTender = ({ tenderType }) => {
   const formContext = useContext(FormContext)
   const { check } = formContext
@@ -57,8 +61,8 @@ const CheckoutTender = ({ tenderType }) => {
     iconMap,
     showApplePay,
   } = tenderContext
-  const name = tenderTypeNamesMap[tenderType]
-  const icon = iconMap[tenderType.toLowerCase()]
+  const name = tenderTypeNamesMap[tenderType] || makeTenderName(tenderType)
+  const icon = iconMap[tenderType.toLowerCase()] || iconMap.cash
   const label = <CheckoutTenderLabel icon={icon} name={name} />
   const isApplied = tenderTypesApplied.includes(tenderType)
   const houseAccounts = check.customer
