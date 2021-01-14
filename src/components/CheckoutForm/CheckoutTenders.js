@@ -13,6 +13,8 @@ import { FormContext } from './CheckoutForm'
 
 export const TendersContext = createContext(null)
 
+const validTenderTypes = ['CASH', 'CREDIT', 'LEVELUP', 'HOUSE_ACCOUNT', 'COMO']
+
 const CheckoutTenders = () => {
   const [showCredit, setShowCredit] = useState(false)
   const [showHouseAccount, setShowHouseAccount] = useState(false)
@@ -21,9 +23,7 @@ const CheckoutTenders = () => {
   const { iconMap = {}, config, check, form, errors, updateForm } = formContext
   const { tender_types } = check.config
   // const hasApplePay = tender_types.includes('APPLE_PAY')
-  const tenderTypes = tender_types.filter(
-    (i) => !['GIFT_CARD', 'APPLE_PAY'].includes(i)
-  )
+  const tenderTypes = tender_types.filter((i) => validTenderTypes.includes(i))
   const tenderTypesApplied = useMemo(
     () => form.tenders.map((i) => i.tender_type),
     [form.tenders]

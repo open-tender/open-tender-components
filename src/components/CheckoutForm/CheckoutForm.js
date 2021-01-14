@@ -12,6 +12,7 @@ import {
   checkAmountRemaining,
   timezoneMap,
   prepareOrder,
+  contains,
 } from '@open-tender/js'
 import {
   updateCheckoutCustomer,
@@ -55,6 +56,17 @@ const CheckoutFormFooter = styled('div')`
   }
 `
 
+const checkHasApplePay = (check) => {
+  const hasApplePay = check
+    ? check.config.tender_types.includes('APPLE_PAY')
+    : false
+  const isSandbox = contains(window.location.hostname, [
+    'sandbox.opentender.io',
+    'localhost',
+  ])
+  return hasApplePay && isSandbox
+}
+
 const CheckoutForm = ({
   dispatch,
   history,
@@ -97,9 +109,7 @@ const CheckoutForm = ({
   const hasGiftCardTender = check
     ? check.config.tender_types.includes('GIFT_CARD')
     : false
-  const hasApplePay = check
-    ? check.config.tender_types.includes('APPLE_PAY')
-    : false
+  const hasApplePay = checkHasApplePay(check)
   const isComplete = completedOrder ? true : false
   const pending = loading === 'pending'
   const checkUpdating = submitting ? false : pending
