@@ -9,38 +9,21 @@ import { isEmpty, checkAmountRemaining } from '@open-tender/js'
 import { FormFieldset, FormInputs, FormLegend } from '../inputs'
 import { CheckoutTender } from '.'
 import { FormContext } from './CheckoutForm'
+import CheckoutApplePay from './CheckoutApplePay'
 
 export const TendersContext = createContext(null)
-
-// https://developer.apple.com/documentation/apple_pay_on_the_web/apple_pay_js_api/checking_for_apple_pay_availability
-const checkApplePay = (testing = false) => {
-  if (testing) return new Promise((resolve) => resolve(true))
-  if (window.ApplePaySession) {
-    const merchantIdentifier = 'merchant.opentender.app'
-    const promise = window.ApplePaySession.canMakePaymentsWithActiveCard(
-      merchantIdentifier
-    )
-    return promise
-      .then(
-        (canMakePayments) =>
-          console.log('canMakePayments', canMakePayments) ||
-          (canMakePayments ? true : false)
-      )
-      .catch((err) => console.log('catch', err) || false)
-  } else {
-    return new Promise((resolve) => resolve(false))
-  }
-}
 
 const CheckoutTenders = () => {
   const [showCredit, setShowCredit] = useState(false)
   const [showHouseAccount, setShowHouseAccount] = useState(false)
   const [showLevelUp, setShowLevelUp] = useState(false)
-  const [showApplePay, setShowApplePay] = useState(false)
   const formContext = useContext(FormContext)
   const { iconMap = {}, config, check, form, errors, updateForm } = formContext
-  const hasApplePay = check.config.tender_types.includes('APPLE_PAY')
-  const tenderTypes = check.config.tender_types.filter((i) => i !== 'GIFT_CARD')
+  const { tender_types } = check.config
+  const hasApplePay = tender_types.includes('APPLE_PAY')
+  const tenderTypes = tender_types.filter(
+    (i) => !['GIFT_CARD', 'APPLE_PAY'].includes(i)
+  )
   const tenderTypesApplied = useMemo(
     () => form.tenders.map((i) => i.tender_type),
     [form.tenders]
@@ -58,12 +41,6 @@ const CheckoutTenders = () => {
       : null
 
   useEffect(() => {
-    if (hasApplePay) {
-      checkApplePay().then((show) => setShowApplePay(show))
-    }
-  }, [hasApplePay])
-
-  useEffect(() => {
     if (tenderTypesApplied.length) {
       tenderTypesApplied.includes('CREDIT')
         ? setShowCredit(true)
@@ -74,10 +51,6 @@ const CheckoutTenders = () => {
   useEffect(() => {
     if (tenderError) {
       const appliedTender = form.tenders[tenderIndex]
-      // const newTenders = form.tenders.filter(
-      //   (i, index) => index !== tenderIndex
-      // )
-      // updateForm({ tenders: [...newTenders] })
       if (appliedTender.tender_type === 'CREDIT') setShowCredit(true)
     }
   }, [form.tenders, tenderError, tenderIndex, updateForm])
@@ -122,7 +95,6 @@ const CheckoutTenders = () => {
         addTender,
         removeTender,
         iconMap,
-        showApplePay,
       }}
     >
       <FormFieldset>
@@ -132,6 +104,7 @@ const CheckoutTenders = () => {
           subtitle={config.tenders.subtitle}
         />
         <FormInputs>
+          {/* {hasApplePay && <CheckoutApplePay />} */}
           {tenderTypes.map((tenderType) => (
             <CheckoutTender key={tenderType} tenderType={tenderType} />
           ))}

@@ -1,5 +1,7 @@
 import { useState, useEffect } from 'react'
 
+// https://typesafe.blog/article/fetch-images-with-a-react-hook
+
 const useImage = (src) => {
   const [hasLoaded, setHasLoaded] = useState(false)
   const [hasError, setHasError] = useState(false)

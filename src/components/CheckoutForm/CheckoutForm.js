@@ -35,6 +35,7 @@ import {
   CheckoutTenders,
 } from '.'
 import styled from '@emotion/styled'
+import CheckoutApplePay from './CheckoutApplePay'
 
 export const FormContext = createContext(null)
 
@@ -94,6 +95,9 @@ const CheckoutForm = ({
   const isDelivery = serviceType === 'DELIVERY'
   const hasGiftCardTender = check
     ? check.config.tender_types.includes('GIFT_CARD')
+    : false
+  const hasApplePay = check
+    ? check.config.tender_types.includes('APPLE_PAY')
     : false
   const isComplete = completedOrder ? true : false
   const pending = loading === 'pending'
@@ -236,6 +240,7 @@ const CheckoutForm = ({
         // onSubmit={handleSubmit}
         noValidate
       >
+        {hasApplePay && <CheckoutApplePay />}
         <FormError errMsg={errors.form} style={{ margin: '0 0 2rem' }} />
         <CheckoutCustomer />
         <CheckoutDetails />

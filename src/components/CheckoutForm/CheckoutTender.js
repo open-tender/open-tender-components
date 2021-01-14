@@ -59,7 +59,6 @@ const CheckoutTender = ({ tenderType }) => {
     addTender,
     removeTender,
     iconMap,
-    showApplePay,
   } = tenderContext
   const name = tenderTypeNamesMap[tenderType] || makeTenderName(tenderType)
   const icon = iconMap[tenderType.toLowerCase()] || iconMap.cash
@@ -96,8 +95,6 @@ const CheckoutTender = ({ tenderType }) => {
           setShowLevelUp(false)
           setShowHouseAccount(false)
         }
-
-  if (tenderType === 'APPLE_PAY' && !showApplePay) return null
 
   return (
     <>
