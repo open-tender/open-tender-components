@@ -9,7 +9,7 @@ import { isEmpty, checkAmountRemaining } from '@open-tender/js'
 import { FormFieldset, FormInputs, FormLegend } from '../inputs'
 import { CheckoutTender } from '.'
 import { FormContext } from './CheckoutForm'
-import CheckoutApplePay from './CheckoutApplePay'
+// import CheckoutApplePay from './CheckoutApplePay'
 
 export const TendersContext = createContext(null)
 

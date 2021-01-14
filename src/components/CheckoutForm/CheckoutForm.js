@@ -66,6 +66,7 @@ const CheckoutForm = ({
   customer,
   autoSelect,
   hasThanx,
+  api,
 }) => {
   const {
     check,
@@ -223,6 +224,7 @@ const CheckoutForm = ({
         form,
         loading,
         errors,
+        api,
         updateForm: dispatchUpdateForm,
         signUp: handleSignUp,
         login: handleLogin,
