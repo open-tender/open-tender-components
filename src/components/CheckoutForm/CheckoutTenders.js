@@ -20,7 +20,7 @@ const CheckoutTenders = () => {
   const formContext = useContext(FormContext)
   const { iconMap = {}, config, check, form, errors, updateForm } = formContext
   const { tender_types } = check.config
-  const hasApplePay = tender_types.includes('APPLE_PAY')
+  // const hasApplePay = tender_types.includes('APPLE_PAY')
   const tenderTypes = tender_types.filter(
     (i) => !['GIFT_CARD', 'APPLE_PAY'].includes(i)
   )

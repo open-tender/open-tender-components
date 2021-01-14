@@ -1,5 +1,4 @@
 /* eslint-disable no-undef */
-/* eslint-disable no-console */
 import React, { useState, useEffect, useContext } from 'react'
 import styled from '@emotion/styled'
 import { FormError, FormFieldset, FormInputs } from '../inputs'
@@ -34,7 +33,9 @@ const checkApplePayWithActiveCard = () => {
         console.log('canPay', canPay)
         return canMakePayments || canPay
       })
-      .catch((err) => console.log('catch', err) || false)
+      .catch(
+        (err) => console.log('canMakePaymentsWithActiveCard err', err) || false
+      )
   } else {
     return new Promise((resolve) => resolve(false))
   }
@@ -42,19 +43,31 @@ const checkApplePayWithActiveCard = () => {
 
 const validateSession = async (api, validationURL, callback) => {
   try {
-    const { merchant_session } = await api.postApplePayValidate(validationURL)
+    const host = window.location.hostname
+    const { merchant_session } = await api.postApplePayValidate(
+      host,
+      validationURL
+    )
     callback(merchant_session)
   } catch (err) {
     throw new Error(err.detail || err.message)
   }
 }
 
-const CheckoutApplePay = ({ label = 'Open Tender', amount = '10.00' }) => {
+const submitToken = async (api, token, callback) => {
+  try {
+    const response = await api.postApplePayToken(token)
+    callback(response)
+  } catch (err) {
+    throw new Error(err.detail || err.message)
+  }
+}
+
+const CheckoutApplePay = ({ label = 'Open Tender', amount = '1.00' }) => {
   const [showApplePay, setShowApplePay] = useState(false)
   const [errMsg, setErrMsg] = useState(null)
   const { api } = useContext(FormContext)
   const config = { ...paymentSessionConfig, total: { label, amount } }
-  console.log('errMsg', errMsg)
 
   useEffect(() => {
     checkApplePayWithActiveCard().then((show) => setShowApplePay(show))
@@ -69,14 +82,21 @@ const CheckoutApplePay = ({ label = 'Open Tender', amount = '10.00' }) => {
       validateSession(api, evt.validationURL, (merchantSession) => {
         applePaySession.completeMerchantValidation(merchantSession)
       }).catch((err) => {
+        console.log(err)
         applePaySession.abort()
         setErrMsg(err.detail || err.message)
       })
     }
 
     applePaySession.onpaymentauthorized = (evt) => {
-      console.log('payment is happening')
-      console.log(evt.payment)
+      console.log(evt.payment.token)
+      submitToken(api, evt.payment.token, (resp) => {
+        console.log(resp)
+        applePaySession.completePayment(ApplePaySession.STATUS_SUCCESS)
+      }).catch((err) => {
+        applePaySession.completePayment(ApplePaySession.STATUS_FAILURE)
+        setErrMsg(err.detail || err.message)
+      })
     }
   }
 

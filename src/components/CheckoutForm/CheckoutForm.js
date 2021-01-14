@@ -237,11 +237,7 @@ const CheckoutForm = ({
         addGiftCard: handleAddGiftCard,
       }}
     >
-      <form
-        id="checkout-form"
-        // onSubmit={handleSubmit}
-        noValidate
-      >
+      <form id="checkout-form" noValidate>
         {hasApplePay && <CheckoutApplePay />}
         <FormError errMsg={errors.form} style={{ margin: '0 0 2rem' }} />
         <CheckoutCustomer />
