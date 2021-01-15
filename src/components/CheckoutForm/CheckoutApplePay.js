@@ -1,14 +1,21 @@
-/* eslint-disable no-undef */
 import React, { useState, useEffect, useContext } from 'react'
+import propTypes from 'prop-types'
 import styled from '@emotion/styled'
 import { FormError, FormFieldset, FormInputs } from '../inputs'
 import { FormContext } from './CheckoutForm'
+import { TendersContext } from './CheckoutTenders'
+
+const ApplePayView = styled('div')`
+  margin: 1.5rem 0;
+`
 
 const ApplePayButton = styled('button')`
   display: inline-block;
   -webkit-appearance: -apple-pay-button;
-  -apple-pay-button-type: buy;
+  -apple-pay-button-type: plain;
   -apple-pay-button-style: black;
+  width: 100%;
+  height: 4.5rem;
 `
 
 const paymentSessionConfig = {
@@ -63,15 +70,35 @@ const submitToken = async (api, token, callback) => {
   }
 }
 
-const CheckoutApplePay = ({ label = 'Open Tender', amount = '1.00' }) => {
+const CheckoutApplePay = ({ label = 'Open Tender', amount, error }) => {
   const [showApplePay, setShowApplePay] = useState(false)
   const [errMsg, setErrMsg] = useState(null)
-  const { api } = useContext(FormContext)
+  const { api, submitOrder } = useContext(FormContext)
+  const { addTender, removeTender } = useContext(TendersContext)
   const config = { ...paymentSessionConfig, total: { label, amount } }
 
   useEffect(() => {
     checkApplePayWithActiveCard().then((show) => setShowApplePay(show))
   }, [])
+
+  useEffect(() => {
+    if (error) {
+      removeTender('APPLE_PAY')
+      setErrMsg(error)
+    }
+  }, [error, removeTender])
+
+  const onClickTest = (evt) => {
+    evt.preventDefault()
+    const tender = {
+      tender_type: 'APPLE_PAY',
+      amount: amount,
+      token: null,
+    }
+    console.log(tender)
+    addTender(tender)
+    submitOrder()
+  }
 
   const onClick = (evt) => {
     evt.preventDefault()
@@ -101,13 +128,18 @@ const CheckoutApplePay = ({ label = 'Open Tender', amount = '1.00' }) => {
   }
 
   return showApplePay ? (
-    <FormFieldset>
-      <FormInputs>
-        <FormError errMsg={errMsg} style={{ margin: '0 0 2rem' }} />
-        {showApplePay && <ApplePayButton onClick={onClick} />}
-      </FormInputs>
-    </FormFieldset>
+    <ApplePayView>
+      <FormError errMsg={errMsg} style={{ margin: '0 0 2rem' }} />
+      {showApplePay && <ApplePayButton onClick={onClickTest} />}
+    </ApplePayView>
   ) : null
+}
+
+CheckoutApplePay.displayName = 'CheckoutApplePay'
+CheckoutApplePay.propTypes = {
+  label: propTypes.string,
+  amount: propTypes.string,
+  error: propTypes.string,
 }
 
 export default CheckoutApplePay

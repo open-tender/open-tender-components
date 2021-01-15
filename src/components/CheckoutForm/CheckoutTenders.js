@@ -5,15 +5,25 @@ import React, {
   createContext,
   useMemo,
 } from 'react'
-import { isEmpty, checkAmountRemaining } from '@open-tender/js'
+import { isEmpty, checkAmountRemaining, contains } from '@open-tender/js'
 import { FormFieldset, FormInputs, FormLegend } from '../inputs'
-import { CheckoutTender } from '.'
+import { CheckoutApplePay, CheckoutTender } from '.'
 import { FormContext } from './CheckoutForm'
-// import CheckoutApplePay from './CheckoutApplePay'
 
 export const TendersContext = createContext(null)
 
 const validTenderTypes = ['CASH', 'CREDIT', 'LEVELUP', 'HOUSE_ACCOUNT', 'COMO']
+
+const checkHasApplePay = (check) => {
+  const hasApplePay = check
+    ? check.config.tender_types.includes('APPLE_PAY')
+    : false
+  const isSandbox = contains(window.location.hostname, [
+    'sandbox.opentender.io',
+    'localhost',
+  ])
+  return hasApplePay && isSandbox
+}
 
 const CheckoutTenders = () => {
   const [showCredit, setShowCredit] = useState(false)
@@ -22,12 +32,12 @@ const CheckoutTenders = () => {
   const formContext = useContext(FormContext)
   const { iconMap = {}, config, check, form, errors, updateForm } = formContext
   const { tender_types } = check.config
-  // const hasApplePay = tender_types.includes('APPLE_PAY')
   const tenderTypes = tender_types.filter((i) => validTenderTypes.includes(i))
   const tenderTypesApplied = useMemo(
     () => form.tenders.map((i) => i.tender_type),
     [form.tenders]
   )
+  const hasApplePay = checkHasApplePay(check)
   const amountRemaining = checkAmountRemaining(check.totals.total, form.tenders)
   const isPaid = Math.abs(amountRemaining).toFixed(2) === '0.00'
   const tenderErrors = errors ? errors.tenders || null : null
@@ -35,6 +45,9 @@ const CheckoutTenders = () => {
     (i) => i.tender_type !== 'GIFT_CARD'
   )
   const tenderError = tenderErrors ? tenderErrors[tenderIndex] : null
+  const applePayError =
+    hasApplePay && tenderErrors && tenderIndex === 0 ? tenderError : null
+  console.log(applePayError)
   const customerId =
     check.customer && !isEmpty(check.customer)
       ? check.customer.customer_id
@@ -104,7 +117,13 @@ const CheckoutTenders = () => {
           subtitle={config.tenders.subtitle}
         />
         <FormInputs>
-          {/* {hasApplePay && <CheckoutApplePay />} */}
+          {hasApplePay && (
+            <CheckoutApplePay
+              amount={amountRemaining.toFixed(2)}
+              addTender={addTender}
+              error={applePayError}
+            />
+          )}
           {tenderTypes.map((tenderType) => (
             <CheckoutTender key={tenderType} tenderType={tenderType} />
           ))}

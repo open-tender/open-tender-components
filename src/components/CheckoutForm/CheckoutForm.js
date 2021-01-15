@@ -7,12 +7,12 @@ import React, {
 } from 'react'
 import propTypes from 'prop-types'
 import isEqual from 'lodash/isEqual'
+import styled from '@emotion/styled'
 import {
   adjustTenders,
   checkAmountRemaining,
   timezoneMap,
   prepareOrder,
-  contains,
 } from '@open-tender/js'
 import {
   updateCheckoutCustomer,
@@ -35,8 +35,6 @@ import {
   CheckoutSurcharges,
   CheckoutTenders,
 } from '.'
-import styled from '@emotion/styled'
-import CheckoutApplePay from './CheckoutApplePay'
 
 export const FormContext = createContext(null)
 
@@ -55,17 +53,6 @@ const CheckoutFormFooter = styled('div')`
     margin: 0 0 3rem;
   }
 `
-
-const checkHasApplePay = (check) => {
-  const hasApplePay = check
-    ? check.config.tender_types.includes('APPLE_PAY')
-    : false
-  const isSandbox = contains(window.location.hostname, [
-    'sandbox.opentender.io',
-    'localhost',
-  ])
-  return hasApplePay && isSandbox
-}
 
 const CheckoutForm = ({
   dispatch,
@@ -109,7 +96,6 @@ const CheckoutForm = ({
   const hasGiftCardTender = check
     ? check.config.tender_types.includes('GIFT_CARD')
     : false
-  const hasApplePay = checkHasApplePay(check)
   const isComplete = completedOrder ? true : false
   const pending = loading === 'pending'
   const checkUpdating = submitting ? false : pending
@@ -245,10 +231,10 @@ const CheckoutForm = ({
         updateServiceType: handleServiceType,
         connectLevelUp: handleConnectLevelUp,
         addGiftCard: handleAddGiftCard,
+        submitOrder: handleSubmit,
       }}
     >
       <form id="checkout-form" noValidate>
-        {hasApplePay && <CheckoutApplePay />}
         <FormError errMsg={errors.form} style={{ margin: '0 0 2rem' }} />
         <CheckoutCustomer />
         <CheckoutDetails />
@@ -306,6 +292,7 @@ CheckoutForm.propTypes = {
   customer: propTypes.object,
   autoSelect: propTypes.bool,
   hasThanx: propTypes.bool,
+  api: propTypes.object,
 }
 
 export default CheckoutForm

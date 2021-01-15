@@ -1,5 +1,6 @@
 import CheckoutAccount from './CheckoutAccount'
 import CheckoutAddress from './CheckoutAddress'
+import CheckoutApplePay from './CheckoutApplePay'
 import CheckoutCard from './CheckoutCard'
 import CheckoutCards from './CheckoutCards'
 import CheckoutCreditCards from './CheckoutCreditCards'
@@ -25,6 +26,7 @@ import CheckoutTip from './CheckoutTip'
 export {
   CheckoutAccount,
   CheckoutAddress,
+  CheckoutApplePay,
   CheckoutCard,
   CheckoutCards,
   CheckoutCreditCards,
