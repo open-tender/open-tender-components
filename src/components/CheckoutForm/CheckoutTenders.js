@@ -47,7 +47,6 @@ const CheckoutTenders = () => {
   const tenderError = tenderErrors ? tenderErrors[tenderIndex] : null
   const applePayError =
     hasApplePay && tenderErrors && tenderIndex === 0 ? tenderError : null
-  console.log(applePayError)
   const customerId =
     check.customer && !isEmpty(check.customer)
       ? check.customer.customer_id

@@ -21,6 +21,8 @@ import {
   setSubmitting,
   validateOrder,
   submitOrder,
+  submitOrderApplePay,
+  setCompletedOrder,
   resetErrors,
   setAlert,
 } from '@open-tender/redux'
@@ -232,6 +234,8 @@ const CheckoutForm = ({
         connectLevelUp: handleConnectLevelUp,
         addGiftCard: handleAddGiftCard,
         submitOrder: handleSubmit,
+        submitOrderApplePay: () => dispatch(submitOrderApplePay()),
+        setCompletedOrder: (order) => dispatch(setCompletedOrder(order)),
       }}
     >
       <form id="checkout-form" noValidate>

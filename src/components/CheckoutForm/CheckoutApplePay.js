@@ -4,6 +4,7 @@ import styled from '@emotion/styled'
 import { FormError, FormFieldset, FormInputs } from '../inputs'
 import { FormContext } from './CheckoutForm'
 import { TendersContext } from './CheckoutTenders'
+import { ButtonStyled } from '..'
 
 const ApplePayView = styled('div')`
   margin: 1.5rem 0;
@@ -73,11 +74,14 @@ const submitToken = async (api, token, callback) => {
 const CheckoutApplePay = ({ label = 'Open Tender', amount, error }) => {
   const [showApplePay, setShowApplePay] = useState(false)
   const [errMsg, setErrMsg] = useState(null)
-  const { api, submitOrder } = useContext(FormContext)
+  const { api, submitOrderApplePay, setCompletedOrder } = useContext(
+    FormContext
+  )
   const { addTender, removeTender } = useContext(TendersContext)
   const config = { ...paymentSessionConfig, total: { label, amount } }
 
   useEffect(() => {
+    // setShowApplePay(true)
     checkApplePayWithActiveCard().then((show) => setShowApplePay(show))
   }, [])
 
@@ -89,7 +93,7 @@ const CheckoutApplePay = ({ label = 'Open Tender', amount, error }) => {
   }, [error, removeTender])
 
   const onClickTest = (evt) => {
-    evt.preventDefault()
+    if (evt) evt.preventDefault()
     const tender = {
       tender_type: 'APPLE_PAY',
       amount: amount,
@@ -97,7 +101,12 @@ const CheckoutApplePay = ({ label = 'Open Tender', amount, error }) => {
     }
     console.log(tender)
     addTender(tender)
-    submitOrder()
+    submitOrderApplePay().then((order) => {
+      console.log('order', order)
+      if (order) {
+        setCompletedOrder(order)
+      }
+    })
   }
 
   const onClick = (evt) => {
@@ -117,20 +126,38 @@ const CheckoutApplePay = ({ label = 'Open Tender', amount, error }) => {
 
     applePaySession.onpaymentauthorized = (evt) => {
       console.log(evt.payment.token)
-      submitToken(api, evt.payment.token, (resp) => {
-        console.log(resp)
-        applePaySession.completePayment(ApplePaySession.STATUS_SUCCESS)
-      }).catch((err) => {
-        applePaySession.completePayment(ApplePaySession.STATUS_FAILURE)
-        setErrMsg(err.detail || err.message)
+      const tender = {
+        tender_type: 'APPLE_PAY',
+        amount: amount,
+        token: evt.payment.token,
+      }
+      console.log(tender)
+      addTender(tender)
+      submitOrderApplePay().then((order) => {
+        console.log('order', order)
+        if (order) {
+          console.log('success!')
+          applePaySession.completePayment(ApplePaySession.STATUS_SUCCESS)
+          setCompletedOrder(order)
+        } else {
+          console.log('failure!')
+          applePaySession.completePayment(ApplePaySession.STATUS_FAILURE)
+        }
       })
+      //   submitToken(api, evt.payment.token, () => {
+      //     applePaySession.completePayment(ApplePaySession.STATUS_SUCCESS)
+      //   }).catch((err) => {
+      //     applePaySession.completePayment(ApplePaySession.STATUS_FAILURE)
+      //     setErrMsg(err.detail || err.message)
+      //   })
     }
   }
 
   return showApplePay ? (
     <ApplePayView>
       <FormError errMsg={errMsg} style={{ margin: '0 0 2rem' }} />
-      {showApplePay && <ApplePayButton onClick={onClickTest} />}
+      {/* <ButtonStyled onClick={() => onClickTest()}>Test Apple Pay</ButtonStyled> */}
+      {showApplePay && <ApplePayButton onClick={onClick} />}
     </ApplePayView>
   ) : null
 }
