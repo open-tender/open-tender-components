@@ -95,10 +95,7 @@ const CheckoutApplePay = ({ amount, error }) => {
   }, [])
 
   useEffect(() => {
-    if (error) {
-      removeTender('APPLE_PAY')
-      setErrMsg(error)
-    }
+    if (error) setErrMsg(error)
   }, [error, removeTender])
 
   const onClick = (evt) => {
@@ -128,6 +125,7 @@ const CheckoutApplePay = ({ amount, error }) => {
           setCompletedOrder(order)
         } else {
           applePaySession.completePayment(ApplePaySession.STATUS_FAILURE)
+          removeTender('APPLE_PAY')
         }
       })
     }
