@@ -68,6 +68,8 @@ const CheckoutForm = ({
   autoSelect,
   hasThanx,
   api,
+  spinner,
+  brand,
 }) => {
   const {
     check,
@@ -223,6 +225,8 @@ const CheckoutForm = ({
         loading,
         errors,
         api,
+        spinner,
+        brand,
         updateForm: dispatchUpdateForm,
         signUp: handleSignUp,
         login: handleLogin,
@@ -297,6 +301,8 @@ CheckoutForm.propTypes = {
   autoSelect: propTypes.bool,
   hasThanx: propTypes.bool,
   api: propTypes.object,
+  spinner: propTypes.element,
+  brand: propTypes.object,
 }
 
 export default CheckoutForm
