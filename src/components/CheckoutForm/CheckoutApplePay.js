@@ -41,8 +41,7 @@ const paymentSessionConfig = {
 
 // https://developer.apple.com/documentation/apple_pay_on_the_web/apple_pay_js_api/checking_for_apple_pay_availability
 const checkApplePayWithActiveCard = (applePayMerchantId, setChecking) => {
-  if (!applePayMerchantId) return false
-  if (window.ApplePaySession) {
+  if (applePayMerchantId && window.ApplePaySession) {
     setChecking(true)
     const promise = ApplePaySession.canMakePaymentsWithActiveCard(
       applePayMerchantId
