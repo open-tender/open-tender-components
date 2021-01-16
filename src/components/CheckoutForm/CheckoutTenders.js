@@ -5,7 +5,7 @@ import React, {
   createContext,
   useMemo,
 } from 'react'
-import { isEmpty, checkAmountRemaining, contains } from '@open-tender/js'
+import { isEmpty, checkAmountRemaining } from '@open-tender/js'
 import { FormFieldset, FormInputs, FormLegend } from '../inputs'
 import { CheckoutApplePay, CheckoutTender } from '.'
 import { FormContext } from './CheckoutForm'
@@ -18,11 +18,7 @@ const checkHasApplePay = (check) => {
   const hasApplePay = check
     ? check.config.tender_types.includes('APPLE_PAY')
     : false
-  const isSandbox = contains(window.location.hostname, [
-    'sandbox.opentender.io',
-    'localhost',
-  ])
-  return hasApplePay && isSandbox
+  return hasApplePay
 }
 
 const CheckoutTenders = () => {
