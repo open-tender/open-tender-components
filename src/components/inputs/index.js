@@ -12,7 +12,7 @@ import SelectOnly from './SelectOnly'
 import SubmitButton from './SubmitButton'
 import Switch from './Switch'
 import Textarea from './Textarea'
-import { FormInputs, FormFieldset, FormSubmit } from './Styled'
+import { FormInputs, FormFieldset, FormSubmit, FormWrapper } from './Styled'
 
 export {
   Checkbox,
@@ -23,6 +23,7 @@ export {
   FormLegend,
   FormRow,
   FormSubmit,
+  FormWrapper,
   Input,
   Label,
   Quantity,

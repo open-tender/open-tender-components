@@ -10,7 +10,6 @@ import { Input, Textarea, Switch, ButtonStyled, Preface } from '..'
 import { CheckoutTip } from '.'
 import { FormContext } from './CheckoutForm'
 import { FormFieldset, FormInputs, FormLegend, FormRow } from '../inputs'
-import Checkmark from '../Checkmark'
 
 const CheckoutDetails = () => {
   const {
