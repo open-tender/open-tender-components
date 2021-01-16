@@ -37,6 +37,7 @@ import {
   CheckoutDetails,
   CheckoutDiscounts,
   CheckoutExistingCard,
+  CheckoutForm,
   CheckoutGiftCards,
   CheckoutGuest,
   CheckoutHouseAccounts,
@@ -50,8 +51,7 @@ import {
   CheckoutTender,
   CheckoutTenders,
   CheckoutTip,
-} from './CheckoutForm'
-import CheckoutForm from './CheckoutForm'
+} from './Checkout'
 
 import {
   Checkbox,

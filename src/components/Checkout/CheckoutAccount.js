@@ -1,6 +1,6 @@
 import React, { useState, useCallback, useContext } from 'react'
 import debounce from 'lodash/debounce'
-import { ButtonLink, ButtonStyled, FormRow, Heading, Input, Preface } from '..'
+import { ButtonLink, ButtonStyled, FormRow, Input } from '..'
 import { FormContext } from './CheckoutForm'
 import {
   FormError,

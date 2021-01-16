@@ -49,5 +49,3 @@ export {
   CheckoutTenders,
   CheckoutTip,
 }
-
-export default CheckoutForm
