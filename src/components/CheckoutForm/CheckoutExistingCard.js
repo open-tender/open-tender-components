@@ -43,7 +43,7 @@ const CheckoutExistingCard = ({
           ) : (
             <ButtonLink
               onClick={() => addTender(tender)}
-              disabled={isApplied || isDisabled}
+              disabled={isApplied || isDisabled ? true : false}
               label={`Apply ${cardName}`}
             >
               {iconMap.add || '+'}
@@ -51,7 +51,7 @@ const CheckoutExistingCard = ({
           )
         }
       />
-      {cardError && isApplied && <FormError error={cardError} />}
+      {cardError && isApplied && <FormError errMsg={cardError} />}
     </li>
   ) : null
 }

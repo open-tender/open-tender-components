@@ -45,8 +45,7 @@ const CheckoutTenders = () => {
     (i) => i.tender_type !== 'GIFT_CARD'
   )
   const tenderError = tenderErrors ? tenderErrors[tenderIndex] : null
-  const applePayError =
-    hasApplePay && tenderErrors && tenderIndex === 0 ? tenderError : null
+  const applePayError = tenderError ? tenderError.apple_pay || null : null
   const customerId =
     check.customer && !isEmpty(check.customer)
       ? check.customer.customer_id
