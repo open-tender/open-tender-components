@@ -10,6 +10,7 @@ import CheckoutDiscounts from './CheckoutDiscounts'
 import CheckoutExistingCard from './CheckoutExistingCard'
 import CheckoutForm from './CheckoutForm'
 import CheckoutGiftCards from './CheckoutGiftCards'
+import CheckoutGooglePay from './CheckoutGooglePay'
 import CheckoutGuest from './CheckoutGuest'
 import CheckoutHouseAccounts from './CheckoutHouseAccounts'
 import CheckoutLabel from './CheckoutLabel'
@@ -36,6 +37,7 @@ export {
   CheckoutExistingCard,
   CheckoutForm,
   CheckoutGiftCards,
+  CheckoutGooglePay,
   CheckoutGuest,
   CheckoutHouseAccounts,
   CheckoutLabel,

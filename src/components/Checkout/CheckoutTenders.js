@@ -7,7 +7,7 @@ import React, {
 } from 'react'
 import { isEmpty, checkAmountRemaining } from '@open-tender/js'
 import { FormFieldset, FormInputs, FormLegend } from '../inputs'
-import { CheckoutApplePay, CheckoutTender } from '.'
+import { CheckoutApplePay, CheckoutGooglePay, CheckoutTender } from '.'
 import { FormContext } from './CheckoutForm'
 
 export const TendersContext = createContext(null)
@@ -15,10 +15,11 @@ export const TendersContext = createContext(null)
 const validTenderTypes = ['CASH', 'CREDIT', 'LEVELUP', 'HOUSE_ACCOUNT', 'COMO']
 
 const checkHasApplePay = (check) => {
-  const hasApplePay = check
-    ? check.config.tender_types.includes('APPLE_PAY')
-    : false
-  return hasApplePay
+  return check ? check.config.tender_types.includes('APPLE_PAY') : false
+}
+
+const checkHasGooglePay = (check) => {
+  return check ? check.config.tender_types.includes('GOOGLE_PAY') : false
 }
 
 const CheckoutTenders = () => {
@@ -34,6 +35,7 @@ const CheckoutTenders = () => {
     [form.tenders]
   )
   const hasApplePay = checkHasApplePay(check)
+  const hasGooglePay = checkHasGooglePay(check)
   const amountRemaining = checkAmountRemaining(check.totals.total, form.tenders)
   const isPaid = Math.abs(amountRemaining).toFixed(2) === '0.00'
   const tenderErrors = errors ? errors.tenders || null : null
@@ -42,6 +44,7 @@ const CheckoutTenders = () => {
   )
   const tenderError = tenderErrors ? tenderErrors[tenderIndex] : null
   const applePayError = tenderError ? tenderError.apple_pay || null : null
+  const googlePayError = tenderError ? tenderError.google_pay || null : null
   const customerId =
     check.customer && !isEmpty(check.customer)
       ? check.customer.customer_id
@@ -114,8 +117,13 @@ const CheckoutTenders = () => {
           {hasApplePay && (
             <CheckoutApplePay
               amount={amountRemaining.toFixed(2)}
-              addTender={addTender}
               error={applePayError}
+            />
+          )}
+          {hasGooglePay && (
+            <CheckoutGooglePay
+              amount={amountRemaining.toFixed(2)}
+              error={googlePayError}
             />
           )}
           {tenderTypes.map((tenderType) => (

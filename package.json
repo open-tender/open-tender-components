@@ -59,5 +59,7 @@
     "react-dom": "^16.13.1",
     "react-transition-group": "^4.4.1"
   },
-  "dependencies": {}
+  "dependencies": {
+    "@google-pay/button-react": "^2.1.5"
+  }
 }

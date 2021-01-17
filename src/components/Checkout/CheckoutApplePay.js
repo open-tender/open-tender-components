@@ -96,7 +96,7 @@ const CheckoutApplePay = ({ amount, error }) => {
 
   useEffect(() => {
     if (error) setErrMsg(error)
-  }, [error, removeTender])
+  }, [error])
 
   const onClick = (evt) => {
     evt.preventDefault()
@@ -148,7 +148,6 @@ const CheckoutApplePay = ({ amount, error }) => {
 
 CheckoutApplePay.displayName = 'CheckoutApplePay'
 CheckoutApplePay.propTypes = {
-  label: propTypes.string,
   amount: propTypes.string,
   error: propTypes.string,
 }
