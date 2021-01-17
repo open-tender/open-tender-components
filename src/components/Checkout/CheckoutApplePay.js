@@ -13,7 +13,7 @@ const ApplePayView = styled('div')`
 const ApplePayButton = styled('button')`
   display: inline-block;
   -webkit-appearance: -apple-pay-button;
-  -apple-pay-button-type: check-out;
+  -apple-pay-button-type: plain;
   -apple-pay-button-style: black;
   width: 100%;
   height: 4.5rem;
@@ -21,6 +21,7 @@ const ApplePayButton = styled('button')`
 
 const ApplePayChecking = styled('div')`
   width: 100%;
+  padding: 0 0 1rem;
   text-align: center;
   font-size: ${(props) => props.theme.fonts.sizes.small};
   color: ${(props) => props.theme.colors.primary};
@@ -76,13 +77,9 @@ const CheckoutApplePay = ({ amount, error }) => {
   const [checking, setChecking] = useState(false)
   const [showApplePay, setShowApplePay] = useState(false)
   const [errMsg, setErrMsg] = useState(null)
-  const {
-    api,
-    submitOrderApplePay,
-    setCompletedOrder,
-    spinner,
-    brand,
-  } = useContext(FormContext)
+  const { api, submitOrderPay, setCompletedOrder, spinner, brand } = useContext(
+    FormContext
+  )
   const { title: label, applePayMerchantId } = brand
   const { addTender, removeTender } = useContext(TendersContext)
   const config = { ...paymentSessionConfig, total: { label, amount } }
@@ -92,7 +89,7 @@ const CheckoutApplePay = ({ amount, error }) => {
     checkApplePayWithActiveCard(applePayMerchantId, setChecking).then((show) =>
       setShowApplePay(show)
     )
-  }, [])
+  }, [applePayMerchantId])
 
   useEffect(() => {
     if (error) setErrMsg(error)
@@ -119,7 +116,7 @@ const CheckoutApplePay = ({ amount, error }) => {
         token: evt.payment.token,
       }
       addTender(tender)
-      submitOrderApplePay().then((order) => {
+      submitOrderPay().then((order) => {
         if (order) {
           applePaySession.completePayment(ApplePaySession.STATUS_SUCCESS)
           setCompletedOrder(order)

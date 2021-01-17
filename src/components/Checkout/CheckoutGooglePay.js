@@ -10,13 +10,22 @@ const GooglePayView = styled('div')`
   width: 100%;
   margin: 2rem 0 1rem;
 
+  &:nth-of-type(2) {
+    margin: -1rem 0 1rem;
+  }
+
   > div {
     width: 100%;
+
+    button {
+      min-height: 4.5rem;
+    }
   }
 `
 
 const makePaymentRequest = (brand, amount) => {
   const { title, googlePayMerchantId, gatewayId } = brand
+  if (!googlePayMerchantId || !gatewayId) return null
   return {
     apiVersion: 2,
     apiVersionMinor: 0,
@@ -52,45 +61,42 @@ const makePaymentRequest = (brand, amount) => {
 
 const CheckoutGooglePay = ({ amount, error }) => {
   const [errMsg, setErrMsg] = useState(null)
-  const { submitOrderApplePay, setCompletedOrder, brand } = useContext(
-    FormContext
-  )
+  const { submitOrderPay, setCompletedOrder, brand } = useContext(FormContext)
   const { addTender, removeTender } = useContext(TendersContext)
   const paymentRequest = makePaymentRequest(brand, amount)
-  console.log(paymentRequest)
 
   useEffect(() => {
     if (error) setErrMsg(error)
   }, [error])
 
   const onLoadPaymentData = (data) => {
-    console.log(data)
-    // const tender = {
-    //   tender_type: 'GOOGLE_PAY',
-    //   amount: amount,
-    //   token: null,
-    // }
-    // addTender(tender)
-    // submitOrderApplePay().then((order) => {
-    //   if (order) {
-    //     setCompletedOrder(order)
-    //   } else {
-    //     removeTender('GOOGLE_PAY')
-    //   }
-    // })
+    const tender = {
+      tender_type: 'GOOGLE_PAY',
+      amount: amount,
+      token: data.paymentMethodData,
+    }
+    addTender(tender)
+    submitOrderPay(true).then((order) => {
+      if (order) {
+        setCompletedOrder(order)
+      } else {
+        removeTender('GOOGLE_PAY')
+      }
+    })
   }
 
-  return (
+  return paymentRequest ? (
     <GooglePayView>
       <FormError errMsg={errMsg} style={{ margin: '0 0 2rem' }} />
       <GooglePayButton
         environment="TEST"
         buttonSizeMode="fill"
+        buttonType="plain"
         paymentRequest={paymentRequest}
         onLoadPaymentData={onLoadPaymentData}
       />
     </GooglePayView>
-  )
+  ) : null
 }
 
 CheckoutGooglePay.displayName = 'CheckoutGooglePay'

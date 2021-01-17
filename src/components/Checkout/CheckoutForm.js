@@ -21,7 +21,7 @@ import {
   setSubmitting,
   validateOrder,
   submitOrder,
-  submitOrderApplePay,
+  submitOrderPay,
   setCompletedOrder,
   resetErrors,
   setAlert,
@@ -238,7 +238,7 @@ const CheckoutForm = ({
         connectLevelUp: handleConnectLevelUp,
         addGiftCard: handleAddGiftCard,
         submitOrder: handleSubmit,
-        submitOrderApplePay: () => dispatch(submitOrderApplePay()),
+        submitOrderPay: (bool) => dispatch(submitOrderPay(bool)),
         setCompletedOrder: (order) => dispatch(setCompletedOrder(order)),
       }}
     >

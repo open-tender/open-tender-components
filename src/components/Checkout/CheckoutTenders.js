@@ -29,13 +29,15 @@ const CheckoutTenders = () => {
   const formContext = useContext(FormContext)
   const { iconMap = {}, config, check, form, errors, updateForm } = formContext
   const { tender_types } = check.config
+  const customerId =
+    check.customer && !isEmpty(check.customer)
+      ? check.customer.customer_id
+      : null
   const tenderTypes = tender_types.filter((i) => validTenderTypes.includes(i))
   const tenderTypesApplied = useMemo(
     () => form.tenders.map((i) => i.tender_type),
     [form.tenders]
   )
-  const hasApplePay = checkHasApplePay(check)
-  const hasGooglePay = checkHasGooglePay(check)
   const amountRemaining = checkAmountRemaining(check.totals.total, form.tenders)
   const isPaid = Math.abs(amountRemaining).toFixed(2) === '0.00'
   const tenderErrors = errors ? errors.tenders || null : null
@@ -43,12 +45,14 @@ const CheckoutTenders = () => {
     (i) => i.tender_type !== 'GIFT_CARD'
   )
   const tenderError = tenderErrors ? tenderErrors[tenderIndex] : null
+
+  // Apple Pay
+  const hasApplePay = checkHasApplePay(check)
   const applePayError = tenderError ? tenderError.apple_pay || null : null
+
+  // Google Pay
+  const hasGooglePay = checkHasGooglePay(check)
   const googlePayError = tenderError ? tenderError.google_pay || null : null
-  const customerId =
-    check.customer && !isEmpty(check.customer)
-      ? check.customer.customer_id
-      : null
 
   useEffect(() => {
     if (tenderTypesApplied.length) {
