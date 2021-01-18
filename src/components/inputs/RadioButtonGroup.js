@@ -115,7 +115,7 @@ RadioButton.propTypes = {
   onChange: propTypes.func,
 }
 
-export const RadioButtonGroup = ({
+const RadioButtonGroup = ({
   label,
   name,
   value,

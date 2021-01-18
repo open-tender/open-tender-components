@@ -1,6 +1,6 @@
 import React, { useContext } from 'react'
-import { CheckoutCard, CheckoutCards } from '.'
 import { ButtonLink, Checkmark, Text } from '..'
+import { CheckoutCard, CheckoutCards } from '.'
 import { FormContext } from './CheckoutForm'
 import { TendersContext } from './CheckoutTenders'
 

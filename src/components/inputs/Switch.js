@@ -52,14 +52,7 @@ const SwitchToggle = styled('span')`
   }
 `
 
-export const Switch = ({
-  label,
-  id,
-  on,
-  onChange,
-  disabled,
-  showLabel = true,
-}) => {
+const Switch = ({ label, id, on, onChange, disabled, showLabel = true }) => {
   return (
     <FormRow
       htmlFor={id}

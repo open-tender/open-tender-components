@@ -1,8 +1,13 @@
 import React, { useState, useCallback, useContext } from 'react'
 import debounce from 'lodash/debounce'
-import { Input } from '..'
 import { FormContext } from './CheckoutForm'
-import { FormError, FormFieldset, FormInputs, FormLegend } from '../inputs'
+import {
+  FormError,
+  FormFieldset,
+  FormInputs,
+  FormLegend,
+  Input,
+} from '../inputs'
 
 const initialState = {
   emaiil: '',

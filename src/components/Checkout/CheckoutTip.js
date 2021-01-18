@@ -1,9 +1,10 @@
 import React, { useState, useContext } from 'react'
 import propTypes from 'prop-types'
-import { ButtonLink, Checkmark, Input, Text } from '..'
+import styled from '@emotion/styled'
+import { ButtonLink, Checkmark, Text } from '..'
+import { Input } from '../inputs'
 import { FormContext } from './CheckoutForm'
 import { CheckoutCard, CheckoutCards } from '.'
-import styled from '@emotion/styled'
 
 const CheckoutTipButton = styled('button')`
   width: 100%;

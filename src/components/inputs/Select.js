@@ -2,7 +2,7 @@ import React from 'react'
 import propTypes from 'prop-types'
 import { FormRow, Label, SelectOnly } from '.'
 
-export const Select = ({
+const Select = ({
   label,
   name,
   value,

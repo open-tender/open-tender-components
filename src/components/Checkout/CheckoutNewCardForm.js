@@ -1,5 +1,6 @@
 import React, { useState, useEffect, useContext } from 'react'
 import propTypes from 'prop-types'
+import styled from '@emotion/styled'
 import {
   isEmpty,
   cardNames,
@@ -8,9 +9,8 @@ import {
   validateCreditCard,
 } from '@open-tender/js'
 import { Box, ButtonStyled, Checkbox, Heading, Input } from '..'
-import { FormContext } from './CheckoutForm'
-import styled from '@emotion/styled'
 import { FormError } from '../inputs'
+import { FormContext } from './CheckoutForm'
 
 // https://github.com/muffinresearch/payment-icons
 // https://github.com/jasminmif/react-interactive-paycard

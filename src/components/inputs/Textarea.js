@@ -2,7 +2,7 @@ import React from 'react'
 import propTypes from 'prop-types'
 import { FormRow, Label } from '.'
 
-export const Textarea = ({
+const Textarea = ({
   label,
   name,
   value,

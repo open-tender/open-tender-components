@@ -1,7 +1,7 @@
 import React, { useState } from 'react'
 import propTypes from 'prop-types'
-import { ButtonStyled, Input } from '../index'
-import { FormError, FormInputs, FormSubmit } from '../inputs'
+import { ButtonStyled } from '../index'
+import { FormError, FormInputs, FormSubmit, Input } from '../inputs'
 
 const LoginForm = ({ loading, error, login, callback, hasThanx }) => {
   const [data, setData] = useState({})

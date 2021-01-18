@@ -72,7 +72,7 @@ const CheckboxDescription = styled('span')`
   font-size: ${(props) => props.theme.fonts.sizes[props.fontSize || 'main']};
 `
 
-export const Checkbox = ({
+const Checkbox = ({
   label,
   id,
   on,

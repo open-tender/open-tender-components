@@ -1,12 +1,12 @@
 import React, { useContext } from 'react'
 import propTypes from 'prop-types'
+import styled from '@emotion/styled'
 import { tenderTypeNamesMap, capitalize } from '@open-tender/js'
 import { ButtonStyled } from '..'
 import { FormContext } from './CheckoutForm'
 import { TendersContext } from './CheckoutTenders'
 import { CheckoutCreditCards, CheckoutHouseAccounts, CheckoutLevelUp } from '.'
 import { FormApplied, FormRow } from '../inputs'
-import styled from '@emotion/styled'
 
 const CheckoutTenderLabelView = styled('span')`
   display: flex !important;

@@ -1,7 +1,8 @@
 import React, { useState, useEffect, useContext } from 'react'
 import propTypes from 'prop-types'
 import { isEmpty } from '@open-tender/js'
-import { ButtonLink, Checkmark, FormError } from '..'
+import { ButtonLink, Checkmark } from '..'
+import { FormError } from '../inputs'
 import { FormContext } from './CheckoutForm'
 import { CheckoutCard } from '.'
 
