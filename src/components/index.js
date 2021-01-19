@@ -17,13 +17,16 @@ import Preface from './Preface'
 import Text from './Text'
 
 import Builder, {
+  BuilderCheckbox,
   BuilderGroupHeader,
   BuilderGroupWarning,
   BuilderHeader,
+  BuilderIngredients,
+  BuilderNutrition,
   BuilderOption,
   BuilderQuantity,
-  BuilderRadioGroup,
   BuilderRadio,
+  BuilderRadioGroup,
   useBuilder,
 } from './Builder'
 
@@ -96,13 +99,16 @@ export {
   BgImage,
   Box,
   Builder,
+  BuilderCheckbox,
   BuilderGroupHeader,
   BuilderGroupWarning,
   BuilderHeader,
+  BuilderIngredients,
+  BuilderNutrition,
   BuilderOption,
   BuilderQuantity,
-  BuilderRadioGroup,
   BuilderRadio,
+  BuilderRadioGroup,
   ButtonClear,
   ButtonIcon,
   ButtonLink,

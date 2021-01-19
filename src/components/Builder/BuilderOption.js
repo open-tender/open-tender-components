@@ -1,7 +1,7 @@
 import React from 'react'
 import propTypes from 'prop-types'
 import { CartItem } from '..'
-import BuilderQuantity from './BuilderQuantity'
+import { BuilderCheckbox, BuilderQuantity } from '.'
 
 const BuilderOption = ({
   group,
@@ -11,9 +11,9 @@ const BuilderOption = ({
   decrement,
   allergens,
   iconMap,
-  classes = '',
   displaySettings,
 }) => {
+  const isCheckbox = group.options.filter((i) => i.max !== 1).length === 0
   const groupAtMax = group.max !== 0 && group.quantity === group.max
   const optionAtMax = option.max !== 0 && option.quantity === option.max
   const incrementDisabled = groupAtMax || optionAtMax
@@ -32,16 +32,24 @@ const BuilderOption = ({
         displaySettings={displaySettings}
         hidePrice={hidePrice}
       >
-        <BuilderQuantity
-          item={option}
-          adjust={adjust}
-          increment={increment}
-          decrement={decrement}
-          incrementDisabled={incrementDisabled}
-          decrementDisabled={decrementDisabled}
-          classes={classes}
-          iconMap={iconMap}
-        />
+        {isCheckbox ? (
+          <BuilderCheckbox
+            option={option}
+            increment={increment}
+            decrement={decrement}
+            incrementDisabled={incrementDisabled}
+          />
+        ) : (
+          <BuilderQuantity
+            item={option}
+            adjust={adjust}
+            increment={increment}
+            decrement={decrement}
+            incrementDisabled={incrementDisabled}
+            decrementDisabled={decrementDisabled}
+            iconMap={iconMap}
+          />
+        )}
       </CartItem>
     </li>
   )
@@ -55,7 +63,6 @@ BuilderOption.propTypes = {
   increment: propTypes.func,
   decrement: propTypes.func,
   allergens: propTypes.array,
-  classes: propTypes.string,
   iconMap: propTypes.object,
   displaySettings: propTypes.object,
 }

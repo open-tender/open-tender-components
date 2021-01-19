@@ -40,6 +40,7 @@ const BuilderRadioButton = styled('span')`
   background-color: ${(props) => props.theme.bgColors.primary};
   border-color: ${(props) => props.theme.border.color};
 
+  input:focus + &,
   input:checked + & {
     border-color: ${(props) => props.theme.fonts.headings.color};
   }
@@ -74,10 +75,8 @@ const BuilderRadio = ({ option, handler }) => {
 
 BuilderRadio.displayName = 'BuilderRadio'
 BuilderRadio.propTypes = {
-  groupId: propTypes.number,
   option: propTypes.object,
   handler: propTypes.func,
-  classes: propTypes.string,
 }
 
 export default BuilderRadio
