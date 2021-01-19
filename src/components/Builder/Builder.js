@@ -196,8 +196,10 @@ const Builder = ({
   } = useBuilder(menuItem, soldOut)
 
   const { groups, notes, madeFor, totalPrice } = item
+
+  const groupsBelowMin = groups.filter((g) => g.quantity < g.min).length > 0
   const isIncomplete =
-    groups.filter((g) => g.quantity < g.min).length > 0 || item.quantity === ''
+    totalPrice === 0 || item.quantity === '' || groupsBelowMin
 
   return (
     <BuilderView>

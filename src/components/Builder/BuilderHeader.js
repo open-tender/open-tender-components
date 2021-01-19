@@ -78,6 +78,7 @@ const BuilderHeader = ({ item, displaySettings, spinner }) => {
   const hasCals = showCals && item.cals
   const hasIngredients = item.ingredients && item.ingredients.length > 0
   const imageUrl = showImage && item.imageUrl ? item.imageUrl : null
+  const zeroPrice = !!(item.price === '0.00' || item.price === 0)
 
   const toggleShowInfo = () => {
     if (showIngredients) setShowIngredients(false)
@@ -95,11 +96,11 @@ const BuilderHeader = ({ item, displaySettings, spinner }) => {
       <BuilderInfo>
         <BuilderName id="dialogTitle">{item.name}</BuilderName>
         <BuilderDetails>
-          <BuilderDetailsPrice>
-            {item.price === '0.00'
-              ? 'Price varies'
-              : `$${displayPrice(item.price)}`}
-          </BuilderDetailsPrice>
+          {!zeroPrice && (
+            <BuilderDetailsPrice>
+              {zeroPrice ? 'Price varies' : `$${displayPrice(item.price)}`}
+            </BuilderDetailsPrice>
+          )}
           {showCals && item.cals && (
             <BuilderDetailsCals>{item.cals} cal</BuilderDetailsCals>
           )}
