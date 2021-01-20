@@ -89,7 +89,7 @@ const CheckoutGooglePay = ({ amount, error }) => {
     <GooglePayView>
       <FormError errMsg={errMsg} style={{ margin: '0 0 2rem' }} />
       <GooglePayButton
-        environment="TEST"
+        environment="PRODUCTION"
         buttonSizeMode="fill"
         buttonType="plain"
         paymentRequest={paymentRequest}
