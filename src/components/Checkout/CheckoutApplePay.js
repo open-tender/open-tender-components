@@ -83,7 +83,8 @@ const CheckoutApplePay = ({ amount, error }) => {
   const { title: label, applePayMerchantId } = brand
   const { addTender, removeTender } = useContext(TendersContext)
   const config = { ...paymentSessionConfig, total: { label, amount } }
-  const show = checking || showApplePay || errMsg
+  const nonZero = parseFloat(amount) > 0
+  const show = nonZero && (checking || showApplePay || errMsg)
 
   useEffect(() => {
     checkApplePayWithActiveCard(applePayMerchantId, setChecking).then((show) =>

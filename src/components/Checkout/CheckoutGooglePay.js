@@ -64,6 +64,7 @@ const CheckoutGooglePay = ({ amount, error }) => {
   const { submitOrderPay, setCompletedOrder, brand } = useContext(FormContext)
   const { addTender, removeTender } = useContext(TendersContext)
   const paymentRequest = makePaymentRequest(brand, amount)
+  const nonZero = parseFloat(amount) > 0
 
   useEffect(() => {
     if (error) setErrMsg(error)
@@ -85,7 +86,7 @@ const CheckoutGooglePay = ({ amount, error }) => {
     })
   }
 
-  return paymentRequest ? (
+  return nonZero && paymentRequest ? (
     <GooglePayView>
       <FormError errMsg={errMsg} style={{ margin: '0 0 2rem' }} />
       <GooglePayButton
