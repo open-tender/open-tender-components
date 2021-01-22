@@ -37,7 +37,6 @@ const ButtonLink = ({
   style = null,
 }) => {
   const onUp = (evt) => {
-    // evt.target.blur()
     evt.preventDefault()
     evt.stopPropagation()
     if (!disabled) onClick()

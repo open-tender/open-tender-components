@@ -42,7 +42,6 @@ const ButtonClearView = styled('button')`
 
 const ButtonClear = ({ ariaLabel, onClick, disabled }) => {
   const onUp = (evt) => {
-    evt.target.blur()
     evt.preventDefault()
     evt.stopPropagation()
     if (!disabled) onClick()

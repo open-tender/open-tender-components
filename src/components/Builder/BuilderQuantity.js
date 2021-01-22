@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useRef } from 'react'
 import propTypes from 'prop-types'
 import styled from '@emotion/styled'
 
@@ -80,6 +80,17 @@ const BuilderQuantity = ({
   decrementDisabled,
   iconMap = {},
 }) => {
+  const incrementRef = useRef(null)
+  const decrementRef = useRef(null)
+
+  const handleAdd = (evt) => {
+    evt.preventDefault()
+    increment()
+    // const inc = incrementRef.current
+    // const dec = decrementRef.current
+    // inc && !inc.disabled ? inc.focus() : dec && dec.focus
+  }
+
   const handleAdjust = (evt) => {
     if (item.increment > 1 || item.min > 1 || item.max || !adjust) return
     const value = parseInt(evt.target.value)
@@ -90,19 +101,17 @@ const BuilderQuantity = ({
   const handleIncrement = (evt) => {
     evt.preventDefault()
     increment()
-    evt.target.blur()
   }
 
   const handleDecrement = (evt) => {
     evt.preventDefault()
     decrement()
-    evt.target.blur()
   }
 
   return item.quantity === 0 ? (
     <BuilderQuantityView>
       <BuilderQuantityAdd
-        onClick={handleIncrement}
+        onClick={handleAdd}
         disabled={incrementDisabled || item.isSoldOut}
         aria-label="Increase quantity"
       >
@@ -112,6 +121,7 @@ const BuilderQuantity = ({
   ) : (
     <BuilderQuantityView bgColor="secondary">
       <BuilderQuantityIncrement
+        ref={decrementRef}
         style={{ marginLeft: '0.2rem' }}
         onClick={handleDecrement}
         disabled={decrementDisabled}
@@ -129,6 +139,7 @@ const BuilderQuantity = ({
         />
       </label>
       <BuilderQuantityIncrement
+        ref={incrementRef}
         style={{ marginRight: '0.2rem' }}
         onClick={handleIncrement}
         disabled={incrementDisabled}

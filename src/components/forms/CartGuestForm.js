@@ -1,7 +1,7 @@
-import React, { useState, useEffect } from 'react'
+import React, { useRef, useState, useEffect } from 'react'
 import propTypes from 'prop-types'
-import { Input, SubmitButton } from '..'
-import { FormError, FormInputs, FormSubmit } from '../inputs'
+import { ButtonSubmit } from '..'
+import { FormError, FormInputs, FormSubmit, Input } from '../inputs'
 
 const fields = [
   { label: 'First Name', name: 'first_name', type: 'text', required: true },
@@ -9,6 +9,8 @@ const fields = [
 ]
 
 const CartGuestForm = ({ loading, errMsg, cartId, joinCart }) => {
+  const submitRef = useRef()
+  const inputRef = useRef()
   const [data, setData] = useState({ cart_id: cartId })
   const [submitting, setSubmitting] = useState(false)
 
@@ -19,25 +21,33 @@ const CartGuestForm = ({ loading, errMsg, cartId, joinCart }) => {
   }, [])
 
   useEffect(() => {
-    if (loading === 'idle') setSubmitting(false)
-  }, [loading])
+    if (loading === 'idle') {
+      setSubmitting(false)
+      if (errMsg) {
+        inputRef.current.focus()
+      }
+    }
+  }, [loading, errMsg])
 
   const handleChange = (evt) => {
     const { id, value } = evt.target
     setData({ ...data, [id]: value })
   }
 
-  const handleSubmit = () => {
+  const handleSubmit = (evt) => {
+    evt.preventDefault()
     setSubmitting(true)
     joinCart(data)
+    submitRef.current.blur()
   }
 
   return (
-    <form id="cart-guest-form" noValidate>
+    <form id="cart-guest-form" onSubmit={handleSubmit} noValidate>
       <FormError errMsg={errMsg} style={{ margin: '0 0 2rem' }} />
       <FormInputs>
-        {fields.map((field) => (
+        {fields.map((field, index) => (
           <Input
+            ref={index === 0 ? inputRef : null}
             key={field.name}
             label={field.label}
             name={field.name}
@@ -49,7 +59,9 @@ const CartGuestForm = ({ loading, errMsg, cartId, joinCart }) => {
         ))}
       </FormInputs>
       <FormSubmit>
-        <SubmitButton onClick={handleSubmit} submitting={submitting} />
+        <ButtonSubmit submitRef={submitRef} submitting={submitting}>
+          {submitting ? 'Submitting...' : 'Submit'}
+        </ButtonSubmit>
       </FormSubmit>
     </form>
   )

@@ -66,13 +66,11 @@ const Quantity = ({ id, name, quantity, update, iconMap = {} }) => {
   const increment = (evt) => {
     evt.preventDefault()
     update(quantity + 1)
-    evt.target.blur()
   }
 
   const decrement = (evt) => {
     evt.preventDefault()
     if (quantity > 0) update(quantity - 1)
-    evt.target.blur()
   }
 
   return (

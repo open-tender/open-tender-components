@@ -46,9 +46,11 @@ const BuilderCheckboxButton = styled('span')`
   background-size: 0% 0%;
   border-color: ${(props) => props.theme.border.color};
 
-  // input:focus + & {
-  //   border-color: ${(props) => props.theme.colors.primary};
-  // }
+  input:focus + & {
+    outline-color: ${(props) => props.theme.colors.primary};
+    outline-style: auto;
+    outline-width: 5px;
+  }
 
   input:checked + & {
     border-color: ${(props) => props.theme.colors.primary};
