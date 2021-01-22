@@ -1,6 +1,6 @@
 import React, { useRef, useState, useEffect } from 'react'
 import propTypes from 'prop-types'
-import { ButtonStyled, Switch } from '../index'
+import { ButtonSubmit, Switch } from '../index'
 import { FormError, FormInputs, FormSubmit } from '../inputs'
 
 const AllergenForm = ({
@@ -12,6 +12,7 @@ const AllergenForm = ({
   updateAllergens,
   callback,
 }) => {
+  const submitRef = useRef()
   const [data, setData] = useState([])
   const [submitting, setSubmitting] = useState(false)
   const allergenIds = data.map((i) => i.allergen_id)
@@ -20,7 +21,10 @@ const AllergenForm = ({
   useEffect(() => {
     // uses isLoading boolean because loading state is based on
     // both brand allergens and customer allergens loading
-    if (!isLoading) setSubmitting(false)
+    if (!isLoading) {
+      setSubmitting(false)
+      submitRef.current.blur()
+    }
   }, [isLoading])
 
   useEffect(() => {
@@ -35,7 +39,8 @@ const AllergenForm = ({
     setData(newData)
   }
 
-  const handleSubmit = () => {
+  const handleSubmit = (evt) => {
+    evt.preventDefault()
     setSubmitting(true)
     const newData = data.map((i) => ({ allergen_id: i.allergen_id }))
     setAllergens(data)
@@ -45,7 +50,7 @@ const AllergenForm = ({
 
   return allergens ? (
     allergens.length > 0 ? (
-      <form id="allergen-form" noValidate>
+      <form id="allergen-form" onSubmit={handleSubmit} noValidate>
         <FormError errMsg={formError} style={{ margin: '0 0 2rem' }} />
         <FormInputs>
           {allergens.map((allergen) => (
@@ -59,9 +64,9 @@ const AllergenForm = ({
           ))}
         </FormInputs>
         <FormSubmit>
-          <ButtonStyled onClick={handleSubmit} disabled={submitting}>
-            Submit Updates
-          </ButtonStyled>
+          <ButtonSubmit submitRef={submitRef} submitting={submitting}>
+            {submitting ? 'Submitting...' : 'Submit Updates'}
+          </ButtonSubmit>
         </FormSubmit>
       </form>
     ) : (

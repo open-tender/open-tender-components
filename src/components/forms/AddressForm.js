@@ -1,6 +1,6 @@
-import React, { useState, useEffect } from 'react'
+import React, { useState, useEffect, useRef } from 'react'
 import propTypes from 'prop-types'
-import { Input, Textarea, Switch, ButtonStyled } from '..'
+import { Input, Textarea, Switch, ButtonSubmit } from '..'
 import { FormError, FormInputs, FormSubmit } from '../inputs'
 
 const fields = [
@@ -13,13 +13,20 @@ const fields = [
 ]
 
 const AddressForm = ({ address, loading, error, update, callback }) => {
+  const submitRef = useRef()
+  const inputRef = useRef()
   const [data, setData] = useState(address)
   const [errors, setErrors] = useState({})
   const [submitting, setSubmitting] = useState(false)
 
   useEffect(() => {
-    if (loading === 'idle') setSubmitting(false)
-    if (error) setErrors(error)
+    if (loading === 'idle') {
+      setSubmitting(false)
+      if (error) {
+        setErrors(error)
+        inputRef.current.focus()
+      }
+    }
   }, [loading, error])
 
   const handleChange = (evt) => {
@@ -28,7 +35,8 @@ const AddressForm = ({ address, loading, error, update, callback }) => {
     setData({ ...data, [id]: inputValue })
   }
 
-  const handleSubmit = () => {
+  const handleSubmit = (evt) => {
+    evt.preventDefault()
     setSubmitting(true)
     const updatedData = { ...data }
     delete updatedData.customer_address_id
@@ -36,13 +44,14 @@ const AddressForm = ({ address, loading, error, update, callback }) => {
     delete updatedData.last_used_at
     const addressId = data.customer_address_id
     update(addressId, updatedData, callback)
+    submitRef.current.blur()
   }
 
   return (
-    <form id="address-form" noValidate>
+    <form id="address-form" onSubmit={handleSubmit} noValidate>
       <FormError errMsg={errors.form} style={{ margin: '0 0 2rem' }} />
       <FormInputs>
-        {fields.map((field) => {
+        {fields.map((field, index) => {
           switch (field.type) {
             case 'textarea':
               return (
@@ -66,10 +75,10 @@ const AddressForm = ({ address, loading, error, update, callback }) => {
                   onChange={handleChange}
                 />
               )
-
             default:
               return (
                 <Input
+                  ref={index === 0 ? inputRef : null}
                   key={field.name}
                   label={field.label}
                   name={field.name}
@@ -84,9 +93,9 @@ const AddressForm = ({ address, loading, error, update, callback }) => {
         })}
       </FormInputs>
       <FormSubmit>
-        <ButtonStyled onClick={handleSubmit} disabled={submitting}>
-          Submit Updates
-        </ButtonStyled>
+        <ButtonSubmit submitRef={submitRef} submitting={submitting}>
+          {submitting ? 'Submitting...' : 'Submit Updates'}
+        </ButtonSubmit>
       </FormSubmit>
     </form>
   )

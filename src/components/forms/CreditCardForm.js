@@ -37,15 +37,13 @@ const CreditCardForm = ({
   const [submitting, setSubmitting] = useState(false)
 
   useEffect(() => {
-    const timer = setTimeout(() => {
-      inputRef.current.focus()
-    }, 275)
-    return () => clearTimeout(timer)
-  }, [])
-
-  useEffect(() => {
-    if (loading === 'idle') setSubmitting(false)
-    if (error) setErrors(error)
+    if (loading === 'idle') {
+      setSubmitting(false)
+      if (error) {
+        setErrors(error)
+        inputRef.current.focus()
+      }
+    }
   }, [loading, error])
 
   const handleChange = (evt) => {

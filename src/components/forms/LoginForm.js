@@ -1,29 +1,40 @@
-import React, { useState } from 'react'
+import React, { useRef, useState, useEffect } from 'react'
 import propTypes from 'prop-types'
-import { ButtonStyled } from '../index'
+import { ButtonSubmit } from '../index'
 import { FormError, FormInputs, FormSubmit, Input } from '../inputs'
 
 const LoginForm = ({ loading, error, login, callback, hasThanx }) => {
+  const submitRef = useRef()
+  const inputRef = useRef()
   const [data, setData] = useState({})
-  const isLoading = loading === 'pending'
+  const submitting = loading === 'pending'
+
+  useEffect(() => {
+    if (loading === 'idle') {
+      if (error) inputRef.current.focus()
+    }
+  }, [loading, error])
 
   const handleChange = (evt) => {
     const { id, value } = evt.target
     setData({ ...data, [id]: value })
   }
 
-  const handleSubmit = () => {
+  const handleSubmit = (evt) => {
+    evt.preventDefault()
     const { email, password } = data
     login(email, password).then(() => {
       if (callback) callback()
     })
+    submitRef.current.blur()
   }
 
   return (
-    <form id="login-form" noValidate>
+    <form id="login-form" onSubmit={handleSubmit} noValidate>
       <FormError errMsg={error} style={{ margin: '0 0 2rem' }} />
       <FormInputs>
         <Input
+          ref={inputRef}
           label="Email"
           name="email"
           type="email"
@@ -45,9 +56,9 @@ const LoginForm = ({ loading, error, login, callback, hasThanx }) => {
         )}
       </FormInputs>
       <FormSubmit>
-        <ButtonStyled onClick={handleSubmit} disabled={isLoading}>
-          {isLoading ? 'Submitting' : 'Submit'}
-        </ButtonStyled>
+        <ButtonSubmit submitRef={submitRef} submitting={submitting}>
+          {submitting ? 'Submitting...' : 'Submit'}
+        </ButtonSubmit>
       </FormSubmit>
     </form>
   )

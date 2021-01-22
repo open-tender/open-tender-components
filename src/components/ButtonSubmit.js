@@ -10,8 +10,6 @@ const ButtonSubmit = ({
   size = 'default',
   color = 'primary',
   style = null,
-  // submittingText = 'Submitting...',
-  // submitText = 'Submit',
 }) => {
   return (
     <ButtonStyledView
@@ -22,7 +20,6 @@ const ButtonSubmit = ({
       color={color}
       style={style}
     >
-      {/* {submitting ? submittingText : submitText} */}
       {children}
     </ButtonStyledView>
   )
@@ -43,8 +40,6 @@ ButtonSubmit.propTypes = {
   size: propTypes.string,
   color: propTypes.string,
   style: propTypes.object,
-  // submittingText: propTypes.string,
-  // submitText: propTypes.string,
 }
 
 export default ButtonSubmit
