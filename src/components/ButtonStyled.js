@@ -2,7 +2,7 @@ import React from 'react'
 import propTypes from 'prop-types'
 import styled from '@emotion/styled'
 
-const ButtonStyledView = styled('button')`
+export const ButtonStyledView = styled('button')`
   cursor: pointer;
   display: inline-block;
   line-height: 1;
@@ -70,9 +70,9 @@ const ButtonStyled = ({
   disabled,
   onClick,
   icon,
+  type = 'button',
   size = 'default',
   color = 'primary',
-  type = 'button',
   style = null,
 }) => {
   const onUp = (evt) => {
@@ -86,7 +86,8 @@ const ButtonStyled = ({
     <ButtonStyledView
       type={type}
       aria-label={label || null}
-      onPointerUp={(evt) => onUp(evt)}
+      // onPointerUp={(evt) => onUp(evt)}
+      onClick={(evt) => onUp(evt)}
       disabled={disabled}
       size={size}
       color={color}

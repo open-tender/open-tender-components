@@ -47,7 +47,8 @@ const ButtonLink = ({
     <ButtonLinkView
       type="button"
       aria-label={label || null}
-      onPointerUp={(evt) => onUp(evt)}
+      // onPointerUp={(evt) => onUp(evt)}
+      onClick={(evt) => onUp(evt)}
       disabled={disabled}
       color={color}
       style={style}

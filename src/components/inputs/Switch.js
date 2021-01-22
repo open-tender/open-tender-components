@@ -50,6 +50,13 @@ const SwitchToggle = styled('span')`
   input:checked + &:before {
     left: 50%;
   }
+
+  input:focus + & {
+    // outline-offset: -2px;
+    outline-color: ${(props) => props.theme.colors.primary};
+    outline-style: auto;
+    outline-width: 5px;
+  }
 `
 
 const Switch = ({ label, id, on, onChange, disabled, showLabel = true }) => {

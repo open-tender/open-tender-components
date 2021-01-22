@@ -4,6 +4,7 @@ import ButtonIcon from './ButtonIcon'
 import ButtonClear from './ButtonClear'
 import ButtonLink from './ButtonLink'
 import ButtonStyled from './ButtonStyled'
+import ButtonSubmit from './ButtonSubmit'
 import ButtonToggleGroup from './ButtonToggleGroup'
 import CartItem from './CartItem'
 import CartCounts from './CartCounts'
@@ -113,6 +114,7 @@ export {
   ButtonIcon,
   ButtonLink,
   ButtonStyled,
+  ButtonSubmit,
   ButtonToggleGroup,
   CartItem,
   CartCounts,

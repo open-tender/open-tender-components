@@ -52,7 +52,8 @@ const ButtonClear = ({ ariaLabel, onClick, disabled }) => {
     <ButtonClearView
       type="button"
       aria-label={ariaLabel}
-      onPointerUp={(evt) => onUp(evt)}
+      // onPointerUp={(evt) => onUp(evt)}
+      onClick={(evt) => onUp(evt)}
       disabled={disabled}
     />
   )

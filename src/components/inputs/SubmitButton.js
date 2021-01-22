@@ -1,7 +1,6 @@
 import React from 'react'
 import propTypes from 'prop-types'
 import { ButtonStyled } from '..'
-// import ClipLoader from 'react-spinners/ClipLoader'
 
 const SubmitButton = ({ onClick, submitting, disabled }) => {
   return (
