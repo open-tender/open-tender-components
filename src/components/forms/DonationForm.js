@@ -1,4 +1,4 @@
-import React, { useRef, useState, useEffect } from 'react'
+import React, { useRef, useState, useEffect, useMemo } from 'react'
 import propTypes from 'prop-types'
 import { CreditCardForm } from '.'
 import { ButtonStyled, ButtonSubmit, Input, Text } from '../index'
@@ -37,15 +37,19 @@ const DonationForm = ({
   const [creditCardOptions, setCreditCardOptions] = useState([])
   const [errors, setErrors] = useState({})
   const [submitting, setSubmitting] = useState(false)
-  const newCardError = error
-    ? Object.entries(error)
-        .filter(([key]) => key !== 'form')
-        .reduce((obj, [key, value]) => ({ ...obj, [key]: value }), {})
-    : null
   const errMsg =
     errors.form && errors.form.includes('parameters')
       ? 'There are one or more errors below'
       : errors.form || null
+  const newCardError = useMemo(
+    () =>
+      error
+        ? Object.entries(error)
+            .filter(([key]) => key !== 'form')
+            .reduce((obj, [key, value]) => ({ ...obj, [key]: value }), {})
+        : null,
+    [error]
+  )
 
   useEffect(() => {
     if (loading === 'idle') {
@@ -54,9 +58,12 @@ const DonationForm = ({
       if (error) {
         setErrors(error)
         inputRef.current.focus()
+        if (windowRef) windowRef.current.scrollTop = 0
+      } else if (success) {
+        if (windowRef) windowRef.current.scrollTop = 0
       }
     }
-  }, [loading, error, setAlert])
+  }, [loading, error, setAlert, windowRef, success])
 
   useEffect(() => {
     if (creditCards.length) {

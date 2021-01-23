@@ -1,38 +1,49 @@
-import React, { useState, useEffect } from 'react'
+import React, { useRef, useState, useEffect } from 'react'
 import propTypes from 'prop-types'
-import { ButtonStyled } from '..'
+import { ButtonSubmit } from '..'
 import { FormError, FormInputs, FormSubmit, Input } from '../inputs'
 
 const GiftCardAssignForm = ({ loading, error, assign, callback }) => {
+  const submitRef = useRef()
+  const inputRef = useRef()
   const [cardNumber, setCardNumber] = useState('')
   const [errors, setErrors] = useState({})
   const [submitting, setSubmitting] = useState(false)
   const errMsg = errors.form && !errors.card_number ? errors.form : null
 
   useEffect(() => {
-    if (loading === 'idle') setSubmitting(false)
-    if (error) setErrors(error)
+    if (loading === 'idle') {
+      setSubmitting(false)
+      if (error) {
+        setErrors(error)
+        inputRef.current.focus()
+      }
+    }
   }, [loading, error])
 
   const handleChange = (evt) => {
     setCardNumber(evt.target.value)
   }
 
-  const handleSubmit = () => {
+  const handleSubmit = (evt) => {
+    evt.preventDefault()
     setSubmitting(true)
     const card_number = parseInt(cardNumber)
     if (isNaN(card_number)) {
       setErrors({ card_number: 'Card numbers must be all digits' })
+      inputRef.current.focus()
     } else {
       assign(card_number, callback)
+      submitRef.current.blur()
     }
   }
 
   return (
-    <form id="gift-card-assign-form" noValidate>
+    <form id="gift-card-assign-form" onSubmit={handleSubmit} noValidate>
       <FormError errMsg={errMsg} style={{ margin: '0 0 2rem' }} />
       <FormInputs>
         <Input
+          ref={inputRef}
           label="Card Number"
           name="card_number"
           type="number"
@@ -43,9 +54,9 @@ const GiftCardAssignForm = ({ loading, error, assign, callback }) => {
         />
       </FormInputs>
       <FormSubmit>
-        <ButtonStyled onClick={handleSubmit} disabled={submitting}>
-          {submitting ? 'Submitting' : 'Assign Gift Card'}
-        </ButtonStyled>
+        <ButtonSubmit submitRef={submitRef} submitting={submitting}>
+          {submitting ? 'Submitting...' : 'Assign Gift Card'}
+        </ButtonSubmit>
       </FormSubmit>
     </form>
   )

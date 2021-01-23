@@ -1,6 +1,6 @@
-import React, { useState, useEffect } from 'react'
+import React, { useRef, useState, useEffect } from 'react'
 import propTypes from 'prop-types'
-import { ButtonStyled } from '..'
+import { ButtonSubmit } from '..'
 import { FormError, FormInputs, FormSubmit, Input, Select } from '../inputs'
 
 const GiftCardForm = ({
@@ -12,6 +12,8 @@ const GiftCardForm = ({
   add,
   callback,
 }) => {
+  const submitRef = useRef()
+  const inputRef = useRef()
   const customerCardId = creditCards[0].customer_card_id
   const [data, setData] = useState({ customer_card_id: customerCardId })
   const [errors, setErrors] = useState({})
@@ -22,10 +24,19 @@ const GiftCardForm = ({
       value: i.customer_card_id,
     }
   })
+  const amountError =
+    errors.amount && errors.amount.includes('money')
+      ? 'Please enter a positive dollar amount'
+      : errors.amount || null
 
   useEffect(() => {
-    if (loading === 'idle') setSubmitting(false)
-    if (error) setErrors(error)
+    if (loading === 'idle') {
+      setSubmitting(false)
+      if (error) {
+        setErrors(error)
+        inputRef.current.focus()
+      }
+    }
   }, [loading, error])
 
   const handleChange = (evt) => {
@@ -34,7 +45,8 @@ const GiftCardForm = ({
     setData({ ...data, [id]: inputValue })
   }
 
-  const handleSubmit = () => {
+  const handleSubmit = (evt) => {
+    evt.preventDefault()
     setSubmitting(true)
     if (!data.customer_card_id) {
       data.customer_card_id = customerCardId
@@ -43,19 +55,21 @@ const GiftCardForm = ({
     giftCard
       ? update(giftCard.gift_card_id, data, callback)
       : add(data, callback)
+    submitRef.current.blur()
   }
 
   return (
-    <form id="gift-card-form" noValidate>
+    <form id="gift-card-form" onSubmit={handleSubmit} noValidate>
       <FormError errMsg={errors.form} style={{ margin: '0 0 2rem' }} />
       <FormInputs>
         <Input
+          ref={inputRef}
           label="Amount"
           name="amount"
           type="number"
           value={data.amount}
           onChange={handleChange}
-          error={errors.amount}
+          error={amountError}
           required={true}
         />
         <Select
@@ -69,9 +83,9 @@ const GiftCardForm = ({
         />
       </FormInputs>
       <FormSubmit>
-        <ButtonStyled onClick={handleSubmit} disabled={submitting}>
-          {submitting ? 'Submitting' : giftCard ? 'Add Value' : 'Purchase'}
-        </ButtonStyled>
+        <ButtonSubmit submitRef={submitRef} submitting={submitting}>
+          {submitting ? 'Submitting...' : giftCard ? 'Add Value' : 'Purchase'}
+        </ButtonSubmit>
       </FormSubmit>
     </form>
   )

@@ -1,8 +1,8 @@
-import React, { useState, useEffect } from 'react'
+import React, { useRef, useState, useEffect, useMemo } from 'react'
 import propTypes from 'prop-types'
 import styled from '@emotion/styled'
 import { CreditCardForm } from '.'
-import { ButtonStyled, Input, Text } from '..'
+import { ButtonStyled, ButtonSubmit, Input, Text } from '..'
 import {
   FormError,
   FormFieldset,
@@ -63,9 +63,13 @@ const GiftCardsForm = ({
   purchasedCards,
   setAlert,
   iconMap,
+  windowRef,
   customer = {},
   creditCards = [],
 }) => {
+  const submitRef = useRef()
+  const inputRef = useRef()
+  const formRef = useRef()
   const url = window.location.origin
   const [name, setName] = useState(customer ? customer.first_name : null)
   const [email, setEmail] = useState(customer ? customer.email : null)
@@ -75,11 +79,16 @@ const GiftCardsForm = ({
   const [creditCardOptions, setCreditCardOptions] = useState([])
   const [errors, setErrors] = useState({})
   const [submitting, setSubmitting] = useState(false)
-  const newCardError = error
-    ? Object.entries(error)
-        .filter(([key]) => key !== 'form')
-        .reduce((obj, [key, value]) => ({ ...obj, [key]: value }), {})
-    : null
+  const newCardError = useMemo(
+    () =>
+      error
+        ? Object.entries(error)
+            .filter(([key]) => key !== 'form')
+            .reduce((obj, [key, value]) => ({ ...obj, [key]: value }), {})
+        : null,
+    [error]
+  )
+
   const errMsg =
     errors.form && errors.form.includes('parameters')
       ? 'There are one or more errors below'
@@ -89,9 +98,16 @@ const GiftCardsForm = ({
     if (loading === 'idle') {
       setSubmitting(false)
       setAlert({ type: 'close' })
+      if (error) {
+        setErrors(error)
+        const inputs = formRef.current.querySelectorAll('input, select')
+        if (inputs.length) inputs[0].focus()
+        if (windowRef) windowRef.current.scrollTop = 0
+      } else if (success) {
+        if (windowRef) windowRef.current.scrollTop = 0
+      }
     }
-    if (error) setErrors(error)
-  }, [loading, error, setAlert])
+  }, [loading, error, setAlert, windowRef, success])
 
   useEffect(() => {
     if (creditCards.length) {
@@ -158,10 +174,13 @@ const GiftCardsForm = ({
     purchase({ credit_card: card, name, email, url, gift_cards })
   }
 
-  const handleSubmit = () => {
+  const handleSubmit = (evt) => {
+    evt.preventDefault()
     const { first_name: name, email } = customer || {}
     if (!name || !email) {
       setErrors({ form: 'Both name and email are required' })
+      inputRef.current.focus()
+      if (windowRef) windowRef.current.scrollTop = 0
     } else {
       setErrors({})
       setSubmitting(true)
@@ -172,6 +191,7 @@ const GiftCardsForm = ({
       setAlert(alert)
       const gift_cards = makeGiftCards(cards)
       purchase({ credit_card: creditCard, name, email, url, gift_cards })
+      submitRef.current.blur()
     }
   }
 
@@ -217,7 +237,12 @@ const GiftCardsForm = ({
     </FormFieldset>
   ) : (
     <>
-      <form id="gift-cards-form" noValidate>
+      <form
+        id="gift-cards-form"
+        ref={formRef}
+        onSubmit={handleSubmit}
+        noValidate
+      >
         <FormError errMsg={errMsg} style={{ margin: '0 0 2rem' }} />
         {!customer && (
           <FormFieldset>
@@ -229,6 +254,7 @@ const GiftCardsForm = ({
             />
             <FormInputs>
               <Input
+                ref={inputRef}
                 label="Your Name"
                 name="name"
                 type="text"
@@ -334,13 +360,9 @@ const GiftCardsForm = ({
               />
             </FormInputs>
             <FormSubmit>
-              <ButtonStyled
-                onClick={handleSubmit}
-                disabled={submitting}
-                size="big"
-              >
+              <ButtonSubmit submitRef={submitRef} submitting={submitting}>
                 {submitting ? 'Submitting...' : 'Purchase Gift Cards'}
-              </ButtonStyled>
+              </ButtonSubmit>
             </FormSubmit>
           </FormFieldset>
         )}
@@ -386,6 +408,10 @@ GiftCardsForm.propTypes = {
   iconMap: propTypes.object,
   customer: propTypes.object,
   creditCards: propTypes.array,
+  windowRef: propTypes.oneOfType([
+    propTypes.func,
+    propTypes.shape({ current: propTypes.instanceOf(Element) }),
+  ]),
 }
 
 export default GiftCardsForm

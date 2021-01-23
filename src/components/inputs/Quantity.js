@@ -76,6 +76,7 @@ const Quantity = ({ id, name, quantity, update, iconMap = {} }) => {
   return (
     <QuantityView bgColor="secondary">
       <QuantityIncrement
+        type="button"
         style={{ marginLeft: '0.2rem' }}
         onClick={decrement}
         disabled={quantity === 0}
@@ -93,6 +94,7 @@ const Quantity = ({ id, name, quantity, update, iconMap = {} }) => {
         />
       </label>
       <QuantityIncrement
+        type="button"
         style={{ marginRight: '0.2rem' }}
         onClick={increment}
         aria-label={`Increase ${name} quantity`}
