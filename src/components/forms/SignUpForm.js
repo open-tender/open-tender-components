@@ -1,8 +1,15 @@
-import React, { useState, useEffect } from 'react'
+import React, { useRef, useState, useEffect } from 'react'
 import propTypes from 'prop-types'
 import { optionsOrderNotificationsTemp } from '@open-tender/js'
-import { Input, Checkbox, RadioButtonGroup } from '..'
-import { FormError, FormInputs, FormSubmit, SubmitButton } from '../inputs'
+import { ButtonSubmit } from '..'
+import {
+  Checkbox,
+  FormError,
+  FormInputs,
+  FormSubmit,
+  Input,
+  RadioButtonGroup,
+} from '../inputs'
 
 const fields = [
   { label: 'First Name', name: 'first_name', type: 'text', required: true },
@@ -33,6 +40,8 @@ const SignUpForm = ({
   optIns = {},
   hasThanx = false,
 }) => {
+  const submitRef = useRef()
+  const formRef = useRef()
   const { accepts_marketing, order_notifications } = optIns
   const initialState = {
     accepts_marketing: accepts_marketing ? accepts_marketing.default : false,
@@ -56,8 +65,14 @@ const SignUpForm = ({
   }, [])
 
   useEffect(() => {
-    if (loading === 'idle') setSubmitting(false)
-    if (error) setErrors(error)
+    if (loading === 'idle') {
+      setSubmitting(false)
+      if (error) {
+        setErrors(error)
+        const inputs = formRef.current.querySelectorAll('input')
+        if (inputs.length) inputs[0].focus()
+      }
+    }
   }, [loading, error])
 
   const handleChange = (evt) => {
@@ -71,14 +86,16 @@ const SignUpForm = ({
     setData({ ...data, [name]: value })
   }
 
-  const handleSubmit = () => {
+  const handleSubmit = (evt) => {
+    evt.preventDefault()
     setErrors({})
     setSubmitting(true)
     signUp(data, callback)
+    submitRef.current.blur()
   }
 
   return (
-    <form id="signup-form" noValidate>
+    <form id="signup-form" ref={formRef} onSubmit={handleSubmit} noValidate>
       <FormError errMsg={errMsg} style={{ margin: '0 0 2rem' }} />
       <FormInputs>
         {formfields.map((field) => (
@@ -119,7 +136,9 @@ const SignUpForm = ({
         )}
       </FormInputs>
       <FormSubmit>
-        <SubmitButton onClick={handleSubmit} submitting={submitting} />
+        <ButtonSubmit submitRef={submitRef} submitting={submitting}>
+          {submitting ? 'Submitting...' : 'Submit'}
+        </ButtonSubmit>
       </FormSubmit>
     </form>
   )

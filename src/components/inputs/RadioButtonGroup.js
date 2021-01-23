@@ -62,6 +62,12 @@ const RadioButtonView = styled('span')`
   background-color: ${(props) => props.theme.bgColors.primary};
   border-color: ${(props) => props.theme.border.color};
 
+  input:focus + & {
+    outline-color: ${(props) => props.theme.colors.primary};
+    outline-style: auto;
+    outline-width: 5px;
+  }
+
   input:checked + & {
     border-color: ${(props) => props.theme.fonts.headings.color};
   }

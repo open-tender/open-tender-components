@@ -1,16 +1,23 @@
-import React, { useState, useEffect } from 'react'
+import React, { useRef, useState, useEffect } from 'react'
 import propTypes from 'prop-types'
+import { ButtonSubmit } from '..'
 import { FormInputs, FormSubmit, Input } from '../inputs'
-import { ButtonStyled } from '..'
 
 const LevelUpForm = ({ email, loading, error, connect, callback }) => {
+  const submitRef = useRef()
+  const inputRef = useRef()
   const [data, setData] = useState({ email })
   const [errors, setErrors] = useState({})
   const [submitting, setSubmitting] = useState(false)
 
   useEffect(() => {
-    if (loading === 'idle') setSubmitting(false)
-    if (error) setErrors(error)
+    if (loading === 'idle') {
+      setSubmitting(false)
+      if (error) {
+        setErrors(error)
+        inputRef.current.focus()
+      }
+    }
   }, [loading, error])
 
   const handleChange = (evt) => {
@@ -19,15 +26,18 @@ const LevelUpForm = ({ email, loading, error, connect, callback }) => {
     setData({ ...data, [id]: inputValue })
   }
 
-  const handleSubmit = () => {
+  const handleSubmit = (evt) => {
+    evt.preventDefault()
     setSubmitting(true)
     connect(data, callback)
+    submitRef.current.blur()
   }
 
   return (
-    <form id="levelup-form" noValidate>
+    <form id="levelup-form" onSubmit={handleSubmit} noValidate>
       <FormInputs>
         <Input
+          ref={inputRef}
           label="Email Address"
           name="email"
           type="email"
@@ -49,9 +59,9 @@ const LevelUpForm = ({ email, loading, error, connect, callback }) => {
         />
       </FormInputs>
       <FormSubmit>
-        <ButtonStyled onClick={handleSubmit} disabled={submitting}>
+        <ButtonSubmit submitRef={submitRef} submitting={submitting}>
           {submitting ? 'Connecting LevelUp...' : 'Connect LevelUp'}
-        </ButtonStyled>
+        </ButtonSubmit>
       </FormSubmit>
     </form>
   )

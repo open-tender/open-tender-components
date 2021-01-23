@@ -36,6 +36,12 @@ const CheckboxView = styled('span')`
   border-radius: 0.2rem;
   background-color: ${(props) => props.theme.bgColors.secondary};
 
+  input:focus + & {
+    outline-color: ${(props) => props.theme.colors.primary};
+    outline-style: auto;
+    outline-width: 5px;
+  }
+
   &:before {
     content: '';
     position: absolute;
