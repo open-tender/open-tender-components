@@ -1,7 +1,7 @@
-import React, { useState, useEffect } from 'react'
+import React, { useRef, useState, useEffect } from 'react'
 import propTypes from 'prop-types'
 import { CreditCardForm } from '.'
-import { ButtonStyled, Input, Text } from '../index'
+import { ButtonStyled, ButtonSubmit, Input, Text } from '../index'
 import {
   FormError,
   FormFieldset,
@@ -24,9 +24,12 @@ const DonationForm = ({
   error,
   success,
   donation,
+  windowRef,
   customer = {},
   creditCards = [],
 }) => {
+  const submitRef = useRef()
+  const inputRef = useRef()
   const [amount, setAmount] = useState('')
   const [email, setEmail] = useState(customer ? customer.email : '')
   const [isNewCard, setIsNewCard] = useState(true)
@@ -48,8 +51,11 @@ const DonationForm = ({
     if (loading === 'idle') {
       setSubmitting(false)
       setAlert({ type: 'close' })
+      if (error) {
+        setErrors(error)
+        inputRef.current.focus()
+      }
     }
-    if (error) setErrors(error)
   }, [loading, error, setAlert])
 
   useEffect(() => {
@@ -91,10 +97,13 @@ const DonationForm = ({
     purchase({ amount, email, credit_card: card })
   }
 
-  const handleSubmit = () => {
+  const handleSubmit = (evt) => {
+    evt.preventDefault()
     const { email } = customer || {}
     if (!amount || !email) {
       setErrors({ form: 'Both amount and email are required' })
+      inputRef.current.focus()
+      if (windowRef) windowRef.current.scrollTop = 0
     } else {
       setSubmitting(true)
       const alert = {
@@ -103,6 +112,7 @@ const DonationForm = ({
       }
       setAlert(alert)
       purchase({ amount, email, credit_card: creditCard })
+      submitRef.current.blur()
     }
   }
 
@@ -127,7 +137,7 @@ const DonationForm = ({
     </FormFieldset>
   ) : (
     <>
-      <form id="donation-form" noValidate>
+      <form id="donation-form" onSubmit={handleSubmit} noValidate>
         <FormError errMsg={errMsg} style={{ margin: '0 0 2rem' }} />
         <FormFieldset>
           <FormLegend
@@ -137,6 +147,7 @@ const DonationForm = ({
           />
           <FormInputs>
             <Input
+              ref={inputRef}
               label="Contribution Amount"
               name="amount"
               type="number"
@@ -177,13 +188,9 @@ const DonationForm = ({
               />
             </FormInputs>
             <FormSubmit style={{ margin: '3rem 0 0' }}>
-              <ButtonStyled
-                onClick={handleSubmit}
-                disabled={submitting}
-                size="big"
-              >
+              <ButtonSubmit submitRef={submitRef} submitting={submitting}>
                 {submitting ? 'Submitting...' : 'Submit Contribution'}
-              </ButtonStyled>
+              </ButtonSubmit>
             </FormSubmit>
           </FormFieldset>
         )}
@@ -228,6 +235,10 @@ DonationForm.propTypes = {
   donation: propTypes.object,
   customer: propTypes.object,
   creditCards: propTypes.array,
+  windowRef: propTypes.oneOfType([
+    propTypes.func,
+    propTypes.shape({ current: propTypes.instanceOf(Element) }),
+  ]),
 }
 
 export default DonationForm
