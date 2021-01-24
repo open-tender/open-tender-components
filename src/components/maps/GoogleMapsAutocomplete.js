@@ -128,7 +128,8 @@ const GoogleMapsAutocomplete = ({
   const handleKeyPress = useCallback(
     (evt) => {
       const handleEnter = (evt) => {
-        if (!predictions || !predictions.length) return
+        if (!predictions || !predictions.length || evt.target.id !== 'address')
+          return
         const prediction = activeIndex
           ? predictions.find((i, index) => index === activeIndex)
           : predictions[0]
