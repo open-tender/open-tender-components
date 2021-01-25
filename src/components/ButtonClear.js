@@ -8,7 +8,7 @@ import styled from '@emotion/styled'
 const ButtonClearView = styled('button')`
   position: absolute;
   top: 1.4rem;
-  right: 0.9rem;
+  right: 1.1rem;
   width: 1.5rem;
   height: 1.5rem;
   border-radius: 0.75rem;
@@ -40,7 +40,7 @@ const ButtonClearView = styled('button')`
   }
 `
 
-const ButtonClear = ({ ariaLabel, onClick, disabled }) => {
+const ButtonClear = ({ ariaLabel, onClick, disabled, style }) => {
   const onUp = (evt) => {
     evt.preventDefault()
     evt.stopPropagation()
@@ -54,6 +54,7 @@ const ButtonClear = ({ ariaLabel, onClick, disabled }) => {
       // onPointerUp={(evt) => onUp(evt)}
       onClick={(evt) => onUp(evt)}
       disabled={disabled}
+      style={style}
     />
   )
 }
@@ -64,6 +65,7 @@ ButtonClear.propTypes = {
   ariaLabel: propTypes.string,
   onClick: propTypes.func,
   disabled: propTypes.bool,
+  style: propTypes.object,
 }
 
 export default ButtonClear

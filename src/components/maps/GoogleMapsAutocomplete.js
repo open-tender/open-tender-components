@@ -29,6 +29,10 @@ const AutocompleteView = styled('div')`
     input {
       padding-left: 3.2rem;
       padding-right: 3.2rem;
+      @media (max-width: ${(props) => props.theme.breakpoints.tablet}) {
+        padding: 0.6rem 3.2rem;
+        line-height: 3rem;
+      }
     }
 
     input:focus,
@@ -218,6 +222,7 @@ const GoogleMapsAutocomplete = ({
           <ButtonClear
             ariaLabel="Clear text & start over"
             onClick={clearInput}
+            style={{ top: '50%', marginTop: '-0.7rem' }}
           />
         ) : null}
       </Input>
