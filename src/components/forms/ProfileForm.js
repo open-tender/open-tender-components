@@ -4,6 +4,7 @@ import { optionsOrderNotificationsTemp } from '@open-tender/js'
 import { ButtonSubmit } from '..'
 import {
   Checkbox,
+  FormError,
   FormInputs,
   FormSubmit,
   Input,
@@ -39,6 +40,7 @@ const ProfileForm = ({
   const { accepts_marketing, order_notifications } = optIns
   const [data, setData] = useState({})
   const [submitting, setSubmitting] = useState(false)
+  const errMsg = error ? 'There are one or more errors below.' : null
   const errors = error || {}
 
   useEffect(() => {
@@ -85,6 +87,7 @@ const ProfileForm = ({
 
   return (
     <form id={id} ref={formRef} onSubmit={handleSubmit} noValidate>
+      <FormError errMsg={errMsg} style={{ margin: '0 0 2rem' }} />
       <FormInputs>
         {showFields &&
           fields.map((field) => (
