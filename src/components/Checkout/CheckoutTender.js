@@ -1,4 +1,4 @@
-import React, { useContext } from 'react'
+import React, { useContext, useEffect } from 'react'
 import propTypes from 'prop-types'
 import styled from '@emotion/styled'
 import { tenderTypeNamesMap, capitalize } from '@open-tender/js'
@@ -95,6 +95,14 @@ const CheckoutTender = ({ tenderType }) => {
           setShowLevelUp(false)
           setShowHouseAccount(false)
         }
+
+  useEffect(() => {
+    if (!tenderTypesApplied.length) {
+      setShowCredit(false)
+      setShowLevelUp(false)
+      setShowHouseAccount(false)
+    }
+  }, [tenderTypesApplied, setShowCredit, setShowLevelUp, setShowHouseAccount])
 
   return (
     <>
