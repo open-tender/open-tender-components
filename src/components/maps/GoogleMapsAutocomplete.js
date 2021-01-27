@@ -103,6 +103,7 @@ const GoogleMapsAutocomplete = ({
   setCenter,
   error,
   icon,
+  placeholder = 'enter an address',
 }) => {
   const [input, setInput] = useState(formattedAddress || '')
   const [activeIndex, setActiveIndex] = useState(0)
@@ -190,7 +191,7 @@ const GoogleMapsAutocomplete = ({
         name="address"
         type="text"
         value={input}
-        placeholder="enter an address or zip code"
+        placeholder={placeholder}
         onChange={(evt) => setInput(evt.target.value)}
         showLabel={false}
         // classes="autocomplete__input"
@@ -241,5 +242,6 @@ GoogleMapsAutocomplete.propTypes = {
   error: propTypes.string,
   formattedAddress: propTypes.string,
   icon: propTypes.element,
+  placeholder: propTypes.string,
 }
 export default GoogleMapsAutocomplete
