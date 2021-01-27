@@ -99,7 +99,6 @@ const AuthApplePay = ({
   const { title: label, applePayMerchantId } = brand
   const config = { ...paymentSessionConfig, total: { label, amount } }
   const show = checking || showApplePay || errMsg
-  console.log('AuthApplePay is running')
 
   useEffect(() => {
     checkApplePayWithActiveCard(applePayMerchantId, setChecking).then((show) =>
@@ -124,13 +123,11 @@ const AuthApplePay = ({
     applePaySession.onpaymentauthorized = (evt) => {
       const token = evt.payment.token
       processPayment(api, token, amount, customerId)
-        .then((resp) => {
-          console.log(resp)
+        .then(() => {
           applePaySession.completePayment(ApplePaySession.STATUS_SUCCESS)
           if (callback) callback()
         })
         .catch((err) => {
-          console.log(err)
           applePaySession.completePayment(ApplePaySession.STATUS_FAILURE)
           setErrMsg(err.detail || err.message)
         })
