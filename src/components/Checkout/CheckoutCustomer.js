@@ -3,8 +3,8 @@ import { CheckoutAccount, CheckoutSignUp, CheckoutGuest } from '.'
 import { FormContext } from './CheckoutForm'
 
 const CheckoutCustomer = () => {
-  const formContext = useContext(FormContext)
-  const { form } = formContext
+  const { form, order } = useContext(FormContext)
+  const isCatering = order.orderType === 'CATERING'
   const hasAccount = form.customer && form.customer.customer_id
 
   return hasAccount ? (
@@ -12,7 +12,7 @@ const CheckoutCustomer = () => {
   ) : (
     <>
       <CheckoutSignUp />
-      <CheckoutGuest />
+      {!isCatering && <CheckoutGuest />}
     </>
   )
 }

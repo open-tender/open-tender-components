@@ -23,14 +23,14 @@ const CheckoutSignUpView = styled('div')`
 
 const CheckoutSignUp = () => {
   const formContext = useContext(FormContext)
-  const { config, login, signUp, iconMap = {} } = formContext
+  const { config, login, signUp, order, iconMap = {} } = formContext
+  const isCatering = order.orderType === 'CATERING'
+  const title = isCatering
+    ? 'Please create an account or log into an existing one'
+    : config.signUp.title
   return (
     <FormFieldset>
-      <FormLegend
-        as="div"
-        title={config.signUp.title}
-        subtitle={config.signUp.subtitle}
-      />
+      <FormLegend as="div" title={title} subtitle={config.signUp.subtitle} />
       <CheckoutSignUpView>
         <ButtonStyled icon={iconMap.signUp || null} onClick={signUp}>
           Create An Account
