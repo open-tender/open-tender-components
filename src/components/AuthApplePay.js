@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react'
 import propTypes from 'prop-types'
 import styled from '@emotion/styled'
+import { handleRespError } from '@open-tender/js'
 import { FormError } from './inputs'
 
 const ApplePayView = styled('div')`
@@ -78,7 +79,8 @@ const processPayment = async (api, token, amount, customerId) => {
   try {
     return await api.postApplePayPayment(token, amount, customerId)
   } catch (err) {
-    throw new Error(err.detail || err.message)
+    const error = handleRespError(err)
+    throw new Error(error.detail)
   }
 }
 
