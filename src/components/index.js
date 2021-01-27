@@ -16,6 +16,7 @@ import Heading from './Heading'
 import Message from './Message'
 import Preface from './Preface'
 import Text from './Text'
+import AuthApplePay from './AuthApplePay'
 
 import Builder, {
   BuilderCheckbox,
@@ -97,6 +98,7 @@ export {
   SubmitButton,
   Switch,
   Textarea,
+  AuthApplePay,
   BgImage,
   Box,
   Builder,
