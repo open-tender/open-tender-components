@@ -1,7 +1,7 @@
 import styled from '@emotion/styled'
 import React, { useContext } from 'react'
 import { ButtonLink, ButtonStyled } from '..'
-import { FormFieldset, FormLegend } from '../inputs'
+import { FormError, FormFieldset, FormLegend } from '../inputs'
 import { FormContext } from './CheckoutForm'
 
 const CheckoutSignUpView = styled('div')`
@@ -23,11 +23,16 @@ const CheckoutSignUpView = styled('div')`
 
 const CheckoutSignUp = () => {
   const formContext = useContext(FormContext)
-  const { config, login, signUp, order, iconMap = {} } = formContext
+  const { config, login, signUp, order, iconMap = {}, errors } = formContext
   const isCatering = order.orderType === 'CATERING'
   const title = isCatering
     ? 'Please create an account or log into an existing one'
     : config.signUp.title
+  const formErrors = errors.customer || {}
+  const errMsg =
+    isCatering && formErrors.email
+      ? 'You must create an account or log into an existing account when placing a catering order'
+      : null
   return (
     <FormFieldset>
       <FormLegend as="div" title={title} subtitle={config.signUp.subtitle} />
@@ -37,6 +42,7 @@ const CheckoutSignUp = () => {
         </ButtonStyled>
         <ButtonLink onClick={login}>or log into an existing account</ButtonLink>
       </CheckoutSignUpView>
+      <FormError errMsg={errMsg} style={{ margin: '2rem 0 0' }} />
     </FormFieldset>
   )
 }
