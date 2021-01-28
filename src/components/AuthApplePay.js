@@ -90,7 +90,7 @@ const AuthApplePay = ({
   brand,
   customerId,
   amount = '0.00',
-  message = 'Add new card via Apple Pay or enter a new card manually below.',
+  message,
   callback,
 }) => {
   const [checking, setChecking] = useState(false)
@@ -98,7 +98,7 @@ const AuthApplePay = ({
   const [errMsg, setErrMsg] = useState(null)
   const { title: label, applePayMerchantId } = brand
   const config = { ...paymentSessionConfig, total: { label, amount } }
-  const show = checking || showApplePay || errMsg
+  // const show = checking || showApplePay || errMsg
 
   useEffect(() => {
     checkApplePayWithActiveCard(applePayMerchantId, setChecking).then((show) =>
@@ -134,7 +134,7 @@ const AuthApplePay = ({
     }
   }
 
-  return show ? (
+  return (
     <ApplePayView>
       <FormError errMsg={errMsg} style={{ margin: '0 0 2rem' }} />
       {checking ? (
@@ -147,9 +147,14 @@ const AuthApplePay = ({
           {!!message && <p>{message}</p>}
           <ApplePayButton onClick={onClick} />
         </>
-      ) : null}
+      ) : (
+        <FormError
+          errMsg="Apple Pay is not available in this browser. Please try a different device or browser."
+          style={{ margin: '0 0 2rem' }}
+        />
+      )}
     </ApplePayView>
-  ) : null
+  )
 }
 
 AuthApplePay.displayName = 'AuthApplePay'
