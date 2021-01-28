@@ -29,6 +29,7 @@ const fields = [
     placeholder: '#### #### #### ####',
     name: 'acct',
     type: 'text',
+    pattern: '[0-9]*',
     autoComplete: 'cc-number',
   },
   {
@@ -36,6 +37,7 @@ const fields = [
     placeholder: 'MMYY',
     name: 'exp',
     type: 'text',
+    pattern: '[0-9]*',
     autoComplete: 'cc-exp',
   },
   {
@@ -43,6 +45,7 @@ const fields = [
     placeholder: '###',
     name: 'cvv',
     type: 'text',
+    pattern: '[0-9]*',
     autoComplete: 'cc-csc',
   },
   {
@@ -50,6 +53,7 @@ const fields = [
     placeholder: '#####',
     name: 'zip',
     type: 'text',
+    pattern: '[0-9]*',
     autoComplete: 'postal-code',
   },
 ]
@@ -193,6 +197,7 @@ const CheckoutNewCardForm = ({
                 label={field.label}
                 name={field.name}
                 type={field.type}
+                pattern={field.pattern}
                 autoComplete={field.autoComplete}
                 value={newCard[field.name]}
                 placeholder={field.placeholder}
