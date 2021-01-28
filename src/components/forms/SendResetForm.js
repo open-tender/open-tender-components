@@ -4,8 +4,8 @@ import { ButtonSubmit } from '..'
 import { FormError, FormInputs, FormSubmit, Input } from '../inputs'
 
 const SendResetForm = ({ loading, error, sendReset, callback }) => {
-  const submitRef = useRef()
-  const inputRef = useRef()
+  const submitRef = useRef(null)
+  const inputRef = useRef(null)
   const [data, setData] = useState({})
   const isLoading = loading === 'pending'
   const errMsg = error && error.email ? error.email : null

@@ -13,8 +13,8 @@ const fields = [
 ]
 
 const AddressForm = ({ address, loading, error, update, callback }) => {
-  const submitRef = useRef()
-  const inputRef = useRef()
+  const submitRef = useRef(null)
+  const inputRef = useRef(null)
   const [data, setData] = useState(address)
   const [errors, setErrors] = useState({})
   const [submitting, setSubmitting] = useState(false)

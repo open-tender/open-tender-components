@@ -9,8 +9,8 @@ const fields = [
 ]
 
 const CartGuestForm = ({ loading, errMsg, cartId, joinCart }) => {
-  const submitRef = useRef()
-  const inputRef = useRef()
+  const submitRef = useRef(null)
+  const inputRef = useRef(null)
   const [data, setData] = useState({ cart_id: cartId })
   const [submitting, setSubmitting] = useState(false)
 

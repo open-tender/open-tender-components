@@ -25,7 +25,7 @@ const OrderRatingForm = ({
   updateRating,
   callback,
 }) => {
-  const submitRef = useRef()
+  const submitRef = useRef(null)
   const [rating, setRating] = useState(orderRating.rating || 0)
   const [comments, setComments] = useState(orderRating.comments || '')
   const stars = [1, 2, 3, 4, 5]

@@ -14,7 +14,7 @@ const OrderFulfillmentForm = ({
   update,
   settings,
 }) => {
-  const submitRef = useRef()
+  const submitRef = useRef(null)
   const [data, setData] = useState({})
   const [submitting, setSubmitting] = useState(false)
   const errors = error || {}

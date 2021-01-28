@@ -4,8 +4,8 @@ import { ButtonSubmit } from '..'
 import { FormInputs, FormSubmit, Input } from '../inputs'
 
 const LevelUpForm = ({ email, loading, error, connect, callback }) => {
-  const submitRef = useRef()
-  const inputRef = useRef()
+  const submitRef = useRef(null)
+  const inputRef = useRef(null)
   const [data, setData] = useState({ email })
   const [errors, setErrors] = useState({})
   const [submitting, setSubmitting] = useState(false)

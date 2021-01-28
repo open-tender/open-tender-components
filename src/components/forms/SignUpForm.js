@@ -40,8 +40,8 @@ const SignUpForm = ({
   optIns = {},
   hasThanx = false,
 }) => {
-  const submitRef = useRef()
-  const formRef = useRef()
+  const submitRef = useRef(null)
+  const formRef = useRef(null)
   const { accepts_marketing, order_notifications } = optIns
   const initialState = {
     accepts_marketing: accepts_marketing ? accepts_marketing.default : false,

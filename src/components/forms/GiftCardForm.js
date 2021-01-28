@@ -12,8 +12,8 @@ const GiftCardForm = ({
   add,
   callback,
 }) => {
-  const submitRef = useRef()
-  const inputRef = useRef()
+  const submitRef = useRef(null)
+  const inputRef = useRef(null)
   const customerCardId = creditCards[0].customer_card_id
   const [data, setData] = useState({ customer_card_id: customerCardId })
   const [errors, setErrors] = useState({})

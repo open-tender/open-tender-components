@@ -114,7 +114,7 @@ const GoogleMapsAutocomplete = ({
     input
   )
   const place = useGoogleMapsPlace(maps, map, placeId)
-  const inputRef = useRef()
+  const inputRef = useRef(null)
 
   const choosePlace = (evt, placeId, description) => {
     evt.preventDefault()

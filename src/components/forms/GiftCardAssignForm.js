@@ -4,8 +4,8 @@ import { ButtonSubmit } from '..'
 import { FormError, FormInputs, FormSubmit, Input } from '../inputs'
 
 const GiftCardAssignForm = ({ loading, error, assign, callback }) => {
-  const submitRef = useRef()
-  const inputRef = useRef()
+  const submitRef = useRef(null)
+  const inputRef = useRef(null)
   const [cardNumber, setCardNumber] = useState('')
   const [errors, setErrors] = useState({})
   const [submitting, setSubmitting] = useState(false)

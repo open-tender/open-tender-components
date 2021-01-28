@@ -15,8 +15,8 @@ const ResetPasswordForm = ({
   resetForm,
   resetToken,
 }) => {
-  const submitRef = useRef()
-  const inputRef = useRef()
+  const submitRef = useRef(null)
+  const inputRef = useRef(null)
   const [data, setData] = useState({})
   const [errors, setErrors] = useState({})
   const [submitting, setSubmitting] = useState(false)

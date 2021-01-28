@@ -12,7 +12,7 @@ const AllergenForm = ({
   updateAllergens,
   callback,
 }) => {
-  const submitRef = useRef()
+  const submitRef = useRef(null)
   const [data, setData] = useState([])
   const [submitting, setSubmitting] = useState(false)
   const allergenIds = data.map((i) => i.allergen_id)
@@ -23,7 +23,7 @@ const AllergenForm = ({
     // both brand allergens and customer allergens loading
     if (!isLoading) {
       setSubmitting(false)
-      submitRef.current.blur()
+      if (submitRef.current) submitRef.current.blur()
     }
   }, [isLoading])
 

@@ -10,8 +10,8 @@ const GiftCardAssignOtherForm = ({
   assign,
   callback,
 }) => {
-  const submitRef = useRef()
-  const inputRef = useRef()
+  const submitRef = useRef(null)
+  const inputRef = useRef(null)
   const [email, setEmail] = useState('')
   const [errors, setErrors] = useState({})
   const [submitting, setSubmitting] = useState(false)

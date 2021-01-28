@@ -41,7 +41,7 @@ import {
 export const FormContext = createContext(null)
 
 const usePrevious = (value) => {
-  const ref = useRef()
+  const ref = useRef(null)
   useEffect(() => {
     ref.current = value
   })

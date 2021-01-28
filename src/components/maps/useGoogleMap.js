@@ -13,7 +13,7 @@ const eventsMapping = {
 
 const useGoogleMap = ({ apiKey, zoom, styles, center, events = {} }) => {
   const [mapState, setMapState] = useState({ loading: true })
-  const mapRef = useRef()
+  const mapRef = useRef(null)
   useEffect(() => {
     const mapStyles = makeMapStyles(styles)
     GoogleMapsApiLoader({ libraries: ['places'], apiKey }).then((google) => {

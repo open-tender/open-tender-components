@@ -4,8 +4,8 @@ import { ButtonSubmit } from '../index'
 import { FormError, FormInputs, FormSubmit, Input } from '../inputs'
 
 const LoginForm = ({ loading, error, login, callback, hasThanx }) => {
-  const submitRef = useRef()
-  const inputRef = useRef()
+  const submitRef = useRef(null)
+  const inputRef = useRef(null)
   const [data, setData] = useState({})
   const submitting = loading === 'pending'
 
