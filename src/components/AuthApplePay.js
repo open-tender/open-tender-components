@@ -5,7 +5,7 @@ import { handleRespError } from '@open-tender/js'
 import { FormError } from './inputs'
 
 const ApplePayView = styled('div')`
-  margin: 2rem 0 1rem;
+  margin: 2rem 0;
 
   > span > p {
     margin: 0;
