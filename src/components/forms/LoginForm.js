@@ -3,7 +3,7 @@ import propTypes from 'prop-types'
 import { ButtonSubmit } from '../index'
 import { FormError, FormInputs, FormSubmit, Input } from '../inputs'
 
-const LoginForm = ({ loading, error, login, callback, hasThanx }) => {
+const LoginForm = ({ loading, error, login, callback, hasThanx, posToken }) => {
   const submitRef = useRef(null)
   const inputRef = useRef(null)
   const [data, setData] = useState({})
@@ -23,7 +23,7 @@ const LoginForm = ({ loading, error, login, callback, hasThanx }) => {
   const handleSubmit = (evt) => {
     evt.preventDefault()
     const { email, password } = data
-    login(email, password).then(() => {
+    login(email, password, posToken).then(() => {
       if (callback) callback()
     })
     submitRef.current.blur()
@@ -71,6 +71,7 @@ LoginForm.propTypes = {
   login: propTypes.func,
   callback: propTypes.func,
   hasThanx: propTypes.bool,
+  posToken: propTypes.string,
 }
 
 export default LoginForm

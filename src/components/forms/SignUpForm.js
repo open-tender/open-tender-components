@@ -39,6 +39,7 @@ const SignUpForm = ({
   callback,
   optIns = {},
   hasThanx = false,
+  posToken,
 }) => {
   const submitRef = useRef(null)
   const formRef = useRef(null)
@@ -90,7 +91,8 @@ const SignUpForm = ({
     evt.preventDefault()
     setErrors({})
     setSubmitting(true)
-    signUp(data, callback)
+    const allData = posToken ? { ...data, posToken } : data
+    signUp(allData, callback)
     submitRef.current.blur()
   }
 
@@ -152,6 +154,7 @@ SignUpForm.propTypes = {
   callback: propTypes.func,
   optIns: propTypes.object,
   hasThanx: propTypes.bool,
+  posToken: propTypes.string,
 }
 
 export default SignUpForm
