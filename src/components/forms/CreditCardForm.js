@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useRef, useMemo } from 'react'
+import React, { useState, useEffect, useRef } from 'react'
 import propTypes from 'prop-types'
 import {
   getCardType,
@@ -14,10 +14,33 @@ const fields = [
     placeholder: '#### #### #### ####',
     name: 'acct',
     type: 'text',
+    pattern: '[0-9]*',
+    autoComplete: 'cc-number',
   },
-  { label: 'Expiration', placeholder: 'MMYY', name: 'exp', type: 'number' },
-  { label: 'CVV', placeholder: '###', name: 'cvv', type: 'number' },
-  { label: 'Zip Code', placeholder: '#####', name: 'zip', type: 'number' },
+  {
+    label: 'Expiration',
+    placeholder: 'MMYY',
+    name: 'exp',
+    type: 'text',
+    pattern: '[0-9]*',
+    autoComplete: 'cc-exp',
+  },
+  {
+    label: 'CVV',
+    placeholder: '###',
+    name: 'cvv',
+    type: 'text',
+    pattern: '[0-9]*',
+    autoComplete: 'cc-csc',
+  },
+  {
+    label: 'Zip Code',
+    placeholder: '#####',
+    name: 'zip',
+    type: 'text',
+    pattern: '[0-9]*',
+    autoComplete: 'postal-code',
+  },
 ]
 
 const CreditCardForm = ({
@@ -89,6 +112,8 @@ const CreditCardForm = ({
             label={field.label}
             name={field.name}
             type={field.type}
+            pattern={field.pattern}
+            autoComplete={field.autoComplete}
             value={data[field.name]}
             placeholder={field.placeholder}
             onChange={handleChange}

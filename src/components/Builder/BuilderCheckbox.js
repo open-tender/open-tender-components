@@ -49,7 +49,8 @@ const BuilderCheckboxButton = styled('span')`
   input:focus + & {
     outline-color: ${(props) => props.theme.colors.primary};
     outline-style: auto;
-    outline-width: 5px;
+    outline-width: 0.3rem;
+    outline-offset: 0.3rem;
   }
 
   input:checked + & {
@@ -72,7 +73,7 @@ const BuilderCheckboxButton = styled('span')`
     transform: scale(0) rotate(-45deg);
     opacity: 0;
     transition: all 0.1s ease;
-    color: ${(props) => props.theme.colors.light};
+    color: ${(props) => props.theme.bgColors.primary};
   }
 
   input:checked + &:before {
