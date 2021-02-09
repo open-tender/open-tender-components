@@ -12,7 +12,7 @@ import { FormContext } from './CheckoutForm'
 
 export const TendersContext = createContext(null)
 
-const validTenderTypes = ['CASH', 'CREDIT', 'LEVELUP', 'HOUSE_ACCOUNT', 'COMO']
+const validTenderTypes = ['CASH', 'CREDIT', 'LEVELUP', 'HOUSE_ACCOUNT']
 
 const checkHasApplePay = (check) => {
   return check ? check.config.tender_types.includes('APPLE_PAY') : false
