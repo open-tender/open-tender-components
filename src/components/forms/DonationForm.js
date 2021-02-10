@@ -1,5 +1,6 @@
 import React, { useRef, useState, useEffect, useMemo } from 'react'
 import propTypes from 'prop-types'
+import { makeNumeric } from '@open-tender/js'
 import { CreditCardForm } from '.'
 import { ButtonStyled, ButtonSubmit, Input, Text } from '../index'
 import {
@@ -81,7 +82,8 @@ const DonationForm = ({
   }, [creditCards])
 
   const handleAmount = (evt) => {
-    setAmount(evt.target.value)
+    const cleanValue = makeNumeric(evt.target.value)
+    setAmount(cleanValue)
   }
 
   const handleEmail = (evt) => {
@@ -157,7 +159,8 @@ const DonationForm = ({
               ref={inputRef}
               label="Contribution Amount"
               name="amount"
-              type="number"
+              type="text"
+              pattern="[0-9]*"
               value={amount}
               onChange={handleAmount}
               error={handleAmountError(errors.amount)}

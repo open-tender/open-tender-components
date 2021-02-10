@@ -5,6 +5,7 @@ import {
   isEmpty,
   cardNames,
   getCardType,
+  makeNumeric,
   makeAcctNumber,
   validateCreditCard,
 } from '@open-tender/js'
@@ -129,16 +130,17 @@ const CheckoutNewCardForm = ({
 
   const handleChange = (evt) => {
     let { id, checked, value } = evt.target
+    const cleanValue = makeNumeric(value)
     if (id === 'acct') {
       const currentType = getCardType(value.replace(/\s/g, ''))
       setCardType(currentType)
       value = makeAcctNumber(value, currentType)
     } else if (id === 'exp') {
-      value = value.slice(0, 4)
+      value = cleanValue.slice(0, 4)
     } else if (id === 'cvv') {
-      value = value.slice(0, 4)
+      value = cleanValue.slice(0, 4)
     } else if (id === 'zip') {
-      value = value.slice(0, 5)
+      value = cleanValue.slice(0, 5)
     } else if (id === 'save') {
       value = checked
     }
