@@ -92,6 +92,7 @@ const CheckoutForm = ({
   const tz = revenueCenter ? timezoneMap[revenueCenter.timezone] : null
   const { surcharges, discounts, promoCodes, tenders, tip } = form
   const email = form.customer && form.customer.email
+  const tax_exempt_id = form.details && form.details.tax_exempt_id
   const { profile } = customer
   const total = check && check.totals ? check.totals.total : 0.0
   let amountRemaining = checkAmountRemaining(total, tenders)
@@ -124,6 +125,7 @@ const CheckoutForm = ({
       : email
       ? { email }
       : null
+    const detailsValidate = tax_exempt_id ? { tax_exempt_id } : null
     const dataValidate = {
       orderId,
       revenueCenterId,
@@ -131,6 +133,7 @@ const CheckoutForm = ({
       requestedAt,
       cart,
       customer: customerValidate,
+      details: detailsValidate,
       address,
       surcharges,
       discounts,
@@ -151,6 +154,7 @@ const CheckoutForm = ({
     promoCodes,
     tip,
     email,
+    tax_exempt_id,
   ])
   const prevOrderValidate = usePrevious(orderValidate)
 

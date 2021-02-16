@@ -187,6 +187,7 @@ const CheckoutDetails = () => {
               name="details-person_count"
               type="number"
               pattern="[0-9]*"
+              min={0}
               value={details.person_count}
               onChange={handleChange}
               error={detailsErrors.person_count}

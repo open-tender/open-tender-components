@@ -17,6 +17,8 @@ const Input = React.forwardRef(
       required = false,
       autoComplete = null,
       pattern = null,
+      min = null,
+      max = null,
       placeholder = '',
       children,
     },
@@ -34,6 +36,8 @@ const Input = React.forwardRef(
               name={name}
               type={type}
               pattern={pattern}
+              min={min}
+              max={max}
               autoComplete={autoComplete || null}
               value={value || ''}
               placeholder={placeholder}
@@ -67,6 +71,8 @@ Input.propTypes = {
   required: propTypes.bool,
   autoComplete: propTypes.string,
   pattern: propTypes.string,
+  min: propTypes.number,
+  max: propTypes.number,
   placeholder: propTypes.string,
   children: propTypes.oneOfType([
     propTypes.arrayOf(propTypes.node),
