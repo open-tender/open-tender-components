@@ -1,4 +1,5 @@
-import React, { useContext, useState, useEffect } from 'react'
+import React, { useContext, useState, useEffect, useRef, useMemo } from 'react'
+import isEqual from 'lodash/isEqual'
 import { ButtonStyled, Text } from '..'
 import { FormContext } from './CheckoutForm'
 import { CheckoutLabel } from '.'
@@ -10,12 +11,22 @@ import {
   FormRow,
 } from '../inputs'
 
+const usePrevious = (value) => {
+  const ref = useRef(null)
+  useEffect(() => {
+    ref.current = value
+  })
+  return ref.current
+}
+
 const CheckoutDiscounts = () => {
   const formContext = useContext(FormContext)
   const { iconMap = {}, config, check, form, loading, updateForm } = formContext
   const [pendingDiscount, setPendingDiscount] = useState(null)
   const discountIds = form.discounts.map((i) => i.id)
+  const prevCheckDiscounts = usePrevious(check.discounts)
 
+  // add initial auto applied discounts
   useEffect(() => {
     const initialDiscounts = check.discounts
       .filter((i) => !i.is_optional)
@@ -25,6 +36,18 @@ const CheckoutDiscounts = () => {
       updateForm({ discounts: [...form.discounts, ...initialDiscounts] })
     }
   }, [check.discounts, form.discounts, updateForm])
+
+  // if the check.discounts array changes, remove any discounts that
+  //  have disappeared from the form.discounts array
+  useEffect(() => {
+    if (!isEqual(check.discounts, prevCheckDiscounts)) {
+      const checkDiscountIds = check.discounts.map((i) => i.id)
+      const formDiscounts = form.discounts.filter((i) =>
+        checkDiscountIds.includes(i.id)
+      )
+      updateForm({ discounts: [...formDiscounts] })
+    }
+  }, [form.discounts, prevCheckDiscounts, check.discounts, updateForm])
 
   useEffect(() => {
     if (loading !== 'pending') setPendingDiscount(null)
@@ -64,14 +87,21 @@ const CheckoutDiscounts = () => {
               labelWidth="auto"
               label={
                 <CheckoutLabel
-                  title={i.name}
+                  title={i.title || i.name}
                   description={i.description}
                   alert={
-                    i.is_optional ? null : (
-                      <Text color="success">
-                        Credit has automatically been applied to your order.
-                      </Text>
-                    )
+                    <>
+                      {!i.is_optional && (
+                        <Text color="success">
+                          Credit has automatically been applied to your order.
+                        </Text>
+                      )}
+                      {i.per_order === 1 && (
+                        <Text color="alert">
+                          Cannot be used with any other discounts
+                        </Text>
+                      )}
+                    </>
                   }
                 />
               }
