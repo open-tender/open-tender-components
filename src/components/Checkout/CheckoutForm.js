@@ -25,6 +25,7 @@ import {
   setCompletedOrder,
   resetErrors,
   setAlert,
+  sendCustomerVerificationEmail,
 } from '@open-tender/redux'
 import { FormError, Check, Message, ButtonStyled } from '..'
 import {
@@ -214,6 +215,11 @@ const CheckoutForm = ({
     dispatch(submitOrder())
   }
 
+  const handleVerify = () => {
+    const linkUrl = `${window.location.origin}/verify`
+    dispatch(sendCustomerVerificationEmail(linkUrl))
+  }
+
   return (
     <FormContext.Provider
       value={{
@@ -242,6 +248,7 @@ const CheckoutForm = ({
         connectLevelUp: handleConnectLevelUp,
         addGiftCard: handleAddGiftCard,
         submitOrder: handleSubmit,
+        verifyAccount: handleVerify,
         submitOrderPay: (bool) => dispatch(submitOrderPay(bool)),
         setCompletedOrder: (order) => dispatch(setCompletedOrder(order)),
       }}

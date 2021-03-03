@@ -1,6 +1,6 @@
 import React, { useContext, useState, useEffect, useRef, useMemo } from 'react'
 import isEqual from 'lodash/isEqual'
-import { ButtonStyled, Text } from '..'
+import { ButtonLink, ButtonStyled, Text } from '..'
 import { FormContext } from './CheckoutForm'
 import { CheckoutLabel } from '.'
 import {
@@ -21,7 +21,17 @@ const usePrevious = (value) => {
 
 const CheckoutDiscounts = () => {
   const formContext = useContext(FormContext)
-  const { iconMap = {}, config, check, form, loading, updateForm } = formContext
+  const {
+    iconMap = {},
+    config,
+    check,
+    form,
+    loading,
+    updateForm,
+    signUp,
+    verifyAccount,
+  } = formContext
+  const { customer_id, is_verified } = check.customer || {}
   const [pendingDiscount, setPendingDiscount] = useState(null)
   const discountIds = form.discounts.map((i) => i.id)
   const prevCheckDiscounts = usePrevious(check.discounts)
@@ -80,6 +90,9 @@ const CheckoutDiscounts = () => {
         {discountsOptional.map((i) => {
           const isApplied = discountIds.includes(i.id)
           const isPending = i.id === pendingDiscount
+          const missingAccount =
+            ['ACCOUNT', 'VERIFIED'].includes(i.auth_type) && !customer_id
+          const missingVerified = i.auth_type === 'VERIFIED' && !is_verified
           return (
             <FormRow
               key={i.id}
@@ -91,16 +104,31 @@ const CheckoutDiscounts = () => {
                   description={i.description}
                   alert={
                     <>
-                      {!i.is_optional && (
+                      {!i.is_optional ? (
                         <Text color="success">
                           Credit has automatically been applied to your order.
                         </Text>
-                      )}
-                      {i.per_order === 1 && (
+                      ) : missingAccount ? (
+                        <Text color="alert">
+                          Requires an account.{' '}
+                          <ButtonLink onClick={signUp}>
+                            Click here to sign up.
+                          </ButtonLink>
+                        </Text>
+                      ) : missingVerified ? (
+                        <Text color="alert">
+                          Requires a verified account.{' '}
+                          <ButtonLink onClick={verifyAccount}>
+                            Click here to send a verification email
+                          </ButtonLink>{' '}
+                          and then refresh this page after {"you've"} verified
+                          your account.
+                        </Text>
+                      ) : i.per_order === 1 ? (
                         <Text color="alert">
                           Cannot be used with any other discounts
                         </Text>
-                      )}
+                      ) : null}
                     </>
                   }
                 />
@@ -128,6 +156,7 @@ const CheckoutDiscounts = () => {
                       onClick={() => applyDiscount(i.id, i.ext_id)}
                       size="header"
                       color="header"
+                      disabled={missingAccount || missingVerified}
                     >
                       Apply
                     </ButtonStyled>
