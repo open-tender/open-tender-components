@@ -29,12 +29,15 @@ const CheckboxView = styled('span')`
   flex-shrink: 0;
   display: block;
   position: relative;
-  width: 1.9rem;
-  height: 1.9rem;
+  width: 2.1rem;
+  height: 2.1rem;
   padding: 0;
   margin: 0 1rem 0 0;
   border-radius: 0.2rem;
-  background-color: ${(props) => props.theme.bgColors.secondary};
+  background-color: ${(props) => props.theme.bgColors.primary};
+  border: ${(props) => props.theme.inputs.borderWidth} solid
+    ${(props) => props.theme.inputs.borderColor};
+  box-shadow: ${(props) => props.theme.inputs.boxShadow};
 
   input:focus + & {
     outline-color: ${(props) => props.theme.colors.primary};
@@ -45,8 +48,8 @@ const CheckboxView = styled('span')`
   &:before {
     content: '';
     position: absolute;
-    width: 1.1rem;
-    height: 0.6rem;
+    width: 1.3rem;
+    height: 0.7rem;
     background: transparent;
     top: 0.5rem;
     left: 0.4rem;

@@ -56,11 +56,11 @@ const RadioButtonView = styled('span')`
   height: 2.4rem;
   padding: 0;
   border-radius: 100%;
-  border-width: 0.2rem;
-  border-style: solid;
   transition: all 0.15s ease;
   background-color: ${(props) => props.theme.bgColors.primary};
-  border-color: ${(props) => props.theme.border.color};
+  border: ${(props) => props.theme.inputs.borderWidth} solid
+    ${(props) => props.theme.inputs.borderColor};
+  box-shadow: ${(props) => props.theme.inputs.boxShadow};
 
   input:focus + & {
     outline-color: ${(props) => props.theme.colors.primary};
@@ -68,17 +68,13 @@ const RadioButtonView = styled('span')`
     outline-width: 5px;
   }
 
-  input:checked + & {
-    border-color: ${(props) => props.theme.fonts.headings.color};
-  }
-
   input:checked + &:before {
     content: '';
     position: absolute;
-    top: 0.3rem;
-    left: 0.3rem;
-    width: 1.4rem;
-    height: 1.4rem;
+    top: 0.4rem;
+    left: 0.4rem;
+    width: 1.6rem;
+    height: 1.6rem;
     border-radius: 100%;
     background-color: ${(props) => props.theme.fonts.headings.color};
   }

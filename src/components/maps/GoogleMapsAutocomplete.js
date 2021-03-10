@@ -56,7 +56,7 @@ const AutocompletePredictions = styled('div')`
   right: 0;
   overflow: hidden;
   background-color: ${(props) => props.theme.bgColors.primary};
-  border-color: ${(props) => props.theme.border.color};
+  border-color: ${(props) => props.theme.bgColors.secondary};
   border-width: 0.1rem;
   border-style: solid;
   border-top: 0;
@@ -70,7 +70,7 @@ const AutocompletePrediction = styled('li')`
   font-size: ${(props) => props.theme.fonts.sizes.small};
   background-color: ${(props) =>
     props.active ? props.theme.bgColors.secondary : 'transparent'};
-  border-color: ${(props) => props.theme.border.color};
+  border-color: ${(props) => props.theme.bgColors.secondary};
   border-bottom-width: 0.1rem;
   border-bottom-style: solid;
 
