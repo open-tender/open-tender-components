@@ -1,26 +1,12 @@
 import React, { useContext } from 'react'
 import { checkAmountRemaining } from '@open-tender/js'
-import { ButtonStyled, Preface, Text } from '..'
+import { Preface, Text } from '..'
 import { FormContext } from './CheckoutForm'
-import { CheckoutLabel } from '.'
-import {
-  FormApplied,
-  FormFieldset,
-  FormInputs,
-  FormLegend,
-  FormRow,
-} from '../inputs'
+import { FormButton, FormFieldset, FormInputs, FormLegend } from '../inputs'
 
 const CheckoutGiftCards = () => {
   const formContext = useContext(FormContext)
-  const {
-    iconMap = {},
-    config,
-    check,
-    form,
-    updateForm,
-    addGiftCard,
-  } = formContext
+  const { config, check, form, updateForm, addGiftCard } = formContext
   const hasCustomer = check.customer && check.customer.customer_id
   const giftCards =
     check.customer && check.customer.gift_cards
@@ -81,68 +67,38 @@ const CheckoutGiftCards = () => {
         {giftCards &&
           giftCards.map((i) => {
             const amount = giftCardsApplied[i.card_number]
+            const isApplied = !!amount
+            const onClick = isApplied
+              ? () => removeGiftCard(i.card_number)
+              : () => applyGiftCard(i.card_number, i.balance)
+            const disabled = !isApplied && isPaid
+            const label = isApplied
+              ? `Remove gift card ${i.card_number} with amount of ${amount}`
+              : `Apply gift card ${i.card_number} with balance of ${i.balance}`
             return (
-              <FormRow
+              <FormButton
                 key={i.card_number}
-                type="div"
-                labelWidth="auto"
-                label={
-                  <CheckoutLabel
-                    title={`Gift Card ${i.card_number}`}
-                    description={`Balance of $${i.balance}`}
-                    alert={
-                      amount && (
-                        <Text color="success">${amount} applied to check</Text>
-                      )
-                    }
-                  />
+                title={`Gift Card ${i.card_number}`}
+                description={`Balance of $${i.balance}`}
+                alert={
+                  isApplied && (
+                    <Text color="success">${amount} applied to check</Text>
+                  )
                 }
-                input={
-                  <>
-                    {amount ? (
-                      <>
-                        <FormApplied />
-                        <ButtonStyled
-                          label={`Remove gift card ${i.card_number} with amount of ${amount}`}
-                          icon={iconMap.remove}
-                          onClick={() => removeGiftCard(i.card_number)}
-                          size="header"
-                          color="header"
-                        >
-                          Remove
-                        </ButtonStyled>
-                      </>
-                    ) : (
-                      <ButtonStyled
-                        label={`Apply gift card ${i.card_number} with balance of ${i.balance}`}
-                        icon={iconMap.add}
-                        onClick={() => applyGiftCard(i.card_number, i.balance)}
-                        disable={isPaid}
-                        size="header"
-                        color="header"
-                      >
-                        Apply
-                      </ButtonStyled>
-                    )}
-                  </>
-                }
+                isApplied={isApplied}
+                onClick={onClick}
+                disabled={disabled}
+                label={label}
               />
             )
           })}
-        <FormRow
+        <FormButton
           as="div"
-          label={<Preface size="xSmall">Add New Gift Card</Preface>}
-          input={
-            <ButtonStyled
-              icon={iconMap.add}
-              onClick={addGiftCard}
-              disabled={!hasCustomer}
-              size="header"
-              color="header"
-            >
-              Add Gift Card
-            </ButtonStyled>
-          }
+          title={<Preface size="xSmall">Add New Gift Card</Preface>}
+          // title="Add a new gift card"
+          description="Enter a gift card number directly if you have one"
+          onClick={addGiftCard}
+          disabled={!hasCustomer}
         />
       </FormInputs>
     </FormFieldset>

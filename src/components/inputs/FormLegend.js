@@ -9,6 +9,7 @@ export const FormLegendView = styled('legend')`
 `
 
 const FormLegendTitle = styled('p')`
+  line-height: 1;
   margin: 0 0 0 -0.1rem;
 `
 

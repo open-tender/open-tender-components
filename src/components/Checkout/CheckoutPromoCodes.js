@@ -1,13 +1,14 @@
 import React, { useContext, useState, useEffect } from 'react'
 import propTypes from 'prop-types'
 import styled from '@emotion/styled'
-import { ButtonClear, ButtonStyled, Preface } from '..'
+import { Box, ButtonClear, ButtonStyled, Preface } from '..'
 import {
   FormApplied,
   FormFieldset,
   FormInputs,
   FormLegend,
   FormRow,
+  FormWrapper,
 } from '../inputs'
 import { FormContext } from './CheckoutForm'
 
@@ -66,6 +67,10 @@ PromoCodeInput.propTypes = {
     propTypes.node,
   ]),
 }
+
+const CheckoutPromoCodesInputs = styled(Box)`
+  padding: 1.25rem 1.5rem;
+`
 
 const CheckoutPromoCodes = () => {
   const [promoCode, setPromoCode] = useState('')
@@ -137,80 +142,82 @@ const CheckoutPromoCodes = () => {
             : 'Please add a valid email address before adding a promo code'
         }
       />
-      <FormInputs>
-        {checkPromoCodes.map((checkPromoCode) => {
-          return (
+      <CheckoutPromoCodesInputs>
+        <FormInputs>
+          {checkPromoCodes.map((checkPromoCode) => {
+            return (
+              <FormRow
+                key={checkPromoCode}
+                type="div"
+                isInput={true}
+                label={<Preface size="xSmall">{checkPromoCode}</Preface>}
+                input={
+                  <>
+                    <PromoCodeInput
+                      name={`promo_code_${checkPromoCode}`}
+                      type="text"
+                      value={checkPromoCode}
+                      onChange={handleChange}
+                      error={null}
+                      required={false}
+                      disabled={true}
+                    />
+                    <FormApplied />
+                    <ButtonStyled
+                      label={`Remove promo code ${checkPromoCode}`}
+                      icon={iconMap.remove}
+                      onClick={() => removePromoCode(checkPromoCode)}
+                      size="header"
+                      color="header"
+                    >
+                      Remove
+                    </ButtonStyled>
+                  </>
+                }
+              />
+            )
+          })}
+          {email && (
             <FormRow
-              key={checkPromoCode}
               type="div"
               isInput={true}
-              label={<Preface size="xSmall">{checkPromoCode}</Preface>}
+              label={<Preface size="xSmall">New Promo Code</Preface>}
               input={
                 <>
                   <PromoCodeInput
-                    name={`promo_code_${checkPromoCode}`}
+                    label="New Promo Code"
+                    name="promo_code"
                     type="text"
-                    value={checkPromoCode}
+                    placeholder="enter a promo code"
+                    value={promoCode}
                     onChange={handleChange}
-                    error={null}
+                    error={error}
                     required={false}
-                    disabled={true}
-                  />
-                  <FormApplied />
+                  >
+                    {promoCode.length ? (
+                      <ButtonClear
+                        ariaLabel={`Remove promo code ${promoCode}`}
+                        onClick={removePendingPromoCode}
+                      />
+                    ) : null}
+                  </PromoCodeInput>
                   <ButtonStyled
-                    label={`Remove promo code ${checkPromoCode}`}
-                    icon={iconMap.remove}
-                    onClick={() => removePromoCode(checkPromoCode)}
+                    label="Apply Promo Code"
+                    icon={iconMap.add}
+                    onClick={applyPromoCode}
+                    disabled={!promoCode || pendingPromoCode === promoCode}
                     size="header"
                     color="header"
                   >
-                    Remove
+                    Apply
                   </ButtonStyled>
                 </>
               }
+              errMsg={error}
             />
-          )
-        })}
-        {email && (
-          <FormRow
-            type="div"
-            isInput={true}
-            label={<Preface size="xSmall">New Promo Code</Preface>}
-            input={
-              <>
-                <PromoCodeInput
-                  label="New Promo Code"
-                  name="promo_code"
-                  type="text"
-                  placeholder="enter a promo code"
-                  value={promoCode}
-                  onChange={handleChange}
-                  error={error}
-                  required={false}
-                >
-                  {promoCode.length ? (
-                    <ButtonClear
-                      ariaLabel={`Remove promo code ${promoCode}`}
-                      onClick={removePendingPromoCode}
-                    />
-                  ) : null}
-                </PromoCodeInput>
-                <ButtonStyled
-                  label="Apply Promo Code"
-                  icon={iconMap.add}
-                  onClick={applyPromoCode}
-                  disabled={!promoCode || pendingPromoCode === promoCode}
-                  size="header"
-                  color="header"
-                >
-                  Apply
-                </ButtonStyled>
-              </>
-            }
-            errMsg={error}
-          />
-        )}
-      </FormInputs>
+          )}
+        </FormInputs>
+      </CheckoutPromoCodesInputs>
     </FormFieldset>
   )
 }

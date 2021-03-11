@@ -27,10 +27,10 @@ const FormButtonView = styled('button')`
     background-color: ${(props) =>
       props.theme.buttons.colors.secondary.bgColor};
 
-    span.form-button-apply {
-      transition: ${(props) => props.theme.links.transition};
-      color: ${(props) => props.theme.colors.success};
-    }
+    // span.form-button-apply {
+    //   transition: ${(props) => props.theme.links.transition};
+    //   color: ${(props) => props.theme.colors.success};
+    // }
 
     span.form-button-remove {
       transition: ${(props) => props.theme.links.transition};
@@ -124,6 +124,7 @@ const FormButton = ({
   isApplied,
   onClick,
   disabled,
+  label,
   style,
 }) => {
   const formContext = useContext(FormContext)
@@ -132,6 +133,7 @@ const FormButton = ({
   const handleClick = (evt) => {
     evt.preventDefault()
     evt.stopPropagation()
+    evt.target.blur()
     if (!disabled) onClick()
   }
 
@@ -140,6 +142,7 @@ const FormButton = ({
       <FormButtonView
         onClick={handleClick}
         style={style}
+        aria-label={label}
         as={disabled ? 'span' : 'button'}
       >
         <FormButtonLabel>
@@ -177,6 +180,7 @@ FormButton.propTypes = {
     propTypes.string,
     propTypes.object,
   ]),
+  label: propTypes.string,
   isApplied: propTypes.bool,
   onClick: propTypes.function,
   disabled: propTypes.bool,

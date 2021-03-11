@@ -25,9 +25,9 @@ export const FormSubmit = styled('div')`
 
 export const FormWrapper = styled(Box)`
   padding: ${(props) => props.theme.layout.padding};
-  margin: 0 0 4rem;
+  margin: 0 0 ${(props) => props.theme.layout.padding};
   @media (max-width: ${(props) => props.theme.breakpoints.tablet}) {
     padding: ${(props) => props.theme.layout.paddingMobile};
-    margin: 0 0 2rem;
+    margin: 0 0 ${(props) => props.theme.layout.paddingMobile};
   }
 `

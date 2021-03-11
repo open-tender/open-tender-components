@@ -2,18 +2,17 @@ import React, { useContext, useEffect } from 'react'
 import propTypes from 'prop-types'
 import styled from '@emotion/styled'
 import { tenderTypeNamesMap, capitalize } from '@open-tender/js'
-import { ButtonStyled } from '..'
 import { FormContext } from './CheckoutForm'
 import { TendersContext } from './CheckoutTenders'
 import { CheckoutCreditCards, CheckoutHouseAccounts, CheckoutLevelUp } from '.'
-import { FormApplied, FormRow } from '../inputs'
+import { FormButton } from '../inputs'
 
 const CheckoutTenderLabelView = styled('span')`
   display: flex !important;
   justify-content: flex-end;
   align-items: center;
 
-  span {
+  & > span {
     display: block;
     color: ${(props) => props.theme.colors.primary};
 
@@ -21,6 +20,10 @@ const CheckoutTenderLabelView = styled('span')`
       width: 1.8rem;
       height: 1.8rem;
       margin: 0 1rem 0 0;
+    }
+
+    &:last-of-type {
+      font-size: ${(props) => props.theme.fonts.sizes.main};
     }
   }
 `
@@ -62,7 +65,7 @@ const CheckoutTender = ({ tenderType }) => {
   } = tenderContext
   const name = tenderTypeNamesMap[tenderType] || makeTenderName(tenderType)
   const icon = iconMap[tenderType.toLowerCase()] || iconMap.cash
-  const label = <CheckoutTenderLabel icon={icon} name={name} />
+  const title = <CheckoutTenderLabel icon={icon} name={name} />
   const isApplied = tenderTypesApplied.includes(tenderType)
   const houseAccounts = check.customer
     ? check.customer.house_accounts || []
@@ -96,6 +99,10 @@ const CheckoutTender = ({ tenderType }) => {
           setShowHouseAccount(false)
         }
 
+  const onClick = isApplied ? () => removeTender(tenderType) : applyTender
+  const label = isApplied ? `Remove ${name} Payment` : `Pay with ${name}`
+  const disabled = isApplied ? false : isPaid || isDisabled
+
   useEffect(() => {
     if (!tenderTypesApplied.length) {
       setShowCredit(false)
@@ -106,37 +113,13 @@ const CheckoutTender = ({ tenderType }) => {
 
   return (
     <>
-      <FormRow
-        as="div"
-        labelWidth="auto"
+      <FormButton
+        title={title}
+        isApplied={isApplied}
+        onClick={onClick}
+        disabled={disabled}
         label={label}
-        input={
-          isApplied ? (
-            <>
-              <FormApplied />
-              <ButtonStyled
-                label={`Remove ${name} Payment`}
-                icon={iconMap.remove}
-                onClick={() => removeTender(tenderType)}
-                size="header"
-                color="header"
-              >
-                Remove
-              </ButtonStyled>
-            </>
-          ) : (
-            <ButtonStyled
-              label={`Pay with ${name}`}
-              icon={iconMap.add}
-              onClick={applyTender}
-              disabled={isPaid || isDisabled}
-              size="header"
-              color="header"
-            >
-              Apply
-            </ButtonStyled>
-          )
-        }
+        style={{ padding: '1.5rem 1.5rem' }}
       />
       {tenderType === 'CREDIT' && showCredit && <CheckoutCreditCards />}
       {tenderType === 'LEVELUP' && showLevelUp && <CheckoutLevelUp />}

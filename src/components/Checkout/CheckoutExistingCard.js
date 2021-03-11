@@ -31,26 +31,29 @@ const CheckoutExistingCard = ({
   return !isDisabled ? (
     <li>
       <CheckoutCard
-        isDisabled={isDisabled}
+        // isDisabled={isDisabled}
+        // action={
+        //   isApplied ? (
+        //     <Checkmark />
+        //   ) : (
+        //     <ButtonLink
+        //       onClick={() => addTender(tender)}
+        //       disabled={isApplied || isDisabled ? true : false}
+        //       label={`Apply ${cardName}`}
+        //     >
+        //       {iconMap.add || '+'}
+        //     </ButtonLink>
+        //   )
+        // }
         icon={
           cardIconMap && (
             <img src={cardIconMap[card.card_type]} alt={card.card_type_name} />
           )
         }
         name={`${cardName}${card.is_default ? ' (default)' : ''}`}
-        action={
-          isApplied ? (
-            <Checkmark />
-          ) : (
-            <ButtonLink
-              onClick={() => addTender(tender)}
-              disabled={isApplied || isDisabled ? true : false}
-              label={`Apply ${cardName}`}
-            >
-              {iconMap.add || '+'}
-            </ButtonLink>
-          )
-        }
+        onClick={isApplied ? null : () => addTender(tender)}
+        isApplied={isApplied}
+        disabled={isApplied || isDisabled ? true : false}
       />
       {cardError && isApplied && <FormError errMsg={cardError} />}
     </li>

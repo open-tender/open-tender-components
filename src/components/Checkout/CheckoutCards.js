@@ -1,11 +1,13 @@
 import React from 'react'
 import propTypes from 'prop-types'
 import styled from '@emotion/styled'
+import { Box } from '..'
 
-const CheckoutCardsView = styled('div')`
+const CheckoutCardsView = styled(Box)`
   width: 100%;
   padding: 2rem 2rem;
-  background-color: ${(props) => props.theme.bgColors.secondary};
+  margin: 0 0 0.75rem;
+  // background-color: ${(props) => props.theme.bgColors.secondary};
 
   ul {
     display: block;

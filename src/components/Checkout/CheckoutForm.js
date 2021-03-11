@@ -296,19 +296,19 @@ const CheckoutForm = ({
             <CheckoutDetails />
             {isDelivery && <CheckoutAddress />}
             <CheckoutFormSidebar>
-              <div style={{ margin: '0 0 4rem' }}>
-                <Check
-                  title={config.checkTitle}
-                  check={check}
-                  tenders={tenders}
-                  updating={checkUpdating}
-                />
-              </div>
               <CheckoutSurcharges />
               <CheckoutDiscounts />
               <CheckoutPromoCodes />
               {hasGiftCardTender && <CheckoutGiftCards />}
             </CheckoutFormSidebar>
+            <div style={{ margin: '0 0 4rem' }}>
+              <Check
+                title={config.checkTitle}
+                check={check}
+                tenders={tenders}
+                updating={checkUpdating}
+              />
+            </div>
             <CheckoutTenders />
             <CheckoutFormFooter>
               <div>
