@@ -2,7 +2,9 @@ import styled from '@emotion/styled'
 import { Box } from '..'
 
 export const FormFieldset = styled('fieldset')`
-  margin: 0 0 4rem;
+  & + fieldset {
+    margin: ${(props) => props.theme.layout.padding} 0 0;
+  }
 `
 
 export const FormInputs = styled('div')`

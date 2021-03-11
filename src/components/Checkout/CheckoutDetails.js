@@ -9,7 +9,13 @@ import {
 import { Input, Textarea, Switch, ButtonStyled, Preface } from '..'
 import { CheckoutTip } from '.'
 import { FormContext } from './CheckoutForm'
-import { FormFieldset, FormInputs, FormLegend, FormRow } from '../inputs'
+import {
+  FormFieldset,
+  FormInputs,
+  FormLegend,
+  FormRow,
+  FormWrapper,
+} from '../inputs'
 
 const CheckoutDetails = () => {
   const {
@@ -78,7 +84,7 @@ const CheckoutDetails = () => {
   }
 
   return (
-    <>
+    <FormWrapper>
       <FormFieldset>
         <FormLegend
           as="div"
@@ -239,7 +245,7 @@ const CheckoutDetails = () => {
           </FormInputs>
         </FormFieldset>
       )}
-    </>
+    </FormWrapper>
   )
 }
 

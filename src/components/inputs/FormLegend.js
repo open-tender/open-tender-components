@@ -13,8 +13,9 @@ const FormLegendTitle = styled('p')`
 `
 
 const FormLegendSubtitle = styled('p')`
-  margin: 1rem 0 0;
+  margin: 0.5rem 0 0;
   line-height: ${(props) => props.theme.lineHeight};
+  font-size: ${(props) => props.theme.fonts.sizes.small};
 `
 
 const FormLegend = ({ title, subtitle, as = 'legend' }) => {

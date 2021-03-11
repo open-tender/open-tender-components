@@ -1,5 +1,6 @@
 import React, { useContext } from 'react'
 import { CheckoutAccount, CheckoutSignUp, CheckoutGuest } from '.'
+import { FormWrapper } from '../inputs'
 import { FormContext } from './CheckoutForm'
 
 const CheckoutCustomer = () => {
@@ -7,13 +8,17 @@ const CheckoutCustomer = () => {
   const isCatering = order.orderType === 'CATERING'
   const hasAccount = form.customer && form.customer.customer_id
 
-  return hasAccount ? (
-    <CheckoutAccount />
-  ) : (
-    <>
-      <CheckoutSignUp />
-      {!isCatering && <CheckoutGuest />}
-    </>
+  return (
+    <FormWrapper>
+      {hasAccount ? (
+        <CheckoutAccount />
+      ) : (
+        <>
+          <CheckoutSignUp />
+          {!isCatering && <CheckoutGuest />}
+        </>
+      )}
+    </FormWrapper>
   )
 }
 

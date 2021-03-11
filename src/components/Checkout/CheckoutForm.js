@@ -49,6 +49,41 @@ const usePrevious = (value) => {
   return ref.current
 }
 
+const CheckoutFormContainer = styled('div')`
+  position: relative;
+  width: 100%;
+  max-width: 128rem;
+  margin: 0 auto;
+  padding: 0 ${(props) => props.theme.layout.padding};
+  @media (max-width: ${(props) => props.theme.breakpoints.tablet}) {
+    padding: 0 ${(props) => props.theme.layout.paddingMobile};
+  }
+`
+
+const CheckoutFormContent = styled('div')`
+  width: 55%;
+  padding: 0 ${(props) => props.theme.layout.padding} 0 0;
+  @media (max-width: ${(props) => props.theme.breakpoints.narrow}) {
+    width: 100%;
+    padding: 0;
+  }
+`
+
+const CheckoutFormSidebar = styled('div')`
+  position: absolute;
+  top: 0;
+  right: 0;
+  width: 45%;
+  padding: 0 ${(props) => props.theme.layout.padding};
+  @media (max-width: ${(props) => props.theme.breakpoints.narrow}) {
+    position: relative;
+    top: auto;
+    right: auto;
+    width: 100%;
+    padding: 0;
+  }
+`
+
 const CheckoutFormFooter = styled('div')`
   margin: 3rem 0 0;
 
@@ -255,45 +290,51 @@ const CheckoutForm = ({
     >
       <form id="checkout-form" noValidate>
         <FormError errMsg={errors.form} style={{ margin: '0 0 2rem' }} />
-        <CheckoutCustomer />
-        <CheckoutDetails />
-        {isDelivery && <CheckoutAddress />}
-        <CheckoutSurcharges />
-        <CheckoutDiscounts />
-        <CheckoutPromoCodes />
-        {hasGiftCardTender && <CheckoutGiftCards />}
-        <div style={{ margin: '0 0 4rem' }}>
-          <Check
-            title={config.checkTitle}
-            check={check}
-            tenders={tenders}
-            updating={checkUpdating}
-          />
-        </div>
-        <CheckoutTenders />
-        <CheckoutFormFooter>
-          <div>
-            {!isPaid ? (
-              <Message
-                as="div"
-                size="small"
-                color="error"
-                style={{ width: '100%', padding: '1rem 1.5rem' }}
+        <CheckoutFormContainer>
+          <CheckoutFormContent>
+            <CheckoutCustomer />
+            <CheckoutDetails />
+            {isDelivery && <CheckoutAddress />}
+            <CheckoutFormSidebar>
+              <div style={{ margin: '0 0 4rem' }}>
+                <Check
+                  title={config.checkTitle}
+                  check={check}
+                  tenders={tenders}
+                  updating={checkUpdating}
+                />
+              </div>
+              <CheckoutSurcharges />
+              <CheckoutDiscounts />
+              <CheckoutPromoCodes />
+              {hasGiftCardTender && <CheckoutGiftCards />}
+            </CheckoutFormSidebar>
+            <CheckoutTenders />
+            <CheckoutFormFooter>
+              <div>
+                {!isPaid ? (
+                  <Message
+                    as="div"
+                    size="small"
+                    color="error"
+                    style={{ width: '100%', padding: '1rem 1.5rem' }}
+                  >
+                    There is a balance of ${amountRemaining.toFixed(2)}{' '}
+                    remaining on your order. Please add a payment above.
+                  </Message>
+                ) : null}
+              </div>
+              <ButtonStyled
+                type="submit"
+                onClick={handleSubmit}
+                disabled={submitting || !isPaid}
+                size="big"
               >
-                There is a balance of ${amountRemaining.toFixed(2)} remaining on
-                your order. Please add a payment above.
-              </Message>
-            ) : null}
-          </div>
-          <ButtonStyled
-            type="submit"
-            onClick={handleSubmit}
-            disabled={submitting || !isPaid}
-            size="big"
-          >
-            Submit Order
-          </ButtonStyled>
-        </CheckoutFormFooter>
+                Submit Order
+              </ButtonStyled>
+            </CheckoutFormFooter>
+          </CheckoutFormContent>
+        </CheckoutFormContainer>
       </form>
     </FormContext.Provider>
   )
