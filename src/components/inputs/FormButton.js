@@ -6,7 +6,7 @@ import { FormContext } from '../Checkout/CheckoutForm'
 import { FormApplied } from '.'
 
 const FormButtonContainer = styled(Box)`
-  margin: 0 0 0.5rem;
+  margin: 0 0 0.75rem;
   &:last-of-type {
     margin: 0;
   }
@@ -17,37 +17,48 @@ const FormButtonView = styled('button')`
   display: flex;
   justify-content: space-between;
   align-items: center;
-  padding: 1.5rem;
+  padding: 1.25rem 1.5rem;
   text-align: left;
   background-color: transparent;
 
-  &:hover,
-  &:active,
-  &:focus {
-    // background-color: rgba(0, 0, 0, 0.05);
+  &:hover:enabled,
+  &:active:enabled,
+  &:focus:enabled {
     background-color: ${(props) =>
       props.theme.buttons.colors.secondary.bgColor};
 
-    span.form-button {
-      color: ${(props) => props.theme.links.primary.hover};
+    span.form-button-apply {
+      transition: ${(props) => props.theme.links.transition};
+      color: ${(props) => props.theme.colors.success};
     }
 
-    // & > span {
-    //   opacity: 0.5;
-    // }
+    span.form-button-remove {
+      transition: ${(props) => props.theme.links.transition};
+      color: ${(props) => props.theme.colors.error};
+    }
   }
 `
 
-// const FormButtonContainer = styled('div')`
-//   display: flex;
-//   justify-content: space-between;
-//   align-items: center;
-//   padding: 1rem;
-// `
-
 const FormButtonLabel = styled('span')`
   display: block;
-  // flex-grow: 1;
+  padding-right: ${(props) => props.theme.layout.padding};
+  @media (max-width: ${(props) => props.theme.breakpoints.mobile}) {
+    padding-right: ${(props) => props.theme.layout.paddingMobile};
+  }
+
+  & > span {
+    display: block;
+    margin: 0.2rem 0 0;
+    line-height: ${(props) => props.theme.lineHeight};
+    font-size: ${(props) => props.theme.fonts.sizes.xSmall};
+
+    &:first-of-type {
+      margin: 0;
+      // font-weight: ${(props) => props.theme.boldWeight};
+      color: ${(props) => props.theme.colors.primary};
+      font-size: ${(props) => props.theme.fonts.sizes.small};
+    }
+  }
 `
 
 const FormButtonActionView = styled('span')`
@@ -56,6 +67,7 @@ const FormButtonActionView = styled('span')`
   justify-content: flex-end;
   align-items: center;
   font-size: ${(props) => props.theme.fonts.sizes.small};
+  opacity: ${(props) => (props.disabled ? '0.5' : '1.0')};
 
   & > span {
     display: flex;
@@ -81,12 +93,14 @@ const FormButtonActionText = styled('span')`
   line-height: 1;
 `
 
-const FormButtonAction = ({ iconMap, isApplied }) => {
+const FormButtonAction = ({ iconMap, isApplied, disabled }) => {
   const icon = isApplied ? iconMap.remove : iconMap.add
   return (
-    <FormButtonActionView>
+    <FormButtonActionView disabled={disabled}>
       {isApplied && <FormApplied />}
-      <FormButtonActionButton className="form-button">
+      <FormButtonActionButton
+        className={isApplied ? 'form-button-remove' : 'form-button-apply'}
+      >
         {icon && <FormButtonActionIcon>{icon}</FormButtonActionIcon>}
         <FormButtonActionText>
           {isApplied ? 'Remove' : 'Apply'}
@@ -100,9 +114,18 @@ FormButtonAction.displayName = 'FormButtonAction'
 FormButtonAction.propTypes = {
   iconMap: propTypes.object,
   isApplied: propTypes.bool,
+  disabled: propTypes.bool,
 }
 
-const FormButton = ({ label, isApplied, onClick, disabled, style }) => {
+const FormButton = ({
+  title,
+  description,
+  finePrint,
+  isApplied,
+  onClick,
+  disabled,
+  style,
+}) => {
   const formContext = useContext(FormContext)
   const { iconMap = {} } = formContext
 
@@ -114,11 +137,21 @@ const FormButton = ({ label, isApplied, onClick, disabled, style }) => {
 
   return (
     <FormButtonContainer>
-      <FormButtonView onClick={handleClick} disabled={disabled} style={style}>
-        {/* <FormButtonContainer> */}
-        <FormButtonLabel>Text goes here</FormButtonLabel>
-        <FormButtonAction iconMap={iconMap} isApplied={isApplied} />
-        {/* </FormButtonContainer> */}
+      <FormButtonView
+        onClick={handleClick}
+        style={style}
+        as={disabled ? 'span' : 'button'}
+      >
+        <FormButtonLabel>
+          <span>{title}</span>
+          {description && <span>{description}</span>}
+          {finePrint && <span>{finePrint}</span>}
+        </FormButtonLabel>
+        <FormButtonAction
+          iconMap={iconMap}
+          isApplied={isApplied}
+          disabled={disabled}
+        />
       </FormButtonView>
     </FormButtonContainer>
   )
@@ -126,7 +159,19 @@ const FormButton = ({ label, isApplied, onClick, disabled, style }) => {
 
 FormButton.displayName = 'FormButton'
 FormButton.propTypes = {
-  label: propTypes.oneOfType([
+  title: propTypes.oneOfType([
+    propTypes.arrayOf(propTypes.node),
+    propTypes.node,
+    propTypes.string,
+    propTypes.object,
+  ]),
+  description: propTypes.oneOfType([
+    propTypes.arrayOf(propTypes.node),
+    propTypes.node,
+    propTypes.string,
+    propTypes.object,
+  ]),
+  finePrint: propTypes.oneOfType([
     propTypes.arrayOf(propTypes.node),
     propTypes.node,
     propTypes.string,

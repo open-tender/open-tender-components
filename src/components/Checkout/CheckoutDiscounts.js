@@ -98,40 +98,36 @@ const CheckoutDiscounts = () => {
           return (
             <FormButton
               key={i.id}
-              label={
-                <CheckoutLabel
-                  title={i.title || i.name}
-                  description={i.description}
-                  alert={
-                    <>
-                      {!i.is_optional ? (
-                        <Text color="success">
-                          Credit has automatically been applied to your order.
-                        </Text>
-                      ) : missingAccount ? (
-                        <Text color="alert">
-                          Requires an account.{' '}
-                          <ButtonLink onClick={signUp}>
-                            Click here to sign up.
-                          </ButtonLink>
-                        </Text>
-                      ) : missingVerified ? (
-                        <Text color="alert">
-                          Requires a verified account.{' '}
-                          <ButtonLink onClick={verifyAccount}>
-                            Click here to send a verification email
-                          </ButtonLink>{' '}
-                          and then refresh this page after {"you've"} verified
-                          your account.
-                        </Text>
-                      ) : i.per_order === 1 ? (
-                        <Text color="alert">
-                          Cannot be used with any other discounts
-                        </Text>
-                      ) : null}
-                    </>
-                  }
-                />
+              title={i.title || i.name}
+              description={i.description}
+              finePrint={
+                <>
+                  {!i.is_optional ? (
+                    <Text color="success">
+                      Credit has automatically been applied to your order.
+                    </Text>
+                  ) : missingAccount ? (
+                    <Text color="alert">
+                      Requires an account.{' '}
+                      <ButtonLink onClick={signUp}>
+                        Click here to sign up.
+                      </ButtonLink>
+                    </Text>
+                  ) : missingVerified ? (
+                    <Text color="alert">
+                      Requires a verified account.{' '}
+                      <ButtonLink onClick={verifyAccount}>
+                        Click here to send a verification email
+                      </ButtonLink>{' '}
+                      and then refresh this page after {"you've"} verified your
+                      account.
+                    </Text>
+                  ) : i.per_order === 1 ? (
+                    <Text color="alert">
+                      Cannot be used with any other discounts
+                    </Text>
+                  ) : null}
+                </>
               }
               isApplied={isApplied}
               onClick={
