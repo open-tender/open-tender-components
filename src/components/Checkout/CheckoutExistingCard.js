@@ -1,7 +1,6 @@
 import React, { useState, useEffect, useContext } from 'react'
 import propTypes from 'prop-types'
 import { isEmpty } from '@open-tender/js'
-import { ButtonLink, Checkmark } from '..'
 import { FormError } from '../inputs'
 import { FormContext } from './CheckoutForm'
 import { CheckoutCard } from '.'
@@ -15,7 +14,7 @@ const CheckoutExistingCard = ({
 }) => {
   const [errors, setErrors] = useState({})
   const formContext = useContext(FormContext)
-  const { iconMap = {}, cardIconMap = {} } = formContext
+  const { cardIconMap = {} } = formContext
   const tender = { ...card, tender_type: 'CREDIT' }
   const isApplied = existingCards.includes(card.customer_card_id)
   const isDisabled = appliedCards.length && !isApplied
@@ -31,20 +30,6 @@ const CheckoutExistingCard = ({
   return !isDisabled ? (
     <li>
       <CheckoutCard
-        // isDisabled={isDisabled}
-        // action={
-        //   isApplied ? (
-        //     <Checkmark />
-        //   ) : (
-        //     <ButtonLink
-        //       onClick={() => addTender(tender)}
-        //       disabled={isApplied || isDisabled ? true : false}
-        //       label={`Apply ${cardName}`}
-        //     >
-        //       {iconMap.add || '+'}
-        //     </ButtonLink>
-        //   )
-        // }
         icon={
           cardIconMap && (
             <img src={cardIconMap[card.card_type]} alt={card.card_type_name} />

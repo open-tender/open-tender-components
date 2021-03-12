@@ -1,12 +1,12 @@
 import React, { useContext } from 'react'
-import { ButtonLink, Checkmark, Text } from '..'
+import { ButtonLink, Text } from '..'
 import { CheckoutCard, CheckoutCards } from '.'
 import { FormContext } from './CheckoutForm'
 import { TendersContext } from './CheckoutTenders'
 
 const CheckoutLevelUp = () => {
   const formContext = useContext(FormContext)
-  const { iconMap = {}, check, form, signUp, connectLevelUp } = formContext
+  const { check, form, signUp, connectLevelUp } = formContext
   const tenderContext = useContext(TendersContext)
   const { addTender } = tenderContext
   const isCustomer = check.customer.customer_id
@@ -42,19 +42,9 @@ const CheckoutLevelUp = () => {
                 </Text>
               </>
             }
-            action={
-              applied ? (
-                <Checkmark />
-              ) : (
-                <ButtonLink
-                  onClick={() => addTender(tender)}
-                  disabled={applied}
-                  label="Apply LevelUp"
-                >
-                  {iconMap.add || '+'}
-                </ButtonLink>
-              )
-            }
+            onClick={applied ? null : () => addTender(tender)}
+            isApplied={applied}
+            disabled={applied}
           />
         ) : isCustomer ? (
           <CheckoutCard

@@ -46,6 +46,10 @@ const CheckoutCardName = styled('span')`
   text-align: left;
   line-height: ${(props) => props.theme.lineHeight};
   font-size: ${(props) => props.theme.fonts.sizes.small};
+
+  &:first-of-type {
+    padding-left: 0;
+  }
 `
 
 const CheckoutCardButtonView = styled('span')`
@@ -56,8 +60,8 @@ const CheckoutCardButtonView = styled('span')`
 
 const CheckoutCarButtonIcon = styled('span')`
   display: block;
-  width: 1.4rem;
-  height: 1.4rem;
+  width: 1.2rem;
+  height: 1.2rem;
   margin: 0 0.5rem 0 0;
   line-height: 0;
 `
@@ -68,8 +72,7 @@ const CheckoutCardButtonText = styled('span')`
   font-size: ${(props) => props.theme.fonts.sizes.small};
 `
 
-const CheckoutCardButton = ({ iconMap, isApplied }) => {
-  const icon = isApplied ? iconMap.remove : iconMap.add
+export const CheckoutCardButton = ({ iconMap, isApplied }) => {
   return (
     <CheckoutCardButtonView
       className={isApplied ? null : 'checkout-card-apply'}
@@ -78,7 +81,7 @@ const CheckoutCardButton = ({ iconMap, isApplied }) => {
         <FormApplied />
       ) : (
         <>
-          <CheckoutCarButtonIcon>{icon}</CheckoutCarButtonIcon>
+          <CheckoutCarButtonIcon>{iconMap.add}</CheckoutCarButtonIcon>
           <CheckoutCardButtonText>Apply</CheckoutCardButtonText>
         </>
       )}
@@ -92,7 +95,13 @@ CheckoutCardButton.propTypes = {
   isApplied: propTypes.bool,
 }
 
-const CheckoutCard = ({ icon, name, onClick, isApplied, disabled = false }) => {
+const CheckoutCard = ({
+  icon,
+  name,
+  onClick,
+  isApplied = false,
+  disabled = false,
+}) => {
   const formContext = useContext(FormContext)
   const { iconMap = {} } = formContext
 
@@ -100,11 +109,15 @@ const CheckoutCard = ({ icon, name, onClick, isApplied, disabled = false }) => {
     evt.preventDefault()
     evt.stopPropagation()
     evt.target.blur()
-    if (!disabled) onClick()
+    if (onClick && !disabled) onClick()
   }
 
   return (
-    <CheckoutCardView disabled={disabled} onClick={handleClick}>
+    <CheckoutCardView
+      disabled={disabled}
+      onClick={onClick ? handleClick : null}
+      as={onClick ? 'button' : 'span'}
+    >
       {icon && <CheckoutCardIcon>{icon}</CheckoutCardIcon>}
       <CheckoutCardName>{name}</CheckoutCardName>
       <CheckoutCardButton iconMap={iconMap} isApplied={isApplied} />

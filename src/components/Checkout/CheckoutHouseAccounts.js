@@ -1,12 +1,12 @@
 import React, { useContext } from 'react'
-import { ButtonLink, Checkmark, Preface, Text } from '..'
+import { Preface, Text } from '..'
 import { CheckoutCard, CheckoutCards } from '.'
 import { FormContext } from './CheckoutForm'
 import { TendersContext } from './CheckoutTenders'
 
 const CheckoutHouseAccounts = () => {
   const formContext = useContext(FormContext)
-  const { iconMap = {}, check, form } = formContext
+  const { check, form } = formContext
   const tenderContext = useContext(TendersContext)
   const { addTender } = tenderContext
   const houseAccounts = check.customer.house_accounts || []
@@ -44,7 +44,6 @@ const CheckoutHouseAccounts = () => {
         return (
           <li key={house_account_id}>
             <CheckoutCard
-              isDisabled={isDisabled}
               icon={<Preface size="xSmall">{pin}</Preface>}
               name={
                 <>
@@ -66,19 +65,9 @@ const CheckoutHouseAccounts = () => {
                   ) : null}
                 </>
               }
-              action={
-                isApplied ? (
-                  <Checkmark />
-                ) : (
-                  <ButtonLink
-                    onClick={() => addTender(tender)}
-                    disabled={isApplied || isDisabled}
-                    label={`Apply house account ${name}`}
-                  >
-                    {iconMap.add || '+'}
-                  </ButtonLink>
-                )
-              }
+              onClick={isApplied ? null : () => addTender(tender)}
+              isApplied={isApplied}
+              disabled={isApplied || isDisabled ? true : false}
             />
           </li>
         )

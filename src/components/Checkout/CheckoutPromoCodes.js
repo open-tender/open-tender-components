@@ -8,7 +8,6 @@ import {
   FormInputs,
   FormLegend,
   FormRow,
-  FormWrapper,
 } from '../inputs'
 import { FormContext } from './CheckoutForm'
 
@@ -22,7 +21,7 @@ const PromoCodeInputView = styled('span')`
   }
 `
 
-const PromoCodeInput = ({
+export const PromoCodeInput = ({
   label,
   name,
   type,

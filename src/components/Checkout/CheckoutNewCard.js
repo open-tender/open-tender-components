@@ -1,7 +1,6 @@
 import React, { useContext } from 'react'
 import propTypes from 'prop-types'
 import { TransitionGroup, CSSTransition } from 'react-transition-group'
-import { ButtonLink, Checkmark } from '..'
 import { FormContext } from './CheckoutForm'
 import { CheckoutCard, CheckoutNewCardForm } from '.'
 
@@ -16,40 +15,27 @@ const CheckoutNewCard = ({
   error,
 }) => {
   const formContext = useContext(FormContext)
-  const { iconMap = {}, cardIconMap = {} } = formContext
+  const { cardIconMap = {} } = formContext
   const newCard = appliedCards.find((i) => i.acct)
   const newCardType = newCard ? newCard.card_type : 'OTHER'
   const isApplied = !!newCard
   const isDisabled = appliedCards.length && !isApplied
+  const icon = cardIconMap ? (
+    <img src={cardIconMap[newCardType]} alt="New Credit Card" />
+  ) : null
+  const name = isApplied
+    ? `New ${newCard.card_type} ending in ${newCard.last4}`
+    : 'Add a new credit card'
 
   return !isDisabled ? (
     <li>
       {customerId && (
         <CheckoutCard
-          isDisabled={isDisabled}
-          icon={
-            cardIconMap && (
-              <img src={cardIconMap[newCardType]} alt="New Credit Card" />
-            )
-          }
-          name={
-            isApplied
-              ? `New ${newCard.card_type} ending in ${newCard.last4}`
-              : 'Add a new credit card'
-          }
-          action={
-            isApplied ? (
-              <Checkmark />
-            ) : (
-              <ButtonLink
-                onClick={() => setShowNewCard(true)}
-                disabled={isApplied || isDisabled}
-                label="Add a new card"
-              >
-                {iconMap.add || '+'}
-              </ButtonLink>
-            )
-          }
+          icon={icon}
+          name={name}
+          onClick={isApplied ? null : () => setShowNewCard(true)}
+          isApplied={isApplied}
+          disabled={isApplied || isDisabled}
         />
       )}
       <TransitionGroup component={null}>

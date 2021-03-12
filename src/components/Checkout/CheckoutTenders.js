@@ -9,6 +9,7 @@ import { isEmpty, checkAmountRemaining } from '@open-tender/js'
 import { FormFieldset, FormInputs, FormLegend } from '../inputs'
 import { CheckoutApplePay, CheckoutGooglePay, CheckoutTender } from '.'
 import { FormContext } from './CheckoutForm'
+import styled from '@emotion/styled'
 
 export const TendersContext = createContext(null)
 
@@ -21,6 +22,10 @@ const checkHasApplePay = (check) => {
 const checkHasGooglePay = (check) => {
   return check ? check.config.tender_types.includes('GOOGLE_PAY') : false
 }
+
+const CheckoutTendersView = styled('div')`
+  margin: 3rem 0 0;
+`
 
 const CheckoutTenders = () => {
   const [showCredit, setShowCredit] = useState(false)
@@ -130,9 +135,11 @@ const CheckoutTenders = () => {
               error={googlePayError}
             />
           )}
-          {tenderTypes.map((tenderType) => (
-            <CheckoutTender key={tenderType} tenderType={tenderType} />
-          ))}
+          <CheckoutTendersView>
+            {tenderTypes.map((tenderType) => (
+              <CheckoutTender key={tenderType} tenderType={tenderType} />
+            ))}
+          </CheckoutTendersView>
         </FormInputs>
       </FormFieldset>
     </TendersContext.Provider>

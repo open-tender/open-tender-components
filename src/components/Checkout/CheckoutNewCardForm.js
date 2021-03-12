@@ -60,13 +60,18 @@ const fields = [
 ]
 
 const CheckoutNewCardFormView = styled('div')`
-  max-width: 48rem;
-  padding: 2rem 0 0;
-  margin: 0 auto;
+  // max-width: 48rem;
+  // padding: 2rem 0 0;
+  // margin: 0 auto;
+  padding: 2rem 1.5rem;
+  margin: 1rem 0 0;
+  background-color: ${(props) => props.theme.bgColors.primary};
 `
 
 const CheckoutNewCardFormContainer = styled(Box)`
+  max-width: 48rem;
   padding: 2rem;
+  margin: 0 auto;
 `
 
 const CheckoutNewCardFormHeader = styled('div')`
