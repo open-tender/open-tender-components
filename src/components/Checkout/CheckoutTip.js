@@ -7,16 +7,16 @@ import { FormContext } from './CheckoutForm'
 import { CheckoutCard, CheckoutCards } from '.'
 import { PromoCodeInput } from './CheckoutPromoCodes'
 
+const CheckoutTipView = styled('div')`
+  background-color: ${(props) => props.theme.bgColors.primary};
+  padding: 1.5rem 1.5rem 0.75rem;
+`
+
 const CheckoutTipDefault = styled('span')`
   padding-left: 1rem;
   font-style: italic;
   font-size: ${(props) => props.theme.fonts.sizes.small};
   color: ${(props) => props.theme.colors.secondary};
-`
-
-const CheckoutTipView = styled('div')`
-  background-color: ${(props) => props.theme.bgColors.primary};
-  padding: 1.5rem 1.5rem 0.75rem;
 `
 
 const CheckoutTip = ({ setShowTip }) => {
@@ -61,7 +61,7 @@ const CheckoutTip = ({ setShowTip }) => {
                   <Text color="primary">
                     ${i.amount} ({i.percent}%)
                     {isDefault && (
-                      <CheckoutTipDefault>Suggested Amount</CheckoutTipDefault>
+                      <CheckoutTipDefault>Suggested</CheckoutTipDefault>
                     )}
                   </Text>
                 }

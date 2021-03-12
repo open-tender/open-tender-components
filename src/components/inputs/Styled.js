@@ -28,6 +28,6 @@ export const FormWrapper = styled(Box)`
   margin: 0 0 ${(props) => props.theme.layout.padding};
   @media (max-width: ${(props) => props.theme.breakpoints.tablet}) {
     padding: ${(props) => props.theme.layout.paddingMobile};
-    margin: 0 0 ${(props) => props.theme.layout.paddingMobile};
+    margin: 0 0 ${(props) => props.theme.layout.padding};
   }
 `

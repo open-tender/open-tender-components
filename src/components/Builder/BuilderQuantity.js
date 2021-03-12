@@ -38,7 +38,7 @@ const BuilderQuantityAdd = styled('button')`
   border-color: ${(props) => props.theme.border.color};
   text-align: center;
   font-weight: bold;
-  line-height: 1;
+  line-height: 0;
   color: ${(props) => props.theme.colors.secondary};
 `
 

@@ -28,7 +28,8 @@ export const BuilderNutritionListItem = styled('li')`
   justify-content: space-between;
   align-items: center;
   border-bottom-style: solid;
-  border-bottom-width: ${(props) => props.theme.border.width};
+  border-bottom-width: 0.1rem;
+  // border-bottom-width: ${(props) => props.theme.border.width};
   border-bottom-color: ${(props) => props.theme.border.color};
 
   &:last-of-type {

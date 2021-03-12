@@ -5,7 +5,8 @@ import { Heading } from '..'
 
 const CheckTitleView = styled('div')`
   padding: 0 0 0.5rem;
-  border-bottom-width: ${(props) => props.theme.border.width};
+  // border-bottom-width: ${(props) => props.theme.border.width};
+  border-bottom-width: 0.1rem;
   border-bottom-style: solid;
   border-bottom-color: ${(props) => props.theme.border.color};
   margin: 0 0 1.5rem;

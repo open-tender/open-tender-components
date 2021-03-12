@@ -6,17 +6,29 @@ import { Heading } from '..'
 
 export const FormLegendView = styled('legend')`
   margin: 0 0 2rem;
+  @media (max-width: ${(props) => props.theme.breakpoints.tablet}) {
+    margin: 0 0 1.5rem;
+  }
 `
 
 const FormLegendTitle = styled('p')`
   line-height: 1;
   margin: 0 0 0 -0.1rem;
+
+  & > span {
+    @media (max-width: ${(props) => props.theme.breakpoints.tablet}) {
+      font-size: ${(props) => props.theme.fonts.sizes.h4};
+    }
+  }
 `
 
 const FormLegendSubtitle = styled('p')`
-  margin: 0.5rem 0 0;
+  margin: 0.75rem 0 0;
   line-height: ${(props) => props.theme.lineHeight};
   font-size: ${(props) => props.theme.fonts.sizes.small};
+  @media (max-width: ${(props) => props.theme.breakpoints.tablet}) {
+    margin: 0.5rem 0 0;
+  }
 `
 
 const FormLegend = ({ title, subtitle, as = 'legend' }) => {

@@ -49,6 +49,17 @@ const usePrevious = (value) => {
   return ref.current
 }
 
+const CheckoutFormError = styled('div')`
+  width: 100%;
+  max-width: 128rem;
+  margin: 0 auto;
+  padding: 0 ${(props) => props.theme.layout.padding};
+  text-align: center;
+  @media (max-width: ${(props) => props.theme.breakpoints.tablet}) {
+    padding: 0 ${(props) => props.theme.layout.paddingMobile};
+  }
+`
+
 const CheckoutFormContainer = styled('div')`
   position: relative;
   width: 100%;
@@ -81,6 +92,14 @@ const CheckoutFormSidebar = styled('div')`
     right: auto;
     width: 100%;
     padding: 0;
+    margin: 0 0 ${(props) => props.theme.layout.padding};
+  }
+`
+
+const CheckoutFormCheck = styled('div')`
+  margin: 0 0 ${(props) => props.theme.layout.padding};
+  @media (max-width: ${(props) => props.theme.breakpoints.tablet}) {
+    margin: 0 0 ${(props) => props.theme.layout.padding};
   }
 `
 
@@ -289,7 +308,9 @@ const CheckoutForm = ({
       }}
     >
       <form id="checkout-form" noValidate>
-        <FormError errMsg={errors.form} style={{ margin: '0 0 2rem' }} />
+        <CheckoutFormError>
+          <FormError errMsg={errors.form} style={{ margin: '0 0 2rem' }} />
+        </CheckoutFormError>
         <CheckoutFormContainer>
           <CheckoutFormContent>
             <CheckoutCustomer />
@@ -301,14 +322,14 @@ const CheckoutForm = ({
               <CheckoutPromoCodes />
               {hasGiftCardTender && <CheckoutGiftCards />}
             </CheckoutFormSidebar>
-            <div style={{ margin: '0 0 4rem' }}>
+            <CheckoutFormCheck>
               <Check
                 title={config.checkTitle}
                 check={check}
                 tenders={tenders}
                 updating={checkUpdating}
               />
-            </div>
+            </CheckoutFormCheck>
             <CheckoutTenders />
             <CheckoutFormFooter>
               <div>

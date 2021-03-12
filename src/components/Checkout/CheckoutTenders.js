@@ -24,7 +24,7 @@ const checkHasGooglePay = (check) => {
 }
 
 const CheckoutTendersView = styled('div')`
-  margin: 3rem 0 0;
+  margin: 2rem 0 0;
 `
 
 const CheckoutTenders = () => {

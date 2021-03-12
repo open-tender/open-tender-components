@@ -95,8 +95,7 @@ const CheckoutGiftCards = () => {
         <FormButton
           as="div"
           title={<Preface size="xSmall">Add New Gift Card</Preface>}
-          // title="Add a new gift card"
-          description="Enter a gift card number directly if you have one"
+          description="Enter a gift card number directly"
           onClick={addGiftCard}
           disabled={!hasCustomer}
         />
