@@ -24,10 +24,28 @@ export const FormSubmit = styled('div')`
 `
 
 export const FormWrapper = styled(Box)`
+  text-align: left;
   padding: ${(props) => props.theme.layout.padding};
   margin: 0 0 ${(props) => props.theme.layout.padding};
   @media (max-width: ${(props) => props.theme.breakpoints.tablet}) {
     padding: ${(props) => props.theme.layout.paddingMobile};
     margin: 0 0 ${(props) => props.theme.layout.padding};
+  }
+`
+
+export const FormHeader = styled('div')`
+  text-align: left;
+  margin: 0 0 2rem;
+
+  p {
+    margin: 1rem 0 0;
+    line-height: ${(props) => props.theme.lineHeight};
+    font-size: ${(props) => props.theme.fonts.sizes.main};
+
+    &:first-of-type {
+      margin: 0 0 0 -0.1rem;
+      line-height: 1;
+      font-size: ${(props) => props.theme.fonts.sizes.h3};
+    }
   }
 `
