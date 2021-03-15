@@ -3,6 +3,13 @@ import { ButtonLink, Text } from '..'
 import { CheckoutCard, CheckoutCards } from '.'
 import { FormContext } from './CheckoutForm'
 import { TendersContext } from './CheckoutTenders'
+import styled from '@emotion/styled'
+
+const CheckoutLevelUpDisconnect = styled('span')`
+  display: block;
+  margin: 1.5rem 0 0;
+  font-size: ${(props) => props.theme.fonts.sizes.small};
+`
 
 const CheckoutLevelUp = () => {
   const formContext = useContext(FormContext)
@@ -19,33 +26,39 @@ const CheckoutLevelUp = () => {
     <CheckoutCards>
       <li>
         {levelup.connected ? (
-          <CheckoutCard
-            name={
-              <>
-                <Text as="p" color={applied ? 'success' : 'secondary'}>
-                  {!applied
-                    ? 'Pay with LevelUp (click the "plus" icon to apply)'
-                    : 'LevelUp payment applied'}
-                </Text>
-                <Text as="p" size="small">
-                  Your LevelUp account is currently connected via your{' '}
-                  <Text color="primary" bold={true}>
-                    {levelup.email}
-                  </Text>{' '}
-                  email address.
-                  <ButtonLink
-                    onClick={connectLevelUp}
-                    label="Go to account page to connect LevelUp"
-                  >
-                    Click here if you need to change this.
-                  </ButtonLink>
-                </Text>
-              </>
-            }
-            onClick={applied ? null : () => addTender(tender)}
-            isApplied={applied}
-            disabled={applied}
-          />
+          <>
+            <CheckoutCard
+              name={
+                <>
+                  <Text as="p" color={applied ? 'success' : 'secondary'}>
+                    {!applied
+                      ? 'Pay with LevelUp (click the "plus" icon to apply)'
+                      : 'LevelUp payment applied'}
+                  </Text>
+                  <Text as="p" size="small">
+                    Your LevelUp account is currently connected via your{' '}
+                    <Text color="primary" bold={true}>
+                      {levelup.email}
+                    </Text>{' '}
+                    email address.
+                  </Text>
+                </>
+              }
+              onClick={applied ? null : () => addTender(tender)}
+              isApplied={applied}
+              disabled={applied}
+            />
+            {!applied && (
+              <CheckoutLevelUpDisconnect>
+                <ButtonLink
+                  onClick={connectLevelUp}
+                  label="Go to account page to connect LevelUp"
+                >
+                  Click here if you need to change your connected account.
+                </ButtonLink>
+              </CheckoutLevelUpDisconnect>
+            )}
+          </>
         ) : isCustomer ? (
           <CheckoutCard
             name={

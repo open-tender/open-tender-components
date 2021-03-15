@@ -178,7 +178,7 @@ const DonationForm = ({
             />
           </FormInputs>
         </FormFieldset>
-        {!isNewCard && creditCards.length && (
+        {!isNewCard && creditCards.length > 0 && (
           <FormFieldset>
             <FormLegend
               as="div"
@@ -206,7 +206,7 @@ const DonationForm = ({
         )}
       </form>
       {isNewCard && (
-        <FormFieldset>
+        <FormFieldset style={{ margin: '3rem 0 0' }}>
           <FormLegend
             as="div"
             title="Add your payment information"
@@ -223,7 +223,7 @@ const DonationForm = ({
           ) : (
             <FormInputs>
               <Text as="p" color="error">
-                Please enter your name & email before adding your payment
+                Please enter your email address before adding your payment
                 information.
               </Text>
             </FormInputs>

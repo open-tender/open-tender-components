@@ -9,6 +9,7 @@ import {
   FormInputs,
   FormLegend,
   FormRow,
+  FormWrapper,
 } from '../inputs'
 
 const initialState = {
@@ -99,48 +100,50 @@ const CheckoutAddress = () => {
   }
 
   return (
-    <FormFieldset>
-      <FormLegend title={config.address.title} />
-      {typeof addressErrors === 'string' && (
-        <FormError errMsg={addressErrors} style={{ margin: '0 0 2rem' }} />
-      )}
-      <FormInputs>
-        <FormRow
-          as="div"
-          label={<Preface size="xSmall">Address</Preface>}
-          input={
-            <ButtonStyled
-              label={`Current address: ${fullAddress}. Click to update.`}
-              icon={iconMap.address}
-              onClick={updateRevenueCenter}
-              disabled={isOutpost}
-              size="header"
-              color="header"
-            >
-              {fullAddress}
-            </ButtonStyled>
-          }
-        />
-        {fields.map((field) => {
-          const input = addressConfig[field.name]
-          return (
-            input &&
-            input.included && (
-              <Input
-                key={field.name}
-                label={input.label}
-                name={`address-${field.name}`}
-                type={field.type}
-                value={address[field.name]}
-                onChange={handleChange}
-                error={addressErrors[field.name]}
-                required={input.required}
-              />
+    <FormWrapper>
+      <FormFieldset>
+        <FormLegend title={config.address.title} />
+        {typeof addressErrors === 'string' && (
+          <FormError errMsg={addressErrors} style={{ margin: '0 0 2rem' }} />
+        )}
+        <FormInputs>
+          <FormRow
+            as="div"
+            label={<Preface size="xSmall">Address</Preface>}
+            input={
+              <ButtonStyled
+                label={`Current address: ${fullAddress}. Click to update.`}
+                icon={iconMap.address}
+                onClick={updateRevenueCenter}
+                disabled={isOutpost}
+                size="header"
+                color="header"
+              >
+                {fullAddress}
+              </ButtonStyled>
+            }
+          />
+          {fields.map((field) => {
+            const input = addressConfig[field.name]
+            return (
+              input &&
+              input.included && (
+                <Input
+                  key={field.name}
+                  label={input.label}
+                  name={`address-${field.name}`}
+                  type={field.type}
+                  value={address[field.name]}
+                  onChange={handleChange}
+                  error={addressErrors[field.name]}
+                  required={input.required}
+                />
+              )
             )
-          )
-        })}
-      </FormInputs>
-    </FormFieldset>
+          })}
+        </FormInputs>
+      </FormFieldset>
+    </FormWrapper>
   )
 }
 

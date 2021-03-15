@@ -248,7 +248,7 @@ const GiftCardsForm = ({
           <FormFieldset>
             <FormLegend
               as="div"
-              title="Enter your name and email address for your receipt"
+              title="Enter your name and email address"
               subtitle="We'll send a receipt and your purchased gift card numbers to
                 the email address you enter below."
             />
@@ -368,7 +368,7 @@ const GiftCardsForm = ({
         )}
       </form>
       {isNewCard && (
-        <FormFieldset>
+        <FormFieldset style={{ margin: '3rem 0 0' }}>
           <FormLegend
             as="div"
             title="Add your payment information"

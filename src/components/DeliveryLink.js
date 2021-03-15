@@ -27,7 +27,7 @@ DeliveryLink.displayName = 'DeliveryLink'
 DeliveryLink.propTypes = {
   text: propTypes.string,
   trackingUrl: propTypes.string,
-  newWindowIcon: propTypes,
+  newWindowIcon: propTypes.element,
 }
 
 export default DeliveryLink
