@@ -53,7 +53,7 @@ const CheckItemView = styled('li')`
   display: flex;
   justify-content: space-between;
   align-items: center;
-  color: ${(props) => props.theme.fonts[props.color].color};
+  color: ${(props) => props.theme.colors[props.color]};
   ${(props) =>
     props.isBold ? `font-weight: ${props.theme.boldWeight};` : null}
   border-color: ${(props) => props.theme.border.color};
@@ -73,7 +73,7 @@ const CheckItemView = styled('li')`
 const CheckItem = ({
   label,
   value,
-  color = 'body',
+  color = 'secondary',
   isBold = false,
   isTotal = false,
 }) => (
@@ -137,7 +137,7 @@ const Check = ({ title, check, tenders, loader, updating = false }) => {
             </CheckSection>
           </li>
         ) : null}
-        <CheckItem label="Items Total" value={subtotal} color="headings" />
+        <CheckItem label="Items Total" value={subtotal} color="primary" />
         {gift_cards && gift_cards.length ? (
           <li>
             <CheckSection>
@@ -181,7 +181,7 @@ const Check = ({ title, check, tenders, loader, updating = false }) => {
           <CheckItem
             label="Total before Tax"
             value={totalBeforeTax}
-            color="headings"
+            color="primary"
           />
         )}
         {taxes.length ? (
@@ -201,12 +201,7 @@ const Check = ({ title, check, tenders, loader, updating = false }) => {
         ) : null}
         {tip !== '0.00' && <CheckItem label="Tip" value={tip} />}
         {shipping !== '0.00' && <CheckItem label="Shipping" value={shipping} />}
-        <CheckItem
-          label="Total"
-          value={total}
-          color="headings"
-          isTotal={true}
-        />
+        <CheckItem label="Total" value={total} color="primary" isTotal={true} />
         {tenders.length ? (
           <>
             <li style={{ margin: '2rem 0 0' }}>
@@ -223,7 +218,7 @@ const Check = ({ title, check, tenders, loader, updating = false }) => {
             <CheckItem
               label="Remaining Amount Due"
               value={amountRemaiing.toFixed(2)}
-              color="headings"
+              color="primary"
               isTotal={true}
             />
           </>

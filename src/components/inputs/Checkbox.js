@@ -40,7 +40,7 @@ const CheckboxView = styled('span')`
   box-shadow: ${(props) => props.theme.inputs.boxShadow};
 
   input:focus + & {
-    outline-color: ${(props) => props.theme.colors.primary};
+    outline-color: ${(props) => props.theme.inputs.color};
     outline-style: auto;
     outline-width: 5px;
   }
@@ -59,7 +59,7 @@ const CheckboxView = styled('span')`
     border-right: none;
     transform: scale(1) rotate(-45deg);
     opacity: 0;
-    color: ${(props) => props.theme.fonts.headings.color};
+    color: ${(props) => props.theme.inputs.color};
   }
 
   input:checked + &:before {

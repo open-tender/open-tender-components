@@ -127,6 +127,7 @@ const GoogleMapsAutocomplete = ({
   const clearInput = () => {
     setInput('')
     setPredictions([])
+    setAddress(null)
     inputRef.current.focus()
   }
 

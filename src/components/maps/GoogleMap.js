@@ -44,6 +44,7 @@ const GoogleMap = ({
   events,
   loader,
   children,
+  renderMap,
 }) => {
   const {
     maps,
@@ -66,6 +67,7 @@ const GoogleMap = ({
 
   return (
     <>
+      {renderMap && renderMap({ loading, mapRef })}
       {!loading &&
         React.Children.map(children, (child) => {
           return (
@@ -78,10 +80,12 @@ const GoogleMap = ({
             })
           )
         })}
-      <Map>
-        {loading && loader && <MapLoading>{loader}</MapLoading>}
-        <div ref={mapRef} style={{ height: '100%' }} />
-      </Map>
+      {!renderMap && (
+        <Map>
+          {loading && loader && <MapLoading>{loader}</MapLoading>}
+          <div ref={mapRef} style={{ height: '100%' }} />
+        </Map>
+      )}
     </>
   )
 }
@@ -98,5 +102,6 @@ GoogleMap.propTypes = {
     propTypes.arrayOf(propTypes.node),
     propTypes.node,
   ]),
+  renderMap: propTypes.func,
 }
 export default GoogleMap

@@ -13,17 +13,14 @@ const ButtonIconView = styled('button')`
   height: 5rem;
   border: 0;
   margin: 0;
-  color: ${(props) =>
-    props.color
-      ? props.theme.colors[props.color]
-      : props.theme.fonts.headings.color};
+  color: ${(props) => props.color || props.theme.colors.primary};
   transition: ${(props) => props.theme.links.transition};
   opacity: ${(props) => (props.disabled ? '0.5' : '1.0')};
 
   & > span {
     display: block;
-    width: 2rem;
-    height: 2rem;
+    width: ${(props) => (parseFloat(props.size) / 10.0).toFixed(1)}rem;
+    height: ${(props) => (parseFloat(props.size) / 10.0).toFixed(1)}rem;
   }
 `
 
@@ -31,6 +28,7 @@ const ButtonIcon = ({
   label,
   onClick,
   color,
+  size = 20,
   disabled,
   children,
   style = null,
@@ -49,6 +47,7 @@ const ButtonIcon = ({
       onClick={(evt) => onUp(evt)}
       disabled={disabled}
       color={color}
+      size={size}
       style={style}
     >
       <span>{children}</span>
@@ -61,6 +60,7 @@ ButtonIcon.propTypes = {
   label: propTypes.string,
   onClick: propTypes.func,
   color: propTypes.string,
+  size: propTypes.number,
   disabled: propTypes.bool,
   children: propTypes.oneOfType([
     propTypes.arrayOf(propTypes.node),

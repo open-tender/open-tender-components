@@ -1,11 +1,14 @@
 /* eslint-disable react-hooks/exhaustive-deps */
-import { useState, useEffect } from 'react'
+import { useState, useEffect, useRef } from 'react'
 import propTypes from 'prop-types'
 
 const eventMapping = {
   onClick: 'click',
   onDoubleClick: 'dblclick',
 }
+
+// add useRef on March 18, 2021 to allow marker to be removed
+// https://www.timveletta.com/blog/2020-07-14-accessing-react-state-in-your-component-cleanup-with-hooks/
 
 const GoogleMapsMarker = ({
   maps,
@@ -19,6 +22,7 @@ const GoogleMapsMarker = ({
   events,
 }) => {
   const [marker, setMarker] = useState(null)
+  const markerRef = useRef()
 
   useEffect(() => {
     if (marker) {
@@ -53,8 +57,9 @@ const GoogleMapsMarker = ({
       )
     }
     setMarker(newMarker)
+    markerRef.current = newMarker
     return () => {
-      marker && marker.setMap(null)
+      markerRef.current.setMap(null)
       setMarker(null)
     }
   }, [])
@@ -70,6 +75,8 @@ GoogleMapsMarker.propTypes = {
   position: propTypes.object,
   icon: propTypes.string,
   size: propTypes.object,
+  anchor: propTypes.object,
+  drop: propTypes.bool,
   events: propTypes.object,
 }
 export default GoogleMapsMarker

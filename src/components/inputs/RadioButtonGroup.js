@@ -63,7 +63,7 @@ const RadioButtonView = styled('span')`
   box-shadow: ${(props) => props.theme.inputs.boxShadow};
 
   input:focus + & {
-    outline-color: ${(props) => props.theme.colors.primary};
+    outline-color: ${(props) => props.theme.inputs.color};
     outline-style: auto;
     outline-width: 5px;
   }
@@ -76,7 +76,7 @@ const RadioButtonView = styled('span')`
     width: 1.6rem;
     height: 1.6rem;
     border-radius: 100%;
-    background-color: ${(props) => props.theme.fonts.headings.color};
+    background-color: ${(props) => props.theme.inputs.color};
   }
 `
 
