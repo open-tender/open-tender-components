@@ -137,12 +137,6 @@ const DonationForm = ({
 
   const handleSubmitNewCard = (card) => {
     setErrors({})
-    setSubmitting(true)
-    const alert = {
-      type: 'working',
-      args: { text: 'Submitting your contribution...' },
-    }
-    setAlert(alert)
     // purchase({ amount, email, credit_card: card })
     purchaseWithCaptcha(card)
   }
@@ -234,7 +228,6 @@ const DonationForm = ({
               />
             </FormInputs>
             <Recaptcha siteKey={siteKey} />
-            {/* {siteKey && <div className="g-recaptcha" data-sitekey={siteKey} />} */}
             <FormSubmit style={{ margin: '3rem 0 0' }}>
               <ButtonSubmit submitRef={submitRef} submitting={submitting}>
                 {submitting ? 'Submitting...' : 'Submit Contribution'}
@@ -258,7 +251,7 @@ const DonationForm = ({
               submitText="Submit Contribution"
               submittingText="Submitting..."
             >
-              <Recaptcha siteKey={siteKey} />
+              <Recaptcha siteKey={recaptchaKey} />
             </CreditCardForm>
           ) : (
             <FormInputs>

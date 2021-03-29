@@ -4,38 +4,26 @@ const useRecaptcha = (siteKey) => {
   const [validSiteKey, setValidSiteKey] = useState(null)
 
   useEffect(() => {
-    const onloadCallback = () => {
-      console.log('this is happening')
-      setValidSiteKey(siteKey)
-    }
-
-    const loadScriptByURL = (id, url, callback) => {
+    const loadScriptByURL = (id, url) => {
       const isScriptExist = document.getElementById(id)
 
       if (!isScriptExist) {
-        console.log('script does not exist')
         var script = document.createElement('script')
         script.type = 'text/javascript'
         script.src = url
         script.id = id
-        script.onload = function () {
-          if (callback) callback()
-        }
-        document.head.appendChild(script)
+        script.onload = () => setValidSiteKey(siteKey)
+        document.body.appendChild(script)
       }
 
-      if (isScriptExist && callback) {
-        console.log('script exists')
-        callback()
-      }
+      if (isScriptExist) setValidSiteKey(siteKey)
     }
 
     // load the script by passing the URL
     if (siteKey) {
       loadScriptByURL(
         'recaptcha-key',
-        'https://www.google.com/recaptcha/api.js',
-        onloadCallback
+        'https://www.google.com/recaptcha/api.js'
       )
     }
   }, [siteKey])
