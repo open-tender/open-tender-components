@@ -5,7 +5,7 @@ import ResetPasswordForm from './ResetPasswordForm'
 import ProfileForm from './ProfileForm'
 import AddressForm from './AddressForm'
 import CreditCardForm from './CreditCardForm'
-import AllergenForm from './AllergenForm'
+import AllergenForm, { useAllergenForm } from './AllergenForm'
 import OrderRatingForm from './OrderRatingForm'
 import OrderFulfillmentForm from './OrderFulfillmentForm'
 import CartGuestForm from './CartGuestForm'
@@ -25,6 +25,7 @@ export {
   AddressForm,
   CreditCardForm,
   AllergenForm,
+  useAllergenForm,
   OrderRatingForm,
   OrderFulfillmentForm,
   CartGuestForm,

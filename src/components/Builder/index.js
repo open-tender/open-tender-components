@@ -3,6 +3,7 @@ import BuilderCheckbox from './BuilderCheckbox'
 import BuilderGroupHeader from './BuilderGroupHeader'
 import BuilderGroupWarning from './BuilderGroupWarning'
 import BuilderHeader from './BuilderHeader'
+import BuilderImage from './BuilderImage'
 import BuilderIngredients from './BuilderIngredients'
 import BuilderNutrition from './BuilderNutrition'
 import BuilderOption from './BuilderOption'
@@ -16,6 +17,7 @@ export {
   BuilderGroupHeader,
   BuilderGroupWarning,
   BuilderHeader,
+  BuilderImage,
   BuilderIngredients,
   BuilderNutrition,
   BuilderOption,
