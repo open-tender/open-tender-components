@@ -5,6 +5,7 @@ import ResetPasswordForm from './ResetPasswordForm'
 import ProfileForm from './ProfileForm'
 import AddressForm from './AddressForm'
 import CreditCardForm from './CreditCardForm'
+import CreditCardInputs from './CreditCardInputs'
 import AllergenForm from './AllergenForm'
 import OrderRatingForm from './OrderRatingForm'
 import OrderFulfillmentForm from './OrderFulfillmentForm'
@@ -24,6 +25,7 @@ export {
   ProfileForm,
   AddressForm,
   CreditCardForm,
+  CreditCardInputs,
   AllergenForm,
   OrderRatingForm,
   OrderFulfillmentForm,

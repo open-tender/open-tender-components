@@ -96,6 +96,7 @@ const CreditCardForm = ({
     const { card, errors } = validateCreditCard(data, cardType)
     if (errors) {
       setErrors(errors)
+      setSubmitting(false)
       if (windowRef) windowRef.current.scrollTop = 0
     } else {
       setSubmitting(true)
