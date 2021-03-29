@@ -80,6 +80,8 @@ import {
 
 import { useImage } from './hooks'
 
+import { Recaptcha, useRecaptcha } from './recaptcha'
+
 export {
   Checkbox,
   FormApplied,
@@ -153,4 +155,6 @@ export {
   Text,
   useBuilder,
   useImage,
+  Recaptcha,
+  useRecaptcha,
 }

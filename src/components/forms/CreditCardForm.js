@@ -52,6 +52,7 @@ const CreditCardForm = ({
   callback,
   submitText = 'Add New Card',
   submittingText = 'Authorizing Card...',
+  children,
 }) => {
   const submitRef = useRef(null)
   const inputRef = useRef(null)
@@ -124,6 +125,7 @@ const CreditCardForm = ({
           />
         ))}
       </FormInputs>
+      {children}
       <FormSubmit>
         <ButtonSubmit submitRef={submitRef} submitting={submitting}>
           {submitting ? submittingText : submitText}
@@ -142,6 +144,10 @@ CreditCardForm.propTypes = {
   callback: propTypes.func,
   submitText: propTypes.string,
   submittingText: propTypes.string,
+  children: propTypes.oneOfType([
+    propTypes.arrayOf(propTypes.node),
+    propTypes.node,
+  ]),
 }
 
 export default CreditCardForm

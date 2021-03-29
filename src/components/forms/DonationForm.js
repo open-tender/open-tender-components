@@ -2,7 +2,14 @@ import React, { useRef, useState, useEffect, useMemo } from 'react'
 import propTypes from 'prop-types'
 import { makeNumeric } from '@open-tender/js'
 import { CreditCardForm } from '.'
-import { ButtonStyled, ButtonSubmit, Input, Text } from '../index'
+import {
+  ButtonStyled,
+  ButtonSubmit,
+  Input,
+  Recaptcha,
+  Text,
+  useRecaptcha,
+} from '../index'
 import {
   FormError,
   FormFieldset,
@@ -28,6 +35,7 @@ const DonationForm = ({
   windowRef,
   customer = {},
   creditCards = [],
+  recaptchaKey,
 }) => {
   const submitRef = useRef(null)
   const inputRef = useRef(null)
@@ -51,6 +59,8 @@ const DonationForm = ({
         : null,
     [error]
   )
+  const { siteKey } = useRecaptcha(recaptchaKey)
+  console.log('DonationForm', siteKey)
 
   useEffect(() => {
     if (loading === 'idle') {
@@ -95,6 +105,36 @@ const DonationForm = ({
     setCreditCard({ customer_card_id: customerCardId })
   }
 
+  const purchaseWithCaptcha = (credit_card) => {
+    const alert = {
+      type: 'working',
+      args: { text: 'Submitting your contribution...' },
+    }
+    if (siteKey) {
+      try {
+        const token = window.grecaptcha.getResponse()
+        if (!token) {
+          setErrors({ form: 'Please complete the recaptcha before submitting' })
+          if (windowRef) windowRef.current.scrollTop = 0
+        } else {
+          setSubmitting(true)
+          setAlert(alert)
+          purchase({ token, amount, email, credit_card })
+        }
+      } catch (err) {
+        // setSubmitting(true)
+        // setAlert(alert)
+        // purchase({ amount, email, credit_card })
+        setErrors({ form: 'Please complete the recaptcha before submitting' })
+        if (windowRef) windowRef.current.scrollTop = 0
+      }
+    } else {
+      setSubmitting(true)
+      setAlert(alert)
+      purchase({ amount, email, credit_card })
+    }
+  }
+
   const handleSubmitNewCard = (card) => {
     setErrors({})
     setSubmitting(true)
@@ -103,7 +143,8 @@ const DonationForm = ({
       args: { text: 'Submitting your contribution...' },
     }
     setAlert(alert)
-    purchase({ amount, email, credit_card: card })
+    // purchase({ amount, email, credit_card: card })
+    purchaseWithCaptcha(card)
   }
 
   const handleSubmit = (evt) => {
@@ -114,13 +155,8 @@ const DonationForm = ({
       inputRef.current.focus()
       if (windowRef) windowRef.current.scrollTop = 0
     } else {
-      setSubmitting(true)
-      const alert = {
-        type: 'working',
-        args: { text: 'Submitting your contribution...' },
-      }
-      setAlert(alert)
-      purchase({ amount, email, credit_card: creditCard })
+      // purchase({ amount, email, credit_card: creditCard })
+      purchaseWithCaptcha(creditCard)
       submitRef.current.blur()
     }
   }
@@ -197,6 +233,8 @@ const DonationForm = ({
                 options={creditCardOptions}
               />
             </FormInputs>
+            <Recaptcha siteKey={siteKey} />
+            {/* {siteKey && <div className="g-recaptcha" data-sitekey={siteKey} />} */}
             <FormSubmit style={{ margin: '3rem 0 0' }}>
               <ButtonSubmit submitRef={submitRef} submitting={submitting}>
                 {submitting ? 'Submitting...' : 'Submit Contribution'}
@@ -219,7 +257,9 @@ const DonationForm = ({
               addCard={handleSubmitNewCard}
               submitText="Submit Contribution"
               submittingText="Submitting..."
-            />
+            >
+              <Recaptcha siteKey={siteKey} />
+            </CreditCardForm>
           ) : (
             <FormInputs>
               <Text as="p" color="error">
@@ -249,6 +289,7 @@ DonationForm.propTypes = {
     propTypes.func,
     propTypes.shape({ current: propTypes.instanceOf(Element) }),
   ]),
+  recaptchaKey: propTypes.string,
 }
 
 export default DonationForm
