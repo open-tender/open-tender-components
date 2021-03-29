@@ -1,8 +1,10 @@
 import React, { useRef, useState, useEffect, useMemo } from 'react'
 import propTypes from 'prop-types'
 import styled from '@emotion/styled'
-import { CreditCardForm } from '.'
-import { ButtonStyled, ButtonSubmit, Input, Text } from '..'
+import ReCAPTCHA from 'react-google-recaptcha'
+import { validateCreditCard } from '@open-tender/js'
+import { CreditCardInputs } from '.'
+import { ButtonStyled, ButtonSubmit, Input } from '..'
 import {
   FormError,
   FormFieldset,
@@ -66,39 +68,42 @@ const GiftCardsForm = ({
   windowRef,
   customer = {},
   creditCards = [],
+  recaptchaKey = null,
 }) => {
   const submitRef = useRef(null)
   const inputRef = useRef(null)
   const formRef = useRef(null)
-  const url = window.location.origin
-  const [name, setName] = useState(customer ? customer.first_name : null)
-  const [email, setEmail] = useState(customer ? customer.email : null)
+  const recaptchaRef = useRef(null)
+  const [name, setName] = useState(null)
+  const [email, setEmail] = useState(null)
   const [cards, setCards] = useState([initState])
   const [isNewCard, setIsNewCard] = useState(true)
-  const [creditCard, setCreditCard] = useState(null)
+  const [creditCard, setCreditCard] = useState({})
+  const [cardType, setCardType] = useState(null)
   const [creditCardOptions, setCreditCardOptions] = useState([])
   const [errors, setErrors] = useState({})
   const [submitting, setSubmitting] = useState(false)
-  const newCardError = useMemo(
-    () =>
-      error
-        ? Object.entries(error)
-            .filter(([key]) => key !== 'form')
-            .reduce((obj, [key, value]) => ({ ...obj, [key]: value }), {})
-        : null,
-    [error]
-  )
-
+  const url = window.location.origin
   const errMsg =
     errors.form && errors.form.includes('parameters')
       ? 'There are one or more errors below'
       : errors.form || null
+  const newCardErrors = useMemo(
+    () =>
+      errors
+        ? Object.entries(errors)
+            .filter(([key]) => key !== 'form')
+            .reduce((obj, [key, value]) => ({ ...obj, [key]: value }), {})
+        : {},
+    [errors]
+  )
 
   useEffect(() => {
     if (loading === 'idle') {
       setSubmitting(false)
       setAlert({ type: 'close' })
       if (error) {
+        if (recaptchaRef.current) recaptchaRef.current.reset()
         setErrors(error)
         const inputs = formRef.current.querySelectorAll('input, select')
         if (inputs.length) inputs[0].focus()
@@ -123,6 +128,13 @@ const GiftCardsForm = ({
       setIsNewCard(false)
     }
   }, [creditCards])
+
+  useEffect(() => {
+    if (customer) {
+      setEmail(customer.email)
+      setName(`${customer.first_name} ${customer.last_name}`)
+    }
+  }, [customer])
 
   const handleName = (evt) => {
     setName(evt.target.value)
@@ -162,35 +174,59 @@ const GiftCardsForm = ({
     setCreditCard({ customer_card_id: customerCardId })
   }
 
-  const handleSubmitNewCard = (card) => {
-    setErrors({})
-    setSubmitting(true)
+  const purchaseWithCaptcha = (credit_card) => {
     const alert = {
       type: 'working',
       args: { text: 'Submitting your purchase...' },
     }
-    setAlert(alert)
-    const gift_cards = makeGiftCards(cards)
-    purchase({ credit_card: card, name, email, url, gift_cards })
+    if (recaptchaKey) {
+      try {
+        const token = recaptchaRef.current.getValue()
+        if (!token) {
+          setSubmitting(false)
+          setErrors({ form: 'Please complete the recaptcha before submitting' })
+          if (windowRef) windowRef.current.scrollTop = 0
+        } else {
+          setSubmitting(true)
+          setAlert(alert)
+          const gift_cards = makeGiftCards(cards)
+          purchase({ token, credit_card, name, email, url, gift_cards })
+        }
+      } catch (err) {
+        setSubmitting(false)
+        setErrors({ form: 'Please complete the recaptcha before submitting' })
+        if (windowRef) windowRef.current.scrollTop = 0
+      }
+    } else {
+      setSubmitting(true)
+      setAlert(alert)
+      const gift_cards = makeGiftCards(cards)
+      purchase({ credit_card, name, email, url, gift_cards })
+    }
   }
 
   const handleSubmit = (evt) => {
     evt.preventDefault()
-    const { first_name: name, email } = customer || {}
     if (!name || !email) {
       setErrors({ form: 'Both name and email are required' })
-      inputRef.current.focus()
+      if (inputRef.current) inputRef.current.focus()
       if (windowRef) windowRef.current.scrollTop = 0
     } else {
-      setErrors({})
-      setSubmitting(true)
-      const alert = {
-        type: 'working',
-        args: { text: 'Submitting your purchase...' },
+      if (isNewCard) {
+        const { card, errors } = validateCreditCard(creditCard, cardType)
+        if (errors) {
+          setErrors({
+            ...errors,
+            form: 'There are one or more credit card errors below',
+          })
+          setSubmitting(false)
+          if (windowRef) windowRef.current.scrollTop = 0
+        } else {
+          purchaseWithCaptcha(card)
+        }
+      } else {
+        purchaseWithCaptcha(creditCard)
       }
-      setAlert(alert)
-      const gift_cards = makeGiftCards(cards)
-      purchase({ credit_card: creditCard, name, email, url, gift_cards })
       submitRef.current.blur()
     }
   }
@@ -340,58 +376,52 @@ const GiftCardsForm = ({
             />
           </FormInputs>
         </FormFieldset>
-        {!isNewCard && creditCards.length && (
-          <FormFieldset>
-            <FormLegend
-              as="div"
-              title="Add your payment information"
-              subtitle="Choose an existing credit card or add new one from your
+        <FormFieldset>
+          {!isNewCard && creditCards.length ? (
+            <>
+              <FormLegend
+                as="div"
+                title="Add your payment information"
+                subtitle="Choose an existing credit card or add new one from your
                   account page."
-            />
-            <FormInputs>
-              <Select
-                label="Choose Card"
-                name="credit_card"
-                value={creditCard.customer_card_id}
-                onChange={handleCreditCard}
-                error={errors.credit_card}
-                required={true}
-                options={creditCardOptions}
               />
-            </FormInputs>
-            <FormSubmit>
-              <ButtonSubmit submitRef={submitRef} submitting={submitting}>
-                {submitting ? 'Submitting...' : 'Purchase Gift Cards'}
-              </ButtonSubmit>
-            </FormSubmit>
-          </FormFieldset>
-        )}
-      </form>
-      {isNewCard && (
-        <FormFieldset style={{ margin: '3rem 0 0' }}>
-          <FormLegend
-            as="div"
-            title="Add your payment information"
-            subtitle="Please enter your payment info below."
-          />
-          {name && email ? (
-            <CreditCardForm
-              loading={loading}
-              error={newCardError}
-              addCard={handleSubmitNewCard}
-              submitText="Purchase Gift Cards"
-              submittingText="Submitting..."
-            />
+              <FormInputs>
+                <Select
+                  label="Choose Card"
+                  name="credit_card"
+                  value={creditCard.customer_card_id}
+                  onChange={handleCreditCard}
+                  error={errors.credit_card}
+                  required={true}
+                  options={creditCardOptions}
+                />
+              </FormInputs>
+            </>
           ) : (
-            <FormInputs>
-              <Text as="p" color="error">
-                Please enter your name & email before adding your payment
-                information.
-              </Text>
-            </FormInputs>
+            <>
+              <FormLegend
+                as="div"
+                title="Add your payment information"
+                subtitle="Please enter your payment info below."
+              />
+              <CreditCardInputs
+                data={creditCard}
+                update={setCreditCard}
+                setCardType={setCardType}
+                errors={newCardErrors}
+              />
+            </>
           )}
+          {recaptchaKey && (
+            <ReCAPTCHA ref={recaptchaRef} sitekey={recaptchaKey} />
+          )}
+          <FormSubmit>
+            <ButtonSubmit submitRef={submitRef} submitting={submitting}>
+              {submitting ? 'Submitting...' : 'Purchase Gift Cards'}
+            </ButtonSubmit>
+          </FormSubmit>
         </FormFieldset>
-      )}
+      </form>
     </>
   )
 }
@@ -412,6 +442,7 @@ GiftCardsForm.propTypes = {
     propTypes.func,
     propTypes.shape({ current: propTypes.instanceOf(Element) }),
   ]),
+  recaptchaKey: propTypes.string,
 }
 
 export default GiftCardsForm

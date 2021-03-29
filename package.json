@@ -60,6 +60,7 @@
     "react-transition-group": "^4.4.1"
   },
   "dependencies": {
-    "@google-pay/button-react": "^2.1.5"
+    "@google-pay/button-react": "^2.1.5",
+    "react-google-recaptcha": "^2.1.0"
   }
 }

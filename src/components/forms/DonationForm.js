@@ -1,8 +1,9 @@
 import React, { useRef, useState, useEffect, useMemo } from 'react'
 import propTypes from 'prop-types'
-import { makeNumeric } from '@open-tender/js'
-import { CreditCardForm } from '.'
-import { ButtonStyled, ButtonSubmit, Input, Text } from '../index'
+import ReCAPTCHA from 'react-google-recaptcha'
+import { makeNumeric, validateCreditCard } from '@open-tender/js'
+import { CreditCardInputs } from '.'
+import { ButtonStyled, ButtonSubmit, Input } from '..'
 import {
   FormError,
   FormFieldset,
@@ -26,30 +27,33 @@ const DonationForm = ({
   success,
   donation,
   windowRef,
-  customer = {},
+  customer,
   creditCards = [],
+  recaptchaKey = null,
 }) => {
   const submitRef = useRef(null)
   const inputRef = useRef(null)
+  const recaptchaRef = useRef(null)
   const [amount, setAmount] = useState('')
-  const [email, setEmail] = useState(customer ? customer.email : '')
+  const [email, setEmail] = useState('')
   const [isNewCard, setIsNewCard] = useState(true)
-  const [creditCard, setCreditCard] = useState(null)
+  const [creditCard, setCreditCard] = useState({})
   const [creditCardOptions, setCreditCardOptions] = useState([])
+  const [cardType, setCardType] = useState(null)
   const [errors, setErrors] = useState({})
   const [submitting, setSubmitting] = useState(false)
   const errMsg =
     errors.form && errors.form.includes('parameters')
       ? 'There are one or more errors below'
       : errors.form || null
-  const newCardError = useMemo(
+  const newCardErrors = useMemo(
     () =>
-      error
-        ? Object.entries(error)
+      errors
+        ? Object.entries(errors)
             .filter(([key]) => key !== 'form')
             .reduce((obj, [key, value]) => ({ ...obj, [key]: value }), {})
-        : null,
-    [error]
+        : {},
+    [errors]
   )
 
   useEffect(() => {
@@ -57,6 +61,7 @@ const DonationForm = ({
       setSubmitting(false)
       setAlert({ type: 'close' })
       if (error) {
+        if (recaptchaRef.current) recaptchaRef.current.reset()
         setErrors(error)
         inputRef.current.focus()
         if (windowRef) windowRef.current.scrollTop = 0
@@ -81,6 +86,10 @@ const DonationForm = ({
     }
   }, [creditCards])
 
+  useEffect(() => {
+    if (customer) setEmail(customer.email)
+  }, [customer])
+
   const handleAmount = (evt) => {
     const cleanValue = makeNumeric(evt.target.value)
     setAmount(cleanValue)
@@ -95,32 +104,58 @@ const DonationForm = ({
     setCreditCard({ customer_card_id: customerCardId })
   }
 
-  const handleSubmitNewCard = (card) => {
-    setErrors({})
-    setSubmitting(true)
+  const purchaseWithCaptcha = (credit_card) => {
     const alert = {
       type: 'working',
       args: { text: 'Submitting your contribution...' },
     }
-    setAlert(alert)
-    purchase({ amount, email, credit_card: card })
+    if (recaptchaKey) {
+      try {
+        const token = recaptchaRef.current.getValue()
+        if (!token) {
+          setSubmitting(false)
+          setErrors({ form: 'Please complete the recaptcha before submitting' })
+          if (windowRef) windowRef.current.scrollTop = 0
+        } else {
+          setSubmitting(true)
+          setAlert(alert)
+          purchase({ token, amount, email, credit_card })
+        }
+      } catch (err) {
+        setSubmitting(false)
+        setErrors({ form: 'Please complete the recaptcha before submitting' })
+        if (windowRef) windowRef.current.scrollTop = 0
+      }
+    } else {
+      setSubmitting(true)
+      setAlert(alert)
+      purchase({ amount, email, credit_card })
+    }
   }
 
   const handleSubmit = (evt) => {
     evt.preventDefault()
-    const { email } = customer || {}
     if (!amount || !email) {
       setErrors({ form: 'Both amount and email are required' })
       inputRef.current.focus()
       if (windowRef) windowRef.current.scrollTop = 0
     } else {
-      setSubmitting(true)
-      const alert = {
-        type: 'working',
-        args: { text: 'Submitting your contribution...' },
+      if (isNewCard) {
+        const { card, errors } = validateCreditCard(creditCard, cardType)
+        if (errors) {
+          setErrors({
+            ...errors,
+            form: 'There are one or more credit card errors below',
+          })
+          setSubmitting(false)
+          if (windowRef) windowRef.current.scrollTop = 0
+        } else {
+          purchaseWithCaptcha(card)
+        }
+      } else {
+        // purchase({ amount, email, credit_card: creditCard })
+        purchaseWithCaptcha(creditCard)
       }
-      setAlert(alert)
-      purchase({ amount, email, credit_card: creditCard })
       submitRef.current.blur()
     }
   }
@@ -178,58 +213,52 @@ const DonationForm = ({
             />
           </FormInputs>
         </FormFieldset>
-        {!isNewCard && creditCards.length > 0 && (
-          <FormFieldset>
-            <FormLegend
-              as="div"
-              title="Add your payment information"
-              subtitle="Choose an existing credit card or add new one from your
+        <FormFieldset>
+          {!isNewCard && creditCards.length > 0 ? (
+            <>
+              <FormLegend
+                as="div"
+                title="Add your payment information"
+                subtitle="Choose an existing credit card or add new one from your
                   account page."
-            />
-            <FormInputs>
-              <Select
-                label="Choose Card"
-                name="credit_card"
-                value={creditCard.customer_card_id}
-                onChange={handleCreditCard}
-                error={errors.credit_card}
-                required={true}
-                options={creditCardOptions}
               />
-            </FormInputs>
-            <FormSubmit style={{ margin: '3rem 0 0' }}>
-              <ButtonSubmit submitRef={submitRef} submitting={submitting}>
-                {submitting ? 'Submitting...' : 'Submit Contribution'}
-              </ButtonSubmit>
-            </FormSubmit>
-          </FormFieldset>
-        )}
-      </form>
-      {isNewCard && (
-        <FormFieldset style={{ margin: '3rem 0 0' }}>
-          <FormLegend
-            as="div"
-            title="Add your payment information"
-            subtitle="Please enter your payment info below."
-          />
-          {amount && email ? (
-            <CreditCardForm
-              loading={loading}
-              error={newCardError}
-              addCard={handleSubmitNewCard}
-              submitText="Submit Contribution"
-              submittingText="Submitting..."
-            />
+              <FormInputs>
+                <Select
+                  label="Choose Card"
+                  name="credit_card"
+                  value={creditCard.customer_card_id}
+                  onChange={handleCreditCard}
+                  error={errors.credit_card}
+                  required={true}
+                  options={creditCardOptions}
+                />
+              </FormInputs>
+            </>
           ) : (
-            <FormInputs>
-              <Text as="p" color="error">
-                Please enter your email address before adding your payment
-                information.
-              </Text>
-            </FormInputs>
+            <>
+              <FormLegend
+                as="div"
+                title="Add your payment information"
+                subtitle="Please enter your payment info below."
+              />
+              <CreditCardInputs
+                data={creditCard}
+                update={setCreditCard}
+                setCardType={setCardType}
+                errors={newCardErrors}
+              />
+            </>
           )}
+          {recaptchaKey && (
+            <ReCAPTCHA ref={recaptchaRef} sitekey={recaptchaKey} />
+          )}
+          <FormSubmit style={{ margin: '3rem 0 0' }}>
+            <ButtonSubmit submitRef={submitRef} submitting={submitting}>
+              {submitting ? 'Submitting...' : 'Submit Contribution'}
+            </ButtonSubmit>
+          </FormSubmit>
         </FormFieldset>
-      )}
+      </form>
     </>
   )
 }
@@ -249,6 +278,7 @@ DonationForm.propTypes = {
     propTypes.func,
     propTypes.shape({ current: propTypes.instanceOf(Element) }),
   ]),
+  recaptchaKey: propTypes.string,
 }
 
 export default DonationForm
