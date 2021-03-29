@@ -239,8 +239,7 @@ const DonationForm = ({
               <FormLegend
                 as="div"
                 title="Add your payment information"
-                subtitle="Choose an existing credit card or add new one from your
-                  account page."
+                subtitle="Please enter your payment info below."
               />
               <CreditCardInputs
                 data={creditCard}
