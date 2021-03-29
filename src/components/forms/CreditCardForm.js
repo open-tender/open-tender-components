@@ -1,48 +1,10 @@
 import React, { useState, useEffect, useRef } from 'react'
 import propTypes from 'prop-types'
-import {
-  getCardType,
-  makeAcctNumber,
-  makeNumeric,
-  validateCreditCard,
-} from '@open-tender/js'
+import ReCAPTCHA from 'react-google-recaptcha'
+import { validateCreditCard } from '@open-tender/js'
 import { ButtonSubmit } from '..'
-import { FormError, FormInputs, FormSubmit, Input } from '../inputs'
-
-const fields = [
-  {
-    label: 'Card Number',
-    placeholder: '#### #### #### ####',
-    name: 'acct',
-    type: 'text',
-    pattern: '[0-9]*',
-    autoComplete: 'cc-number',
-  },
-  {
-    label: 'Expiration',
-    placeholder: 'MMYY',
-    name: 'exp',
-    type: 'text',
-    pattern: '[0-9]*',
-    autoComplete: 'cc-exp',
-  },
-  {
-    label: 'CVV',
-    placeholder: '###',
-    name: 'cvv',
-    type: 'text',
-    pattern: '[0-9]*',
-    autoComplete: 'cc-csc',
-  },
-  {
-    label: 'Zip Code',
-    placeholder: '#####',
-    name: 'zip',
-    type: 'text',
-    pattern: '[0-9]*',
-    autoComplete: 'postal-code',
-  },
-]
+import { FormError, FormSubmit } from '../inputs'
+import { CreditCardInputs } from '.'
 
 const CreditCardForm = ({
   windowRef,
@@ -52,10 +14,11 @@ const CreditCardForm = ({
   callback,
   submitText = 'Add New Card',
   submittingText = 'Authorizing Card...',
-  children,
+  recaptchaKey,
 }) => {
   const submitRef = useRef(null)
-  const inputRef = useRef(null)
+  const formRef = useRef(null)
+  const recaptchaRef = useRef(null)
   const [data, setData] = useState({})
   const [cardType, setCardType] = useState('OTHER')
   const [errors, setErrors] = useState({})
@@ -65,68 +28,65 @@ const CreditCardForm = ({
     if (loading === 'idle') {
       setSubmitting(false)
       if (error) {
+        if (recaptchaRef.current) recaptchaRef.current.reset()
         setErrors(error)
-        inputRef.current.focus()
+        const inputs = formRef.current.querySelectorAll('input, select')
+        if (inputs.length) inputs[0].focus()
+        if (windowRef) windowRef.current.scrollTop = 0
       }
     }
-  }, [loading, error])
-
-  const handleChange = (evt) => {
-    let { id, checked, value } = evt.target
-    const cleanValue = makeNumeric(value)
-    if (id === 'acct') {
-      const currentType = getCardType(value.replace(/\s/g, ''))
-      setCardType(currentType)
-      value = makeAcctNumber(value, currentType)
-    } else if (id === 'exp') {
-      value = cleanValue.slice(0, 4)
-    } else if (id === 'cvv') {
-      value = cleanValue.slice(0, 4)
-    } else if (id === 'zip') {
-      value = cleanValue.slice(0, 5)
-    } else if (id === 'save') {
-      value = checked
-    }
-    setData({ ...data, [id]: value })
-  }
+  }, [windowRef, loading, error])
 
   const handleSubmit = (evt) => {
     evt.preventDefault()
     setErrors({})
-    const { card, errors } = validateCreditCard(data, cardType)
-    if (errors) {
-      setErrors(errors)
+    const { card, errors: cardErrors } = validateCreditCard(data, cardType)
+    if (cardErrors) {
+      setErrors(cardErrors)
       setSubmitting(false)
       if (windowRef) windowRef.current.scrollTop = 0
     } else {
-      setSubmitting(true)
-      addCard(card, callback)
+      if (recaptchaKey) {
+        try {
+          const token = recaptchaRef.current.getValue()
+          if (!token) {
+            setSubmitting(false)
+            setErrors({
+              form: 'Please complete the recaptcha before submitting',
+            })
+            if (windowRef) windowRef.current.scrollTop = 0
+          } else {
+            setSubmitting(true)
+            addCard({ ...card, token }, callback)
+          }
+        } catch (err) {
+          setSubmitting(false)
+          setErrors({ form: 'Please complete the recaptcha before submitting' })
+          if (windowRef) windowRef.current.scrollTop = 0
+        }
+      } else {
+        setSubmitting(true)
+        addCard(card, callback)
+      }
     }
     submitRef.current.blur()
   }
 
   return (
-    <form id="credit-card-form" onSubmit={handleSubmit} noValidate>
+    <form
+      id="credit-card-form"
+      ref={formRef}
+      onSubmit={handleSubmit}
+      noValidate
+    >
       <FormError errMsg={errors.form} style={{ margin: '0 0 2rem' }} />
-      <FormInputs>
-        {fields.map((field, index) => (
-          <Input
-            ref={index === 0 ? inputRef : null}
-            key={field.name}
-            label={field.label}
-            name={field.name}
-            type={field.type}
-            pattern={field.pattern}
-            autoComplete={field.autoComplete}
-            value={data[field.name]}
-            placeholder={field.placeholder}
-            onChange={handleChange}
-            error={errors[field.name]}
-            required={field.required}
-          />
-        ))}
-      </FormInputs>
-      {children}
+      <CreditCardInputs
+        data={data}
+        update={setData}
+        setCardType={setCardType}
+        errors={errors}
+      />
+      {recaptchaKey && <ReCAPTCHA ref={recaptchaRef} sitekey={recaptchaKey} />}
       <FormSubmit>
         <ButtonSubmit submitRef={submitRef} submitting={submitting}>
           {submitting ? submittingText : submitText}
@@ -149,6 +109,7 @@ CreditCardForm.propTypes = {
     propTypes.arrayOf(propTypes.node),
     propTypes.node,
   ]),
+  recaptchaKey: propTypes.string,
 }
 
 export default CreditCardForm
