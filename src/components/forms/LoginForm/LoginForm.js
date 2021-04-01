@@ -1,33 +1,18 @@
-import React, { useRef, useState, useEffect } from 'react'
+import React from 'react'
 import propTypes from 'prop-types'
-import { ButtonSubmit } from '../index'
-import { FormError, FormInputs, FormSubmit, Input } from '../inputs'
+import { ButtonSubmit } from '../../index'
+import { FormError, FormInputs, FormSubmit, Input } from '../../inputs'
+import useLoginForm from './useLoginForm'
 
 const LoginForm = ({ loading, error, login, callback, hasThanx }) => {
-  const submitRef = useRef(null)
-  const inputRef = useRef(null)
-  const [data, setData] = useState({})
-  const submitting = loading === 'pending'
-
-  useEffect(() => {
-    if (loading === 'idle') {
-      if (error) inputRef.current.focus()
-    }
-  }, [loading, error])
-
-  const handleChange = (evt) => {
-    const { id, value } = evt.target
-    setData({ ...data, [id]: value })
-  }
-
-  const handleSubmit = (evt) => {
-    evt.preventDefault()
-    const { email, password } = data
-    login(email, password).then(() => {
-      if (callback) callback()
-    })
-    submitRef.current.blur()
-  }
+  const {
+    submitRef,
+    inputRef,
+    data,
+    submitting,
+    handleChange,
+    handleSubmit,
+  } = useLoginForm(loading, error, login, callback)
 
   return (
     <form id="login-form" onSubmit={handleSubmit} noValidate>
