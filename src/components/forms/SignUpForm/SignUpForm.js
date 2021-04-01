@@ -1,7 +1,7 @@
-import React, { useRef, useState, useEffect } from 'react'
+import React from 'react'
 import propTypes from 'prop-types'
 import { optionsOrderNotificationsTemp } from '@open-tender/js'
-import { ButtonSubmit } from '..'
+import { ButtonSubmit } from '../..'
 import {
   Checkbox,
   FormError,
@@ -9,28 +9,8 @@ import {
   FormSubmit,
   Input,
   RadioButtonGroup,
-} from '../inputs'
-
-const fields = [
-  { label: 'First Name', name: 'first_name', type: 'text', required: true },
-  { label: 'Last Name', name: 'last_name', type: 'text', required: true },
-  {
-    label: 'Email',
-    name: 'email',
-    type: 'email',
-    required: true,
-    autoComplete: 'email',
-  },
-  {
-    label: 'Password',
-    name: 'password',
-    type: 'password',
-    required: true,
-    autoComplete: 'new-password',
-  },
-  { label: 'Phone', name: 'phone', type: 'tel', required: true },
-  // { label: 'Company', name: 'company', type: 'text' },
-]
+} from '../../inputs'
+import useSignUpForm from './useSignUpForm'
 
 const SignUpForm = ({
   loading,
@@ -40,59 +20,20 @@ const SignUpForm = ({
   optIns = {},
   hasThanx = false,
 }) => {
-  const submitRef = useRef(null)
-  const formRef = useRef(null)
-  const { accepts_marketing, order_notifications } = optIns
-  const initialState = {
-    accepts_marketing: accepts_marketing ? accepts_marketing.default : false,
-    order_notifications: order_notifications
-      ? order_notifications.default
-      : 'NONE',
-  }
-  const [data, setData] = useState(initialState)
-  const [errors, setErrors] = useState({})
-  const [submitting, setSubmitting] = useState(false)
-  const formfields = hasThanx
-    ? fields.filter((i) => i.name !== 'password')
-    : fields
-  const errMsg = error ? 'There are one or more errors below.' : null
-
-  useEffect(() => {
-    return () => {
-      setData({})
-      setErrors({})
-    }
-  }, [])
-
-  useEffect(() => {
-    if (loading === 'idle') {
-      setSubmitting(false)
-      if (error) {
-        setErrors(error)
-        const inputs = formRef.current.querySelectorAll('input')
-        if (inputs.length) inputs[0].focus()
-      }
-    }
-  }, [loading, error])
-
-  const handleChange = (evt) => {
-    const { id, type, value, checked } = evt.target
-    const inputValue = type === 'checkbox' ? checked : value
-    setData({ ...data, [id]: inputValue })
-  }
-
-  const handleRadio = (evt) => {
-    const { name, value } = evt.target
-    setData({ ...data, [name]: value })
-  }
-
-  const handleSubmit = (evt) => {
-    evt.preventDefault()
-    setErrors({})
-    setSubmitting(true)
-    signUp(data, callback)
-    submitRef.current.blur()
-  }
+  const {
+    submitRef,
+    formRef,
+    order_notifications,
+    accepts_marketing,
+    data,
+    errors,
+    submitting,
+    formfields,
+    errMsg,
+    handleChange,
+    handleRadio,
+    handleSubmit,
+  } = useSignUpForm(loading, error, signUp, callback, optIns, hasThanx)
 
   return (
     <form id="signup-form" ref={formRef} onSubmit={handleSubmit} noValidate>
