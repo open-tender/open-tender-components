@@ -57,6 +57,8 @@ import {
   CheckoutTender,
   CheckoutTenders,
   CheckoutTip,
+  useCheckout,
+  useCheckoutGuest,
 } from './Checkout'
 
 import {
@@ -161,4 +163,6 @@ export {
   useImage,
   Recaptcha,
   useRecaptcha,
+  useCheckout,
+  useCheckoutGuest,
 }

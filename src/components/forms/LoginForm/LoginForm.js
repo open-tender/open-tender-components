@@ -26,7 +26,6 @@ const LoginForm = ({ loading, error, login, callback, hasThanx }) => {
           value={data.email}
           onChange={handleChange}
           required={true}
-          classes="form__input"
         />
         {!hasThanx && (
           <Input
@@ -36,7 +35,6 @@ const LoginForm = ({ loading, error, login, callback, hasThanx }) => {
             value={data.password}
             onChange={handleChange}
             required={true}
-            classes="form__input"
           />
         )}
       </FormInputs>

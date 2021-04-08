@@ -6,8 +6,12 @@ const useSignUpForm = (
   signUp,
   callback,
   optIns = {},
+  checkConfig = {},
   hasThanx = false
 ) => {
+  const { displayed, required } = checkConfig || {}
+  const companyDisplayed = displayed && displayed.customer.includes('company')
+  const companyRequired = required && required.customer.includes('company')
   const submitRef = useRef(null)
   const formRef = useRef(null)
   const { accepts_marketing, order_notifications } = optIns
@@ -21,9 +25,19 @@ const useSignUpForm = (
   const [errors, setErrors] = useState({})
   const [submitting, setSubmitting] = useState(false)
   const errMsg = error ? 'There are one or more errors below.' : null
-  const fields = [
-    { label: 'First Name', name: 'first_name', type: 'text', required: true },
-    { label: 'Last Name', name: 'last_name', type: 'text', required: true },
+  let fields = [
+    {
+      label: 'First Name',
+      name: 'first_name',
+      type: 'text',
+      required: true,
+    },
+    {
+      label: 'Last Name',
+      name: 'last_name',
+      type: 'text',
+      required: true,
+    },
     {
       label: 'Email',
       name: 'email',
@@ -40,6 +54,15 @@ const useSignUpForm = (
     },
     { label: 'Phone', name: 'phone', type: 'tel', required: true },
   ]
+  if (companyDisplayed || companyRequired) {
+    const company = {
+      label: 'Company',
+      name: 'company',
+      type: 'text',
+      required: companyRequired,
+    }
+    fields = [...fields, company]
+  }
   const formfields = hasThanx
     ? fields.filter((i) => i.name !== 'password')
     : fields

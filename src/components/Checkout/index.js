@@ -11,7 +11,7 @@ import CheckoutExistingCard from './CheckoutExistingCard'
 import CheckoutForm from './CheckoutForm'
 import CheckoutGiftCards from './CheckoutGiftCards'
 import CheckoutGooglePay from './CheckoutGooglePay'
-import CheckoutGuest from './CheckoutGuest'
+import CheckoutGuest, { useCheckoutGuest } from './CheckoutGuest'
 import CheckoutHouseAccounts from './CheckoutHouseAccounts'
 import CheckoutLabel from './CheckoutLabel'
 import CheckoutLevelUp from './CheckoutLevelUp'
@@ -23,6 +23,7 @@ import CheckoutSurcharges from './CheckoutSurcharges'
 import CheckoutTender from './CheckoutTender'
 import CheckoutTenders from './CheckoutTenders'
 import CheckoutTip from './CheckoutTip'
+import useCheckout from './useCheckout'
 
 export {
   CheckoutAccount,
@@ -50,4 +51,6 @@ export {
   CheckoutTender,
   CheckoutTenders,
   CheckoutTip,
+  useCheckout,
+  useCheckoutGuest,
 }

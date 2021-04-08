@@ -89,9 +89,7 @@ Switch.propTypes = {
   on: propTypes.bool,
   onChange: propTypes.func,
   disabled: propTypes.bool,
-  classes: propTypes.string,
   showLabel: propTypes.bool,
-  inputClasses: propTypes.string,
 }
 
 export default Switch

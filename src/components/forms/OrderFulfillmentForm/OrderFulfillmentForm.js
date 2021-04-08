@@ -1,7 +1,8 @@
-import React, { useRef, useState, useEffect } from 'react'
+import React from 'react'
 import propTypes from 'prop-types'
-import { ButtonSubmit } from '../index'
-import { FormInputs, FormSubmit, Input } from '../inputs'
+import { ButtonSubmit } from '../../index'
+import { FormInputs, FormSubmit, Input } from '../../inputs'
+import { useOrderFulfillmentForm } from '.'
 
 const arrivedText =
   "Thanks for letting us know you've arrived! We'll be out with your order shortly."
@@ -14,35 +15,22 @@ const OrderFulfillmentForm = ({
   update,
   settings,
 }) => {
-  const submitRef = useRef(null)
-  const [data, setData] = useState({})
-  const [submitting, setSubmitting] = useState(false)
-  const errors = error || {}
-  const empty = Object.values(fulfillment).every((i) => !i)
-  const fields = !empty
-    ? settings.fields.filter((i) => i.name.startsWith('arrival'))
-    : settings.fields
-
-  useEffect(() => {
-    if (loading === 'idle') setSubmitting(false)
-  }, [loading])
-
-  useEffect(() => {
-    setData(fulfillment)
-  }, [fulfillment])
-
-  const handleChange = (evt) => {
-    const { id, type, value, checked } = evt.target
-    const inputValue = type === 'checkbox' ? checked : value
-    setData({ ...data, [id]: inputValue })
-  }
-
-  const handleSubmit = (evt) => {
-    evt.preventDefault()
-    setSubmitting(true)
-    update(orderId, { ...data, has_arrived: true })
-    submitRef.current.blur()
-  }
+  const {
+    submitRef,
+    fields,
+    data,
+    errors,
+    submitting,
+    handleChange,
+    handleSubmit,
+  } = useOrderFulfillmentForm(
+    orderId,
+    fulfillment,
+    loading,
+    error,
+    update,
+    settings
+  )
 
   return (
     <form id="order-fulfillment-form" onSubmit={handleSubmit} noValidate>

@@ -7,7 +7,6 @@ const FormErrorView = styled('span')`
   outline: 0;
   display: inline-block;
   width: 100%;
-  margin: 1rem 0 0;
   font-size: ${(props) => props.theme.fonts.sizes.small};
   line-height: ${(props) => props.theme.inputs.lineHeight};
   padding: ${(props) => props.theme.inputs.padding};

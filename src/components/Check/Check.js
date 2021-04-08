@@ -1,13 +1,10 @@
 import React from 'react'
 import propTypes from 'prop-types'
-import {
-  formatDollars,
-  checkAmountRemaining,
-  tenderTypeNamesMap,
-} from '@open-tender/js'
+import { checkAmountRemaining, tenderTypeNamesMap } from '@open-tender/js'
 import styled from '@emotion/styled'
 import CheckUpdating from './CheckUpdating'
 import CheckTitle from './CheckTitle'
+import CheckItem from './CheckItem'
 
 const makeCreditName = (tender) => {
   const creditCard = tender.credit_card || tender
@@ -47,51 +44,6 @@ const CheckSection = styled('ul')`
   }
 `
 
-const CheckItemView = styled('li')`
-  width: 100%;
-  padding: 0.8rem 0;
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  color: ${(props) => props.theme.colors[props.color]};
-  ${(props) =>
-    props.isBold ? `font-weight: ${props.theme.boldWeight};` : null}
-  border-color: ${(props) => props.theme.border.color};
-  ${(props) =>
-    props.isTotal
-      ? `border-top-width: 0.1rem;
-  border-top-style: solid;
-  border-bottom-width: 0.3rem;
-  border-bottom-style: double;`
-      : null}
-
-  span {
-    display: block;
-  }
-`
-
-const CheckItem = ({
-  label,
-  value,
-  color = 'secondary',
-  isBold = false,
-  isTotal = false,
-}) => (
-  <CheckItemView color={color} isBold={isBold} isTotal={isTotal}>
-    <span>{label}</span>
-    <span>{formatDollars(value)}</span>
-  </CheckItemView>
-)
-
-CheckItem.displayName = 'CheckItem'
-CheckItem.propTypes = {
-  label: propTypes.string,
-  value: propTypes.string,
-  color: propTypes.string,
-  isBold: propTypes.bool,
-  isTotal: propTypes.bool,
-}
-
 const Check = ({ title, check, tenders, loader, updating = false }) => {
   const {
     order_id,
@@ -117,7 +69,7 @@ const Check = ({ title, check, tenders, loader, updating = false }) => {
   const totalBeforeTax = [subtotal, gift_card, surcharge, discount]
     .reduce((t, i) => (t += parseFloat(i)), 0.0)
     .toFixed(2)
-  const amountRemaiing = checkAmountRemaining(total, tenders)
+  const amountRemaining = checkAmountRemaining(total, tenders)
 
   return (
     <CheckView>
@@ -217,7 +169,7 @@ const Check = ({ title, check, tenders, loader, updating = false }) => {
             </li>
             <CheckItem
               label="Remaining Amount Due"
-              value={amountRemaiing.toFixed(2)}
+              value={amountRemaining.toFixed(2)}
               color="primary"
               isTotal={true}
             />
