@@ -1,4 +1,4 @@
-import AddressForm from './AddressForm'
+import AddressForm, { useAddressForm } from './AddressForm'
 import AllergenForm, { useAllergenForm } from './AllergenForm'
 import CartGuestForm from './CartGuestForm'
 import CreditCardForm from './CreditCardForm'
@@ -8,13 +8,13 @@ import GiftCardForm from './GiftCardForm'
 import GiftCardAssignForm from './GiftCardAssignForm'
 import GiftCardAssignOtherForm from './GiftCardAssignOtherForm'
 import GiftCardsForm from './GiftCardsForm'
-import LevelUpForm from './LevelUpForm'
+import LevelUpForm, { useLevelUpForm } from './LevelUpForm'
 import LoginForm, { useLoginForm } from './LoginForm'
 import OrderFulfillmentForm, {
   useOrderFulfillmentForm,
 } from './OrderFulfillmentForm'
 import OrderRatingForm from './OrderRatingForm'
-import ProfileForm from './ProfileForm'
+import ProfileForm, { useProfileForm } from './ProfileForm'
 import ResetPasswordForm from './ResetPasswordForm'
 import SendResetForm, { useSendResetForm } from './SendResetForm'
 import SignUpForm, { useSignUpForm } from './SignUpForm'
@@ -38,9 +38,12 @@ export {
   ResetPasswordForm,
   SendResetForm,
   SignUpForm,
+  useAddressForm,
   useAllergenForm,
+  useLevelUpForm,
   useLoginForm,
   useOrderFulfillmentForm,
+  useProfileForm,
   useSendResetForm,
   useSignUpForm,
 }

@@ -1,37 +1,19 @@
-import React, { useRef, useState, useEffect } from 'react'
+import React from 'react'
 import propTypes from 'prop-types'
-import { ButtonSubmit } from '..'
-import { FormInputs, FormSubmit, Input } from '../inputs'
+import { ButtonSubmit } from '../..'
+import { FormInputs, FormSubmit, Input } from '../../inputs'
+import { useLevelUpForm } from '.'
 
 const LevelUpForm = ({ email, loading, error, connect, callback }) => {
-  const submitRef = useRef(null)
-  const inputRef = useRef(null)
-  const [data, setData] = useState({ email })
-  const [errors, setErrors] = useState({})
-  const [submitting, setSubmitting] = useState(false)
-
-  useEffect(() => {
-    if (loading === 'idle') {
-      setSubmitting(false)
-      if (error) {
-        setErrors(error)
-        inputRef.current.focus()
-      }
-    }
-  }, [loading, error])
-
-  const handleChange = (evt) => {
-    const { id, type, value, checked } = evt.target
-    const inputValue = type === 'checkbox' ? checked : value
-    setData({ ...data, [id]: inputValue })
-  }
-
-  const handleSubmit = (evt) => {
-    evt.preventDefault()
-    setSubmitting(true)
-    connect(data, callback)
-    submitRef.current.blur()
-  }
+  const {
+    submitRef,
+    inputRef,
+    data,
+    errors,
+    submitting,
+    handleChange,
+    handleSubmit,
+  } = useLevelUpForm(email, loading, error, connect, callback)
 
   return (
     <form id="levelup-form" onSubmit={handleSubmit} noValidate>
