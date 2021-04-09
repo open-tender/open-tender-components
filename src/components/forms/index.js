@@ -4,9 +4,11 @@ import CartGuestForm from './CartGuestForm'
 import CreditCardForm from './CreditCardForm'
 import CreditCardInputs from './CreditCardInputs'
 import DonationForm from './DonationForm'
-import GiftCardForm from './GiftCardForm'
-import GiftCardAssignForm from './GiftCardAssignForm'
-import GiftCardAssignOtherForm from './GiftCardAssignOtherForm'
+import GiftCardForm, { useGiftCardForm } from './GiftCardForm'
+import GiftCardAssignForm, { useGiftCardAssignForm } from './GiftCardAssignForm'
+import GiftCardAssignOtherForm, {
+  useGiftCardAssignOtherForm,
+} from './GiftCardAssignOtherForm'
 import GiftCardsForm from './GiftCardsForm'
 import LevelUpForm, { useLevelUpForm } from './LevelUpForm'
 import LoginForm, { useLoginForm } from './LoginForm'
@@ -40,6 +42,9 @@ export {
   SignUpForm,
   useAddressForm,
   useAllergenForm,
+  useGiftCardForm,
+  useGiftCardAssignForm,
+  useGiftCardAssignOtherForm,
   useLevelUpForm,
   useLoginForm,
   useOrderFulfillmentForm,

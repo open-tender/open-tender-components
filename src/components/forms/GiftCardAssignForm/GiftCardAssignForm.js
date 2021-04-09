@@ -1,42 +1,20 @@
-import React, { useRef, useState, useEffect } from 'react'
+import React from 'react'
 import propTypes from 'prop-types'
-import { ButtonSubmit } from '..'
-import { FormError, FormInputs, FormSubmit, Input } from '../inputs'
+import { ButtonSubmit } from '../..'
+import { FormError, FormInputs, FormSubmit, Input } from '../../inputs'
+import { useGiftCardAssignForm } from '.'
 
 const GiftCardAssignForm = ({ loading, error, assign, callback }) => {
-  const submitRef = useRef(null)
-  const inputRef = useRef(null)
-  const [cardNumber, setCardNumber] = useState('')
-  const [errors, setErrors] = useState({})
-  const [submitting, setSubmitting] = useState(false)
+  const {
+    submitRef,
+    inputRef,
+    cardNumber,
+    errors,
+    submitting,
+    handleChange,
+    handleSubmit,
+  } = useGiftCardAssignForm(loading, error, assign, callback)
   const errMsg = errors.form && !errors.card_number ? errors.form : null
-
-  useEffect(() => {
-    if (loading === 'idle') {
-      setSubmitting(false)
-      if (error) {
-        setErrors(error)
-        inputRef.current.focus()
-      }
-    }
-  }, [loading, error])
-
-  const handleChange = (evt) => {
-    setCardNumber(evt.target.value)
-  }
-
-  const handleSubmit = (evt) => {
-    evt.preventDefault()
-    setSubmitting(true)
-    const card_number = parseInt(cardNumber)
-    if (isNaN(card_number)) {
-      setErrors({ card_number: 'Card numbers must be all digits' })
-      inputRef.current.focus()
-    } else {
-      assign(card_number, callback)
-      submitRef.current.blur()
-    }
-  }
 
   return (
     <form id="gift-card-assign-form" onSubmit={handleSubmit} noValidate>

@@ -1,7 +1,8 @@
-import React, { useRef, useState, useEffect } from 'react'
+import React from 'react'
 import propTypes from 'prop-types'
-import { ButtonSubmit } from '../index'
-import { FormError, FormInputs, FormSubmit, Input } from '../inputs'
+import { ButtonSubmit } from '../..'
+import { FormError, FormInputs, FormSubmit, Input } from '../../inputs'
+import { useGiftCardAssignOtherForm } from '.'
 
 const GiftCardAssignOtherForm = ({
   loading,
@@ -10,33 +11,16 @@ const GiftCardAssignOtherForm = ({
   assign,
   callback,
 }) => {
-  const submitRef = useRef(null)
-  const inputRef = useRef(null)
-  const [email, setEmail] = useState('')
-  const [errors, setErrors] = useState({})
-  const [submitting, setSubmitting] = useState(false)
+  const {
+    submitRef,
+    inputRef,
+    email,
+    errors,
+    submitting,
+    handleChange,
+    handleSubmit,
+  } = useGiftCardAssignOtherForm(loading, error, giftCardId, assign, callback)
   const errMsg = errors.form && !errors.email ? errors.form : null
-
-  useEffect(() => {
-    if (loading === 'idle') {
-      setSubmitting(false)
-      if (error) {
-        setErrors(error)
-        inputRef.current.focus()
-      }
-    }
-  }, [loading, error])
-
-  const handleChange = (evt) => {
-    setEmail(evt.target.value)
-  }
-
-  const handleSubmit = (evt) => {
-    evt.preventDefault()
-    setSubmitting(true)
-    assign(giftCardId, email, callback)
-    submitRef.current.blur()
-  }
 
   return (
     <form id="gift-card-form" onSubmit={handleSubmit} noValidate>
