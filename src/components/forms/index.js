@@ -17,7 +17,7 @@ import OrderFulfillmentForm, {
 } from './OrderFulfillmentForm'
 import OrderRatingForm from './OrderRatingForm'
 import ProfileForm, { useProfileForm } from './ProfileForm'
-import ResetPasswordForm from './ResetPasswordForm'
+import ResetPasswordForm, { useResetPasswordForm } from './ResetPasswordForm'
 import SendResetForm, { useSendResetForm } from './SendResetForm'
 import SignUpForm, { useSignUpForm } from './SignUpForm'
 
@@ -49,6 +49,7 @@ export {
   useLoginForm,
   useOrderFulfillmentForm,
   useProfileForm,
+  useResetPasswordForm,
   useSendResetForm,
   useSignUpForm,
 }

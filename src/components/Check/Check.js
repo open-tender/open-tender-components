@@ -1,33 +1,10 @@
 import React from 'react'
 import propTypes from 'prop-types'
-import { checkAmountRemaining, tenderTypeNamesMap } from '@open-tender/js'
+import { checkAmountRemaining, makeTenderName } from '@open-tender/js'
 import styled from '@emotion/styled'
 import CheckUpdating from './CheckUpdating'
 import CheckTitle from './CheckTitle'
 import CheckItem from './CheckItem'
-
-const makeCreditName = (tender) => {
-  const creditCard = tender.credit_card || tender
-  return `${creditCard.card_type_name} ending in ${creditCard.last4}`
-}
-
-const makeHouseAccountName = (tender) => {
-  const houseAccount = tender.house_account || tender
-  return `${houseAccount.name} House Account`
-}
-
-const makeTenderName = (tender) => {
-  switch (tender.tender_type) {
-    case 'CREDIT':
-      return makeCreditName(tender)
-    case 'GIFT_CARD':
-      return `Gift Card ${tender.card_number}`
-    case 'HOUSE_ACCOUNT':
-      return makeHouseAccountName(tender)
-    default:
-      return `${tenderTypeNamesMap[tender.tender_type]}`
-  }
-}
 
 const CheckView = styled('div')`
   position: relative;
