@@ -989,10 +989,10 @@
   dependencies:
     "@types/googlepay" "^0.5.1"
 
-"@open-tender/js@^1.0.2":
-  version "1.2.7"
-  resolved "https://registry.yarnpkg.com/@open-tender/js/-/js-1.2.7.tgz#ac14e52a6c69fc858935082c3b53ae39bc4d0b2d"
-  integrity sha512-QIBakWyvrIycwWuZ+FxnGJElZ/iQyu4ROeIC0zyTAGTmZFWxQn6sRKLWaetkXSZRxTyRePWlLwOkxv+HvyY4Uw==
+"@open-tender/js@^1.4.3":
+  version "1.4.3"
+  resolved "https://registry.yarnpkg.com/@open-tender/js/-/js-1.4.3.tgz#ee8671742f01b3f5d718f30e524e78e60e4ba374"
+  integrity sha512-ajsHOYLFhMuMckz+UENy1YYxXyC4RLJWGYIA8cGQ61eLbKhW26Ou8Q5wHVcrlmkiACSI+pqYmVjODxiQ3OtESw==
 
 "@open-tender/redux@^1.0.1":
   version "1.5.5"

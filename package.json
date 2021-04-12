@@ -23,7 +23,7 @@
     "@babel/preset-react": "^7.12.10",
     "@emotion/react": "^11.1.4",
     "@emotion/styled": "^11.0.0",
-    "@open-tender/js": "^1.0.2",
+    "@open-tender/js": "^1.4.3",
     "@open-tender/redux": "^1.0.1",
     "babel-loader": "^8.2.2",
     "css-loader": "^5.0.1",
