@@ -989,15 +989,15 @@
   dependencies:
     "@types/googlepay" "^0.5.1"
 
-"@open-tender/js@^1.4.3":
-  version "1.4.3"
-  resolved "https://registry.yarnpkg.com/@open-tender/js/-/js-1.4.3.tgz#ee8671742f01b3f5d718f30e524e78e60e4ba374"
-  integrity sha512-ajsHOYLFhMuMckz+UENy1YYxXyC4RLJWGYIA8cGQ61eLbKhW26Ou8Q5wHVcrlmkiACSI+pqYmVjODxiQ3OtESw==
+"@open-tender/js@^1.4.4":
+  version "1.4.4"
+  resolved "https://registry.yarnpkg.com/@open-tender/js/-/js-1.4.4.tgz#b48c553f1364bc99f063a4bac17fcd28ac723218"
+  integrity sha512-O0o9mVxIRaFh2npJWLp2+uljKfX06igOKQnls1g1dPpupR2gsgJ1vwFvazRuAD/1gXtcVBI0+xPV4fpYv5iDGA==
 
-"@open-tender/redux@^1.0.1":
-  version "1.5.5"
-  resolved "https://registry.yarnpkg.com/@open-tender/redux/-/redux-1.5.5.tgz#86c37801e7932eff80ccfead4032969c400c3112"
-  integrity sha512-58X1DYK5jT2hy55gdD3k0tB/lm1DVBKNGn2TvsfDdKhuGeSwIAHCYDVgQhQgU+ictbI6K5sbUx00KuJpgtkTsw==
+"@open-tender/redux@^2.0.4":
+  version "2.0.4"
+  resolved "https://registry.yarnpkg.com/@open-tender/redux/-/redux-2.0.4.tgz#9d5f0c4ee48425c2dd2ac6f992cbfbb55a2394d8"
+  integrity sha512-Fc0bdm14zRqXW9zHC/cQ8oY9Re1mmjPYtX2UAUa7A6OCZc5c/3OFQm2c/axHP+9ASJtASWomYu/g5YG2ajAwXQ==
 
 "@polka/url@^1.0.0-next.9":
   version "1.0.0-next.11"
