@@ -20,11 +20,9 @@ const RequestedAtCalendar = ({
 
 RequestedAtCalendar.displayName = 'RequestedAtCalendar'
 RequestedAtCalendar.propTypes = {
-  forcedUpdate: propTypes.bool,
   requestedAt: propTypes.string,
   serviceType: propTypes.string,
   revenueCenter: propTypes.object,
-  handleClose: propTypes.func,
   setRequestedAt: propTypes.func,
 }
 

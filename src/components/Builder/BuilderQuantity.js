@@ -79,6 +79,7 @@ const BuilderQuantity = ({
   incrementDisabled,
   decrementDisabled,
   iconMap = {},
+  showAdd = true,
 }) => {
   const incrementRef = useRef(null)
   const decrementRef = useRef(null)
@@ -108,7 +109,7 @@ const BuilderQuantity = ({
     decrement()
   }
 
-  return item.quantity === 0 ? (
+  return showAdd && item.quantity === 0 ? (
     <BuilderQuantityView>
       <BuilderQuantityAdd
         onClick={handleAdd}
@@ -160,6 +161,7 @@ BuilderQuantity.propTypes = {
   incrementDisabled: propTypes.bool,
   decrementDisabled: propTypes.bool,
   iconMap: propTypes.object,
+  showAdd: propTypes.bool,
 }
 
 export default BuilderQuantity

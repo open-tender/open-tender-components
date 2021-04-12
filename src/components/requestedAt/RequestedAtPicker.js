@@ -1,19 +1,10 @@
-import React, { useState } from 'react'
+import React from 'react'
 import propTypes from 'prop-types'
 import DatePicker from 'react-datepicker'
-import {
-  isEmpty,
-  dateToIso,
-  isoToDate,
-  makeLocalDate,
-  makeWeekdaysExcluded,
-  makeDatepickerArgs,
-  timezoneMap,
-  todayDate,
-  errMessages,
-} from '@open-tender/js'
-import { Box, ButtonStyled, Text } from '..'
 import styled from '@emotion/styled'
+
+import { Box, ButtonStyled, Text } from '..'
+import useDatePicker from './useDatePicker'
 
 const DatepickerView = styled(Box)`
   margin-top: 1.5rem;
@@ -37,63 +28,21 @@ const RequestedAtPicker = ({
   requestedAt,
   setRequestedAt,
 }) => {
-  const { timezone, settings, revenue_center_type } = revenueCenter
-  const tz = timezoneMap[timezone]
-  const st = serviceType === 'WALKIN' ? 'PICKUP' : serviceType
-  const requestedAtDate =
-    requestedAt === 'asap' ? null : isoToDate(requestedAt, tz)
-  const [date, setDate] = useState(requestedAtDate)
-  const [error, setError] = useState(null)
-
-  const submitDate = () => {
-    const reqestedAtIso = date ? dateToIso(date, tz) : 'asap'
-    setRequestedAt(reqestedAtIso)
-  }
-
-  let args = {}
-  if (isEmpty(settings.first_times)) {
-    setError(errMessages.revenueCenterClosed)
-  } else if (!settings.first_times[st]) {
-    setError(errMessages.serviceTypeNotAvailable)
-  } else {
-    const validTimes = settings.valid_times[st]
-    const daysAhead = settings.days_ahead[st]
-    const firstTimes = settings.first_times[st]
-    const interval = settings.first_times[st].interval
-    const holidays = settings.holidays[st].map((i) => makeLocalDate(i))
-    const weekdayTimes = makeWeekdaysExcluded(validTimes)
-    const excludedTimes = settings.excluded_times
-      ? settings.excluded_times[st]
-      : {}
-    args = makeDatepickerArgs(
-      date,
-      weekdayTimes,
-      excludedTimes,
-      firstTimes,
-      interval,
-      daysAhead
-    )
-    const first = isoToDate(firstTimes.utc, tz)
-    if (args.updatedDate) {
-      setDate(args.updatedDate)
-    } else if (!error && (date === null || date < first)) {
-      setDate(first)
-    }
-    args.holidays = holidays
-    args.interval = interval
-    args.hasAsap =
-      revenue_center_type === 'OLO' && firstTimes.date === todayDate()
-  }
   const {
-    excludeTimes,
-    isClosed,
     minDate,
     maxDate,
-    holidays,
+    excludeDates,
+    filterDate,
     interval,
+    excludeTimes,
     hasAsap,
-  } = args
+    date,
+    setDate,
+    error,
+    submitDate,
+  } = useDatePicker(revenueCenter, serviceType, requestedAt, setRequestedAt)
 
+  if (!revenueCenter) return null
   return (
     <>
       <DatepickerView>
@@ -111,9 +60,9 @@ const RequestedAtPicker = ({
             minDate={minDate}
             maxDate={maxDate}
             timeIntervals={interval}
-            excludeDates={holidays}
+            excludeDates={excludeDates}
             excludeTimes={excludeTimes}
-            filterDate={isClosed}
+            filterDate={filterDate}
             selected={date}
             onChange={(date) => setDate(date)}
             inline
