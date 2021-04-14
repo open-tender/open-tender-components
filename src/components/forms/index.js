@@ -9,7 +9,7 @@ import GiftCardAssignForm, { useGiftCardAssignForm } from './GiftCardAssignForm'
 import GiftCardAssignOtherForm, {
   useGiftCardAssignOtherForm,
 } from './GiftCardAssignOtherForm'
-import GiftCardsForm from './GiftCardsForm'
+import GiftCardsForm, { useGiftCardsForm } from './GiftCardsForm'
 import LevelUpForm, { useLevelUpForm } from './LevelUpForm'
 import LoginForm, { useLoginForm } from './LoginForm'
 import OrderFulfillmentForm, {
@@ -45,6 +45,7 @@ export {
   useGiftCardForm,
   useGiftCardAssignForm,
   useGiftCardAssignOtherForm,
+  useGiftCardsForm,
   useLevelUpForm,
   useLoginForm,
   useOrderFulfillmentForm,
