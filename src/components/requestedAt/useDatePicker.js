@@ -27,11 +27,12 @@ const useDatePicker = (
   if (!revenueCenter) return {}
 
   const selectedRequestedAt = date ? dateToIso(date, tz) : 'asap'
-  const st = serviceType === 'WALKIN' ? 'PICKUP' : serviceType
 
   const submitDate = () => {
     setRequestedAt(selectedRequestedAt)
   }
+
+  const st = serviceType === 'WALKIN' ? 'PICKUP' : serviceType
 
   let args = {}
   if (isEmpty(settings.first_times)) {
