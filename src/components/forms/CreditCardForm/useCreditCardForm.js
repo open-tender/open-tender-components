@@ -1,21 +1,14 @@
-import React, { useState, useEffect, useRef } from 'react'
-import propTypes from 'prop-types'
-import ReCAPTCHA from 'react-google-recaptcha'
+import { useState, useEffect, useRef } from 'react'
 import { validateCreditCard } from '@open-tender/js'
-import { ButtonSubmit } from '..'
-import { FormError, FormSubmit } from '../inputs'
-import { CreditCardInputs } from '.'
 
-const CreditCardForm = ({
+const useCreditCardForm = (
   windowRef,
   loading,
   error,
   addCard,
   callback,
-  submitText = 'Add New Card',
-  submittingText = 'Authorizing Card...',
-  recaptchaKey,
-}) => {
+  recaptchaKey
+) => {
   const submitRef = useRef(null)
   const formRef = useRef(null)
   const recaptchaRef = useRef(null)
@@ -61,7 +54,9 @@ const CreditCardForm = ({
           }
         } catch (err) {
           setSubmitting(false)
-          setErrors({ form: 'Please complete the recaptcha before submitting' })
+          setErrors({
+            form: 'Please complete the recaptcha before submitting',
+          })
           if (windowRef) windowRef.current.scrollTop = 0
         }
       } else {
@@ -72,44 +67,17 @@ const CreditCardForm = ({
     submitRef.current.blur()
   }
 
-  return (
-    <form
-      id="credit-card-form"
-      ref={formRef}
-      onSubmit={handleSubmit}
-      noValidate
-    >
-      <FormError errMsg={errors.form} style={{ margin: '0 0 2rem' }} />
-      <CreditCardInputs
-        data={data}
-        update={setData}
-        setCardType={setCardType}
-        errors={errors}
-      />
-      {recaptchaKey && <ReCAPTCHA ref={recaptchaRef} sitekey={recaptchaKey} />}
-      <FormSubmit>
-        <ButtonSubmit submitRef={submitRef} submitting={submitting}>
-          {submitting ? submittingText : submitText}
-        </ButtonSubmit>
-      </FormSubmit>
-    </form>
-  )
+  return {
+    submitRef,
+    formRef,
+    recaptchaRef,
+    data,
+    errors,
+    setData,
+    setCardType,
+    submitting,
+    handleSubmit,
+  }
 }
 
-CreditCardForm.displayName = 'CreditCardForm'
-CreditCardForm.propTypes = {
-  windowRef: propTypes.shape({ current: propTypes.any }),
-  loading: propTypes.string,
-  error: propTypes.object,
-  addCard: propTypes.func,
-  callback: propTypes.func,
-  submitText: propTypes.string,
-  submittingText: propTypes.string,
-  children: propTypes.oneOfType([
-    propTypes.arrayOf(propTypes.node),
-    propTypes.node,
-  ]),
-  recaptchaKey: propTypes.string,
-}
-
-export default CreditCardForm
+export default useCreditCardForm

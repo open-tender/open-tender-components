@@ -1,7 +1,7 @@
 import AddressForm, { useAddressForm } from './AddressForm'
 import AllergenForm, { useAllergenForm } from './AllergenForm'
 import CartGuestForm from './CartGuestForm'
-import CreditCardForm from './CreditCardForm'
+import CreditCardForm, { useCreditCardForm } from './CreditCardForm'
 import CreditCardInputs from './CreditCardInputs'
 import DonationForm from './DonationForm'
 import GiftCardForm, { useGiftCardForm } from './GiftCardForm'
@@ -42,6 +42,7 @@ export {
   SignUpForm,
   useAddressForm,
   useAllergenForm,
+  useCreditCardForm,
   useGiftCardForm,
   useGiftCardAssignForm,
   useGiftCardAssignOtherForm,
