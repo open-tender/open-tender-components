@@ -16,7 +16,8 @@ const TimePickerContainer = styled('div')`
   justify-content: center;
   align-items: center;
   padding: 1rem;
-  background-color: rgba(37, 39, 42, 0.3);
+  // background-color: ${(props) => props.theme.overlay.dark};
+  background-color: rgba(0, 0, 0, 0.4);
 `
 
 const TimePickerView = styled('div')`
@@ -27,7 +28,7 @@ const TimePickerView = styled('div')`
   display: flex;
   justify-content: space-between;
   align-items: center;
-  box-shadow: 0px 6px 20px rgba(0, 0, 0, 0.13);
+  box-shadow: 0 0.6rem 2rem rgba(0, 0, 0, 0.13);
 `
 
 const TimePickerLabel = styled('div')`
