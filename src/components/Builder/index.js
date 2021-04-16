@@ -1,5 +1,7 @@
 import Builder from './Builder'
+import BuilderBody from './BuilderBody'
 import BuilderCheckbox from './BuilderCheckbox'
+import BuilderFooter from './BuilderFooter'
 import BuilderGroupHeader from './BuilderGroupHeader'
 import BuilderGroupWarning from './BuilderGroupWarning'
 import BuilderHeader from './BuilderHeader'
@@ -13,7 +15,9 @@ import BuilderRadioGroup from './BuilderRadioGroup'
 import useBuilder from './useBuilder'
 
 export {
+  BuilderBody,
   BuilderCheckbox,
+  BuilderFooter,
   BuilderGroupHeader,
   BuilderGroupWarning,
   BuilderHeader,

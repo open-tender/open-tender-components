@@ -19,7 +19,9 @@ import Text from './Text'
 import AuthApplePay from './AuthApplePay'
 
 import Builder, {
+  BuilderBody,
   BuilderCheckbox,
+  BuilderFooter,
   BuilderGroupHeader,
   BuilderGroupWarning,
   BuilderHeader,
@@ -109,7 +111,9 @@ export {
   BgImage,
   Box,
   Builder,
+  BuilderBody,
   BuilderCheckbox,
+  BuilderFooter,
   BuilderGroupHeader,
   BuilderGroupWarning,
   BuilderHeader,
