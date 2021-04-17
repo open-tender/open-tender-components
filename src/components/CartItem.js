@@ -180,8 +180,8 @@ const CartItem = ({
     calories: showCals,
     tags: showTags,
     allergens: showAllergens,
-    modifierImage: showImage,
-    modifierDescription: showDescription,
+    modifierImage: showImage = true,
+    modifierDescription: showDescription = true,
   } = displaySettings
   const hasCals = showCals && item.cals
   const hasIngredients = item.ingredients && item.ingredients.length > 0
