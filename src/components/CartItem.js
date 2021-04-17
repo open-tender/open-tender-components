@@ -115,7 +115,7 @@ const BuilderOptionDetailsContainer = styled('span')`
   }
 
   span + span {
-    padding-left: 2rem;
+    padding-left: 1rem;
   }
 
 }
