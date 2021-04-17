@@ -84,9 +84,10 @@ const BuilderBody = ({
   setOptionQuantity,
 }) => {
   const { groups, notes, madeFor } = item
+  const { madeFor: showMadeFor, notes: showNotes } = displaySettings
   return (
     <BuilderBodyView>
-      {displaySettings.madeFor && !cartId && (
+      {showMadeFor && !cartId && (
         <BuilderMadeFor>
           <label htmlFor="made-for">
             <Heading size="h6">{"Who's"} it for?</Heading>
@@ -134,7 +135,7 @@ const BuilderBody = ({
           </BuilderGroup>
         ))}
       </div>
-      {displaySettings.notes && (
+      {showNotes && (
         <BuilderNotes>
           <label htmlFor="item-notes">
             <Heading size="h6">Notes</Heading>

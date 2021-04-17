@@ -5,20 +5,14 @@ import { displayPrice } from '@open-tender/js'
 import { ButtonStyled, Text } from '..'
 import BuilderQuantity from './BuilderQuantity'
 
-const footerHeight = '8rem'
-const footerHeightMobile = '7rem'
-
 const BuilderFooterView = styled('div')`
   width: 100%;
-  height: 100%;
   padding: 0 ${(props) => props.theme.layout.padding};
   display: flex;
   justify-content: space-between;
   align-items: center;
-  // height: ${footerHeight};
   @media (max-width: ${(props) => props.theme.breakpoints.mobile}) {
     padding: 0 ${(props) => props.theme.layout.paddingMobile};
-    // height: ${footerHeightMobile};
   }
 `
 

@@ -65,11 +65,13 @@ const BuilderOptionImage = styled(BgImage)`
 const BuilderOptionInfo = styled('span')`
   display: block;
   flex-grow: 1;
-  padding: 0 1.75rem;
   line-height: 1.3;
+  padding: 0 1.75rem;
+  ${(props) => (!props.showImage ? 'padding-left: 0;' : null)};
 
   > span {
     display: block;
+    ${(props) => (props.isSoldOut ? 'opacity: 0.5;' : null)};
   }
 `
 
@@ -79,13 +81,15 @@ const BuilderOptionName = styled('span')`
   color: ${(props) => props.theme.colors.primary};
 `
 
+const BuilderOptionSoldOut = styled('span')`
+  text-transform: uppercase;
+  color: ${(props) => props.theme.colors.error};
+  padding: 0 0 0 1rem;
+`
+
 const BuilderOptionDescription = styled('span')`
   margin-top: 0.2rem;
   font-size: ${(props) => props.theme.fonts.sizes.xSmall};
-
-  @media (max-width: ${(props) => props.theme.breakpoints.mobile}) {
-    display: none !important;
-  }
 `
 
 const BuilderOptionMadeFor = styled('span')`
@@ -176,13 +180,17 @@ const CartItem = ({
     calories: showCals,
     tags: showTags,
     allergens: showAllergens,
+    modifierImage: showImage,
+    modifierDescription: showDescription,
   } = displaySettings
   const hasCals = showCals && item.cals
   const hasIngredients = item.ingredients && item.ingredients.length > 0
   const bgStyle = item.imageUrl
     ? { backgroundImage: `url(${item.imageUrl}` }
     : null
-  const desc = showModifiers ? makeModifierNames(item) : item.description
+  const desc = showModifiers
+    ? makeModifierNames(item)
+    : showDescription && item.description
   const price = editItem || showModifiers ? item.totalPrice : item.price
   const madeFor = editItem || showModifiers ? item.madeFor : null
   const itemAllergens = item.allergens.length
@@ -203,15 +211,22 @@ const CartItem = ({
   return (
     <>
       <BuilderOption>
-        <BuilderOptionImage as="span" style={bgStyle}>
-          {item.isSoldOut ? (
-            <SoldOutOverlay />
-          ) : allergenAlert ? (
-            <AllergenOverlay />
-          ) : null}
-        </BuilderOptionImage>
-        <BuilderOptionInfo>
-          <BuilderOptionName>{item.name}</BuilderOptionName>
+        {showImage && (
+          <BuilderOptionImage as="span" style={bgStyle}>
+            {item.isSoldOut ? (
+              <SoldOutOverlay />
+            ) : allergenAlert ? (
+              <AllergenOverlay />
+            ) : null}
+          </BuilderOptionImage>
+        )}
+        <BuilderOptionInfo showImage={showImage} isSoldOut={item.isSoldOut}>
+          <BuilderOptionName>
+            {item.name}
+            {!editItem && !showImage && item.isSoldOut && (
+              <BuilderOptionSoldOut>Sold Out</BuilderOptionSoldOut>
+            )}
+          </BuilderOptionName>
           {desc && <BuilderOptionDescription>{desc}</BuilderOptionDescription>}
           {madeFor && (
             <BuilderOptionMadeFor>

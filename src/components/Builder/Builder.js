@@ -37,6 +37,10 @@ const BuilderFooterContainer = styled('div')`
   @media (max-width: ${(props) => props.theme.breakpoints.mobile}) {
     height: ${footerHeightMobile};
   }
+
+  & > div {
+    height: 100%;
+  }
 `
 
 const Builder = ({
