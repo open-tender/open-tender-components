@@ -48,7 +48,7 @@
   "peerDependencies": {
     "@emotion/react": "^11.1.4",
     "@emotion/styled": "^11.0.0",
-    "@open-tender/js": "^1.5.0",
+    "@open-tender/js": "^1.5.1",
     "@open-tender/redux": "^2.0.5",
     "google-maps-api-loader": "^1.1.1",
     "prop-types": "^15.7.2",
