@@ -1,5 +1,4 @@
 import React, { useContext } from 'react'
-import debounce from 'lodash/debounce'
 import { FormContext } from '../CheckoutForm'
 import {
   FormError,
@@ -9,12 +8,11 @@ import {
   Input,
 } from '../../inputs'
 import useCheckoutGuest from './useCheckoutGuest'
-import { useEffect } from 'react/cjs/react.development'
 
 const CheckoutGuest = () => {
   const {
     config,
-    order,
+    // order,
     check,
     form,
     errors,
@@ -23,13 +21,14 @@ const CheckoutGuest = () => {
   } = useContext(FormContext)
   const passwordConfig = {
     included: !hasThanx,
-    required: order.orderType === 'CATERING',
+    // required: order.orderType === 'CATERING',
   }
   const { fields, data, formErrors, handleChange } = useCheckoutGuest(
     check,
     form,
     errors,
-    passwordConfig
+    passwordConfig,
+    updateForm
   )
   // https://medium.com/p/5489fc3461b3/responses/show
   // https://codesandbox.io/s/functional-component-debounce-cunf7
@@ -38,9 +37,9 @@ const CheckoutGuest = () => {
   //   [data]
   // )
 
-  useEffect(() => {
-    debounce((data) => updateForm({ customer: data }), 500)
-  }, [data, updateForm])
+  // useEffect(() => {
+  //   debounce((data) => updateForm({ customer: data }), 500)
+  // }, [data, updateForm])
 
   return (
     <FormFieldset>

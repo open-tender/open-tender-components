@@ -1,4 +1,5 @@
-import { useState } from 'react'
+import { useState, useCallback } from 'react'
+import debounce from 'lodash/debounce'
 
 const initialState = {
   emaiil: '',
@@ -57,7 +58,7 @@ const makeFields = (required, displayed, passwordConfig) => {
   return fields.filter((i) => i.included)
 }
 
-const useCheckoutGuest = (check, form, errors, passwordConfig) => {
+const useCheckoutGuest = (check, form, errors, passwordConfig, updateForm) => {
   const [data, setData] = useState(form.customer || initialState)
   const formErrors = errors.customer || {}
   const required = check.config.required.customer
@@ -66,11 +67,18 @@ const useCheckoutGuest = (check, form, errors, passwordConfig) => {
     : []
   const fields = makeFields(required, displayed, passwordConfig)
 
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  const debouncedUpdate = useCallback(
+    debounce((data) => updateForm({ customer: data }), 500),
+    []
+  )
+
   const handleChange = (evt) => {
     const { id, value } = evt.target
     const field = id.replace('customer-', '')
     const newCustomer = { ...data, [field]: value }
     setData(newCustomer)
+    if (updateForm) debouncedUpdate(newCustomer)
   }
 
   return {

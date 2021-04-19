@@ -182,7 +182,7 @@ FormButton.propTypes = {
   ]),
   label: propTypes.string,
   isApplied: propTypes.bool,
-  onClick: propTypes.function,
+  onClick: propTypes.func,
   disabled: propTypes.bool,
   style: propTypes.object,
 }

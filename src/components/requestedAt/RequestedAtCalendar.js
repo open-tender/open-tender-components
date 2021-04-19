@@ -39,6 +39,7 @@ const RequestedAtPickerButtons = styled('div')`
 `
 
 const RequestedAtCalendar = ({
+  requestedAt,
   serviceType,
   revenueCenter,
   setRequestedAt,
@@ -79,7 +80,7 @@ const RequestedAtCalendar = ({
         <div>
           <ButtonStyled onClick={keepCurrent}>Keep Current Time</ButtonStyled>
         </div>
-        {hasAsap && (
+        {hasAsap && requestedAt !== 'asap' && (
           <div>
             <ButtonStyled
               onClick={() => setRequestedAt('asap')}
