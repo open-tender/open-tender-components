@@ -15,7 +15,7 @@ const Map = styled('div')`
   right: ${(props) => props.theme.breakpoints.tablet};
 
   @media (max-width: ${(props) => props.theme.breakpoints.tablet}) {
-    top: 13.2rem;
+    top: 14rem;
     right: 0;
     bottom: auto;
     height: 38rem;
