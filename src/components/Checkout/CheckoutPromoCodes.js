@@ -88,10 +88,12 @@ const CheckoutPromoCodes = () => {
   const checkPromoCodes = check.discounts
     .filter((i) => i.is_promo_code)
     .map((i) => i.name)
+  const { promo_code_limit = 0 } = check.config || {}
   const { email } = form.customer || {}
   const promoCodeErrors = errors ? errors.promo_codes || null : null
   const index = checkPromoCodes ? checkPromoCodes.length : 0
   const promoCodeError = promoCodeErrors ? promoCodeErrors[index] : null
+  const showNew = !promo_code_limit || checkPromoCodes.length < promo_code_limit
 
   useEffect(() => {
     if (loading !== 'pending') setPendingPromoCode(null)
@@ -180,43 +182,45 @@ const CheckoutPromoCodes = () => {
                   />
                 )
               })}
-              <FormRow
-                type="div"
-                isInput={true}
-                label={<Preface size="xSmall">New Promo Code</Preface>}
-                input={
-                  <>
-                    <PromoCodeInput
-                      label="New Promo Code"
-                      name="promo_code"
-                      type="text"
-                      placeholder="enter a promo code"
-                      value={promoCode}
-                      onChange={handleChange}
-                      error={error}
-                      required={false}
-                    >
-                      {promoCode.length ? (
-                        <ButtonClear
-                          ariaLabel={`Remove promo code ${promoCode}`}
-                          onClick={removePendingPromoCode}
-                        />
-                      ) : null}
-                    </PromoCodeInput>
-                    <ButtonStyled
-                      label="Apply Promo Code"
-                      icon={iconMap.add}
-                      onClick={applyPromoCode}
-                      disabled={!promoCode || pendingPromoCode === promoCode}
-                      size="header"
-                      color="header"
-                    >
-                      Apply
-                    </ButtonStyled>
-                  </>
-                }
-                errMsg={error}
-              />
+              {showNew && (
+                <FormRow
+                  type="div"
+                  isInput={true}
+                  label={<Preface size="xSmall">New Promo Code</Preface>}
+                  input={
+                    <>
+                      <PromoCodeInput
+                        label="New Promo Code"
+                        name="promo_code"
+                        type="text"
+                        placeholder="enter a promo code"
+                        value={promoCode}
+                        onChange={handleChange}
+                        error={error}
+                        required={false}
+                      >
+                        {promoCode.length ? (
+                          <ButtonClear
+                            ariaLabel={`Remove promo code ${promoCode}`}
+                            onClick={removePendingPromoCode}
+                          />
+                        ) : null}
+                      </PromoCodeInput>
+                      <ButtonStyled
+                        label="Apply Promo Code"
+                        icon={iconMap.add}
+                        onClick={applyPromoCode}
+                        disabled={!promoCode || pendingPromoCode === promoCode}
+                        size="header"
+                        color="header"
+                      >
+                        Apply
+                      </ButtonStyled>
+                    </>
+                  }
+                  errMsg={error}
+                />
+              )}
             </FormInputs>
           </CheckoutPromoCodesInputs>
         </>

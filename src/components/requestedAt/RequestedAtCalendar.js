@@ -2,6 +2,7 @@ import React, { useState } from 'react'
 import propTypes from 'prop-types'
 import styled from '@emotion/styled'
 import {
+  timezoneMap,
   dateToIso,
   makeDatePickerDates,
   makeDatePickerTimes,
@@ -46,7 +47,8 @@ const RequestedAtCalendar = ({
   keepCurrent,
 }) => {
   const [date, setDate] = useState(null)
-  const { settings, timezone: tz } = revenueCenter || {}
+  const { settings, timezone } = revenueCenter || {}
+  const tz = timezone ? timezoneMap[timezone] : null
   const st = serviceType === 'WALKIN' ? 'PICKUP' : serviceType
   const firstTimes = settings.first_times[st]
   const hasAsap = firstTimes.has_asap
