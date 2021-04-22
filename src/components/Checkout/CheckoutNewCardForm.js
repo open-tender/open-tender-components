@@ -103,10 +103,24 @@ const CheckoutNewCardFormFooter = styled('div')`
   display: flex;
   justify-content: space-between;
   padding: 1.5rem 0 0;
+  @media (max-width: ${(props) => props.theme.breakpoints.mobile}) {
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+  }
 
   button {
     display: block;
     width: 47.5%;
+    @media (max-width: ${(props) => props.theme.breakpoints.mobile}) {
+      width: 100%;
+    }
+
+    & + button {
+      @media (max-width: ${(props) => props.theme.breakpoints.mobile}) {
+        margin: 1.5rem 0 0;
+      }
+    }
   }
 `
 
@@ -238,11 +252,15 @@ const CheckoutNewCardForm = ({
             Apply New Card
           </ButtonStyled>
           {isApplied ? (
-            <ButtonStyled onClick={handleRemove}>
+            <ButtonStyled onClick={handleRemove} color="secondary">
               Remove Applied Card
             </ButtonStyled>
           ) : (
-            <ButtonStyled label="Cancel Add New Card" onClick={handleCancel}>
+            <ButtonStyled
+              label="Cancel Add New Card"
+              color="secondary"
+              onClick={handleCancel}
+            >
               Cancel
             </ButtonStyled>
           )}
