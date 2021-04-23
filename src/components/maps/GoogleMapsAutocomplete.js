@@ -69,8 +69,8 @@ const AutocompletePredictions = styled('div')`
 const AutocompletePrediction = styled('li')`
   font-size: ${(props) => props.theme.fonts.sizes.small};
   background-color: ${(props) =>
-    props.active ? props.theme.bgColors.secondary : 'transparent'};
-  border-color: ${(props) => props.theme.bgColors.secondary};
+    props.active ? props.theme.bgColors.tertiary : 'transparent'};
+  border-color: ${(props) => props.theme.bgColors.tertiary};
   border-bottom-width: 0.1rem;
   border-bottom-style: solid;
 
