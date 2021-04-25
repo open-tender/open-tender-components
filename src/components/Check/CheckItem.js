@@ -2,6 +2,7 @@ import React from 'react'
 import propTypes from 'prop-types'
 import { formatDollars } from '@open-tender/js'
 import styled from '@emotion/styled'
+import Points from '../Points'
 
 const CheckItemView = styled('li')`
   width: 100%;
@@ -32,12 +33,39 @@ const CheckItem = ({
   color = 'secondary',
   isBold = false,
   isTotal = false,
-}) => (
-  <CheckItemView color={color} isBold={isBold} isTotal={isTotal}>
-    <span>{label}</span>
-    <span>{formatDollars(value)}</span>
-  </CheckItemView>
-)
+  points = null,
+  icon = null,
+  updatePoints,
+  updating,
+}) => {
+  console.log(points)
+  const { available, applied } = points || {}
+
+  const onClick = (evt) => {
+    evt.preventDefault()
+    updatePoints(applied ? 0 : available)
+  }
+
+  return (
+    <CheckItemView color={color} isBold={isBold} isTotal={isTotal}>
+      <span>
+        {label}
+        {(available || applied) && (
+          <Points
+            onClick={onClick}
+            applied={!!applied}
+            disabled={updating}
+            size="xSmall"
+            points={applied || available}
+            icon={icon}
+            style={{ marginLeft: '1rem' }}
+          />
+        )}
+      </span>
+      <span>{formatDollars(value)}</span>
+    </CheckItemView>
+  )
+}
 
 CheckItem.displayName = 'CheckItem'
 CheckItem.propTypes = {
@@ -46,6 +74,10 @@ CheckItem.propTypes = {
   color: propTypes.string,
   isBold: propTypes.bool,
   isTotal: propTypes.bool,
+  points: propTypes.object,
+  updatePoints: propTypes.func,
+  icon: propTypes.element,
+  updating: propTypes.bool,
 }
 
 export default CheckItem

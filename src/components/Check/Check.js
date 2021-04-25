@@ -21,7 +21,16 @@ const CheckSection = styled('ul')`
   }
 `
 
-const Check = ({ title, check, tenders, loader, updating = false }) => {
+const Check = ({
+  title,
+  check,
+  tenders,
+  loader,
+  form,
+  updateForm,
+  pointsIcon,
+  updating = false,
+}) => {
   const {
     order_id,
     cart,
@@ -47,6 +56,15 @@ const Check = ({ title, check, tenders, loader, updating = false }) => {
     .reduce((t, i) => (t += parseFloat(i)), 0.0)
     .toFixed(2)
   const amountRemaining = checkAmountRemaining(total, tenders)
+  console.log(form)
+  console.log(cart)
+
+  const updatePoints = (index, points) => {
+    console.log(index, points)
+    const other = form.points.filter((i, idx) => idx !== index)
+    const updated = points ? [...other, { index, points }] : other
+    updateForm({ points: updated })
+  }
 
   return (
     <CheckView>
@@ -61,6 +79,10 @@ const Check = ({ title, check, tenders, loader, updating = false }) => {
                   key={`${item.id}-${index}`}
                   label={`${item.name} x ${item.quantity}`}
                   value={item.price_total}
+                  points={item.points}
+                  icon={pointsIcon}
+                  updatePoints={(points) => updatePoints(index, points)}
+                  updating={updating}
                 />
               ))}
             </CheckSection>
@@ -163,6 +185,9 @@ Check.propTypes = {
   check: propTypes.object,
   tenders: propTypes.array,
   loader: propTypes.element,
+  form: propTypes.object,
+  updateForm: propTypes.func,
+  pointsIcon: propTypes.element,
   updating: propTypes.bool,
 }
 

@@ -145,7 +145,7 @@ const CheckoutForm = ({
   } = order
   const revenueCenterId = revenueCenter ? revenueCenter.revenue_center_id : null
   const tz = revenueCenter ? timezoneMap[revenueCenter.timezone] : null
-  const { surcharges, discounts, promoCodes, tenders, tip } = form
+  const { surcharges, discounts, promoCodes, points, tenders, tip } = form
   const email = form.customer && form.customer.email
   const tax_exempt_id = form.details && form.details.tax_exempt_id
   const { profile } = customer
@@ -193,6 +193,7 @@ const CheckoutForm = ({
       surcharges,
       discounts,
       promoCodes,
+      points,
       tip,
     }
     return prepareOrder(dataValidate)
@@ -207,6 +208,7 @@ const CheckoutForm = ({
     surcharges,
     discounts,
     promoCodes,
+    points,
     tip,
     email,
     tax_exempt_id,
@@ -327,7 +329,10 @@ const CheckoutForm = ({
                 title={config.checkTitle}
                 check={check}
                 tenders={tenders}
+                form={form}
+                updateForm={dispatchUpdateForm}
                 updating={checkUpdating}
+                pointsIcon={iconMap.points}
               />
             </CheckoutFormCheck>
             <CheckoutTenders />
