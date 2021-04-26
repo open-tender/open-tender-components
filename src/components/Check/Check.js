@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import propTypes from 'prop-types'
 import { checkAmountRemaining, makeTenderName } from '@open-tender/js'
 import styled from '@emotion/styled'
@@ -56,20 +56,30 @@ const Check = ({
     .reduce((t, i) => (t += parseFloat(i)), 0.0)
     .toFixed(2)
   const amountRemaining = checkAmountRemaining(total, tenders)
-  console.log(form)
-  console.log(cart)
+  const { points } = check.config || {}
+  const cartLength = cart ? cart.length : 0
 
   const updatePoints = (index, points) => {
-    console.log(index, points)
-    const other = form.points.filter((i, idx) => idx !== index)
+    const other = form.points.filter((i) => i.index !== index)
     const updated = points ? [...other, { index, points }] : other
     updateForm({ points: updated })
   }
 
+  useEffect(() => {
+    if (updateForm) updateForm({ points: [] })
+  }, [cartLength, updateForm])
+
   return (
     <CheckView>
       {updating && <CheckUpdating loader={loader} />}
-      {title && <CheckTitle title={title} orderId={order_id} />}
+      {title && (
+        <CheckTitle
+          title={title}
+          orderId={order_id}
+          points={points}
+          icon={pointsIcon}
+        />
+      )}
       <ul>
         {cart && cart.length ? (
           <li>

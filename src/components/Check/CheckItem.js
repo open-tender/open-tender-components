@@ -38,7 +38,6 @@ const CheckItem = ({
   updatePoints,
   updating,
 }) => {
-  console.log(points)
   const { available, applied } = points || {}
 
   const onClick = (evt) => {
@@ -50,7 +49,7 @@ const CheckItem = ({
     <CheckItemView color={color} isBold={isBold} isTotal={isTotal}>
       <span>
         {label}
-        {(available || applied) && (
+        {available || applied ? (
           <Points
             onClick={onClick}
             applied={!!applied}
@@ -60,7 +59,7 @@ const CheckItem = ({
             icon={icon}
             style={{ marginLeft: '1rem' }}
           />
-        )}
+        ) : null}
       </span>
       <span>{formatDollars(value)}</span>
     </CheckItemView>

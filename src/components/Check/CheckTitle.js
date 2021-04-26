@@ -1,7 +1,7 @@
 import React from 'react'
 import propTypes from 'prop-types'
 import styled from '@emotion/styled'
-import { Heading } from '..'
+import Heading from '../Heading'
 
 const CheckTitleView = styled('div')`
   padding: 0 0 0.5rem;
@@ -24,19 +24,48 @@ const CheckTitleView = styled('div')`
   }
 `
 
-const CheckTitle = ({ title, orderId }) => (
-  <CheckTitleView>
-    <p>
-      <Heading>{title}</Heading>
-    </p>
-    {orderId && <p>editing order {orderId}</p>}
-  </CheckTitleView>
-)
+const CheckTitlePoints = styled('span')`
+  display: block;
+  font-size: ${(props) => props.theme.fonts.sizes.small};
+  color: ${(props) => props.theme.colors.secondary};
+  line-height: 1;
+
+  span {
+    position: relative;
+    top: 0.2rem;
+    display: inline-block;
+    margin: 0 0 0 0.2rem;
+    width: ${(props) => props.theme.fonts.sizes.small};
+    height: ${(props) => props.theme.fonts.sizes.small};
+    color: ${(props) => props.theme.colors.secondary};
+  }
+`
+
+const CheckTitle = ({ title, orderId, points, icon }) => {
+  const { remaining } = points || {}
+  return (
+    <CheckTitleView>
+      <p>
+        <Heading>{title}</Heading>
+      </p>
+      {remaining ? (
+        <CheckTitlePoints>
+          {remaining}
+          <span>{icon}</span> available
+        </CheckTitlePoints>
+      ) : orderId ? (
+        <p>editing order {orderId}</p>
+      ) : null}
+    </CheckTitleView>
+  )
+}
 
 CheckTitle.displayName = 'CheckTitle'
 CheckTitle.propTypes = {
   title: propTypes.string,
   orderId: propTypes.oneOfType([propTypes.string, propTypes.number]),
+  points: propTypes.object,
+  icon: propTypes.element,
 }
 
 export default CheckTitle
