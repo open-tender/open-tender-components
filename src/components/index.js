@@ -14,7 +14,7 @@ import Checkmark from './Checkmark'
 import DeliveryLink from './DeliveryLink'
 import Heading from './Heading'
 import Message from './Message'
-import Points from './Points'
+import ButtonPoints from './ButtonPoints'
 import Preface from './Preface'
 import Text from './Text'
 import AuthApplePay from './AuthApplePay'
@@ -128,6 +128,7 @@ export {
   ButtonClear,
   ButtonIcon,
   ButtonLink,
+  ButtonPoints,
   ButtonStyled,
   ButtonSubmit,
   ButtonToggleGroup,
@@ -162,7 +163,6 @@ export {
   DeliveryLink,
   Heading,
   Message,
-  Points,
   Preface,
   Text,
   useBuilder,

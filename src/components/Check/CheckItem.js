@@ -2,7 +2,7 @@ import React from 'react'
 import propTypes from 'prop-types'
 import { formatDollars } from '@open-tender/js'
 import styled from '@emotion/styled'
-import Points from '../Points'
+import ButtonPoints from '../ButtonPoints'
 
 const CheckItemView = styled('li')`
   width: 100%;
@@ -50,7 +50,7 @@ const CheckItem = ({
       <span>
         {label}
         {available || applied ? (
-          <Points
+          <ButtonPoints
             onClick={onClick}
             applied={!!applied}
             disabled={updating}
