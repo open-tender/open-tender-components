@@ -1,11 +1,11 @@
 import { useState } from 'react'
 import { makeOrderItem, calcPrices } from '@open-tender/js'
 
-const useBuilder = (menuItem, soldOut) => {
+const useBuilder = (menuItem, soldOut, hasPoints) => {
   const orderItem =
     menuItem.index !== undefined
       ? menuItem
-      : makeOrderItem(menuItem, null, soldOut)
+      : makeOrderItem(menuItem, null, soldOut, null, hasPoints)
   const [item, setItem] = useState(orderItem)
 
   const increment = () => {
@@ -116,6 +116,8 @@ const useBuilder = (menuItem, soldOut) => {
     })
     setItem(calcPrices({ ...item, groups: groups }))
   }
+
+  console.log(item.totalPoints)
 
   return {
     item,

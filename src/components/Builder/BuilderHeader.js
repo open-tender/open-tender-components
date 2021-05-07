@@ -5,7 +5,7 @@ import { displayPrice } from '@open-tender/js'
 import BuilderNutrition from './BuilderNutrition'
 import BuilderIngredients from './BuilderIngredients'
 import BuilderImage from './BuilderImage'
-import { ButtonLink } from '..'
+import { ButtonLink, Points } from '..'
 
 const BuilderInfo = styled('div')`
   background-color: ${(props) => props.theme.bgColors.primary};
@@ -25,9 +25,8 @@ const BuilderDetails = styled('div')`
   margin: 0.5rem 0 1.5rem;
   flex-wrap: wrap;
 
-  span {
+  & > span {
     display: block;
-    padding: 0.5rem 0;
     margin: 0 2rem 0 0;
     &:last-of-type {
       margin: 0;
@@ -36,20 +35,24 @@ const BuilderDetails = styled('div')`
 `
 
 const BuilderDetailsPrice = styled('span')`
+  padding: 0.5rem 0;
   font-weight: ${(props) => props.theme.boldWeight};
   color: ${(props) => props.theme.colors.primary};
 `
 
 const BuilderDetailsCals = styled('span')`
+  padding: 0.5rem 0;
   font-weight: ${(props) => props.theme.boldWeight};
 `
 
 const BuilderDetailsAllergens = styled('span')`
+  padding: 0.5rem 0;
   font-size: ${(props) => props.theme.fonts.sizes.small};
   color: ${(props) => props.theme.colors.alert};
 `
 
 const BuilderDetailsTags = styled('span')`
+  padding: 0.5rem 0;
   font-size: ${(props) => props.theme.fonts.sizes.small};
 `
 
@@ -66,7 +69,7 @@ const BuilderNutritionButtons = styled('div')`
   }
 `
 
-const BuilderHeader = ({ item, displaySettings, spinner }) => {
+const BuilderHeader = ({ item, displaySettings, spinner, pointsIcon }) => {
   const [showInfo, setShowInfo] = useState(false)
   const [showIngredients, setShowIngredients] = useState(false)
   const {
@@ -103,6 +106,13 @@ const BuilderHeader = ({ item, displaySettings, spinner }) => {
           )}
           {showCals && item.cals && (
             <BuilderDetailsCals>{item.cals} cal</BuilderDetailsCals>
+          )}
+          {item.totalPoints && (
+            <Points
+              points={item.totalPoints}
+              icon={pointsIcon}
+              title="Points can be applied at checkout"
+            />
           )}
           {showAllergens && item.allergens.length > 0 && (
             <BuilderDetailsAllergens>
@@ -151,6 +161,7 @@ BuilderHeader.propTypes = {
   item: propTypes.object,
   displaySettings: propTypes.object,
   spinner: propTypes.oneOfType([propTypes.node, propTypes.element]),
+  pointsIcon: propTypes.element,
 }
 
 export default BuilderHeader
