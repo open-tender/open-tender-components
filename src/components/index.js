@@ -15,6 +15,7 @@ import DeliveryLink from './DeliveryLink'
 import Heading from './Heading'
 import Message from './Message'
 import ButtonPoints from './ButtonPoints'
+import Points from './Points'
 import Preface from './Preface'
 import Text from './Text'
 import AuthApplePay from './AuthApplePay'
@@ -163,6 +164,7 @@ export {
   DeliveryLink,
   Heading,
   Message,
+  Points,
   Preface,
   Text,
   useBuilder,

@@ -90,11 +90,16 @@ const TimePickerTimeView = styled('div')`
     margin: 0 0 0 1rem;
   }
 `
+const TimePickerSelectButton = styled('button')`
+  display: block;
+  padding: 0.5rem 1.5rem;
+`
 
 const ArrowUp = styled('span')`
+  display: block;
   width: 0;
   height: 0;
-  margin: 0 0 0.3rem;
+  margin: 0;
   border-left: 1rem solid transparent;
   border-right: 1rem solid transparent;
   border-bottom: 1rem solid ${(props) => props.theme.colors.primary};
@@ -103,9 +108,10 @@ const ArrowUp = styled('span')`
 `
 
 const ArrowDown = styled('span')`
+  display: block;
   width: 0;
   height: 0;
-  margin: 0.3rem 0 0;
+  margin: 0;
   border-left: 1rem solid transparent;
   border-right: 1rem solid transparent;
   border-top: 1rem solid ${(props) => props.theme.colors.primary};
@@ -222,6 +228,7 @@ const TimePicker = ({
     () => makeTimeIntervals(date, minTime, maxTime, interval, excludeTimes),
     [date, minTime, maxTime, interval, excludeTimes]
   )
+  const lastIndex = intervals ? intervals.length - 1 : 0
   const parent = scrollRef.current
 
   const handleClose = (evt) => {
@@ -294,7 +301,12 @@ const TimePicker = ({
                 <TimePickerLabelText>{dateStr}</TimePickerLabelText>
               </TimePickerLabel>
               <TimePickerSelect>
-                <ArrowUp visible={showTop} />
+                <TimePickerSelectButton
+                  onClick={() => setActive(Math.max(active - 1, 0))}
+                  disabled={!showTop}
+                >
+                  <ArrowUp visible={showTop} />
+                </TimePickerSelectButton>
                 <TimePickerTimes ref={scrollRef}>
                   {intervals.map((t, index) => (
                     <TimePickerTime
@@ -304,11 +316,16 @@ const TimePicker = ({
                     />
                   ))}
                 </TimePickerTimes>
-                <ArrowDown visible={true} />
+                <TimePickerSelectButton
+                  onClick={() => setActive(Math.min(active + 1, lastIndex))}
+                  disabled={active === lastIndex}
+                >
+                  <ArrowDown visible={true} />
+                </TimePickerSelectButton>
               </TimePickerSelect>
               <TimePickerConfirm>
                 <TimePickerButton
-                  disabled={!time || selected ? true : false}
+                  disabled={!time ? true : false}
                   onClick={chooseTime}
                 />
               </TimePickerConfirm>

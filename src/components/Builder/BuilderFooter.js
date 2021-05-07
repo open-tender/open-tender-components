@@ -2,7 +2,7 @@ import React from 'react'
 import propTypes from 'prop-types'
 import styled from '@emotion/styled'
 import { displayPrice } from '@open-tender/js'
-import { ButtonStyled, Text } from '..'
+import { ButtonStyled, Points, Text } from '..'
 import BuilderQuantity from './BuilderQuantity'
 
 const BuilderFooterView = styled('div')`
@@ -16,31 +16,46 @@ const BuilderFooterView = styled('div')`
   }
 `
 
-const BuilderPrice = styled('div')`
-  font-size: ${(props) => props.theme.fonts.sizes.h5};
-  font-weight: ${(props) => props.theme.boldWeight};
+const BuilderPriceView = styled('div')`
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+  line-height: 1;
   @media (max-width: ${(props) => props.theme.breakpoints.mobile}) {
     width: 8rem;
+    flex-direction: column;
+    justify-content: center;
+    align-items: flex-start;
   }
 
-  span {
-    display: inline-block;
+  & > span {
+    display: block;
+    // @media (max-width: ${(props) => props.theme.breakpoints.mobile}) {
+    //   width: 100%;
+    // }
   }
 
-  span {
-    @media (max-width: ${(props) => props.theme.breakpoints.mobile}) {
-      width: 100%;
-      font-size: 1.6rem;
-    }
-  }
-
-  span + span {
-    font-weight: normal;
+  & > span + span {
     margin: 0 0 0 2rem;
     @media (max-width: ${(props) => props.theme.breakpoints.mobile}) {
-      margin: 0.25rem 0 0;
-      font-size: 1.4rem;
+      margin: 0.5rem 0 0;
     }
+  }
+`
+
+const BuilderPrice = styled('span')`
+  font-size: ${(props) => props.theme.fonts.sizes.h5};
+  font-weight: ${(props) => props.theme.boldWeight};
+  color: ${(props) => props.theme.colors.primary};
+  @media (max-width: ${(props) => props.theme.breakpoints.mobile}) {
+    font-size: ${(props) => props.theme.fonts.sizes.main};
+  }
+`
+
+const BuilderCals = styled('span')`
+  font-size: ${(props) => props.theme.fonts.sizes.h5};
+  @media (max-width: ${(props) => props.theme.breakpoints.mobile}) {
+    font-size: ${(props) => props.theme.fonts.sizes.main};
   }
 `
 
@@ -74,6 +89,7 @@ const BuilderFooter = ({
   setQuantity,
   increment,
   decrement,
+  pointsIcon,
 }) => {
   const { groups, totalPrice } = item
   const groupsBelowMin = groups.filter((g) => g.quantity < g.min).length > 0
@@ -81,10 +97,18 @@ const BuilderFooter = ({
     totalPrice === 0 || item.quantity === '' || groupsBelowMin
   return (
     <BuilderFooterView>
-      <BuilderPrice>
-        <Text color="primary">${displayPrice(totalPrice)}</Text>
-        {item.cals && <span>{item.cals} cal</span>}
-      </BuilderPrice>
+      <BuilderPriceView>
+        <BuilderPrice>${displayPrice(totalPrice)}</BuilderPrice>
+        {item.totalPoints ? (
+          <Points
+            points={item.totalPoints}
+            icon={pointsIcon}
+            title="Points can be applied at checkout"
+          />
+        ) : (
+          item.cals && <BuilderCals>{item.cals} cal</BuilderCals>
+        )}
+      </BuilderPriceView>
       <BuilderActions>
         <BuilderQuantityView>
           <BuilderQuantity
@@ -117,6 +141,7 @@ BuilderFooter.propTypes = {
   setQuantity: propTypes.func,
   increment: propTypes.func,
   decrement: propTypes.func,
+  pointsIcon: propTypes.element,
 }
 
 export default BuilderFooter

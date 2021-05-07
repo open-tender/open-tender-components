@@ -54,7 +54,9 @@ const Builder = ({
   displaySettings,
   cartId,
   spinner,
+  pointsIcon,
 }) => {
+  const hasPoints = !!pointsIcon
   const {
     item,
     increment,
@@ -66,11 +68,11 @@ const Builder = ({
     incrementOption,
     decrementOption,
     setOptionQuantity,
-  } = useBuilder(menuItem, soldOut)
+  } = useBuilder(menuItem, soldOut, hasPoints)
   return (
     <BuilderView>
       <BuilderContent>
-        {renderHeader({ item, displaySettings, spinner })}
+        {renderHeader({ item, displaySettings, spinner, pointsIcon })}
         <BuilderBody
           allergens={allergens}
           renderOption={renderOption}
@@ -94,6 +96,7 @@ const Builder = ({
           setQuantity={setQuantity}
           increment={increment}
           decrement={decrement}
+          pointsIcon={pointsIcon}
         />
       </BuilderFooterContainer>
     </BuilderView>
@@ -113,6 +116,7 @@ Builder.propTypes = {
   displaySettings: propTypes.object,
   cartId: propTypes.number,
   spinner: propTypes.oneOfType([propTypes.node, propTypes.element]),
+  pointsIcon: propTypes.element,
 }
 
 export default Builder
