@@ -29,7 +29,7 @@ const SwitchToggle = styled('span')`
   border-radius: 2rem;
   padding: 0.2rem;
   transition: all 0.15s ease;
-  background-color: ${(props) => props.theme.colors.secondary};
+  background-color: ${(props) => props.theme.bgColors.tertiary};
 
   &:before {
     left: 0;
