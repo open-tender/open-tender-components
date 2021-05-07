@@ -42,7 +42,7 @@ const BuilderDetailsPrice = styled('span')`
 
 const BuilderDetailsCals = styled('span')`
   padding: 0.5rem 0;
-  font-weight: ${(props) => props.theme.boldWeight};
+  // font-weight: ${(props) => props.theme.boldWeight};
 `
 
 const BuilderDetailsAllergens = styled('span')`
@@ -107,9 +107,9 @@ const BuilderHeader = ({ item, displaySettings, spinner, pointsIcon }) => {
           {showCals && item.cals && (
             <BuilderDetailsCals>{item.cals} cal</BuilderDetailsCals>
           )}
-          {item.totalPoints && (
+          {item.points && (
             <Points
-              points={item.totalPoints}
+              points={item.points}
               icon={pointsIcon}
               title="Points can be applied at checkout"
             />

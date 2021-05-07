@@ -63,7 +63,7 @@ const ButtonPointsIcon = styled('span')`
 `
 
 const ButtonPoints = ({
-  ButtonPoints,
+  points,
   icon,
   color = 'primary',
   size = 'small',
@@ -81,7 +81,7 @@ const ButtonPoints = ({
       style={style}
     >
       <span>
-        <ButtonPointsTitle>{ButtonPoints}</ButtonPointsTitle>
+        <ButtonPointsTitle>{points}</ButtonPointsTitle>
         <ButtonPointsIcon size={size}>{icon}</ButtonPointsIcon>
       </span>
     </ButtonPointsView>
@@ -90,7 +90,7 @@ const ButtonPoints = ({
 
 ButtonPoints.displayName = 'ButtonPoints'
 ButtonPoints.propTypes = {
-  ButtonPoints: propTypes.number,
+  points: propTypes.number,
   icon: propTypes.element,
   color: propTypes.string,
   size: propTypes.string,

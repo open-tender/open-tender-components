@@ -30,13 +30,10 @@ const BuilderPriceView = styled('div')`
 
   & > span {
     display: block;
-    // @media (max-width: ${(props) => props.theme.breakpoints.mobile}) {
-    //   width: 100%;
-    // }
   }
 
   & > span + span {
-    margin: 0 0 0 2rem;
+    margin: 0 0 0 1.5rem;
     @media (max-width: ${(props) => props.theme.breakpoints.mobile}) {
       margin: 0.5rem 0 0;
     }
@@ -44,7 +41,7 @@ const BuilderPriceView = styled('div')`
 `
 
 const BuilderPrice = styled('span')`
-  font-size: ${(props) => props.theme.fonts.sizes.h5};
+  font-size: ${(props) => props.theme.fonts.sizes.big};
   font-weight: ${(props) => props.theme.boldWeight};
   color: ${(props) => props.theme.colors.primary};
   @media (max-width: ${(props) => props.theme.breakpoints.mobile}) {
@@ -53,9 +50,16 @@ const BuilderPrice = styled('span')`
 `
 
 const BuilderCals = styled('span')`
-  font-size: ${(props) => props.theme.fonts.sizes.h5};
+  font-size: ${(props) => props.theme.fonts.sizes.big};
   @media (max-width: ${(props) => props.theme.breakpoints.mobile}) {
     font-size: ${(props) => props.theme.fonts.sizes.main};
+    // display: ${(props) => (props.hasPoints ? 'none' : 'block')} !important;
+  }
+`
+
+const BuilderPoints = styled('span')`
+  @media (max-width: ${(props) => props.theme.breakpoints.mobile}) {
+    display: ${(props) => (props.hasCals ? 'none' : 'block')} !important;
   }
 `
 
@@ -99,14 +103,11 @@ const BuilderFooter = ({
     <BuilderFooterView>
       <BuilderPriceView>
         <BuilderPrice>${displayPrice(totalPrice)}</BuilderPrice>
-        {item.totalPoints ? (
-          <Points
-            points={item.totalPoints}
-            icon={pointsIcon}
-            title="Points can be applied at checkout"
-          />
-        ) : (
-          item.cals && <BuilderCals>{item.cals} cal</BuilderCals>
+        {item.totalCals && <BuilderCals>{item.totalCals} cal</BuilderCals>}
+        {item.totalPoints && (
+          <BuilderPoints hasCals={!!item.totalCals}>
+            <Points points={item.totalPoints} icon={pointsIcon} />
+          </BuilderPoints>
         )}
       </BuilderPriceView>
       <BuilderActions>

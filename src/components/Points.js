@@ -4,12 +4,12 @@ import propTypes from 'prop-types'
 
 const PointsView = styled('span')`
   display: block;
-  height: 2.6rem;
-  padding: 0 1.2rem 0 1.3rem;
+  height: 2em;
+  padding: 0 1em;
   border-radius: 1em;
   line-height: 1;
+  font-size: ${(props) => props.theme.fonts.sizes[props.size]};
   background-color: ${(props) => props.theme.bgColors.tertiary};
-  font-size: ${(props) => props.theme.fonts.sizes.small};
 
   & > span {
     display: flex;
@@ -34,17 +34,17 @@ const PointsTitle = styled('span')`
 
 const PointsIcon = styled('span')`
   display: block;
-  width: 1.5rem;
-  height: 1.5rem;
+  width: ${(props) => props.theme.fonts.sizes[props.size]};
+  height: ${(props) => props.theme.fonts.sizes[props.size]};
   color: ${(props) => props.theme.colors.primary};
 `
 
-const Points = ({ points, icon }) => {
+const Points = ({ points, icon, size = 'small' }) => {
   return (
-    <PointsView>
+    <PointsView size={size}>
       <span>
         <PointsTitle>{points}</PointsTitle>
-        <PointsIcon>{icon}</PointsIcon>
+        <PointsIcon size={size}>{icon}</PointsIcon>
       </span>
     </PointsView>
   )
@@ -54,6 +54,7 @@ Points.displayName = 'Points'
 Points.propTypes = {
   points: propTypes.number,
   icon: propTypes.element,
+  size: propTypes.string,
 }
 
 export default Points
