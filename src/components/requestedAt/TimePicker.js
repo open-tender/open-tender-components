@@ -39,6 +39,9 @@ const TimePickerLabel = styled('div')`
 const TimePickerLabelText = styled(Preface)`
   font-size: ${(props) => props.theme.fonts.sizes.h4};
   color: ${(props) => props.theme.colors.primary};
+  @media (max-width: ${(props) => props.theme.breakpoints.mobile}) {
+    font-size: ${(props) => props.theme.fonts.sizes.h5};
+  }
 `
 
 const TimePickerSelect = styled('div')`
@@ -70,6 +73,9 @@ const TimePickerTimeText = styled(Preface)`
   font-size: ${(props) => props.theme.fonts.sizes.h2};
   color: ${(props) => props.theme.colors.primary};
   line-height: 0.9;
+  @media (max-width: ${(props) => props.theme.breakpoints.mobile}) {
+    font-size: ${(props) => props.theme.fonts.sizes.h2};
+  }
 `
 
 const TimePickerTimeView = styled('div')`
@@ -88,6 +94,10 @@ const TimePickerTimeView = styled('div')`
     font-size: ${(props) => props.theme.fonts.sizes.h3};
     line-height: 1.1;
     margin: 0 0 0 1rem;
+    @media (max-width: ${(props) => props.theme.breakpoints.mobile}) {
+      font-size: ${(props) => props.theme.fonts.sizes.h4};
+      margin: 0 0 0 0.5rem;
+    }
   }
 `
 const TimePickerSelectButton = styled('button')`
