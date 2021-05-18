@@ -17,6 +17,7 @@ import CheckoutLabel from './CheckoutLabel'
 import CheckoutLevelUp from './CheckoutLevelUp'
 import CheckoutNewCard from './CheckoutNewCard'
 import CheckoutNewCardForm from './CheckoutNewCardForm'
+import CheckoutPoints from './CheckoutPoints'
 import CheckoutPromoCodes from './CheckoutPromoCodes'
 import CheckoutSignUp from './CheckoutSignUp'
 import CheckoutSurcharges from './CheckoutSurcharges'
@@ -45,6 +46,7 @@ export {
   CheckoutLevelUp,
   CheckoutNewCard,
   CheckoutNewCardForm,
+  CheckoutPoints,
   CheckoutPromoCodes,
   CheckoutSignUp,
   CheckoutSurcharges,

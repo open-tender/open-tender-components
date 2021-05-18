@@ -3,7 +3,10 @@ import { Box } from '..'
 
 export const FormFieldset = styled('fieldset')`
   & + fieldset {
-    margin: ${(props) => props.theme.layout.padding} 0 0;
+    margin: ${(props) => props.theme.layout.margin} 0 0;
+    @media (max-width: ${(props) => props.theme.breakpoints.tablet}) {
+      margin: ${(props) => props.theme.layout.marginMobile} 0 0;
+    }
   }
 `
 

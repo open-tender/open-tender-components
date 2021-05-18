@@ -34,6 +34,7 @@ import {
   CheckoutDetails,
   CheckoutDiscounts,
   CheckoutGiftCards,
+  CheckoutPoints,
   CheckoutPromoCodes,
   CheckoutSurcharges,
   CheckoutTenders,
@@ -162,6 +163,7 @@ const CheckoutForm = ({
   const dispatchUpdateForm = useCallback((form) => dispatch(updateForm(form)), [
     dispatch,
   ])
+  const showPointsWithCheck = false
 
   useEffect(() => {
     dispatch(resetErrors())
@@ -320,6 +322,9 @@ const CheckoutForm = ({
             {isDelivery && <CheckoutAddress />}
             <CheckoutFormSidebar>
               <CheckoutSurcharges />
+              {!showPointsWithCheck && (
+                <CheckoutPoints updating={checkUpdating} />
+              )}
               <CheckoutDiscounts />
               <CheckoutPromoCodes />
               {hasGiftCardTender && <CheckoutGiftCards />}
@@ -332,6 +337,7 @@ const CheckoutForm = ({
                 form={form}
                 updateForm={dispatchUpdateForm}
                 updating={checkUpdating}
+                showPoints={showPointsWithCheck}
                 pointsIcon={iconMap.points}
               />
             </CheckoutFormCheck>

@@ -15,7 +15,6 @@ const usePrevious = (value) => {
 const CheckoutDiscounts = () => {
   const formContext = useContext(FormContext)
   const {
-    iconMap = {},
     config,
     check,
     form,

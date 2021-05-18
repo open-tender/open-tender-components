@@ -77,6 +77,7 @@ const FormButtonActionButton = styled('span')`
   display: flex;
   justify-content: flex-end;
   align-items: center;
+  color: ${(props) => props.theme.colors.primary};
 `
 
 const FormButtonActionIcon = styled('span')`

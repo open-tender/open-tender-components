@@ -28,7 +28,8 @@ const Check = ({
   loader,
   form,
   updateForm,
-  pointsIcon,
+  showPoints = false,
+  pointsIcon = null,
   updating = false,
 }) => {
   const {
@@ -76,25 +77,33 @@ const Check = ({
         <CheckTitle
           title={title}
           orderId={order_id}
-          points={points}
-          icon={pointsIcon}
+          points={showPoints ? points : null}
+          icon={showPoints ? pointsIcon : null}
         />
       )}
       <ul>
         {cart && cart.length ? (
           <li>
             <CheckSection>
-              {cart.map((item, index) => (
-                <CheckItem
-                  key={`${item.id}-${index}`}
-                  label={`${item.name} x ${item.quantity}`}
-                  value={item.price_total}
-                  points={item.points}
-                  icon={pointsIcon}
-                  updatePoints={(points) => updatePoints(index, points)}
-                  updating={updating}
-                />
-              ))}
+              {cart.map((item, index) =>
+                showPoints ? (
+                  <CheckItem
+                    key={`${item.id}-${index}`}
+                    label={`${item.name} x ${item.quantity}`}
+                    value={item.price_total}
+                    points={item.points}
+                    icon={pointsIcon}
+                    updatePoints={(points) => updatePoints(index, points)}
+                    updating={updating}
+                  />
+                ) : (
+                  <CheckItem
+                    key={`${item.id}-${index}`}
+                    label={`${item.name} x ${item.quantity}`}
+                    value={item.price_total}
+                  />
+                )
+              )}
             </CheckSection>
           </li>
         ) : null}
@@ -197,6 +206,7 @@ Check.propTypes = {
   loader: propTypes.element,
   form: propTypes.object,
   updateForm: propTypes.func,
+  showPoints: propTypes.bool,
   pointsIcon: propTypes.element,
   updating: propTypes.bool,
 }
