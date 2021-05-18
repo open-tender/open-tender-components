@@ -56,41 +56,55 @@ const CheckoutFormError = styled('div')`
   margin: 0 auto;
   padding: 0 ${(props) => props.theme.layout.padding};
   text-align: center;
-  @media (max-width: ${(props) => props.theme.breakpoints.tablet}) {
+  @media (max-width: ${(props) => props.theme.breakpoints.narrow}) {
+    max-width: ${(props) => props.theme.layout.maxWidth};
     padding: 0 ${(props) => props.theme.layout.paddingMobile};
   }
 `
 
 const CheckoutFormContainer = styled('div')`
   position: relative;
+  overflow: hidden;
   width: 100%;
   max-width: 128rem;
   margin: 0 auto;
-  padding: 0 ${(props) => props.theme.layout.padding};
-  @media (max-width: ${(props) => props.theme.breakpoints.tablet}) {
-    padding: 0 ${(props) => props.theme.layout.paddingMobile};
+  padding: 0 ${(props) => props.theme.layout.padding}
+    ${(props) => props.theme.layout.margin};
+  @media (max-width: ${(props) => props.theme.breakpoints.narrow}) {
+    max-width: ${(props) => props.theme.layout.maxWidth};
+    padding: 0 ${(props) => props.theme.layout.paddingMobile}
+      ${(props) => props.theme.layout.marginMobile};
   }
 `
 
-const CheckoutFormContent = styled('div')`
+const CheckoutFormHeader = styled('div')`
+  float: left;
   width: 55%;
   padding: 0 ${(props) => props.theme.layout.padding} 0 0;
   @media (max-width: ${(props) => props.theme.breakpoints.narrow}) {
+    float: none;
+    width: 100%;
+    padding: 0;
+  }
+`
+
+const CheckoutFormFooter = styled('div')`
+  float: left;
+  width: 55%;
+  padding: 0 ${(props) => props.theme.layout.padding} 0 0;
+  @media (max-width: ${(props) => props.theme.breakpoints.narrow}) {
+    float: none;
     width: 100%;
     padding: 0;
   }
 `
 
 const CheckoutFormSidebar = styled('div')`
-  position: absolute;
-  top: 0;
-  right: 0;
+  float: right;
   width: 45%;
-  padding: 0 ${(props) => props.theme.layout.padding};
+  padding: 0 0 0 ${(props) => props.theme.layout.padding};
   @media (max-width: ${(props) => props.theme.breakpoints.narrow}) {
-    position: relative;
-    top: auto;
-    right: auto;
+    float: none;
     width: 100%;
     padding: 0;
     margin: 0 0 ${(props) => props.theme.layout.padding};
@@ -99,12 +113,9 @@ const CheckoutFormSidebar = styled('div')`
 
 const CheckoutFormCheck = styled('div')`
   margin: 0 0 ${(props) => props.theme.layout.padding};
-  @media (max-width: ${(props) => props.theme.breakpoints.tablet}) {
-    margin: 0 0 ${(props) => props.theme.layout.padding};
-  }
 `
 
-const CheckoutFormFooter = styled('div')`
+const CheckoutFormSubmit = styled('div')`
   margin: 3rem 0 0;
 
   > div {
@@ -316,19 +327,21 @@ const CheckoutForm = ({
           <FormError errMsg={errors.form} style={{ margin: '0 0 2rem' }} />
         </CheckoutFormError>
         <CheckoutFormContainer>
-          <CheckoutFormContent>
+          <CheckoutFormHeader>
             <CheckoutCustomer />
             <CheckoutDetails />
             {isDelivery && <CheckoutAddress />}
-            <CheckoutFormSidebar>
-              <CheckoutSurcharges />
-              {!showPointsWithCheck && (
-                <CheckoutPoints updating={checkUpdating} />
-              )}
-              <CheckoutDiscounts />
-              <CheckoutPromoCodes />
-              {hasGiftCardTender && <CheckoutGiftCards />}
-            </CheckoutFormSidebar>
+          </CheckoutFormHeader>
+          <CheckoutFormSidebar>
+            <CheckoutSurcharges />
+            {!showPointsWithCheck && (
+              <CheckoutPoints updating={checkUpdating} />
+            )}
+            <CheckoutDiscounts />
+            <CheckoutPromoCodes />
+            {hasGiftCardTender && <CheckoutGiftCards />}
+          </CheckoutFormSidebar>
+          <CheckoutFormFooter>
             <CheckoutFormCheck>
               <Check
                 title={config.checkTitle}
@@ -342,7 +355,7 @@ const CheckoutForm = ({
               />
             </CheckoutFormCheck>
             <CheckoutTenders />
-            <CheckoutFormFooter>
+            <CheckoutFormSubmit>
               <div>
                 {!isPaid ? (
                   <Message
@@ -364,8 +377,8 @@ const CheckoutForm = ({
               >
                 Submit Order
               </ButtonStyled>
-            </CheckoutFormFooter>
-          </CheckoutFormContent>
+            </CheckoutFormSubmit>
+          </CheckoutFormFooter>
         </CheckoutFormContainer>
       </form>
     </FormContext.Provider>

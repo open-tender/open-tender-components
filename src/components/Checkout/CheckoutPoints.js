@@ -43,18 +43,19 @@ const CheckoutPoints = () => {
   }, [])
   const itemsAvailable = items.filter((i) => !i.isApplied)
   const itemsApplied = items.filter((i) => i.isApplied)
+  const pointsName = points.name ? points.name.toLowerCase() : 'points'
   const remainingMsg =
     points.remaining < points.balance
-      ? `${points.remaining} ${points.name} remaining. `
+      ? `${points.remaining} ${pointsName} remaining. `
       : ''
   const applyMsg = itemsAvailable.length
-    ? 'Select an item below to apply your points.'
+    ? `Select an item below to apply.`
     : itemsApplied.length
-    ? 'Tap on an item to remove points and apply to another item.'
+    ? `Tap on an item to remove ${pointsName} and apply to another item.`
     : ''
   const subtitle = items.length
     ? `${remainingMsg}${applyMsg}`
-    : `You haven't earned any free items yet - earn ${points.per} ${points.name} for every dollar you spend!`
+    : `You haven't earned any free items yet - earn ${points.per} ${pointsName} for every dollar you spend!`
 
   const applyPoints = (item) => {
     const currentItem = form.points.find((i) => i.index === item.index)
@@ -108,10 +109,13 @@ const CheckoutPoints = () => {
             <FormButton
               key={index}
               title={item.name}
-              description={desc}
-              finePrint={
-                item.isApplied && (
-                  <Text color="success">Discount applied to order!</Text>
+              description={
+                item.isApplied ? (
+                  <Text color="success" bold={true}>
+                    ${item.discount} discount applied to order!
+                  </Text>
+                ) : (
+                  desc
                 )
               }
               isApplied={item.isApplied}
