@@ -107,6 +107,12 @@ const CheckoutPromoCodes = () => {
     }
   }, [promoCodeError, updateForm, checkPromoCodes])
 
+  useEffect(() => {
+    if (!promoCodeError && !promoCode) {
+      setError('')
+    }
+  }, [promoCodeError, promoCode])
+
   const handleChange = (evt) => {
     setError('')
     setPromoCode(evt.target.value)

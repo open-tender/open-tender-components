@@ -174,7 +174,9 @@ const CheckoutForm = ({
   const dispatchUpdateForm = useCallback((form) => dispatch(updateForm(form)), [
     dispatch,
   ])
+  const hasPoints = check && check.config.points ? true : false
   const showPointsWithCheck = false
+  const submitDisabled = submitting || !isPaid
 
   useEffect(() => {
     dispatch(resetErrors())
@@ -234,6 +236,26 @@ const CheckoutForm = ({
     }
   }, [dispatch, orderValidate, prevOrderValidate, isComplete])
 
+  const handleSubmit = () => {
+    dispatch(setSubmitting(true))
+    dispatch(submitOrder())
+  }
+
+  const handleEnterKey = useCallback(
+    (evt) => {
+      if (evt.keyCode === 13) {
+        evt.preventDefault()
+        if (!submitDisabled) handleSubmit()
+      }
+    },
+    [submitDisabled]
+  )
+
+  useEffect(() => {
+    document.addEventListener('keydown', handleEnterKey, false)
+    return () => document.removeEventListener('keydown', handleEnterKey, false)
+  }, [handleEnterKey])
+
   if (!check || !check.config) return null
 
   const handleSignUp = () => {
@@ -277,11 +299,6 @@ const CheckoutForm = ({
   const handleAddGiftCard = () => {
     const validate = () => dispatch(validateOrder(orderValidate))
     dispatch(setAlert({ type: 'giftCardAssign', args: { validate } }))
-  }
-
-  const handleSubmit = () => {
-    dispatch(setSubmitting(true))
-    dispatch(submitOrder())
   }
 
   const handleVerify = () => {
@@ -334,7 +351,7 @@ const CheckoutForm = ({
           </CheckoutFormHeader>
           <CheckoutFormSidebar>
             <CheckoutSurcharges />
-            {!showPointsWithCheck && (
+            {hasPoints && !showPointsWithCheck && (
               <CheckoutPoints updating={checkUpdating} />
             )}
             <CheckoutDiscounts />
@@ -350,7 +367,7 @@ const CheckoutForm = ({
                 form={form}
                 updateForm={dispatchUpdateForm}
                 updating={checkUpdating}
-                showPoints={showPointsWithCheck}
+                showPoints={hasPoints && showPointsWithCheck}
                 pointsIcon={iconMap.points}
               />
             </CheckoutFormCheck>
@@ -372,7 +389,7 @@ const CheckoutForm = ({
               <ButtonStyled
                 type="submit"
                 onClick={handleSubmit}
-                disabled={submitting || !isPaid}
+                disabled={submitDisabled}
                 size="big"
               >
                 Submit Order
