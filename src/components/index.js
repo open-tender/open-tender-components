@@ -17,6 +17,7 @@ import Heading from './Heading'
 import Message from './Message'
 import Points from './Points'
 import Preface from './Preface'
+import Tag from './Tag'
 import Text from './Text'
 import AuthApplePay from './AuthApplePay'
 
@@ -166,6 +167,7 @@ export {
   Message,
   Points,
   Preface,
+  Tag,
   Text,
   useBuilder,
   useImage,

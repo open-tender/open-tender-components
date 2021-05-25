@@ -117,8 +117,6 @@ const useBuilder = (menuItem, soldOut, hasPoints) => {
     setItem(calcPrices({ ...item, groups: groups }))
   }
 
-  console.log(item.totalPoints)
-
   return {
     item,
     increment,

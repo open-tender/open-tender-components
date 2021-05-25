@@ -92,7 +92,7 @@ const CheckoutPoints = () => {
     <FormFieldset>
       <FormLegend
         as="div"
-        title={`${points.balance} ${points.name} available${
+        title={`${formatQuantity(points.balance)} ${points.name} available${
           points.balance > 0 ? '!' : ''
         }`}
         subtitle={subtitle}
