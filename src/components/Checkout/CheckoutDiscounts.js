@@ -6,44 +6,6 @@ import { FormContext } from './CheckoutForm'
 import { FormButton, FormFieldset, FormInputs, FormLegend } from '../inputs'
 import styled from '@emotion/styled'
 
-// const makeTag = (iconMap, discountType) => {
-//   const style = { top: '0.1rem', marginLeft: '0.7rem' }
-//   switch (discountType) {
-//     case 'LOYALTY':
-//       return (
-//         <Tag
-//           text="Loyalty"
-//           icon={iconMap.loyalty}
-//           color="primary"
-//           bgColor="tertiary"
-//           style={style}
-//         />
-//       )
-//     case 'REWARD':
-//       return (
-//         <Tag
-//           text="Reward"
-//           icon={iconMap.reward}
-//           color="primary"
-//           bgColor="tertiary"
-//           style={style}
-//         />
-//       )
-//     case 'DEAL':
-//       return (
-//         <Tag
-//           text="Deal"
-//           icon={iconMap.deal}
-//           color="primary"
-//           bgColor="tertiary"
-//           style={style}
-//         />
-//       )
-//     default:
-//       return null
-//   }
-// }
-
 const usePrevious = (value) => {
   const ref = useRef(null)
   useEffect(() => {
@@ -171,7 +133,6 @@ const CheckoutDiscounts = () => {
     const disabled = isApplied
       ? isPending || !i.is_optional
       : missingAccount || missingVerified
-    // const tag = makeTag(iconMap, i.discount_type)
 
     return (
       <FormButton
