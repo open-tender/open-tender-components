@@ -42,10 +42,12 @@ const CheckoutDiscountsSection = ({ icon, text, children }) => {
   if (!children) return null
   return (
     <CheckoutDiscountsSectionView>
-      <CheckoutDiscountsSectionHeader>
-        <span>{icon}</span>
-        {text}
-      </CheckoutDiscountsSectionHeader>
+      {text && (
+        <CheckoutDiscountsSectionHeader>
+          <span>{icon}</span>
+          {text}
+        </CheckoutDiscountsSectionHeader>
+      )}
       {children}
     </CheckoutDiscountsSectionView>
   )
@@ -194,6 +196,7 @@ const CheckoutDiscounts = () => {
   const loyalty = discountsOptional.filter((i) => i.discount_type === 'LOYALTY')
   const rewards = discountsOptional.filter((i) => i.discount_type === 'REWARD')
   const deals = discountsOptional.filter((i) => i.discount_type === 'DEAL')
+  const other = discountsOptional.filter((i) => i.discount_type === 'DISCOUNT')
 
   return (
     <FormFieldset>
@@ -219,6 +222,11 @@ const CheckoutDiscounts = () => {
         {deals.length > 0 && (
           <CheckoutDiscountsSection icon={iconMap.deal} text="Deals">
             {deals.map((i) => makeDiscountButton(i))}
+          </CheckoutDiscountsSection>
+        )}
+        {other.length > 0 && (
+          <CheckoutDiscountsSection>
+            {other.map((i) => makeDiscountButton(i))}
           </CheckoutDiscountsSection>
         )}
       </FormInputs>
