@@ -41,6 +41,7 @@ const FormButtonView = styled('button')`
 const FormButtonLabel = styled('span')`
   display: block;
   padding-right: ${(props) => props.theme.layout.padding};
+  opacity: ${(props) => (props.disabled ? '0.5' : '1.0')};
   @media (max-width: ${(props) => props.theme.breakpoints.mobile}) {
     padding-right: ${(props) => props.theme.layout.paddingMobile};
   }
@@ -145,7 +146,7 @@ const FormButton = ({
         aria-label={label}
         as={disabled ? 'span' : 'button'}
       >
-        <FormButtonLabel>
+        <FormButtonLabel disabled={disabled}>
           <span>{title}</span>
           {description && <span>{description}</span>}
           {finePrint && <span>{finePrint}</span>}

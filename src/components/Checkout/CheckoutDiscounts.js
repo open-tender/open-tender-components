@@ -61,6 +61,13 @@ CheckoutDiscountsSection.propTypes = {
   ]),
 }
 
+const calcTotal = (totals) => {
+  if (!totals) return 0.0
+  const { subtotal, surcharge, discount } = totals
+  if (!subtotal) return 0.0
+  return parseFloat(subtotal) + parseFloat(surcharge) + parseFloat(discount)
+}
+
 const CheckoutDiscounts = () => {
   const formContext = useContext(FormContext)
   const {
@@ -74,8 +81,11 @@ const CheckoutDiscounts = () => {
     iconMap,
   } = formContext
   const { customer_id, is_verified } = check.customer || {}
+  const total = calcTotal(check.totals)
   const [pendingDiscount, setPendingDiscount] = useState(null)
   const discountIds = form.discounts.map((i) => i.id)
+  // const checkDiscountIds = check.discounts.map((i) => i.id)
+  // const missingIds = discountIds.filter((i) => !checkDiscountIds.includes(i))
   const prevCheckDiscounts = usePrevious(check.discounts)
 
   // add initial auto applied discounts
@@ -100,6 +110,16 @@ const CheckoutDiscounts = () => {
       updateForm({ discounts: [...formDiscounts] })
     }
   }, [form.discounts, prevCheckDiscounts, check.discounts, updateForm])
+
+  // useEffect(() => {
+  //   if (missingIds.length) {
+  //     console.log('this is happening')
+  //     const formDiscounts = form.discounts.filter(
+  //       (i) => !missingIds.includes(i.id)
+  //     )
+  //     updateForm({ discounts: [...formDiscounts] })
+  //   }
+  // }, [missingIds, form.discounts, updateForm])
 
   useEffect(() => {
     if (loading !== 'pending') setPendingDiscount(null)
@@ -132,7 +152,7 @@ const CheckoutDiscounts = () => {
       : () => applyDiscount(i.id, i.ext_id)
     const disabled = isApplied
       ? isPending || !i.is_optional
-      : missingAccount || missingVerified
+      : missingAccount || missingVerified || total <= 0.0
 
     return (
       <FormButton
