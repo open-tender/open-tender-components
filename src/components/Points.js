@@ -10,6 +10,9 @@ const PointsView = styled('span')`
   line-height: 1;
   font-size: ${(props) => props.theme.fonts.sizes[props.size]};
   background-color: ${(props) => props.theme.bgColors.tertiary};
+  @media (max-width: ${(props) => props.theme.breakpoints.mobile}) {
+    font-size: ${(props) => props.theme.fonts.sizes[props.sizeMobile]};
+  }
 
   & > span {
     display: flex;
@@ -39,9 +42,9 @@ const PointsIcon = styled('span')`
   color: ${(props) => props.theme.colors.primary};
 `
 
-const Points = ({ points, icon, size = 'small' }) => {
+const Points = ({ points, icon, size = 'small', sizeMobile = 'xSmall' }) => {
   return (
-    <PointsView size={size}>
+    <PointsView size={size} sizeMobile={sizeMobile}>
       <span>
         <PointsTitle>{points}</PointsTitle>
         <PointsIcon size={size}>{icon}</PointsIcon>
@@ -55,6 +58,7 @@ Points.propTypes = {
   points: propTypes.number,
   icon: propTypes.element,
   size: propTypes.string,
+  sizeMobile: propTypes.string,
 }
 
 export default Points

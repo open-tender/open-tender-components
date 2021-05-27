@@ -97,7 +97,8 @@ const CheckoutPromoCodes = () => {
 
   useEffect(() => {
     if (loading !== 'pending') setPendingPromoCode(null)
-    if (checkPromoCodes.includes(promoCode)) setPromoCode('')
+    const promoCodesLower = checkPromoCodes.map((i) => i.toLowerCase())
+    if (promoCodesLower.includes(promoCode.toLowerCase())) setPromoCode('')
   }, [loading, checkPromoCodes, promoCode])
 
   useEffect(() => {
