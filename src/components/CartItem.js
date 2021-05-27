@@ -101,6 +101,9 @@ const BuilderOptionMadeFor = styled('span')`
 const BuilderOptionDetails = styled('span')`
   margin-top: 0.6rem;
   font-size: ${(props) => props.theme.fonts.sizes.small};
+  @media (max-width: ${(props) => props.theme.breakpoints.mobile}) {
+    font-size: ${(props) => props.theme.fonts.sizes.xSmall};
+  }
 `
 
 const BuilderOptionDetailsContainer = styled('span')`

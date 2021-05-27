@@ -27,9 +27,13 @@ const BuilderGroupWarningView = styled('div')`
   padding: 0 1rem;
   border-width: 0.1rem;
   border-style: solid;
-  border-color: ${(props) => props.theme.border.color};
+  color: ${(props) =>
+    props.belowMin ? props.theme.colors.alert : props.theme.colors.secondary};
+  border-color: ${(props) =>
+    props.belowMin ? props.theme.colors.alert : props.theme.border.color};
+  background-color: ${(props) =>
+    props.belowMin ? props.theme.bgColors.alert : props.theme.bgColors.primary};
   border-radius: ${(props) => props.theme.border.radiusSmall};
-  background-color: ${(props) => props.theme.bgColors.primary};
   font-size: ${(props) => props.theme.fonts.sizes.small};
   @media (max-width: ${(props) => props.theme.breakpoints.mobile}) {
     min-width: 7.8rem;
@@ -39,12 +43,12 @@ const BuilderGroupWarningView = styled('div')`
 `
 
 const BuilderGroupQuantity = styled('span')`
-  height: 3.2rem;
   display: flex;
   justify-content: center;
   align-items: center;
+  height: 2.8rem;
   @media (max-width: ${(props) => props.theme.breakpoints.mobile}) {
-    height: 2.8rem;
+    height: 2.6rem;
   }
 
   span {
@@ -56,19 +60,20 @@ const BuilderGroupQuantity = styled('span')`
   }
 `
 
-const BuildGroupAlert = styled('span')`
-  width: 2rem;
-  height: 2rem;
-  margin: 0 0 0 0.3rem;
-  line-height: 2rem;
-  border-radius: 1rem;
-  text-align: center;
-  color: ${(props) => props.theme.colors.light};
-  background-color: ${(props) => props.theme.colors.error};
-  border-color: ${(props) => props.theme.colors.light};
-`
+// const BuildGroupAlert = styled('span')`
+//   width: 2rem;
+//   height: 2rem;
+//   margin: 0 0 0 0.3rem;
+//   line-height: 2rem;
+//   border-radius: 1rem;
+//   text-align: center;
+//   color: ${(props) => props.theme.colors.light};
+//   background-color: ${(props) => props.theme.colors.error};
+//   border-color: ${(props) => props.theme.colors.light};
+// `
 
 const BuilderGroupWarning = ({ quantity, min, max }) => {
+  const belowMin = quantity < min
   return (
     <BuilderGroupWarningContainer>
       {/* {included !== 0 && max !== 1 && (
@@ -76,18 +81,16 @@ const BuilderGroupWarning = ({ quantity, min, max }) => {
           ({included} included)
         </BuilderGroupIncluded>
       )} */}
-      <BuilderGroupWarningView>
-        {quantity < min ? (
+      <BuilderGroupWarningView belowMin={belowMin}>
+        {belowMin ? (
           <BuilderGroupQuantity>
-            <span>Select</span>
-            <BuildGroupAlert>{min - quantity}</BuildGroupAlert>
+            <span>Select {min - quantity}</span>
           </BuilderGroupQuantity>
         ) : (
           <BuilderGroupQuantity>
-            <span>Selected</span>
             <span>
               {quantity}
-              {max ? `/${max}` : ''}
+              {max ? `/${max}` : ''} Selected
             </span>
           </BuilderGroupQuantity>
         )}

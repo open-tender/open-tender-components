@@ -45,14 +45,23 @@ const BuilderQuantityAdd = styled('button')`
 const BuilderQuantityInput = styled('input')`
   width: 2.4rem;
   height: 2.4rem;
-  padding: 0 0 0.2rem;
   border-radius: 1.2rem;
+  padding: 0;
+  line-height: 1;
   text-align: center;
-  font-weight: bold;
-  font-size: ${(props) => props.theme.fonts.sizes.small};
   color: ${(props) => props.theme.buttons.colors.primary.color};
   background-color: ${(props) => props.theme.buttons.colors.primary.bgColor};
   border-color: ${(props) => props.theme.buttons.colors.primary.borderColor};
+  padding-top: ${(props) => props.theme.counts.quantity.paddingTop};
+  padding-bottom: ${(props) => props.theme.counts.quantity.paddingTop};
+  font-family: ${(props) => props.theme.counts.quantity.family};
+  font-weight: ${(props) => props.theme.counts.quantity.weight};
+  font-size: ${(props) => props.theme.counts.quantity.fontSize};
+  -webkit-font-smoothing: ${(props) =>
+    props.theme.counts.quantity.fontSmoothing};
+  @media (max-width: ${(props) => props.theme.breakpoints.tablet}) {
+    font-size: ${(props) => props.theme.counts.quantity.fontSizeMobile};
+  }
 
   &:active,
   &:focus,

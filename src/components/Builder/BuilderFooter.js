@@ -1,8 +1,8 @@
 import React from 'react'
 import propTypes from 'prop-types'
 import styled from '@emotion/styled'
-import { displayPrice } from '@open-tender/js'
-import { ButtonStyled, Points, Text } from '..'
+import { formatDollars, formatQuantity } from '@open-tender/js'
+import { ButtonStyled, Points } from '..'
 import BuilderQuantity from './BuilderQuantity'
 
 const BuilderFooterView = styled('div')`
@@ -102,8 +102,10 @@ const BuilderFooter = ({
   return (
     <BuilderFooterView>
       <BuilderPriceView>
-        <BuilderPrice>${displayPrice(totalPrice)}</BuilderPrice>
-        {item.totalCals && <BuilderCals>{item.totalCals} cal</BuilderCals>}
+        <BuilderPrice>{formatDollars(totalPrice)}</BuilderPrice>
+        {item.totalCals && (
+          <BuilderCals>{formatQuantity(item.totalCals)} cal</BuilderCals>
+        )}
         {item.totalPoints && (
           <BuilderPoints hasCals={!!item.totalCals}>
             <Points points={item.totalPoints} icon={pointsIcon} />
