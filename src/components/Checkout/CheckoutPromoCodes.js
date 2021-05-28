@@ -97,8 +97,10 @@ const CheckoutPromoCodes = () => {
 
   useEffect(() => {
     if (loading !== 'pending') setPendingPromoCode(null)
-    const promoCodesLower = checkPromoCodes.map((i) => i.toLowerCase())
-    if (promoCodesLower.includes(promoCode.toLowerCase())) setPromoCode('')
+    const promoCodesLower = checkPromoCodes.map((i) => i.trim().toLowerCase())
+    if (promoCodesLower.includes(promoCode.trim().toLowerCase())) {
+      setPromoCode('')
+    }
   }, [loading, checkPromoCodes, promoCode])
 
   useEffect(() => {
@@ -120,13 +122,15 @@ const CheckoutPromoCodes = () => {
   }
 
   const applyPromoCode = () => {
-    setPendingPromoCode(promoCode)
-    updateForm({ promoCodes: [...checkPromoCodes, promoCode] })
+    setPendingPromoCode(promoCode.trim())
+    updateForm({ promoCodes: [...checkPromoCodes, promoCode.trim()] })
   }
 
   const removePromoCode = (promoCode) => {
     setPendingPromoCode(promoCode)
-    const filtered = form.promoCodes.filter((i) => i !== promoCode)
+    const filtered = form.promoCodes.filter(
+      (i) => i.trim().toLowerCase() !== promoCode.trim().toLowerCase()
+    )
     updateForm({ promoCodes: filtered })
   }
 
