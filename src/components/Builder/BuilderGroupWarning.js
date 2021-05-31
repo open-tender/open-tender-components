@@ -36,8 +36,9 @@ const BuilderGroupWarningView = styled('div')`
   border-radius: ${(props) => props.theme.border.radiusSmall};
   font-size: ${(props) => props.theme.fonts.sizes.small};
   @media (max-width: ${(props) => props.theme.breakpoints.mobile}) {
-    min-width: 7.8rem;
-    padding: 0 0.75rem;
+    text-align: center;
+    min-width: 9.2rem;
+    padding: 0 0.5rem;
     font-size: ${(props) => props.theme.fonts.sizes.xSmall};
   }
 `
