@@ -18,6 +18,7 @@ const SignUpForm = ({
   signUp,
   callback,
   optIns = {},
+  checkConfig = {},
   hasThanx = false,
 }) => {
   const {
@@ -33,7 +34,15 @@ const SignUpForm = ({
     handleChange,
     handleRadio,
     handleSubmit,
-  } = useSignUpForm(loading, error, signUp, callback, optIns, hasThanx)
+  } = useSignUpForm(
+    loading,
+    error,
+    signUp,
+    callback,
+    optIns,
+    checkConfig,
+    hasThanx
+  )
 
   return (
     <form id="signup-form" ref={formRef} onSubmit={handleSubmit} noValidate>
@@ -92,6 +101,7 @@ SignUpForm.propTypes = {
   signUp: propTypes.func,
   callback: propTypes.func,
   optIns: propTypes.object,
+  checkConfig: propTypes.object,
   hasThanx: propTypes.bool,
 }
 
