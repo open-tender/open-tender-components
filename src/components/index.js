@@ -69,6 +69,7 @@ import {
 import {
   Checkbox,
   FormApplied,
+  FormButton,
   FormError,
   FormFieldset,
   FormHeader,
@@ -94,6 +95,7 @@ import { Recaptcha, useRecaptcha } from './recaptcha'
 export {
   Checkbox,
   FormApplied,
+  FormButton,
   FormError,
   FormFieldset,
   FormHeader,

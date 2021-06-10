@@ -90,9 +90,10 @@ const RequestedAtTimes = ({
               <OrderTime>
                 <p>
                   {capitalize(i.weekday)}, {fmtDate(i.date, 'MMM d')}{' '}
-                  {makeOrderWindow(i)} {current ? '(current)' : ''}
+                  {makeOrderWindow(i)}
+                  {/* {current ? '(current)' : ''} */}
                 </p>
-                <p> (order by {orderBy})</p>
+                <p>Order by {orderBy}</p>
               </OrderTime>
               <ButtonStyled
                 onClick={() => handleRequestedAt(i.iso)}
