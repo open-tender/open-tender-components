@@ -97,7 +97,7 @@ const RequestedAtTimes = ({
               </OrderTime>
               <ButtonStyled
                 onClick={() => handleRequestedAt(i.iso)}
-                color={current ? 'cart' : 'primary'}
+                color={current ? 'primary' : 'secondary'}
               >
                 {current ? 'Keep' : 'Select'}
               </ButtonStyled>

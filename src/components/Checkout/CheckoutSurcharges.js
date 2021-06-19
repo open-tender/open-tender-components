@@ -5,6 +5,7 @@ import { FormContext } from './CheckoutForm'
 import { CheckoutLabel } from '.'
 import {
   FormApplied,
+  FormButton,
   FormFieldset,
   FormInputs,
   FormLegend,
@@ -48,52 +49,26 @@ const CheckoutSurcharges = () => {
         {surchargesOptional.map((i) => {
           const isApplied = surchargeIds.includes(i.id)
           const isPending = i.id === pendingSurcharge
+          const label = isApplied
+            ? `Remove ${i.name} surcharge of ${i.amount}`
+            : `Apply ${i.name} surcharge of ${i.amount}`
+          const onClick = isApplied
+            ? () => removeSurcharge(i.id)
+            : () => applySurcharge(i.id)
           const cost =
             parseFloat(i.amount) > 0
               ? `$${displayPrice(i.amount)} fee`
               : 'No additional charge'
           return (
-            <FormRow
+            <FormButton
               key={i.id}
-              type="div"
-              labelWidth="auto"
-              label={
-                <CheckoutLabel
-                  title={i.label || i.name}
-                  description={i.description}
-                  alert={<Text color="success">{cost}</Text>}
-                />
-              }
-              input={
-                <>
-                  {isApplied ? (
-                    <>
-                      <FormApplied />
-                      <ButtonStyled
-                        label={`Remove ${i.name} surcharge of ${i.amount}`}
-                        icon={iconMap.remove}
-                        onClick={() => removeSurcharge(i.id)}
-                        disabled={isPending || !i.is_optional}
-                        size="header"
-                        color="header"
-                      >
-                        Remove
-                      </ButtonStyled>
-                    </>
-                  ) : (
-                    <ButtonStyled
-                      label={`Apply ${i.name} surcharge of ${i.amount}`}
-                      icon={iconMap.add}
-                      onClick={() => applySurcharge(i.id)}
-                      disabled={isPending}
-                      size="header"
-                      color="header"
-                    >
-                      Apply
-                    </ButtonStyled>
-                  )}
-                </>
-              }
+              title={i.label || i.name}
+              description={i.description}
+              finePrint={<Text color="success">{cost}</Text>}
+              isApplied={isApplied}
+              onClick={onClick}
+              disabled={isPending || !i.is_optional}
+              label={label}
             />
           )
         })}

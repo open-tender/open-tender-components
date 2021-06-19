@@ -80,7 +80,7 @@ const CheckoutGiftCards = () => {
                 key={i.card_number}
                 title={`Gift Card ${i.card_number}`}
                 description={`Balance of $${i.balance}`}
-                alert={
+                finePrint={
                   isApplied && (
                     <Text color="success">${amount} applied to check</Text>
                   )

@@ -19,15 +19,7 @@ const CheckoutCardView = styled('button')`
   &:hover:enabled,
   &:active:enabled,
   &:focus:enabled {
-    // box-shadow: ${(props) => props.theme.boxShadow.inset};
-    // color: ${(props) => props.theme.links.primary.color};
-    background-color: ${(props) =>
-      props.theme.buttons.colors.secondary.bgColor};
-
-    // span.checkout-card-apply {
-    //   transition: ${(props) => props.theme.links.transition};
-    //   color: ${(props) => props.theme.links.primary.color};
-    // }
+    background-color: ${(props) => props.theme.bgColors.tertiary};
   }
 `
 
