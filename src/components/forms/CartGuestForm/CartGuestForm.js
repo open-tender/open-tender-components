@@ -1,45 +1,19 @@
-import React, { useRef, useState, useEffect } from 'react'
+import React from 'react'
 import propTypes from 'prop-types'
-import { ButtonSubmit } from '..'
-import { FormError, FormInputs, FormSubmit, Input } from '../inputs'
-
-const fields = [
-  { label: 'First Name', name: 'first_name', type: 'text', required: true },
-  { label: 'Last Name', name: 'last_name', type: 'text', required: true },
-]
+import { ButtonSubmit } from '../..'
+import { FormError, FormInputs, FormSubmit, Input } from '../../inputs'
+import useCartGuestForm from './useCartGuestForm'
 
 const CartGuestForm = ({ loading, errMsg, cartId, joinCart }) => {
-  const submitRef = useRef(null)
-  const inputRef = useRef(null)
-  const [data, setData] = useState({ cart_id: cartId })
-  const [submitting, setSubmitting] = useState(false)
-
-  useEffect(() => {
-    return () => {
-      setData({})
-    }
-  }, [])
-
-  useEffect(() => {
-    if (loading === 'idle') {
-      setSubmitting(false)
-      if (errMsg) {
-        inputRef.current.focus()
-      }
-    }
-  }, [loading, errMsg])
-
-  const handleChange = (evt) => {
-    const { id, value } = evt.target
-    setData({ ...data, [id]: value })
-  }
-
-  const handleSubmit = (evt) => {
-    evt.preventDefault()
-    setSubmitting(true)
-    joinCart(data)
-    submitRef.current.blur()
-  }
+  const {
+    submitRef,
+    inputRef,
+    fields,
+    data,
+    submitting,
+    handleChange,
+    handleSubmit,
+  } = useCartGuestForm(loading, errMsg, cartId, joinCart)
 
   return (
     <form id="cart-guest-form" onSubmit={handleSubmit} noValidate>
