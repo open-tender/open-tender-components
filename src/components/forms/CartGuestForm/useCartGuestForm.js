@@ -10,8 +10,6 @@ const useCartGuestForm = (loading, errMsg, cartId, joinCart) => {
     { label: 'Last Name', name: 'last_name', type: 'text', required: true },
   ]
 
-  console.log(fields)
-
   useEffect(() => {
     return () => {
       setData({})
