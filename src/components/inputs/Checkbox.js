@@ -22,6 +22,9 @@ const CheckboxContainer = styled('span')`
   display: flex;
   justify-content: flex-start;
   align-items: center;
+  @media (max-width: ${(props) => props.theme.breakpoints.mobile}) {
+    align-items: flex-start;
+  }
 `
 
 const CheckboxView = styled('span')`
@@ -38,6 +41,9 @@ const CheckboxView = styled('span')`
   border: ${(props) => props.theme.inputs.borderWidth} solid
     ${(props) => props.theme.inputs.borderColor};
   box-shadow: ${(props) => props.theme.inputs.boxShadow};
+  @media (max-width: ${(props) => props.theme.breakpoints.mobile}) {
+    margin: 0.5rem 1.5rem 0 0;
+  }
 
   input:focus + & {
     outline-color: ${(props) => props.theme.inputs.color};
@@ -79,6 +85,9 @@ const CheckboxDescription = styled('span')`
   display: block;
   line-height: ${(props) => props.theme.lineHeight};
   font-size: ${(props) => props.theme.fonts.sizes[props.fontSize || 'main']};
+  @media (max-width: ${(props) => props.theme.breakpoints.mobile}) {
+    margin: 0.3rem 0 0;
+  }
 `
 
 const Checkbox = ({
@@ -94,6 +103,7 @@ const Checkbox = ({
   return (
     <FormRow
       htmlFor={id}
+      isInput={true}
       style={{ cursor: 'pointer' }}
       label={showLabel && <Label text={label} required={required} />}
       input={

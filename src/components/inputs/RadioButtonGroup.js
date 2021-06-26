@@ -89,6 +89,9 @@ const RadioButtonDescription = styled('span')`
 const RadioButtonComment = styled('span')`
   display: block;
   font-size: ${(props) => props.theme.fonts.sizes.small};
+  @media (max-width: ${(props) => props.theme.breakpoints.mobile}) {
+    font-size: ${(props) => props.theme.fonts.sizes.xSmall};
+  }
 `
 
 const RadioButton = ({ option, name, value, onChange }) => {
@@ -130,6 +133,7 @@ const RadioButtonGroup = ({
   return (
     <FormRow
       as="div"
+      isInput={true}
       style={{ cursor: 'pointer' }}
       label={showLabel && <Label text={label} required={required} />}
       input={
