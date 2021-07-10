@@ -27,7 +27,7 @@ const CheckoutHouseAccounts = () => {
         } = houseAccount
         const tender = { ...houseAccount, tender_type: 'HOUSE_ACCOUNT' }
         const isOrderType = order_type ? order_type === check.order_type : true
-        const isServiceType = order_type
+        const isServiceType = service_type
           ? service_type === check.service_type
           : true
         const revenueCenterId = check.revenue_center.revenue_center_id

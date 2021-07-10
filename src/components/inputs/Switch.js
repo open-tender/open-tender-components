@@ -65,6 +65,7 @@ const Switch = ({ label, id, on, onChange, disabled, showLabel = true }) => {
       htmlFor={id}
       style={{ cursor: 'pointer' }}
       label={showLabel && <Label text={label} />}
+      labelWidth="100%"
       input={
         <>
           <SwitchInput

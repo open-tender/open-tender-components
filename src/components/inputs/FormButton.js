@@ -41,7 +41,6 @@ const FormButtonView = styled('button')`
 const FormButtonLabel = styled('span')`
   display: block;
   padding-right: ${(props) => props.theme.layout.padding};
-  opacity: ${(props) => (props.disabled ? '0.5' : '1.0')};
   @media (max-width: ${(props) => props.theme.breakpoints.mobile}) {
     padding-right: ${(props) => props.theme.layout.paddingMobile};
   }
@@ -51,12 +50,17 @@ const FormButtonLabel = styled('span')`
     margin: 0.2rem 0 0;
     line-height: ${(props) => props.theme.lineHeight};
     font-size: ${(props) => props.theme.fonts.sizes.xSmall};
+    opacity: ${(props) => (props.disabled ? '0.5' : '1.0')};
 
     &:first-of-type {
       margin: 0;
       // font-weight: ${(props) => props.theme.boldWeight};
       color: ${(props) => props.theme.colors.primary};
       font-size: ${(props) => props.theme.fonts.sizes.small};
+    }
+
+    &.fine-print {
+      opacity: 1;
     }
   }
 `
@@ -149,7 +153,7 @@ const FormButton = ({
         <FormButtonLabel disabled={disabled}>
           <span>{title}</span>
           {description && <span>{description}</span>}
-          {finePrint && <span>{finePrint}</span>}
+          {finePrint && <span className="fine-print">{finePrint}</span>}
         </FormButtonLabel>
         <FormButtonAction
           iconMap={iconMap}
