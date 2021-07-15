@@ -1,4 +1,4 @@
-# `@open-tender/components`
+# @open-tender/components
 
 A component library for use with the Open Tender open source web app: [open-tender-web](https://github.com/open-tender/open-tender-web).
 
@@ -12,7 +12,7 @@ Install via yarn:
 yarn add @open-tender/components
 ```
 
-Or via npm
+Or via npm:
 
 ```
 npm install --save @open-tender/components
@@ -32,7 +32,7 @@ The benefits of using this libray are many:
 - all components come with a restaurant brand's configured styles (which are passed down via [an Emotion theme](https://emotion.sh/docs/theming) from the Open Tender web app)
 - forms, in general, are annoying, especially in React
 - the `<CheckoutForm />` is super complex based on the flexibility of the Open Tender platform around different tender types, service charges, discounts, promo codes, gift cards, loyalty points, etc.
-- the menu item `<Builder />` used to associated modifiers with a menu item handles a fairly complex set of rules across one or more modifier groups
+- the menu item `<Builder />` used to associate modifiers with a menu item handles a fairly complex set of rules across one or more modifier groups
 - Google Maps can be a pain to work with
 
 These are all very important components, and if you leverage this library, you can drop them in and they all just work.
@@ -43,9 +43,9 @@ In general, this library is designed to handle the hard stuff for you, so you ca
 
 ## Theme Support via Emotion
 
-This library leverages [Emotion](https://emotion.sh/docs/introduction) for CSS-in-JS styled components and theme support via the `@emotion/react` and `@emotion/styled` packages (which are installed in the `open-tender-web` app).
+This library leverages [Emotion](https://emotion.sh/docs/introduction) for CSS-in-JS styled components and theme support via the `@emotion/react` and `@emotion/styled` packages (which are installed in the [open-tender-web app](https://github.com/open-tender/open-tender-web)).
 
-The theme is passed down by the `open-tender-web` app, and you can read more about how this works via the [Styling with Emotion](https://github.com/open-tender/open-tender-web#styling-via-emotion-for-css-in-js--theme-support) section of the `open-tender-web` readme.
+The theme is passed down by the [open-tender-web app](https://github.com/open-tender/open-tender-web), and you can read more about how this works via the [Styling with Emotion](https://github.com/open-tender/open-tender-web#styling-via-emotion-for-css-in-js--theme-support) section of the open-tender-web readme.
 
 The punchline here is that all of these components come with a brand's styles built-in, which is helpful for things like buttons that come in four different variations.
 
@@ -53,7 +53,7 @@ The punchline here is that all of these components come with a brand's styles bu
 
 ### Buttons
 
-As noted above, one of the most common uses of this library in the `open-tender-web` app is for button variations. A brand can configure four different types of buttons that come in one of four possible color combinations. Here's an example:
+As noted above, one of the most common uses of this library in the [open-tender-web app](https://github.com/open-tender/open-tender-web) is for button variations. A brand can configure four different types of buttons that come in one of four possible color combinations. Here's an example:
 
 ```javascript
 import { ButtonStyled } from '@open-tender/components'
@@ -70,7 +70,7 @@ import { ButtonStyled } from '@open-tender/components'
 </ButtonStyled>
 ```
 
-In this case, we're using the "big" button type and the "secondary" color scheme. You can see all of the possibilities in the `buttons` attribute of the [example theme](https://github.com/open-tender/open-tender-web/blob/main/THEME.md).
+In this case, we're using the "big" button type and the "secondary" color scheme. You can see all of the possibilities in the `buttons` attribute of [the example Open Tender theme](https://github.com/open-tender/open-tender-web/blob/main/THEME.md).
 
 ### Forms
 
@@ -100,7 +100,7 @@ const AccountProfile = () => {
 }
 ```
 
-As you can see above, the form receives data and a dispatch function from the `open-tender-web` app, and all of the inputs, error handling, etc. is handled by the `<ProfileForm />` component. So you don't need to worry about creating all of the different inputs and handling user input - the inputs will automatically come with the brand's configured styles. Here's an example of what this form looks like:
+As you can see above, the form receives data and a dispatch function from the [open-tender-web app](https://github.com/open-tender/open-tender-web), and all of the inputs, error handling, etc. is handled by the `<ProfileForm />` component. So you don't need to worry about creating all of the different inputs and handling user input - the inputs will automatically come with the brand's configured styles. Here's an example of what this form looks like:
 
 ![image](https://s3.amazonaws.com/betterboh/u/img/prod/2/1626320612_open-tender-profile-form.png)
 
@@ -112,7 +112,7 @@ If you want to customize the inputs beyond what comes with the theme styles, the
 
 ### More Examples
 
-You can see many more examples in the [`open-tender-web` app](https://github.com/open-tender/open-tender-web) itself.
+You can see many more examples in the [open-tender-web app](https://github.com/open-tender/open-tender-web) itself.
 
 ## Issues
 
