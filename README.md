@@ -116,8 +116,8 @@ You can see many more examples in the [`open-tender-web` app](https://github.com
 
 ## Issues
 
-If you find a bug or have a question, please file an issue on [our issue tracker on GitHub](https://github.com/open-tender/open-tender-web/issues).
+If you find a bug or have a question, please file an issue on [our issue tracker on GitHub](https://github.com/open-tender/open-tender-components/issues).
 
-## Credits
+## About
 
 Built and maintained by [Open Tender](https://staging.opentender.io/).
