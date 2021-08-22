@@ -1,20 +1,12 @@
 import React, { useContext, useState, useEffect } from 'react'
 import { displayPrice } from '@open-tender/js'
-import { ButtonStyled, Text } from '..'
+import { Text } from '..'
 import { FormContext } from './CheckoutForm'
-import { CheckoutLabel } from '.'
-import {
-  FormApplied,
-  FormButton,
-  FormFieldset,
-  FormInputs,
-  FormLegend,
-  FormRow,
-} from '../inputs'
+import { FormButton, FormFieldset, FormInputs, FormLegend } from '../inputs'
 
 const CheckoutSurcharges = () => {
   const formContext = useContext(FormContext)
-  const { iconMap = {}, config, check, form, loading, updateForm } = formContext
+  const { config, check, form, loading, updateForm } = formContext
   const [pendingSurcharge, setPendingSurcharge] = useState(null)
   const surchargeIds = form.surcharges.map((i) => i.id)
 

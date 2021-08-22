@@ -1,6 +1,6 @@
 import { useState, useEffect, useRef } from 'react'
 
-const useLoginForm = (email, loading, error, connect, callback) => {
+const useLevelUpForm = (email, loading, error, connect, callback) => {
   const submitRef = useRef(null)
   const inputRef = useRef(null)
   const [data, setData] = useState({ email })
@@ -41,4 +41,4 @@ const useLoginForm = (email, loading, error, connect, callback) => {
   }
 }
 
-export default useLoginForm
+export default useLevelUpForm

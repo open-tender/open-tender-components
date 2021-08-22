@@ -1,6 +1,6 @@
 import { useState, useEffect, useRef } from 'react'
 
-const useGiftCardAssignOtherForm = (loading, error, assign, callback) => {
+const useGiftCardAssignForm = (loading, error, assign, callback) => {
   const submitRef = useRef(null)
   const inputRef = useRef(null)
   const [cardNumber, setCardNumber] = useState('')
@@ -45,4 +45,4 @@ const useGiftCardAssignOtherForm = (loading, error, assign, callback) => {
   }
 }
 
-export default useGiftCardAssignOtherForm
+export default useGiftCardAssignForm
