@@ -1,16 +1,23 @@
 import { useState, useEffect, useRef } from 'react'
 
-const useGuestForm = (loading, error, checkGuest, callback) => {
+const useGuestForm = (email, loading, errors, checkGuest) => {
   const submitRef = useRef(null)
   const inputRef = useRef(null)
   const [data, setData] = useState({})
   const submitting = loading === 'pending'
+  const errMsg = errors ? errors.email || errors.form : null
 
   useEffect(() => {
     if (loading === 'idle') {
-      if (error) inputRef.current.focus()
+      if (errMsg) inputRef.current.focus()
     }
-  }, [loading, error])
+  }, [loading, errMsg])
+
+  useEffect(() => {
+    if (email && !data.email) {
+      setData({ email })
+    }
+  }, [email, data.email])
 
   const handleChange = (evt) => {
     const { id, value } = evt.target
@@ -20,9 +27,7 @@ const useGuestForm = (loading, error, checkGuest, callback) => {
   const handleSubmit = (evt) => {
     evt.preventDefault()
     const { email } = data
-    checkGuest(email).then(() => {
-      if (callback) callback()
-    })
+    checkGuest(email)
     submitRef.current.blur()
   }
 
@@ -30,6 +35,7 @@ const useGuestForm = (loading, error, checkGuest, callback) => {
     submitRef,
     inputRef,
     data,
+    errMsg,
     submitting,
     handleChange,
     handleSubmit,

@@ -4,13 +4,20 @@ import { ButtonSubmit } from '../../index'
 import { FormError, FormInputs, FormSubmit, Input } from '../../inputs'
 import useGuestForm from './useGuestForm'
 
-const GuestForm = ({ loading, error, checkGuest, callback }) => {
-  const { submitRef, inputRef, data, submitting, handleChange, handleSubmit } =
-    useGuestForm(loading, error, checkGuest, callback)
+const GuestForm = ({ email, loading, errors, checkGuest }) => {
+  const {
+    submitRef,
+    inputRef,
+    data,
+    errMsg,
+    submitting,
+    handleChange,
+    handleSubmit,
+  } = useGuestForm(email, loading, errors, checkGuest)
 
   return (
     <form id="login-form" onSubmit={handleSubmit} noValidate>
-      <FormError errMsg={error} style={{ margin: '0 0 2rem' }} />
+      <FormError errMsg={errMsg} style={{ margin: '0 0 2rem' }} />
       <FormInputs>
         <Input
           ref={inputRef}
@@ -33,8 +40,9 @@ const GuestForm = ({ loading, error, checkGuest, callback }) => {
 
 GuestForm.displayName = 'GuestForm'
 GuestForm.propTypes = {
+  email: propTypes.string,
   loading: propTypes.string,
-  error: propTypes.string,
+  errors: propTypes.object,
   checkGuest: propTypes.func,
   callback: propTypes.func,
 }
