@@ -54,7 +54,7 @@ const LineItem = ({ name, value, unit = '' }) => (
 LineItem.displayName = 'LineItem'
 LineItem.propTypes = {
   name: propTypes.string,
-  value: propTypes.string,
+  value: propTypes.oneOfType([propTypes.string, propTypes.numbrer]),
   unit: propTypes.string,
 }
 

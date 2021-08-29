@@ -104,9 +104,9 @@ const BuilderHeader = ({ item, displaySettings, spinner, pointsIcon }) => {
               {zeroPrice ? 'Price varies' : `$${displayPrice(item.price)}`}
             </BuilderDetailsPrice>
           )}
-          {showCals && item.cals && (
+          {hasCals && item.cals > 0 ? (
             <BuilderDetailsCals>{item.cals} cal</BuilderDetailsCals>
-          )}
+          ) : null}
           {item.points && (
             <Points
               points={item.points}

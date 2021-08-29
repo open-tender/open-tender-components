@@ -103,9 +103,9 @@ const BuilderFooter = ({
     <BuilderFooterView>
       <BuilderPriceView>
         <BuilderPrice>{formatDollars(totalPrice)}</BuilderPrice>
-        {item.totalCals && (
+        {item.totalCals ? (
           <BuilderCals>{formatQuantity(item.totalCals)} cal</BuilderCals>
-        )}
+        ) : null}
         {item.totalPoints && (
           <BuilderPoints hasCals={!!item.totalCals}>
             <Points points={item.totalPoints} icon={pointsIcon} />
