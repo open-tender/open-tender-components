@@ -1,7 +1,7 @@
 import React, { useContext, useState, useEffect } from 'react'
 import propTypes from 'prop-types'
 import styled from '@emotion/styled'
-import { Box, ButtonClear, ButtonStyled, Preface, Text } from '..'
+import { Box, ButtonClear, ButtonStyled, Preface } from '..'
 import {
   FormApplied,
   FormFieldset,
