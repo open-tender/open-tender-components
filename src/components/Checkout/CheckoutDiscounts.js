@@ -143,7 +143,7 @@ const CheckoutDiscounts = () => {
     updateForm({ discounts: filtered })
   }
 
-  const makeDiscountButton = (i) => {
+  const makeDiscountButton = (i, index) => {
     const isApplied = discountIds.includes(i.id)
     const isPending = i.id === pendingDiscount
     const missingAccount =
@@ -154,11 +154,11 @@ const CheckoutDiscounts = () => {
       : () => applyDiscount(i.id, i.ext_id)
     const disabled = isApplied
       ? isPending || !i.is_optional
-      : missingAccount || missingVerified || total <= 0.0
+      : missingAccount || missingVerified || total <= 0.0 || i.id === 0
 
     return (
       <FormButton
-        key={i.id}
+        key={`${i.id}-${index}`}
         title={i.title || i.name}
         description={i.description}
         finePrint={
@@ -197,6 +197,9 @@ const CheckoutDiscounts = () => {
   const rewards = discountsOptional.filter((i) => i.discount_type === 'REWARD')
   const deals = discountsOptional.filter((i) => i.discount_type === 'DEAL')
   const other = discountsOptional.filter((i) => i.discount_type === 'DISCOUNT')
+  const otherActive = other.filter((i) => i.id !== 0)
+  const otherInactive = other.filter((i) => i.id === 0)
+  const allOther = [...otherActive, ...otherInactive]
 
   return (
     <FormFieldset>
@@ -211,22 +214,22 @@ const CheckoutDiscounts = () => {
             icon={iconMap.loyalty}
             text="Loyalty Credit"
           >
-            {loyalty.map((i) => makeDiscountButton(i))}
+            {loyalty.map((i, idx) => makeDiscountButton(i, idx))}
           </CheckoutDiscountsSection>
         )}
         {rewards.length > 0 && (
           <CheckoutDiscountsSection icon={iconMap.reward} text="Rewards">
-            {rewards.map((i) => makeDiscountButton(i))}
+            {rewards.map((i, idx) => makeDiscountButton(i, idx))}
           </CheckoutDiscountsSection>
         )}
         {deals.length > 0 && (
           <CheckoutDiscountsSection icon={iconMap.deal} text="Deals">
-            {deals.map((i) => makeDiscountButton(i))}
+            {deals.map((i, idx) => makeDiscountButton(i, idx))}
           </CheckoutDiscountsSection>
         )}
-        {other.length > 0 && (
+        {allOther.length > 0 && (
           <CheckoutDiscountsSection>
-            {other.map((i) => makeDiscountButton(i))}
+            {allOther.map((i, idx) => makeDiscountButton(i, idx))}
           </CheckoutDiscountsSection>
         )}
       </FormInputs>
