@@ -20,7 +20,8 @@ const RequestedAtCalendar = ({
   setRequestedAt,
 }) => {
   const [date, setDate] = useState(null)
-  const { settings, timezone } = revenueCenter || {}
+  const { timezone } = revenueCenter || {}
+  const settings = revenueCenter.settings || revenueCenter
   const tz = timezone ? timezoneMap[timezone] : null
   const dateArgs = makeDatePickerDates(settings, serviceType)
   const { minDate, maxDate, excludeDates, filterDate } = dateArgs

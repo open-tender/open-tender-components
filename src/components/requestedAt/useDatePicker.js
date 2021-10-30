@@ -17,7 +17,8 @@ const useDatePicker = (
   requestedAt,
   setRequestedAt
 ) => {
-  const { timezone, settings, revenue_center_type } = revenueCenter || {}
+  const { timezone, revenue_center_type } = revenueCenter || {}
+  const settings = revenueCenter.settings || revenueCenter
   const tz = timezone ? timezoneMap[timezone] : null
   const requestedAtDate =
     !requestedAt || requestedAt === 'asap' ? null : isoToDate(requestedAt, tz)
