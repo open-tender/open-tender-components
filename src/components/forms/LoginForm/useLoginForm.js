@@ -3,14 +3,20 @@ import { useState, useEffect, useRef } from 'react'
 const useLoginForm = (loading, error, login, callback) => {
   const submitRef = useRef(null)
   const inputRef = useRef(null)
+  const [hasSubmit, setHasSubmit] = useState(false)
   const [data, setData] = useState({})
   const submitting = loading === 'pending'
 
   useEffect(() => {
-    if (loading === 'idle') {
-      if (error) inputRef.current.focus()
+    if (loading === 'idle' && hasSubmit) {
+      if (error) {
+        setHasSubmit(false)
+        inputRef.current.focus()
+      } else if (callback) {
+        callback()
+      }
     }
-  }, [loading, error])
+  }, [loading, error, hasSubmit, callback])
 
   const handleChange = (evt) => {
     const { id, value } = evt.target
@@ -19,10 +25,9 @@ const useLoginForm = (loading, error, login, callback) => {
 
   const handleSubmit = (evt) => {
     evt.preventDefault()
+    setHasSubmit(true)
     const { email, password } = data
-    login(email, password).then(() => {
-      if (callback) callback()
-    })
+    login(email, password)
     submitRef.current.blur()
   }
 

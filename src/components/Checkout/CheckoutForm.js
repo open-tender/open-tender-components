@@ -137,6 +137,7 @@ const CheckoutForm = ({
   api,
   spinner,
   brand,
+  loginCallback,
 }) => {
   const {
     check,
@@ -171,9 +172,10 @@ const CheckoutForm = ({
   const isComplete = completedOrder ? true : false
   const pending = loading === 'pending'
   const checkUpdating = submitting ? false : pending
-  const dispatchUpdateForm = useCallback((form) => dispatch(updateForm(form)), [
-    dispatch,
-  ])
+  const dispatchUpdateForm = useCallback(
+    (form) => dispatch(updateForm(form)),
+    [dispatch]
+  )
   const hasPoints = check && check.config.points ? true : false
   const showPointsWithCheck = false
   const submitDisabled = submitting || !isPaid
@@ -263,7 +265,8 @@ const CheckoutForm = ({
   }
 
   const handleLogin = () => {
-    dispatch(setAlert({ type: 'login' }))
+    const args = loginCallback ? { callback: loginCallback } : {}
+    dispatch(setAlert({ type: 'login', args }))
   }
 
   const handleLogout = () => {
@@ -417,6 +420,7 @@ CheckoutForm.propTypes = {
   api: propTypes.object,
   spinner: propTypes.element,
   brand: propTypes.object,
+  loginCallback: propTypes.func,
 }
 
 export default CheckoutForm
