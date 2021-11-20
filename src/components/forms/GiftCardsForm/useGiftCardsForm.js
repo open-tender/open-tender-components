@@ -7,10 +7,7 @@ const useGiftCardsForm = (
   loading,
   error,
   success,
-  purchasedCards,
   setAlert,
-  iconMap,
-  windowRef,
   customer = {},
   creditCards = [],
   recaptchaKey = null,
@@ -40,12 +37,12 @@ const useGiftCardsForm = (
         setErrors(error)
         const inputs = formRef.current.querySelectorAll('input, select')
         if (inputs.length) inputs[0].focus()
-        if (windowRef) windowRef.current.scrollTop = 0
+        window.scrollTo(0, 0)
       } else if (success) {
-        if (windowRef) windowRef.current.scrollTop = 0
+        window.scrollTo(0, 0)
       }
     }
-  }, [loading, error, setAlert, windowRef, success])
+  }, [loading, error, setAlert, success])
 
   useEffect(() => {
     if (creditCards.length) {
@@ -128,7 +125,7 @@ const useGiftCardsForm = (
           setErrors({
             form: 'Please complete the recaptcha before submitting',
           })
-          if (windowRef) windowRef.current.scrollTop = 0
+          window.scrollTo(0, 0)
         } else {
           setSubmitting(true)
           setAlert(alert)
@@ -138,7 +135,7 @@ const useGiftCardsForm = (
       } catch (err) {
         setSubmitting(false)
         setErrors({ form: 'Please complete the recaptcha before submitting' })
-        if (windowRef) windowRef.current.scrollTop = 0
+        window.scrollTo(0, 0)
       }
     } else {
       setSubmitting(true)
@@ -153,7 +150,7 @@ const useGiftCardsForm = (
     if (!name || !email) {
       setErrors({ form: 'Both name and email are required' })
       if (inputRef.current) inputRef.current.focus()
-      if (windowRef) windowRef.current.scrollTop = 0
+      window.scrollTo(0, 0)
     } else {
       if (isNewCard) {
         const { card, errors } = validateCreditCard(creditCard, cardType)
@@ -163,7 +160,7 @@ const useGiftCardsForm = (
             form: 'There are one or more credit card errors below',
           })
           setSubmitting(false)
-          if (windowRef) windowRef.current.scrollTop = 0
+          window.scrollTo(0, 0)
         } else {
           purchaseWithCaptcha(card)
         }

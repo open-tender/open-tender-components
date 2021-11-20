@@ -48,7 +48,6 @@ const GiftCardsForm = ({
   purchasedCards,
   setAlert,
   iconMap,
-  windowRef,
   customer = {},
   creditCards = [],
   recaptchaKey = null,
@@ -88,10 +87,7 @@ const GiftCardsForm = ({
     loading,
     error,
     success,
-    purchasedCards,
     setAlert,
-    iconMap,
-    windowRef,
     customer,
     creditCards,
     recaptchaKey,
@@ -312,10 +308,6 @@ GiftCardsForm.propTypes = {
   iconMap: propTypes.object,
   customer: propTypes.object,
   creditCards: propTypes.array,
-  windowRef: propTypes.oneOfType([
-    propTypes.func,
-    propTypes.shape({ current: propTypes.instanceOf(Element) }),
-  ]),
   recaptchaKey: propTypes.string,
 }
 

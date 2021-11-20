@@ -26,7 +26,6 @@ const DonationForm = ({
   error,
   success,
   donation,
-  windowRef,
   customer,
   creditCards = [],
   recaptchaKey = null,
@@ -64,12 +63,12 @@ const DonationForm = ({
         if (recaptchaRef.current) recaptchaRef.current.reset()
         setErrors(error)
         inputRef.current.focus()
-        if (windowRef) windowRef.current.scrollTop = 0
+        window.scrollTo(0, 0)
       } else if (success) {
-        if (windowRef) windowRef.current.scrollTop = 0
+        window.scrollTo(0, 0)
       }
     }
-  }, [loading, error, setAlert, windowRef, success])
+  }, [loading, error, setAlert, success])
 
   useEffect(() => {
     if (creditCards.length) {
@@ -115,7 +114,7 @@ const DonationForm = ({
         if (!token) {
           setSubmitting(false)
           setErrors({ form: 'Please complete the recaptcha before submitting' })
-          if (windowRef) windowRef.current.scrollTop = 0
+          window.scrollTo(0, 0)
         } else {
           setSubmitting(true)
           setAlert(alert)
@@ -124,7 +123,7 @@ const DonationForm = ({
       } catch (err) {
         setSubmitting(false)
         setErrors({ form: 'Please complete the recaptcha before submitting' })
-        if (windowRef) windowRef.current.scrollTop = 0
+        window.scrollTo(0, 0)
       }
     } else {
       setSubmitting(true)
@@ -138,7 +137,7 @@ const DonationForm = ({
     if (!amount || !email) {
       setErrors({ form: 'Both amount and email are required' })
       inputRef.current.focus()
-      if (windowRef) windowRef.current.scrollTop = 0
+      window.scrollTo(0, 0)
     } else {
       if (isNewCard) {
         const { card, errors } = validateCreditCard(creditCard, cardType)
@@ -148,7 +147,7 @@ const DonationForm = ({
             form: 'There are one or more credit card errors below',
           })
           setSubmitting(false)
-          if (windowRef) windowRef.current.scrollTop = 0
+          window.scrollTo(0, 0)
         } else {
           purchaseWithCaptcha(card)
         }
@@ -274,10 +273,6 @@ DonationForm.propTypes = {
   donation: propTypes.object,
   customer: propTypes.object,
   creditCards: propTypes.array,
-  windowRef: propTypes.oneOfType([
-    propTypes.func,
-    propTypes.shape({ current: propTypes.instanceOf(Element) }),
-  ]),
   recaptchaKey: propTypes.string,
 }
 
