@@ -36,7 +36,11 @@ const SelectOnly = ({ label, name, value, onChange, disabled, options }) => (
     >
       {options ? (
         options.map((option, index) => (
-          <option key={`${option.value}-${index}`} value={option.value}>
+          <option
+            key={`${option.value}-${index}`}
+            value={option.value}
+            disabled={option.disabled || false}
+          >
             {option.name}
           </option>
         ))
