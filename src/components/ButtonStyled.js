@@ -75,6 +75,7 @@ const ButtonStyled = ({
   color = 'primary',
   style = null,
   btnRef = null,
+  id = null,
 }) => {
   const onUp = (evt) => {
     evt.preventDefault()
@@ -86,6 +87,7 @@ const ButtonStyled = ({
     <ButtonStyledView
       ref={btnRef}
       type={type}
+      id={id}
       aria-label={label || null}
       // onPointerUp={(evt) => onUp(evt)}
       onClick={(evt) => onUp(evt)}
@@ -119,6 +121,7 @@ ButtonStyled.propTypes = {
   size: propTypes.string,
   color: propTypes.string,
   type: propTypes.string,
+  id: propTypes.string,
   style: propTypes.object,
   btnRef: propTypes.oneOfType([
     propTypes.func,

@@ -291,7 +291,15 @@ const CheckoutForm = ({
   }
 
   const handleRequestedAt = () => {
-    dispatch(setAlert({ type: 'requestedAt' }))
+    const args = {
+      focusFirst: true,
+      skipClose: true,
+      orderType,
+      serviceType,
+      revenueCenter,
+      requestedAt,
+    }
+    dispatch(setAlert({ type: 'requestedAt', args }))
   }
 
   const handleConnectLevelUp = () => {
