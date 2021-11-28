@@ -70,6 +70,7 @@ const RequestedAtDateTime = ({
   chooseTime,
   cancel,
   isLocation,
+  isReorder,
 }) => {
   const {
     name,
@@ -196,6 +197,8 @@ const RequestedAtDateTime = ({
         <ButtonLink onClick={cancel}>
           {isLocation
             ? "Nevermind, let's choose a different location"
+            : isReorder
+            ? "Nevermind, I don't want to order this again"
             : 'Nevermind, keep current time'}
         </ButtonLink>
       </RequestedAtDateTimeNevermind>
@@ -212,6 +215,7 @@ RequestedAtDateTime.propTypes = {
   chooseTime: propTypes.func,
   cancel: propTypes.func,
   isLocation: propTypes.bool,
+  isReorder: propTypes.bool,
 }
 
 export default RequestedAtDateTime
