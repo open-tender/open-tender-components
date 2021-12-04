@@ -1,6 +1,6 @@
 import React from 'react'
 import propTypes from 'prop-types'
-import { optionsOrderNotificationsTemp } from '@open-tender/js'
+import { optionsOrderNotifications } from '@open-tender/js'
 import { ButtonSubmit } from '../..'
 import {
   Checkbox,
@@ -66,7 +66,7 @@ const SignUpForm = ({
             label={order_notifications.title}
             name="order_notifications"
             value={data.order_notifications}
-            options={optionsOrderNotificationsTemp}
+            options={optionsOrderNotifications}
             onChange={handleRadio}
             showLabel={true}
             required={true}
