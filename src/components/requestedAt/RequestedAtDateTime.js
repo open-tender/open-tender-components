@@ -19,8 +19,8 @@ const RequestedAtDateTimeView = styled('div')`
 const RequestedAtDateTimeTitle = styled('p')`
   width: 100%;
   margin: 0 0 3rem;
-  line-height: 1;
   text-align: center;
+  line-height: ${(props) => props.theme.lineHeight};
   font-size: ${(props) => props.theme.fonts.sizes.h3};
 `
 
@@ -33,6 +33,9 @@ const RequestedAtDateTimeAsap = styled('div')`
   button {
     min-width: 32rem;
     max-width: 100%;
+    @media (max-width: ${(props) => props.theme.breakpoints.mobile}) {
+      min-width: 100%;
+    }
   }
 `
 
@@ -72,18 +75,11 @@ const RequestedAtDateTime = ({
   isLocation,
   isReorder,
 }) => {
-  const {
-    name,
-    timezone,
-    first_times,
-    holidays,
-    days_ahead,
-    valid_times,
-    time_ranges,
-  } = revenueCenter
+  const { name, timezone, first_times, holidays, days_ahead, valid_times } =
+    revenueCenter
+  const orderTypeName = orderType === 'CATERING' ? 'Catering ' : ''
   const serviceTypeName = serviceTypeNamesMap[serviceType]
   const firstTime = first_times[serviceType]
-  const timeRange = time_ranges[serviceType]
   const selected = requestedAt && requestedAt !== 'asap'
   const requested = selected ? isoToDateStrMinutes(requestedAt, timezone) : {}
   const [date, setDate] = useState(requested.date || firstTime.date)
@@ -97,27 +93,21 @@ const RequestedAtDateTime = ({
   )
   const dateOptions = dates.map(({ label, value }) => ({ name: label, value }))
   const timeOptions = useMemo(
-    () =>
-      makeTimes(
-        date,
-        firstTime,
-        valid_times,
-        holidays,
-        serviceType,
-        timezone,
-        timeRange
-      ),
-    [date, firstTime, valid_times, holidays, serviceType, timezone, timeRange]
+    () => makeTimes(date, firstTime, valid_times, holidays, serviceType),
+    [date, firstTime, valid_times, holidays, serviceType]
   )
-  const firstOrderableTime = timeOptions.find((i) => !i.disabled)
+  const firstOrderableTime = timeOptions
+    ? timeOptions.find((i) => !i.disabled)
+    : null
   const firstMinutes = firstOrderableTime ? firstOrderableTime.value : null
   const asapTime = firstTime
     ? makeReadableDateStrFromIso(firstTime.utc, timezone)
     : null
   const orderDate = dateOptions.find((i) => i.value === date)
-  const RequestedAtDateTime =
-    timeOptions.find((i) => i.value === time) ||
-    timeOptions.find((i) => i.value === firstMinutes)
+  const RequestedAtDateTime = timeOptions
+    ? timeOptions.find((i) => i.value === time) ||
+      timeOptions.find((i) => i.value === firstMinutes)
+    : null
   const orderMsg =
     orderDate && RequestedAtDateTime
       ? `Order for ${orderDate.name} @ ${RequestedAtDateTime.name}`
@@ -147,7 +137,9 @@ const RequestedAtDateTime = ({
     <RequestedAtDateTimeView>
       <RequestedAtDateTimeTitle>
         <Heading>
-          {serviceTypeName} from {name}
+          {orderTypeName}
+          {serviceTypeName}
+          {orderTypeName ? <br /> : null} from {name}
         </Heading>
       </RequestedAtDateTimeTitle>
       {firstTime.has_asap ? (

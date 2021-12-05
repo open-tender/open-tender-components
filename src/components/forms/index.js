@@ -20,6 +20,7 @@ import OrderRatingForm from './OrderRatingForm'
 import ProfileForm, { useProfileForm } from './ProfileForm'
 import ResetPasswordForm, { useResetPasswordForm } from './ResetPasswordForm'
 import SendResetForm, { useSendResetForm } from './SendResetForm'
+import SignInForm, { useSignInForm } from './SignInForm'
 import SignUpForm, { useSignUpForm } from './SignUpForm'
 
 export {
@@ -41,6 +42,7 @@ export {
   ProfileForm,
   ResetPasswordForm,
   SendResetForm,
+  SignInForm,
   SignUpForm,
   useAddressForm,
   useAllergenForm,
@@ -57,5 +59,6 @@ export {
   useProfileForm,
   useResetPasswordForm,
   useSendResetForm,
+  useSignInForm,
   useSignUpForm,
 }

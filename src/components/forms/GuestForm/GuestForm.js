@@ -31,7 +31,7 @@ const GuestForm = ({ email, loading, errors, checkGuest }) => {
       </FormInputs>
       <FormSubmit>
         <ButtonSubmit submitRef={submitRef} submitting={submitting}>
-          {submitting ? 'Submitting...' : 'Submit'}
+          {submitting ? 'Submitting...' : 'Submit Email'}
         </ButtonSubmit>
       </FormSubmit>
     </form>
