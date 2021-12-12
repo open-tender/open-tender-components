@@ -14,7 +14,7 @@ const useGuestForm = (email, loading, errors, checkGuest) => {
   }, [loading, errMsg])
 
   useEffect(() => {
-    if (email && !data.email) {
+    if (email && data.email === undefined) {
       setData({ email })
     }
   }, [email, data.email])

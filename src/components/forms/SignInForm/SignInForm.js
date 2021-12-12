@@ -9,11 +9,10 @@ const SignInForm = ({ email, loading, error, login, callback }) => {
     useSignInForm(email, loading, error, login, callback)
 
   return (
-    <form id="checkout-login-form" onSubmit={handleSubmit} noValidate>
+    <form id="checkout-signin-form" onSubmit={handleSubmit} noValidate>
       <FormError errMsg={error} style={{ margin: '0 0 2rem' }} />
       <FormInputs>
         <Input
-          ref={inputRef}
           label="Email"
           name="email"
           type="email"
@@ -22,6 +21,7 @@ const SignInForm = ({ email, loading, error, login, callback }) => {
           disabled={true}
         />
         <Input
+          ref={inputRef}
           label="Password"
           name="password"
           type="password"
@@ -41,7 +41,7 @@ const SignInForm = ({ email, loading, error, login, callback }) => {
 
 SignInForm.displayName = 'SignInForm'
 SignInForm.propTypes = {
-  email: propTypes.bool,
+  email: propTypes.string,
   loading: propTypes.string,
   error: propTypes.string,
   login: propTypes.func,

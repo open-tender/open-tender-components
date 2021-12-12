@@ -1,71 +1,80 @@
 import React from 'react'
 import propTypes from 'prop-types'
-import { FormRow, Label } from '.'
+import { Label } from '.'
 
 const Input = React.forwardRef(
   (
     {
+      icon = null,
       label,
       name,
       type,
       value,
       onChange,
-      error,
+      onBlur,
+      error = '',
       showLabel = true,
+      placeholder = '',
       disabled = false,
       readOnly = false,
       required = false,
-      autoComplete = null,
+      autoComplete,
       pattern = null,
       min = null,
       max = null,
-      placeholder = '',
+      style = null,
       children,
     },
     ref
   ) => {
     return (
-      <FormRow
+      <Label
         htmlFor={name}
-        label={showLabel && <Label text={label} required={required} />}
-        input={
-          <>
-            <input
-              aria-label={label}
-              id={name}
-              name={name}
-              type={type}
-              pattern={pattern}
-              min={min}
-              max={max}
-              autoComplete={autoComplete || null}
-              value={value || ''}
-              placeholder={placeholder}
-              disabled={disabled}
-              readOnly={readOnly}
-              required={required}
-              onChange={onChange}
-              ref={ref}
-            />
-            {children}
-          </>
-        }
+        icon={icon}
+        text={label}
+        value={value}
+        required={required}
         errMsg={error}
-        isInput={true}
-      />
+        showLabel={showLabel}
+        disabled={disabled}
+        style={style}
+      >
+        <input
+          aria-label={label}
+          id={name}
+          name={name}
+          type={type}
+          pattern={pattern}
+          min={min}
+          max={max}
+          autoComplete={autoComplete || undefined}
+          value={value || ''}
+          placeholder={placeholder || ''}
+          disabled={disabled}
+          readOnly={readOnly}
+          required={required}
+          onChange={onChange}
+          onBlur={onBlur}
+          ref={ref}
+        />
+        {children}
+      </Label>
     )
   }
 )
 
 Input.displayName = 'Input'
 Input.propTypes = {
+  icon: propTypes.element,
   label: propTypes.string,
   name: propTypes.string,
   type: propTypes.string,
   value: propTypes.oneOfType([propTypes.string, propTypes.number]),
   onChange: propTypes.func,
+  onBlur: propTypes.func,
   error: propTypes.string,
   showLabel: propTypes.bool,
+  placeholder: propTypes.string,
   disabled: propTypes.bool,
   readOnly: propTypes.bool,
   required: propTypes.bool,
@@ -73,7 +82,7 @@ Input.propTypes = {
   pattern: propTypes.string,
   min: propTypes.number,
   max: propTypes.number,
-  placeholder: propTypes.string,
+  style: propTypes.object,
   children: propTypes.oneOfType([
     propTypes.arrayOf(propTypes.node),
     propTypes.node,

@@ -20,21 +20,27 @@ export const FormInputs = styled('div')`
 
 export const FormSubmit = styled('div')`
   margin: 1.5rem 0 0;
+  text-align: center;
 
   button + button {
     margin: 0 0 0 1rem;
   }
 `
 
-export const FormWrapper = styled(Box)`
-  text-align: left;
-  padding: ${(props) => props.theme.layout.padding};
-  margin: 0 0 ${(props) => props.theme.layout.padding};
-  @media (max-width: ${(props) => props.theme.breakpoints.tablet}) {
-    padding: ${(props) => props.theme.layout.paddingMobile};
-    margin: 0 0 ${(props) => props.theme.layout.padding};
-  }
+export const FormWrapper = styled('div')`
+  max-width: 54rem;
+  margin: 0 auto;
 `
+
+// export const FormWrapper = styled(Box)`
+//   text-align: left;
+//   padding: ${(props) => props.theme.layout.padding};
+//   margin: 0 0 ${(props) => props.theme.layout.padding};
+//   @media (max-width: ${(props) => props.theme.breakpoints.tablet}) {
+//     padding: ${(props) => props.theme.layout.paddingMobile};
+//     margin: 0 0 ${(props) => props.theme.layout.padding};
+//   }
+// `
 
 export const FormHeader = styled('div')`
   text-align: left;

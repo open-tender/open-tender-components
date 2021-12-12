@@ -22,6 +22,7 @@ import ResetPasswordForm, { useResetPasswordForm } from './ResetPasswordForm'
 import SendResetForm, { useSendResetForm } from './SendResetForm'
 import SignInForm, { useSignInForm } from './SignInForm'
 import SignUpForm, { useSignUpForm } from './SignUpForm'
+import SignUpGuestForm, { useSignUpGuestForm } from './SignUpGuestForm'
 
 export {
   AddressForm,
@@ -44,6 +45,7 @@ export {
   SendResetForm,
   SignInForm,
   SignUpForm,
+  SignUpGuestForm,
   useAddressForm,
   useAllergenForm,
   useCartGuestForm,
@@ -61,4 +63,5 @@ export {
   useSendResetForm,
   useSignInForm,
   useSignUpForm,
+  useSignUpGuestForm,
 }

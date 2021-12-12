@@ -7,10 +7,15 @@ const FormErrorView = styled('span')`
   outline: 0;
   display: inline-block;
   width: 100%;
-  font-size: ${(props) => props.theme.fonts.sizes.small};
-  line-height: ${(props) => props.theme.inputs.lineHeight};
   padding: ${(props) => props.theme.inputs.padding};
   margin: ${(props) => props.theme.inputs.padding} 0 0;
+  font-family: ${(props) => props.theme.inputs.family};
+  font-weight: ${(props) => props.theme.inputs.weight};
+  font-size: ${(props) => props.theme.fonts.sizes.small};
+  letter-spacing: ${(props) => props.theme.inputs.letterSpacing};
+  text-transform: ${(props) => props.theme.inputs.textTransform};
+  -webkit-font-smoothing: ${(props) => props.theme.inputs.fontSmoothing};
+  line-height: ${(props) => props.theme.inputs.lineHeight};
   border-radius: ${(props) => props.theme.border.radiusSmall};
   color: ${(props) => props.theme.colors.error};
   background-color: ${(props) => props.theme.bgColors.error};

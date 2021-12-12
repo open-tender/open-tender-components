@@ -1,25 +1,27 @@
 {
   "bgColors": {
-    "alert": "#FDE1E4",
-    "dark": "#000000",
-    "error": "#FDE1E4",
+    "alert": "#f7eaff",
+    "dark": "#232734",
+    "error": "#ffe7e6",
     "light": "#ffffff",
     "primary": "#ffffff",
-    "secondary": "#f6f6f6",
-    "success": "#e6faf6",
-    "tertiary": "#e9e9e9",
+    "secondary": "#ffffff",
+    "success": "#e0fff5",
+    "tertiary": "#f6f6f9",
     "transparent": "transparent"
   },
-  "boldWeight": "600",
+  "boldWeight": "500",
   "border": {
-    "color": "#e5e5e5",
+    "color": "#eaecf0",
     "radius": "0",
-    "radiusSmall": "0",
-    "width": "0"
+    "radiusSmall": "0.5rem",
+    "width": "0.1rem"
   },
   "boxShadow": {
+    "appBig": "0px 6px 24px rgba(211, 212, 213, 1)",
+    "appSmall": "0 1px 5px rgba(0, 0, 0, 0.1)",
     "inset": "inset 0 2px 4px -1px rgba(0, 0, 0, 0.2)",
-    "outer": "0px 1px 3px 0px rgba(0, 0, 0, 0.2)"
+    "outer": "0 3px 6px rgba(0, 0, 0, 0.06), 0 2px 4px rgba(0, 0, 0, 0.05)"
   },
   "breakpoints": {
     "laptop": "1280px",
@@ -30,173 +32,183 @@
   "buttons": {
     "colors": {
       "cart": {
-        "bgColor": "#5a5aff",
-        "borderColor": "#5a5aff",
-        "color": "#ffffff"
+        "bgColor": "#03CC90",
+        "borderColor": "#03CC90",
+        "color": "#232734"
       },
       "cartHover": {
-        "bgColor": "#000000",
-        "borderColor": "#000000",
-        "color": "#ffffff"
+        "bgColor": "#232734",
+        "borderColor": "#232734",
+        "color": "#03CC90"
       },
       "header": {
         "bgColor": "transparent",
         "borderColor": "transparent",
-        "color": "#000000"
+        "color": "#232734"
       },
       "headerHover": {
         "bgColor": "transparent",
         "borderColor": "transparent",
-        "color": "#5a5aff"
+        "color": "#03CC90"
       },
       "primary": {
-        "bgColor": "#000000",
-        "borderColor": "#000000",
+        "bgColor": "#232734",
+        "borderColor": "#232734",
         "color": "#ffffff"
       },
       "primaryHover": {
-        "bgColor": "#5a5aff",
-        "borderColor": "#5a5aff",
+        "bgColor": "#03CC90",
+        "borderColor": "#03CC90",
         "color": "#ffffff"
       },
       "secondary": {
-        "bgColor": "#e5e5e5",
-        "borderColor": "#e5e5e5",
-        "color": "#000000"
+        "bgColor": "#ffffff",
+        "borderColor": "#232734",
+        "color": "#232734"
       },
       "secondaryHover": {
-        "bgColor": "#dddddd",
-        "borderColor": "#dddddd",
-        "color": "#000000"
+        "bgColor": "#ffffff",
+        "borderColor": "#03CC90",
+        "color": "#03CC90"
       }
     },
     "sizes": {
       "big": {
         "borderRadius": "2.6rem",
-        "borderWidth": "0",
-        "family": "'Raleway', sans-serif",
-        "fontSize": "1.8rem",
+        "borderWidth": "0.1rem",
+        "family": "'Inter', sans-serif",
+        "fontMobile": "Inter-Regular",
+        "fontSize": "1.7rem",
         "fontSmoothing": "antialiased",
         "letterSpacing": "0",
-        "padding": "1.2rem 2.2rem 1.2rem",
+        "padding": "1.3rem 2.2rem 1.3rem",
         "textTransform": "none",
-        "weight": "500"
+        "weight": "400"
       },
       "default": {
         "borderRadius": "2.2rem",
-        "borderWidth": "0",
-        "family": "'Raleway', sans-serif",
-        "fontSize": "1.6rem",
+        "borderWidth": "0.1rem",
+        "family": "'Inter', sans-serif",
+        "fontMobile": "Inter-Regular",
+        "fontSize": "1.5rem",
         "fontSmoothing": "antialiased",
         "letterSpacing": "0",
         "padding": "1.1rem 2.0rem 1.1rem",
         "textTransform": "none",
-        "weight": "500"
+        "weight": "400"
       },
       "header": {
         "borderRadius": "0.5rem",
         "borderWidth": "0",
-        "family": "'Raleway', sans-serif",
-        "fontSize": "1.4rem",
+        "family": "'Inter', sans-serif",
+        "fontMobile": "Inter-Regular",
+        "fontSize": "1.3rem",
         "fontSmoothing": "antialiased",
         "letterSpacing": "0",
         "padding": "0.9rem 0 0.9rem",
         "textTransform": "none",
-        "weight": "500"
+        "weight": "400"
       },
       "small": {
         "borderRadius": "2.0rem",
-        "borderWidth": "0",
-        "family": "'Raleway', sans-serif",
-        "fontSize": "1.4rem",
+        "borderWidth": "0.1rem",
+        "family": "'Inter', sans-serif",
+        "fontMobile": "Inter-Regular",
+        "fontSize": "1.3rem",
         "fontSmoothing": "antialiased",
         "letterSpacing": "0",
         "padding": "1.0rem 1.7rem 1.0rem",
         "textTransform": "none",
-        "weight": "500"
+        "weight": "400"
       }
     }
   },
   "colors": {
-    "alert": "#D00F27",
+    "alert": "#B440FF",
     "dark": "#000000",
-    "error": "#D00F27",
+    "error": "#E60F00",
     "light": "#ffffff",
-    "primary": "#000000",
-    "secondary": "#222222",
-    "success": "#00715d",
-    "title": "#000000"
+    "primary": "#232734",
+    "secondary": "#353849",
+    "success": "#03CC90",
+    "tertiary": "#9aa2bb",
+    "title": "#232734"
   },
   "counts": {
     "alerts": {
-      "bgColor": "#d00f27",
+      "bgColor": "#B440FF",
       "borderColor": "#ffffff",
       "borderWidth": "0",
       "color": "#ffffff",
-      "family": "'Roboto', sans-serif",
-      "fontSize": "1.4rem",
-      "fontSizeMobile": "1.2rem",
+      "family": "'Inter', sans-serif",
+      "fontMobile": "Inter-Regular",
+      "fontSize": "1.3rem",
+      "fontSizeMobile": "1.1rem",
       "fontSmoothing": "antialiased",
       "paddingBottom": "0",
       "paddingTop": "0",
       "weight": "400"
     },
     "quantity": {
-      "family": "'Roboto', sans-serif",
+      "family": "'Inter', sans-serif",
+      "fontMobile": "Inter-Regular",
       "fontSize": "1.3rem",
-      "fontSizeMobile": "1.2rem",
+      "fontSizeMobile": "1.1rem",
       "fontSmoothing": "antialiased",
-      "paddingBottom": "0.1rem",
+      "paddingBottom": "0",
       "paddingTop": "0",
-      "weight": "500"
+      "weight": "400"
     }
   },
   "favorite": {
     "iconSize": "1.5rem",
-    "size": "3.1rem"
+    "size": "3.4rem"
   },
   "fonts": {
     "body": {
-      "color": "#222222",
-      "family": "'Raleway', sans-serif",
-      "fontSmoothing": "antialiased",
-      "letterSpacing": "0",
-      "textTransform": "none",
-      "url": "https://demo.brandibble.co/static/fonts/brands/2/fonts.css",
-      "weight": "500"
-    },
-    "headings": {
-      "color": "#000000",
-      "family": "'Raleway', serif",
+      "color": "#353849",
+      "family": "'Inter', sans-serif",
+      "fontMobile": "Inter-Regular",
       "fontSmoothing": "antialiased",
       "letterSpacing": "0",
       "textTransform": "none",
       "url": "https://fonts.googleapis.com/css2?family=Raleway:wght@400;500;600;700&family=Roboto:wght@300;400;500&display=swap",
-      "weight": "700"
+      "weight": "400"
+    },
+    "headings": {
+      "color": "#232734",
+      "family": "'Inter', sans-serif",
+      "fontMobile": "Inter-Medium",
+      "fontSmoothing": "antialiased",
+      "letterSpacing": "0",
+      "textTransform": "none",
+      "url": "https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&display=swap",
+      "weight": "500"
     },
     "preface": {
-      "family": "'Raleway', sans-serif",
+      "family": "'Inter', sans-serif",
+      "fontMobile": "Inter-Regular",
       "fontSize": "1.3rem",
       "fontSmoothing": "antialiased",
       "letterSpacing": "0.1rem",
       "textTransform": "uppercase",
-      "weight": "500"
+      "weight": "400"
     },
     "sizes": {
-      "big": "1.8rem",
-      "giga": "13.2rem",
-      "h1": "4.4rem",
-      "h2": "3.2rem",
+      "big": "1.7rem",
+      "giga": "10.8rem",
+      "h1": "3.6rem",
+      "h2": "3.0rem",
       "h3": "2.4rem",
       "h4": "2.2rem",
       "h5": "2.0rem",
       "h6": "1.8rem",
-      "main": "1.6rem",
-      "mega": "8.8rem",
-      "small": "1.4rem",
-      "tera": "17.6rem",
-      "xBig": "2.4rem",
-      "xSmall": "1.2rem"
+      "main": "1.5rem",
+      "mega": "7.2rem",
+      "small": "1.3rem",
+      "tera": "14.4rem",
+      "xBig": "2.3rem",
+      "xSmall": "1.1rem"
     }
   },
   "header": {
@@ -205,50 +217,66 @@
   },
   "inputs": {
     "bgColor": "#ffffff",
-    "borderColor": "#ffffff",
-    "borderWidth": "0",
-    "boxShadow": "inset 0 1px 3px 0 rgba(0, 0, 0, 0.2)",
-    "color": "#000000",
-    "family": "'Raleway', sans-serif",
-    "fontSize": "1.6rem",
+    "bgColorFocus": "#ffffff",
+    "borderColor": "#ecedf2",
+    "borderColorFocus": "#232734",
+    "borderWidth": "0.1rem",
+    "bottomBorderOnly": true,
+    "boxShadow": "none",
+    "color": "#232734",
+    "colorFocus": "#232734",
+    "family": "'Inter', sans-serif",
+    "fontMobile": "Inter-Regular",
+    "fontSize": "1.5rem",
+    "fontSizeMobile": "1.3rem",
     "fontSmoothing": "antialiased",
+    "label": {
+      "fontSize": "1.3rem",
+      "left": "0.9rem",
+      "padding": "0 0.7rem",
+      "top": "-0.7rem"
+    },
     "letterSpacing": "0",
-    "lineHeight": "1.10",
-    "padding": "1.2rem 1.4rem",
-    "placeholderColor": "#999999",
+    "lineHeight": "1.20",
+    "padding": "1.4rem 1.6rem",
+    "paddingHorizontal": "1.6rem",
+    "paddingVertical": "1.4rem",
+    "placeholderColor": "#9aa2bb",
     "radius": "0",
     "textTransform": "none",
     "weight": "400"
   },
   "layout": {
     "containerMaxWidth": "128.0rem",
+    "headerHeightApp": "4.4rem",
     "margin": "6.0rem",
     "marginMobile": "3.0rem",
     "maxWidth": "76.8rem",
     "navHeight": "7.2rem",
+    "navHeightApp": "4.4rem",
     "navHeightMobile": "6.0rem",
     "padding": "3.0rem",
     "paddingMobile": "2.0rem"
   },
-  "lineHeight": "1.45",
+  "lineHeight": "1.30",
   "links": {
     "dark": {
       "color": "#000000",
-      "hover": "#5a5aff"
+      "hover": "#03CC90"
     },
     "light": {
       "color": "#ffffff",
-      "hover": "#5a5aff"
+      "hover": "#03CC90"
     },
     "primary": {
-      "color": "#5a5aff",
-      "hover": "#000000"
+      "color": "#03CC90",
+      "hover": "#3F4354"
     },
     "textDecoration": "none",
     "transition": "all 0.150s ease"
   },
   "overlay": {
-    "alert": "rgba(239, 35, 60, 0.75)",
+    "alert": "rgba(201, 58, 232, 0.75)",
     "dark": "rgba(0, 0, 0, 0.60)",
     "light": "rgba(255, 255, 255, 0.90)"
   }
