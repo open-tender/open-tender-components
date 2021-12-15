@@ -6,6 +6,10 @@ const SelectOnlyView = styled('span')`
   position: relative;
   display: block;
   flex-grow: 1;
+
+  select {
+    padding-left: 1.5rem;
+  }
 `
 
 const SelectArrow = styled('span')`
@@ -14,6 +18,8 @@ const SelectArrow = styled('span')`
   content: ' ';
   z-index: 2;
   bottom: 2rem;
+  // right: ${(props) =>
+    props.theme.inputs.bottomBorderOnly ? '0' : '1.5rem'};
   right: 1.5rem;
   width: 1.1rem;
   height: 1.1rem;

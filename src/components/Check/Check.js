@@ -31,6 +31,7 @@ const Check = ({
   showPoints = false,
   pointsIcon = null,
   updating = false,
+  showCart = false,
 }) => {
   const {
     order_id,
@@ -82,7 +83,7 @@ const Check = ({
         />
       )}
       <ul>
-        {cart && cart.length ? (
+        {showCart && cart && cart.length ? (
           <li>
             <CheckSection>
               {cart.map((item, index) =>
@@ -107,7 +108,7 @@ const Check = ({
             </CheckSection>
           </li>
         ) : null}
-        <CheckItem label="Items Total" value={subtotal} color="primary" />
+        <CheckItem label="Subtotal" value={subtotal} color="primary" />
         {gift_cards && gift_cards.length ? (
           <li>
             <CheckSection>
@@ -209,6 +210,7 @@ Check.propTypes = {
   showPoints: propTypes.bool,
   pointsIcon: propTypes.element,
   updating: propTypes.bool,
+  showCart: propTypes.bool,
 }
 
 export default Check

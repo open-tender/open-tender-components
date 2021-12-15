@@ -8,9 +8,12 @@ import ButtonStyled from './ButtonStyled'
 import ButtonSubmit from './ButtonSubmit'
 import ButtonToggleGroup from './ButtonToggleGroup'
 import CartItem from './CartItem'
+import CartItemCount from './CartItemCount'
+import CartSummary from './CartSummary'
 import CartCounts from './CartCounts'
 import CartErrors from './CartErrors'
 import Check from './Check'
+import CheckSummary from './CheckSummary'
 import Checkmark from './Checkmark'
 import DeliveryLink from './DeliveryLink'
 import Heading from './Heading'
@@ -139,9 +142,12 @@ export {
   ButtonSubmit,
   ButtonToggleGroup,
   CartItem,
+  CartItemCount,
+  CartSummary,
   CartCounts,
   CartErrors,
   Check,
+  CheckSummary,
   Checkmark,
   CheckoutForm,
   CheckoutAccount,

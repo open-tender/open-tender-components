@@ -1,5 +1,5 @@
 import styled from '@emotion/styled'
-import { Box } from '..'
+// import { Box } from '..'
 
 export const FormFieldset = styled('fieldset')`
   & + fieldset {

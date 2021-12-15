@@ -4,7 +4,13 @@ import { ButtonSubmit } from '../../index'
 import { FormError, FormInputs, FormSubmit, Input } from '../../inputs'
 import useGuestForm from './useGuestForm'
 
-const GuestForm = ({ email, loading, errors, checkGuest }) => {
+const GuestForm = ({
+  email,
+  loading,
+  errors,
+  checkGuest,
+  submitText = 'Submit Email',
+}) => {
   const {
     submitRef,
     inputRef,
@@ -31,7 +37,7 @@ const GuestForm = ({ email, loading, errors, checkGuest }) => {
       </FormInputs>
       <FormSubmit>
         <ButtonSubmit submitRef={submitRef} submitting={submitting}>
-          {submitting ? 'Submitting...' : 'Submit Email'}
+          {submitting ? 'Submitting...' : submitText}
         </ButtonSubmit>
       </FormSubmit>
     </form>
@@ -44,7 +50,7 @@ GuestForm.propTypes = {
   loading: propTypes.string,
   errors: propTypes.object,
   checkGuest: propTypes.func,
-  callback: propTypes.func,
+  submitText: propTypes.string,
 }
 
 export default GuestForm

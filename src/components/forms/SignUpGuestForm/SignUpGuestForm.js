@@ -1,8 +1,20 @@
 import React from 'react'
 import propTypes from 'prop-types'
+import styled from '@emotion/styled'
 import { ButtonLink, ButtonSubmit } from '../..'
-import { FormError, FormInputs, FormSubmit, Input } from '../../inputs'
+import { FormError, FormInputs, Input } from '../../inputs'
 import useSignUpGuestForm from './useSignUpGuestForm'
+
+const SignUpGuestFormSubmit = styled('div')`
+  margin: 1.5rem 0 0;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+
+  button {
+    display: block;
+  }
+`
 
 const SignUpGuestForm = ({
   email,
@@ -79,17 +91,17 @@ const SignUpGuestForm = ({
           />
         )}
       </FormInputs>
-      <FormSubmit>
+      <SignUpGuestFormSubmit>
+        <ButtonSubmit submitRef={submitRef} submitting={disabled || submitting}>
+          {submitting ? 'Submitting...' : 'Sign Up'}
+        </ButtonSubmit>
         <ButtonLink
           onClick={handleGuest}
           disabled={guestDisabled || submitting}
         >
           Checkout as a guest
         </ButtonLink>
-        <ButtonSubmit submitRef={submitRef} submitting={disabled || submitting}>
-          {submitting ? 'Submitting...' : 'Sign In'}
-        </ButtonSubmit>
-      </FormSubmit>
+      </SignUpGuestFormSubmit>
     </form>
   )
 }
