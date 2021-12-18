@@ -1,7 +1,25 @@
 import React from 'react'
 import propTypes from 'prop-types'
-import { FormRow, Label } from '.'
+import { Label } from '.'
 import styled from '@emotion/styled'
+
+const SwitchView = styled('div')`
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+`
+
+const SwitchLabel = styled('div')`
+  padding: ${(props) => props.theme.inputs.padding};
+  line-height: ${(props) => props.theme.inputs.lineHeight};
+  font-size: ${(props) => props.theme.inputs.fontSize};
+  font-family: ${(props) => props.theme.inputs.family};
+  letter-spacing: ${(props) => props.theme.inputs.letterSpacing};
+  text-transform: ${(props) => props.theme.inputs.textTransform};
+  font-smoothing: ${(props) => props.theme.inputs.fontSmoothing};
+  color: ${(props) => props.theme.inputs.placeholderColor};
+`
 
 const SwitchInput = styled('input')`
   position: absolute;
@@ -29,7 +47,7 @@ const SwitchToggle = styled('span')`
   border-radius: 2rem;
   padding: 0.2rem;
   transition: all 0.15s ease;
-  background-color: ${(props) => props.theme.bgColors.tertiary};
+  background-color: ${(props) => props.theme.inputs.placeholderColor};
 
   &:before {
     left: 0;
@@ -59,15 +77,18 @@ const SwitchToggle = styled('span')`
   }
 `
 
-const Switch = ({ label, id, on, onChange, disabled, showLabel = true }) => {
+const Switch = ({ label, id, on, onChange, disabled }) => {
   return (
-    <FormRow
+    <Label
       htmlFor={id}
-      style={{ cursor: 'pointer' }}
-      label={showLabel && <Label text={label} />}
-      labelWidth="100%"
-      input={
-        <>
+      text={label}
+      showLabel={false}
+      disabled={disabled}
+      style={{ cursor: 'pointer', margin: '0' }}
+    >
+      <SwitchView>
+        <SwitchLabel>{label}</SwitchLabel>
+        <div>
           <SwitchInput
             aria-label={label}
             id={id}
@@ -77,9 +98,9 @@ const Switch = ({ label, id, on, onChange, disabled, showLabel = true }) => {
             onChange={onChange}
           />
           <SwitchToggle />
-        </>
-      }
-    />
+        </div>
+      </SwitchView>
+    </Label>
   )
 }
 
@@ -90,7 +111,6 @@ Switch.propTypes = {
   on: propTypes.bool,
   onChange: propTypes.func,
   disabled: propTypes.bool,
-  showLabel: propTypes.bool,
 }
 
 export default Switch

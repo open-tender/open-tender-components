@@ -1,22 +1,11 @@
 import { useRef, useState, useEffect } from 'react'
-import { checkEmpty, makePhone, validatePhone } from '@open-tender/js'
+import { checkEmpty, checkGuestData, makePhone } from '@open-tender/js'
 
 const initialData = {
   first_name: '',
   last_name: '',
   phone: '',
   password: '',
-}
-
-const checkGuestData = (data, email) => {
-  const { first_name, last_name, phone } = data
-  const guestData = { first_name, last_name, phone, email }
-  const validPhone = validatePhone(phone) ? phone : null
-  const guestIncomplete = checkEmpty({
-    ...guestData,
-    phone: validPhone,
-  })
-  return { guestData, guestIncomplete }
 }
 
 const useSignUpGuestForm = (

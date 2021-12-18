@@ -53,10 +53,8 @@ const LabelIcon = styled('span')`
 const LabelText = styled('span')`
   position: absolute;
   top: 0;
-  left: 0;
+  left: ${(props) => (props.isTextarea ? '1.2rem' : '0')};
   padding: ${(props) => props.theme.inputs.padding};
-  // padding-left: ${(props) =>
-    props.hasIcon ? '4.8rem' : props.theme.inputs.paddingHorizontal};
   border: ${(props) => props.theme.inputs.borderWidth} solid transparent;
   line-height: ${(props) => props.theme.inputs.lineHeight};
   font-size: ${(props) => props.theme.inputs.fontSize};
@@ -113,6 +111,7 @@ const Label = ({
   errMsg,
   showLabel = true,
   disabled = false,
+  isTextarea = false,
   style = null,
   className = undefined,
   children,
@@ -135,7 +134,12 @@ const Label = ({
         )}
         {children}
         {showLabel && (
-          <LabelText hasValue={!!value} hasError={!!errMsg} hasIcon={!!icon}>
+          <LabelText
+            hasValue={!!value}
+            hasError={!!errMsg}
+            hasIcon={!!icon}
+            isTextarea={isTextarea}
+          >
             {text}
             {required ? <LabelRequired>&nbsp;*</LabelRequired> : null}
           </LabelText>
@@ -160,6 +164,7 @@ Label.propTypes = {
   errMsg: propTypes.string,
   showLabel: propTypes.bool,
   disabled: propTypes.bool,
+  isTextarea: propTypes.bool,
   style: propTypes.object,
   className: propTypes.string,
   children: propTypes.oneOfType([

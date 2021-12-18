@@ -17,9 +17,8 @@ const SelectArrow = styled('span')`
   display: block;
   content: ' ';
   z-index: 2;
-  bottom: 2rem;
-  // right: ${(props) =>
-    props.theme.inputs.bottomBorderOnly ? '0' : '1.5rem'};
+  bottom: ${(props) =>
+    props.theme.inputs.bottomBorderOnly ? '1.5rem' : '2rem'};
   right: 1.5rem;
   width: 1.1rem;
   height: 1.1rem;
