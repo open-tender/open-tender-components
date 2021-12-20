@@ -7,8 +7,11 @@ const FormErrorView = styled('span')`
   outline: 0;
   display: inline-block;
   width: 100%;
-  padding: ${(props) => props.theme.inputs.padding};
-  margin: ${(props) => props.theme.inputs.padding} 0 0;
+  padding: ${(props) =>
+    props.theme.inputs.bottomBorderOnly
+      ? props.theme.inputs.paddingVertical
+      : props.theme.inputs.padding};
+  margin: ${(props) => props.theme.inputs.paddingVertical} 0 0;
   font-family: ${(props) => props.theme.inputs.family};
   font-weight: ${(props) => props.theme.inputs.weight};
   font-size: ${(props) => props.theme.fonts.sizes.small};

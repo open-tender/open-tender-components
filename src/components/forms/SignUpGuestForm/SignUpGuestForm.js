@@ -1,18 +1,36 @@
 import React from 'react'
 import propTypes from 'prop-types'
 import styled from '@emotion/styled'
-import { ButtonLink, ButtonSubmit } from '../..'
+import { ButtonStyled, ButtonSubmit, Text } from '../..'
 import { FormError, FormInputs, Input } from '../../inputs'
 import useSignUpGuestForm from './useSignUpGuestForm'
+
+const SignUpGuestFormNote = styled('div')`
+  width: 100%;
+  height: 2rem;
+  margin: -1rem 0 0;
+  display: flex;
+  align-items: center;
+
+  & > span {
+    display: block;
+    // opacity: 0;
+    // animation: slide-down 0.25s ease-in-out 0 forwards;
+  }
+`
 
 const SignUpGuestFormSubmit = styled('div')`
   margin: 1.5rem 0 0;
   display: flex;
-  justify-content: space-between;
+  justify-content: flex-start;
   align-items: center;
 
   button {
     display: block;
+  }
+
+  button + button {
+    margin: 0 0 0 1rem;
   }
 `
 
@@ -38,6 +56,7 @@ const SignUpGuestForm = ({
     handleSubmit,
     handleGuest,
   } = useSignUpGuestForm(email, guest, loading, error, signUp, submitGuest)
+  const passwordNeeded = !guestDisabled && !data.password
 
   return (
     <form id="signup-form" onSubmit={handleSubmit} noValidate>
@@ -91,16 +110,30 @@ const SignUpGuestForm = ({
           />
         )}
       </FormInputs>
+      <SignUpGuestFormNote>
+        {passwordNeeded && (
+          <Text color="alert" size="xSmall">
+            Enter a password to create an account or proceed as a guest
+          </Text>
+        )}
+      </SignUpGuestFormNote>
       <SignUpGuestFormSubmit>
         <ButtonSubmit submitRef={submitRef} submitting={disabled || submitting}>
           {submitting ? 'Submitting...' : 'Sign Up'}
         </ButtonSubmit>
-        <ButtonLink
+        <ButtonStyled
+          onClick={handleGuest}
+          disabled={guestDisabled || submitting}
+          color="secondary"
+        >
+          Checkout as a guest
+        </ButtonStyled>
+        {/* <ButtonLink
           onClick={handleGuest}
           disabled={guestDisabled || submitting}
         >
           Checkout as a guest
-        </ButtonLink>
+        </ButtonLink> */}
       </SignUpGuestFormSubmit>
     </form>
   )

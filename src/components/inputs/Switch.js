@@ -19,6 +19,9 @@ const SwitchLabel = styled('div')`
   text-transform: ${(props) => props.theme.inputs.textTransform};
   font-smoothing: ${(props) => props.theme.inputs.fontSmoothing};
   color: ${(props) => props.theme.inputs.placeholderColor};
+  @media (max-width: ${(props) => props.theme.breakpoints.mobile}) {
+    font-size: ${(props) => props.theme.inputs.fontSizeMobile};
+  }
 `
 
 const SwitchInput = styled('input')`

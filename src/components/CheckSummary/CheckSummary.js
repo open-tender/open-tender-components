@@ -8,8 +8,9 @@ import CheckSummaryTotal from './CheckSummaryTotal'
 
 const CheckSummaryView = styled('div')`
   position: relative;
+  z-index: 2;
   width: 100%;
-  height: 100%;
+  // height: 100%;
   padding: 1rem 0 0;
   border-width: 0;
   border-style: solid;

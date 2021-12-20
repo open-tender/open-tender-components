@@ -67,6 +67,12 @@ const LabelText = styled('span')`
       ? props.theme.colors.error
       : props.theme.inputs.placeholderColor};
   transition: all 0.1s cubic-bezier(0.17, 0.67, 0.12, 1);
+  @media (max-width: ${(props) => props.theme.breakpoints.mobile}) {
+    font-size: ${(props) =>
+      props.hasValue
+        ? props.theme.inputs.label.fontSizeMobile
+        : props.theme.inputs.fontSizeMobile};
+  }
 
   input:focus + &,
   textarea:focus + &,
@@ -81,6 +87,9 @@ const LabelText = styled('span')`
     );
     background-color: ${(props) => props.theme.inputs.bgColor};
     font-size: ${(props) => props.theme.inputs.label.fontSize};
+    @media (max-width: ${(props) => props.theme.breakpoints.mobile}) {
+      font-size: ${(props) => props.theme.inputs.label.fontSizeMobile};
+    }
   }
 
   ${(props) =>
@@ -94,7 +103,8 @@ const LabelText = styled('span')`
       ${props.theme.inputs.label.top}
     );
     background-color: ${props.theme.inputs.bgColor};
-    font-size: ${props.theme.inputs.label.fontSize};`
+    font-size: ${props.theme.inputs.label.fontSize};
+    `
       : ''}
 `
 
