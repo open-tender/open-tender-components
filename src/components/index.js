@@ -15,6 +15,7 @@ import CartErrors from './CartErrors'
 import Check from './Check'
 import CheckSummary from './CheckSummary'
 import Checkmark from './Checkmark'
+import CreditCard from './CreditCard'
 import DeliveryLink from './DeliveryLink'
 import Heading from './Heading'
 import Message from './Message'
@@ -93,7 +94,7 @@ import {
   Textarea,
 } from './inputs'
 
-import { useImage } from './hooks'
+import { useCreditCard, useImage } from './hooks'
 
 import { Recaptcha, useRecaptcha } from './recaptcha'
 
@@ -174,6 +175,7 @@ export {
   CheckoutTenders,
   CheckoutTender,
   CheckoutTip,
+  CreditCard,
   DeliveryLink,
   Heading,
   Message,
@@ -182,6 +184,7 @@ export {
   Tag,
   Text,
   useBuilder,
+  useCreditCard,
   useImage,
   Recaptcha,
   useRecaptcha,

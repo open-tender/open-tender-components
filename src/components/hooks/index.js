@@ -1,3 +1,4 @@
+import useCreditCard from './useCreditCard'
 import useImage from './useImage'
 
-export { useImage }
+export { useCreditCard, useImage }

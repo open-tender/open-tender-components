@@ -154,7 +154,7 @@ const Label = ({
             {required ? <LabelRequired>&nbsp;*</LabelRequired> : null}
           </LabelText>
         )}
-        <FormError errMsg={errMsg} style={{ paddingBottom: 0 }} />
+        <FormError errMsg={errMsg} />
       </LabelView>
     </>
   )

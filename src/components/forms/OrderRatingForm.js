@@ -1,6 +1,7 @@
 import React, { useRef, useState } from 'react'
 import propTypes from 'prop-types'
 import styled from '@emotion/styled'
+import { useTheme } from '@emotion/react'
 import { ButtonSubmit } from '..'
 import { FormInputs, FormSubmit, Textarea } from '../inputs'
 
@@ -29,6 +30,8 @@ const OrderRatingForm = ({
   const [rating, setRating] = useState(orderRating.rating || 0)
   const [comments, setComments] = useState(orderRating.comments || '')
   const stars = [1, 2, 3, 4, 5]
+  const theme = useTheme()
+  const fillColor = theme.links.primary.color
 
   const handleRating = (evt, star) => {
     evt.preventDefault()
@@ -53,6 +56,7 @@ const OrderRatingForm = ({
       <FormInputs>
         <OrderStars>
           {stars.map((star, index) => {
+            const filled = star <= rating
             return (
               <button
                 key={star}
@@ -60,19 +64,19 @@ const OrderRatingForm = ({
                 onClick={(evt) => handleRating(evt, star)}
                 aria-label={`Give ${index + 1} star rating`}
               >
-                <OrderStar filled={star <= rating}>{icon}</OrderStar>
+                <OrderStar filled={filled}>
+                  {icon(filled ? fillColor : 'none')}
+                </OrderStar>
               </button>
             )
           })}
         </OrderStars>
         <Textarea
-          label="Comments"
+          label="Comments (optional)"
           name="commments"
           value={comments}
           onChange={handleComments}
-          classes="form__input"
-          showLabel={false}
-          placeholder="add comments (optional)"
+          style={{ margin: '3rem 0 0' }}
         />
       </FormInputs>
       <FormSubmit>
