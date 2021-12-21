@@ -5,6 +5,9 @@ const useCreditCardForm = (
   windowRef,
   loading,
   error,
+  data,
+  cardType,
+  setErrors,
   addCard,
   callback,
   recaptchaKey
@@ -12,9 +15,6 @@ const useCreditCardForm = (
   const submitRef = useRef(null)
   const formRef = useRef(null)
   const recaptchaRef = useRef(null)
-  const [data, setData] = useState({})
-  const [cardType, setCardType] = useState('OTHER')
-  const [errors, setErrors] = useState({})
   const [submitting, setSubmitting] = useState(false)
 
   useEffect(() => {
@@ -28,7 +28,7 @@ const useCreditCardForm = (
         if (windowRef) windowRef.current.scrollTop = 0
       }
     }
-  }, [windowRef, loading, error])
+  }, [windowRef, loading, error, setErrors])
 
   const handleSubmit = (evt) => {
     evt.preventDefault()
@@ -72,9 +72,6 @@ const useCreditCardForm = (
     formRef,
     recaptchaRef,
     data,
-    errors,
-    setData,
-    setCardType,
     submitting,
     handleSubmit,
   }

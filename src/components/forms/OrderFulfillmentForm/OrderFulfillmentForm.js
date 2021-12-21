@@ -1,6 +1,6 @@
 import React from 'react'
 import propTypes from 'prop-types'
-import { ButtonSubmit } from '../../index'
+import { ButtonSubmit, Text } from '../..'
 import { FormInputs, FormSubmit, Input } from '../../inputs'
 import { useOrderFulfillmentForm } from '.'
 
@@ -41,7 +41,7 @@ const OrderFulfillmentForm = ({
             label={field.label}
             name={field.name}
             type="text"
-            placeholder={field.placeholder}
+            // placeholder={field.placeholder}
             value={data[field.name]}
             onChange={handleChange}
             error={errors[field.name]}
@@ -51,7 +51,9 @@ const OrderFulfillmentForm = ({
       </FormInputs>
       <FormSubmit>
         {data.has_arrived ? (
-          <p>{arrivedText}</p>
+          <Text color="alert" as="p">
+            {arrivedText}
+          </Text>
         ) : (
           <ButtonSubmit submitRef={submitRef} submitting={submitting}>
             {submitting ? 'Submitting' : settings.button}

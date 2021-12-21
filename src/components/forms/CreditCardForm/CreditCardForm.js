@@ -2,9 +2,8 @@ import React from 'react'
 import propTypes from 'prop-types'
 import ReCAPTCHA from 'react-google-recaptcha'
 
-import { ButtonSubmit } from '../..'
-import { FormError, FormSubmit } from '../../inputs'
-import { CreditCardInputs } from '..'
+import { ButtonSubmit, CreditCard, useCreditCard } from '../..'
+import { Checkbox, FormError, FormSubmit } from '../../inputs'
 import useCreditCardForm from './useCreditCardForm'
 
 const CreditCardForm = ({
@@ -16,25 +15,29 @@ const CreditCardForm = ({
   submitText = 'Add New Card',
   submittingText = 'Authorizing Card...',
   recaptchaKey,
+  cardIconMap = {},
 }) => {
   const {
-    submitRef,
-    formRef,
-    recaptchaRef,
     data,
+    cardType,
     errors,
-    setData,
-    setCardType,
-    submitting,
-    handleSubmit,
-  } = useCreditCardForm(
-    windowRef,
-    loading,
-    error,
-    addCard,
-    callback,
-    recaptchaKey
-  )
+    setErrors,
+    disabled,
+    handleChange,
+    handleBlur,
+  } = useCreditCard(null)
+  const { submitRef, formRef, recaptchaRef, submitting, handleSubmit } =
+    useCreditCardForm(
+      windowRef,
+      loading,
+      error,
+      data,
+      cardType,
+      setErrors,
+      addCard,
+      callback,
+      recaptchaKey
+    )
 
   return (
     <form
@@ -44,11 +47,21 @@ const CreditCardForm = ({
       noValidate
     >
       <FormError errMsg={errors.form} style={{ margin: '0 0 2rem' }} />
-      <CreditCardInputs
+      <CreditCard
         data={data}
-        update={setData}
-        setCardType={setCardType}
+        cardType={cardType}
         errors={errors}
+        handleChange={handleChange}
+        handleBlur={handleBlur}
+        disabled={disabled}
+        cardIconMap={cardIconMap}
+      />
+      <Checkbox
+        label="Set as Default Card"
+        id="is_default"
+        on={data.is_default}
+        onChange={handleChange}
+        disabled={disabled}
       />
       {recaptchaKey && <ReCAPTCHA ref={recaptchaRef} sitekey={recaptchaKey} />}
       <FormSubmit>
@@ -74,6 +87,7 @@ CreditCardForm.propTypes = {
     propTypes.node,
   ]),
   recaptchaKey: propTypes.string,
+  cardIconMap: propTypes.object,
 }
 
 export default CreditCardForm

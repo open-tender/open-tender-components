@@ -1,7 +1,7 @@
 import React from 'react'
 import propTypes from 'prop-types'
 import styled from '@emotion/styled'
-import { FormRow, Label } from '.'
+import { Label } from '.'
 
 const CheckboxInput = styled('input')`
   position: absolute;
@@ -57,7 +57,7 @@ const CheckboxView = styled('span')`
     width: 1.3rem;
     height: 0.7rem;
     background: transparent;
-    top: 0.5rem;
+    top: 0.4rem;
     left: 0.4rem;
     border-width: 0.2rem;
     border-style: solid;
@@ -83,6 +83,7 @@ const CheckboxView = styled('span')`
 
 const CheckboxDescription = styled('span')`
   display: block;
+  color: ${(props) => props.theme.inputs.placeholderColor};
   line-height: ${(props) => props.theme.lineHeight};
   font-size: ${(props) => props.theme.fonts.sizes[props.fontSize || 'main']};
   @media (max-width: ${(props) => props.theme.breakpoints.mobile}) {
@@ -101,32 +102,30 @@ const Checkbox = ({
   description,
 }) => {
   return (
-    <FormRow
+    <Label
       htmlFor={id}
-      isInput={true}
       style={{ cursor: 'pointer' }}
       label={showLabel && <Label text={label} required={required} />}
-      input={
-        <CheckboxContainer>
-          <CheckboxInput
-            aria-label={label}
-            id={id}
-            type="checkbox"
-            checked={on}
-            disabled={disabled}
-            onChange={onChange}
-          />
-          <CheckboxView />
-          {label && !showLabel ? (
-            <CheckboxDescription>{label}</CheckboxDescription>
-          ) : description ? (
-            <CheckboxDescription fontSize="small">
-              {description}
-            </CheckboxDescription>
-          ) : null}
-        </CheckboxContainer>
-      }
-    />
+    >
+      <CheckboxContainer>
+        <CheckboxInput
+          aria-label={label}
+          id={id}
+          type="checkbox"
+          checked={on}
+          disabled={disabled}
+          onChange={onChange}
+        />
+        <CheckboxView />
+        {label && !showLabel ? (
+          <CheckboxDescription>{label}</CheckboxDescription>
+        ) : description ? (
+          <CheckboxDescription fontSize="small">
+            {description}
+          </CheckboxDescription>
+        ) : null}
+      </CheckboxContainer>
+    </Label>
   )
 }
 

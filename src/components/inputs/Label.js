@@ -61,12 +61,12 @@ const LabelText = styled('span')`
   font-family: ${(props) => props.theme.inputs.family};
   letter-spacing: ${(props) => props.theme.inputs.letterSpacing};
   text-transform: ${(props) => props.theme.inputs.textTransform};
-  font-smoothing: ${(props) => props.theme.inputs.fontSmoothing};
+  -webkit-font-smoothing: ${(props) => props.theme.inputs.fontSmoothing};
   color: ${(props) =>
     props.hasError
       ? props.theme.colors.error
       : props.theme.inputs.placeholderColor};
-  transition: all 0.1s cubic-bezier(0.17, 0.67, 0.12, 1);
+  transition: all 0.2s cubic-bezier(0.17, 0.67, 0.12, 1);
   @media (max-width: ${(props) => props.theme.breakpoints.mobile}) {
     font-size: ${(props) =>
       props.hasValue
@@ -85,6 +85,7 @@ const LabelText = styled('span')`
       ${(props) => props.theme.inputs.label.left},
       ${(props) => props.theme.inputs.label.top}
     );
+    color: ${(props) => props.theme.inputs.colorFocus};
     background-color: ${(props) => props.theme.inputs.bgColor};
     font-size: ${(props) => props.theme.inputs.label.fontSize};
     @media (max-width: ${(props) => props.theme.breakpoints.mobile}) {
