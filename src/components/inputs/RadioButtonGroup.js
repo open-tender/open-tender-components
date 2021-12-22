@@ -1,25 +1,50 @@
 import React from 'react'
 import propTypes from 'prop-types'
 import styled from '@emotion/styled'
-import { FormRow, Label } from '.'
+
+const RadioButtonGroupView = styled('div')`
+  margin: 0 0 2rem;
+`
+
+const RadioButtonGroupLabel = styled('div')`
+  // padding: ${(props) => props.theme.inputs.padding};
+  line-height: ${(props) => props.theme.inputs.lineHeight};
+  font-size: ${(props) => props.theme.inputs.fontSize};
+  font-family: ${(props) => props.theme.inputs.family};
+  letter-spacing: ${(props) => props.theme.inputs.letterSpacing};
+  text-transform: ${(props) => props.theme.inputs.textTransform};
+  -webkit-font-smoothing: ${(props) => props.theme.inputs.fontSmoothing};
+  color: ${(props) => props.theme.inputs.placeholderColor};
+  @media (max-width: ${(props) => props.theme.breakpoints.mobile}) {
+    font-size: ${(props) => props.theme.inputs.fontSizeMobile};
+  }
+
+  & > span {
+    color: ${(props) => props.theme.colors.error};
+  }
+`
+
+const RadioButtonGroupComment = styled('span')`
+  display: block;
+  margin: 0.5rem 0 0;
+  font-size: ${(props) => props.theme.fonts.sizes.small};
+  @media (max-width: ${(props) => props.theme.breakpoints.mobile}) {
+    font-size: ${(props) => props.theme.fonts.sizes.xSmall};
+  }
+`
 
 const RadioGroupView = styled('span')`
   width: 100%;
+  margin: 1.5rem 0 0;
   display: flex;
-  flex-direction: column;
+  justify-content: flex-start;
+  align-items: center;
+  flex-wrap: wrap;
 
-  > span {
-    width: 100%;
-    display: flex;
-    justify-content: flex-start;
-    align-items: center;
-    flex-wrap: wrap;
-
-    &:first-of-type {
-      @media (max-width: ${(props) => props.theme.breakpoints.mobile}) {
-        flex-direction: column;
-        align-items: flex-start;
-      }
+  &:first-of-type {
+    @media (max-width: ${(props) => props.theme.breakpoints.mobile}) {
+      flex-direction: column;
+      align-items: flex-start;
     }
   }
 `
@@ -71,10 +96,11 @@ const RadioButtonView = styled('span')`
   input:checked + &:before {
     content: '';
     position: absolute;
-    top: 0.4rem;
-    left: 0.4rem;
+    top: 50%;
+    left: 50%;
     width: 1.6rem;
     height: 1.6rem;
+    margin: -0.8rem 0 0 -0.8rem;
     border-radius: 100%;
     background-color: ${(props) => props.theme.inputs.color};
   }
@@ -84,14 +110,6 @@ const RadioButtonDescription = styled('span')`
   display: block;
   margin: 0 0 0 0.8rem;
   font-size: ${(props) => props.theme.fonts.sizes.small};
-`
-
-const RadioButtonComment = styled('span')`
-  display: block;
-  font-size: ${(props) => props.theme.fonts.sizes.small};
-  @media (max-width: ${(props) => props.theme.breakpoints.mobile}) {
-    font-size: ${(props) => props.theme.fonts.sizes.xSmall};
-  }
 `
 
 const RadioButton = ({ option, name, value, onChange }) => {
@@ -131,30 +149,30 @@ const RadioButtonGroup = ({
   description,
 }) => {
   return (
-    <FormRow
-      as="div"
-      isInput={true}
-      style={{ cursor: 'pointer' }}
-      label={showLabel && <Label text={label} required={required} />}
-      input={
-        <RadioGroupView>
-          <span>
-            {options.map((option) => (
-              <RadioButton
-                key={option.value}
-                option={option}
-                name={name}
-                value={value}
-                onChange={onChange}
-              />
-            ))}
-          </span>
+    <RadioButtonGroupView>
+      {showLabel && (
+        <>
+          <RadioButtonGroupLabel>
+            {label}
+            {required && <span> *</span>}
+          </RadioButtonGroupLabel>
           {description && description.length && (
-            <RadioButtonComment>{description}</RadioButtonComment>
+            <RadioButtonGroupComment>{description}</RadioButtonGroupComment>
           )}
-        </RadioGroupView>
-      }
-    />
+        </>
+      )}
+      <RadioGroupView>
+        {options.map((option) => (
+          <RadioButton
+            key={option.value}
+            option={option}
+            name={name}
+            value={value}
+            onChange={onChange}
+          />
+        ))}
+      </RadioGroupView>
+    </RadioButtonGroupView>
   )
 }
 
