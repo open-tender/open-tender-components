@@ -9,7 +9,7 @@ const PointsView = styled('span')`
   border-radius: 1em;
   line-height: 1;
   font-size: ${(props) => props.theme.fonts.sizes[props.size]};
-  background-color: ${(props) => props.theme.bgColors.tertiary};
+  background-color: ${(props) => props.theme.bgColors[props.bgColor]};
   @media (max-width: ${(props) => props.theme.breakpoints.mobile}) {
     font-size: ${(props) => props.theme.fonts.sizes[props.sizeMobile]};
   }
@@ -20,34 +20,46 @@ const PointsView = styled('span')`
     align-items: center;
     height: 100%;
 
-    span {
-      margin: 0;
-    }
+    // span {
+    //   margin: 0;
+    // }
 
-    span + span {
-      margin: 0 0 0 0.4rem;
-    }
+    // span + span {
+    //   margin: 0 0 0 0.4rem;
+    // }
   }
 `
 
 const PointsTitle = styled('span')`
   display: block;
-  color: ${(props) => props.theme.colors.primary};
+  color: ${(props) => props.theme.colors[props.color]};
+  line-height: 1;
+  margin: 0.1rem 0 0;
 `
 
 const PointsIcon = styled('span')`
   display: block;
   width: ${(props) => props.theme.fonts.sizes[props.size]};
   height: ${(props) => props.theme.fonts.sizes[props.size]};
-  color: ${(props) => props.theme.colors.primary};
+  color: ${(props) => props.theme.colors[props.color]};
+  margin: 0 0 0 0.4rem;
 `
 
-const Points = ({ points, icon, size = 'small', sizeMobile = 'xSmall' }) => {
+const Points = ({
+  points,
+  icon,
+  size = 'small',
+  sizeMobile = 'xSmall',
+  color = 'primary',
+  bgColor = 'tertiary',
+}) => {
   return (
-    <PointsView size={size} sizeMobile={sizeMobile}>
+    <PointsView size={size} sizeMobile={sizeMobile} bgColor={bgColor}>
       <span>
-        <PointsTitle>{points}</PointsTitle>
-        <PointsIcon size={size}>{icon}</PointsIcon>
+        <PointsTitle color={color}>{points}</PointsTitle>
+        <PointsIcon size={size} color={color}>
+          {icon}
+        </PointsIcon>
       </span>
     </PointsView>
   )
@@ -59,6 +71,8 @@ Points.propTypes = {
   icon: propTypes.element,
   size: propTypes.string,
   sizeMobile: propTypes.string,
+  color: propTypes.string,
+  bgColor: propTypes.string,
 }
 
 export default Points

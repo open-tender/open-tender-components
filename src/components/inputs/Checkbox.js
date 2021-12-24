@@ -104,8 +104,10 @@ const Checkbox = ({
   return (
     <Label
       htmlFor={id}
+      text={label}
+      showLabel={showLabel}
+      required={required}
       style={{ cursor: 'pointer' }}
-      label={showLabel && <Label text={label} required={required} />}
     >
       <CheckboxContainer>
         <CheckboxInput

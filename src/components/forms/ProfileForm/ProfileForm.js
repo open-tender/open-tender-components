@@ -72,13 +72,15 @@ const ProfileForm = ({
         {accepts_marketing && (
           <>
             <Checkbox
-              showLabel={true}
+              showLabel={false}
               required={true}
-              label={accepts_marketing.title}
+              // label={accepts_marketing.description || accepts_marketing.title}
               id="accepts_marketing"
               on={data.accepts_marketing}
               onChange={handleChange}
-              description={accepts_marketing.description}
+              description={
+                accepts_marketing.description || accepts_marketing.title
+              }
               classes="-input"
             />
           </>

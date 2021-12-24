@@ -8,11 +8,15 @@ const CartSummaryView = styled('div')`
   z-index: 2;
 `
 
-const CartSummary = ({ cart }) => {
+const CartSummary = ({ cart, pointsObj }) => {
   return (
     <CartSummaryView>
       {cart.map((item, index) => (
-        <CartSummaryItem key={`${item.id}-${index}`} item={item} />
+        <CartSummaryItem
+          key={`${item.id}-${index}`}
+          item={item}
+          pointsObj={pointsObj}
+        />
       ))}
     </CartSummaryView>
   )
@@ -21,6 +25,7 @@ const CartSummary = ({ cart }) => {
 CartSummary.displayName = 'CartSummary'
 CartSummary.propTypes = {
   cart: propTypes.array,
+  pointsObj: propTypes.object,
 }
 
 export default CartSummary

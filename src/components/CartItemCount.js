@@ -5,10 +5,6 @@ import styled from '@emotion/styled'
 const CartItemCountView = styled('div')`
   position: absolute;
   z-index: 3;
-  // top: -1.1rem;
-  // right: -1.1rem;
-  // min-width: 2.4rem;
-  // height: 2.4rem;
   top: -1rem;
   right: -0.9rem;
   min-width: 2.2rem;
