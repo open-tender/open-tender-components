@@ -1,4 +1,5 @@
 import { useRef, useState, useEffect } from 'react'
+import { makePhone } from '@open-tender/js'
 
 const useSignUpForm = (
   loading,
@@ -87,7 +88,8 @@ const useSignUpForm = (
 
   const handleChange = (evt) => {
     const { id, type, value, checked } = evt.target
-    const inputValue = type === 'checkbox' ? checked : value
+    const inputValue =
+      type === 'checkbox' ? checked : id === 'phone' ? makePhone(value) : value
     setData({ ...data, [id]: inputValue })
   }
 

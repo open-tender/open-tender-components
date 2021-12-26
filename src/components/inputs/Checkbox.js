@@ -105,7 +105,7 @@ const Checkbox = ({
     <Label
       htmlFor={id}
       text={label}
-      showLabel={showLabel}
+      showLabel={false}
       required={required}
       style={{ cursor: 'pointer' }}
     >
