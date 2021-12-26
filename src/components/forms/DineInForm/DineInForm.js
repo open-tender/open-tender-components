@@ -2,14 +2,12 @@ import React from 'react'
 import propTypes from 'prop-types'
 import { ButtonSubmit } from '../../index'
 import { FormError, FormInputs, FormSubmit, Input } from '../../inputs'
-import useGuestForm from './useGuestForm'
+import useDineInForm from './useDineInForm'
 
-const GuestForm = ({
-  email,
-  loading,
-  errors,
-  checkGuest,
-  submitText = 'Submit Email',
+const DineInForm = ({
+  initialData,
+  submitGuest,
+  submitText = 'Submit Name',
 }) => {
   const {
     submitRef,
@@ -19,18 +17,26 @@ const GuestForm = ({
     submitting,
     handleChange,
     handleSubmit,
-  } = useGuestForm(email, loading, errors, checkGuest)
+  } = useDineInForm(initialData, submitGuest)
 
   return (
-    <form id="guest-form" onSubmit={handleSubmit} noValidate>
+    <form id="dine-in-form" onSubmit={handleSubmit} noValidate>
       <FormError errMsg={errMsg} style={{ margin: '0 0 2rem' }} />
       <FormInputs>
         <Input
           ref={inputRef}
-          label="Email"
-          name="email"
-          type="email"
-          value={data.email}
+          label="First Name"
+          name="first_name"
+          type="text"
+          value={data.first_name}
+          onChange={handleChange}
+          required={true}
+        />
+        <Input
+          label="Last Name"
+          name="last_name"
+          type="text"
+          value={data.last_name}
           onChange={handleChange}
           required={true}
         />
@@ -44,13 +50,11 @@ const GuestForm = ({
   )
 }
 
-GuestForm.displayName = 'GuestForm'
-GuestForm.propTypes = {
-  email: propTypes.string,
-  loading: propTypes.string,
-  errors: propTypes.object,
-  checkGuest: propTypes.func,
+DineInForm.displayName = 'DineInForm'
+DineInForm.propTypes = {
+  initialData: propTypes.object,
+  submitGuest: propTypes.func,
   submitText: propTypes.string,
 }
 
-export default GuestForm
+export default DineInForm

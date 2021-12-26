@@ -3,6 +3,7 @@ import AllergenForm, { useAllergenForm } from './AllergenForm'
 import CartGuestForm, { useCartGuestForm } from './CartGuestForm'
 import CreditCardForm, { useCreditCardForm } from './CreditCardForm'
 import CreditCardInputs from './CreditCardInputs'
+import DineInForm, { useDineInForm } from './DineInForm'
 import DonationForm from './DonationForm'
 import GiftCardForm, { useGiftCardForm } from './GiftCardForm'
 import GiftCardAssignForm, { useGiftCardAssignForm } from './GiftCardAssignForm'
@@ -30,6 +31,7 @@ export {
   CartGuestForm,
   CreditCardForm,
   CreditCardInputs,
+  DineInForm,
   DonationForm,
   GiftCardForm,
   GiftCardAssignForm,
@@ -50,6 +52,7 @@ export {
   useAllergenForm,
   useCartGuestForm,
   useCreditCardForm,
+  useDineInForm,
   useGiftCardForm,
   useGiftCardAssignForm,
   useGiftCardAssignOtherForm,

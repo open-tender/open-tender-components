@@ -126,6 +126,7 @@ const CartSummaryItem = ({ item, pointsObj }) => {
   const price = formatDollars(item.totalPrice)
   const mods = makeModifierNames(item)
   const points = item.points
+  const icon = pointsObj ? pointsObj.icon : null
   const applied = pointsObj
     ? pointsObj.applied.find((i) => i.index === item.index) || {}
     : {}
@@ -173,7 +174,7 @@ const CartSummaryItem = ({ item, pointsObj }) => {
                     bgColor="dark"
                     size="xSmall"
                     points={points.per}
-                    icon={pointsObj.icon}
+                    icon={icon}
                   />
                 </CartSummaryItemPointsApply>
                 {quantityApplied && (
