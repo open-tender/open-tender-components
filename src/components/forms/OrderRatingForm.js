@@ -1,7 +1,6 @@
 import React, { useRef, useState } from 'react'
 import propTypes from 'prop-types'
 import styled from '@emotion/styled'
-import { useTheme } from '@emotion/react'
 import { ButtonSubmit } from '..'
 import { FormInputs, FormSubmit, Textarea } from '../inputs'
 
@@ -10,13 +9,25 @@ const OrderStars = styled('div')`
   margin: 0.25rem 0 0.5rem;
 `
 
-const OrderStar = styled('span')`
+const OrderStar = styled('button')`
   display: block;
   margin: 0 0.5rem 0 0;
   width: 2rem;
   height: 2rem;
-  ${(props) =>
-    props.filled ? `color: ${props.theme.links.primary.color}` : null}
+  color: ${(props) => props.theme.colors.primary};
+
+  svg {
+    fill: ${(props) => (props.filled ? props.theme.colors.primary : null)};
+  }
+
+  &:hover {
+    color: ${(props) => props.theme.links.primary.color};
+
+    svg {
+      fill: ${(props) =>
+        props.filled ? props.theme.links.primary.color : null};
+    }
+  }
 `
 
 const OrderRatingForm = ({
@@ -30,8 +41,6 @@ const OrderRatingForm = ({
   const [rating, setRating] = useState(orderRating.rating || 0)
   const [comments, setComments] = useState(orderRating.comments || '')
   const stars = [1, 2, 3, 4, 5]
-  const theme = useTheme()
-  const fillColor = theme.links.primary.color
 
   const handleRating = (evt, star) => {
     evt.preventDefault()
@@ -58,16 +67,15 @@ const OrderRatingForm = ({
           {stars.map((star, index) => {
             const filled = star <= rating
             return (
-              <button
+              <OrderStar
                 key={star}
                 type="button"
                 onClick={(evt) => handleRating(evt, star)}
                 aria-label={`Give ${index + 1} star rating`}
+                filled={filled}
               >
-                <OrderStar filled={filled}>
-                  {icon(filled ? fillColor : 'none')}
-                </OrderStar>
-              </button>
+                {icon}
+              </OrderStar>
             )
           })}
         </OrderStars>

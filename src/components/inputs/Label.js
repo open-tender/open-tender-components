@@ -7,7 +7,7 @@ const LabelView = styled('label')`
   position: relative;
   display: block;
   width: 100%;
-  margin: 0 0 2rem;
+  margin: 0 0 2.5rem;
   -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
 
   input,

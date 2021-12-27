@@ -58,7 +58,7 @@ const BuilderOptionImage = styled(BgImage)`
   width: 6rem;
   min-width: 6rem;
   height: 6rem;
-  background-color: ${(props) => props.theme.bgColors.secondary};
+  background-color: ${(props) => props.theme.bgColors.tertiary};
   border-radius: ${(props) => props.theme.border.radiusSmall};
 `
 

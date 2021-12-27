@@ -10,6 +10,7 @@ import ButtonToggleGroup from './ButtonToggleGroup'
 import CartItem from './CartItem'
 import CartItemCount from './CartItemCount'
 import CartSummary from './CartSummary'
+import { CartSummaryItem } from './CartSummary'
 import CartCounts from './CartCounts'
 import CartErrors from './CartErrors'
 import Check from './Check'
@@ -145,6 +146,7 @@ export {
   CartItem,
   CartItemCount,
   CartSummary,
+  CartSummaryItem,
   CartCounts,
   CartErrors,
   Check,
