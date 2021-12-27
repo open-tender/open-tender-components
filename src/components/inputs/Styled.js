@@ -19,7 +19,7 @@ export const FormInputs = styled('div')`
 `
 
 export const FormSubmit = styled('div')`
-  margin: 1.5rem 0 0;
+  margin: 3rem 0 0;
   text-align: center;
 
   button + button {

@@ -23,7 +23,13 @@ const CheckSummaryView = styled('div')`
   }
 `
 
-const CheckSummary = ({ check, tenders, loader, updating = false }) => {
+const CheckSummary = ({
+  check,
+  tenders,
+  loader,
+  updating = false,
+  showTenders = true,
+}) => {
   const {
     gift_cards = [],
     surcharges = [],
@@ -87,7 +93,7 @@ const CheckSummary = ({ check, tenders, loader, updating = false }) => {
         <CheckSummaryItem label="Shipping" value={shipping} />
       )}
       <CheckSummaryTotal label="Total" value={total} />
-      {tenders.length ? (
+      {showTenders && tenders.length ? (
         <>
           {tenders.map((tender, index) => (
             <CheckSummaryItem
@@ -109,16 +115,11 @@ const CheckSummary = ({ check, tenders, loader, updating = false }) => {
 
 CheckSummary.displayName = 'CheckSummary'
 CheckSummary.propTypes = {
-  title: propTypes.string,
   check: propTypes.object,
   tenders: propTypes.array,
   loader: propTypes.element,
-  form: propTypes.object,
-  updateForm: propTypes.func,
-  showPoints: propTypes.bool,
-  pointsIcon: propTypes.element,
   updating: propTypes.bool,
-  showCart: propTypes.bool,
+  showTenders: propTypes.bool,
 }
 
 export default CheckSummary
