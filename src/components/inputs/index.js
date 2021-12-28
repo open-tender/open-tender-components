@@ -17,6 +17,7 @@ import {
   FormInputs,
   FormFieldset,
   FormHeader,
+  FormRecaptcha,
   FormSubmit,
   FormWrapper,
 } from './Styled'
@@ -31,6 +32,7 @@ export {
   FormInputs,
   FormLegend,
   FormRow,
+  FormRecaptcha,
   FormSubmit,
   FormWrapper,
   Input,

@@ -1,4 +1,4 @@
-import { useRef, useState, useEffect } from 'react'
+import { useMemo, useRef, useState, useEffect } from 'react'
 import { validateCreditCard } from '@open-tender/js'
 
 const useGiftCardsForm = (
@@ -11,7 +11,9 @@ const useGiftCardsForm = (
   customer = {},
   creditCards = [],
   recaptchaKey = null,
-  initState
+  initState,
+  cardData,
+  cardType
 ) => {
   const submitRef = useRef(null)
   const inputRef = useRef(null)
@@ -22,11 +24,19 @@ const useGiftCardsForm = (
   const [cards, setCards] = useState([initState])
   const [isNewCard, setIsNewCard] = useState(true)
   const [creditCard, setCreditCard] = useState({})
-  const [cardType, setCardType] = useState(null)
   const [creditCardOptions, setCreditCardOptions] = useState([])
   const [errors, setErrors] = useState({})
   const [submitting, setSubmitting] = useState(false)
   const url = window.location.origin
+  const newCardErrors = useMemo(
+    () =>
+      errors
+        ? Object.entries(errors)
+            .filter(([key]) => key !== 'form')
+            .reduce((obj, [key, value]) => ({ ...obj, [key]: value }), {})
+        : {},
+    [errors]
+  )
 
   useEffect(() => {
     if (loading === 'idle') {
@@ -153,7 +163,7 @@ const useGiftCardsForm = (
       window.scrollTo(0, 0)
     } else {
       if (isNewCard) {
-        const { card, errors } = validateCreditCard(creditCard, cardType)
+        const { card, errors } = validateCreditCard(cardData, cardType)
         if (errors) {
           setErrors({
             ...errors,
@@ -182,8 +192,6 @@ const useGiftCardsForm = (
     inputRef,
     submitRef,
     recaptchaRef,
-    cardType,
-    setCardType,
     creditCardOptions,
     handleName,
     handleEmail,
@@ -197,6 +205,7 @@ const useGiftCardsForm = (
     email,
     cards,
     isNewCard,
+    newCardErrors,
     creditCard,
     setCreditCard,
     errors,

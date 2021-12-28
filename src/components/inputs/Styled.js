@@ -62,3 +62,8 @@ export const FormHeader = styled('div')`
     }
   }
 `
+
+export const FormRecaptcha = styled.div`
+  display: flex;
+  justify-content: center;
+`

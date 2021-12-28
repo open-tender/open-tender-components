@@ -31,11 +31,11 @@ const FormLegendSubtitle = styled('p')`
   }
 `
 
-const FormLegend = ({ title, subtitle, as = 'legend' }) => {
+const FormLegend = ({ title, subtitle, as = 'legend', style }) => {
   const legendTitle =
     title && isString(title) ? <Heading size="h3">{title}</Heading> : title
   return (
-    <FormLegendView as={as}>
+    <FormLegendView as={as} style={style}>
       {legendTitle && <FormLegendTitle>{legendTitle}</FormLegendTitle>}
       {subtitle && <FormLegendSubtitle>{subtitle}</FormLegendSubtitle>}
     </FormLegendView>
@@ -57,6 +57,7 @@ FormLegend.propTypes = {
     propTypes.object,
   ]),
   as: propTypes.string,
+  style: propTypes.object,
 }
 
 export default FormLegend

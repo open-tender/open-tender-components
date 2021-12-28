@@ -42,6 +42,7 @@ const CreditCard = ({
   disabled = false,
   cardIconMap,
 }) => {
+  const cardImg = cardIconMap[cardType]
   return (
     <CreditCardView>
       <Input
@@ -57,9 +58,9 @@ const CreditCard = ({
         error={errors.acct}
         disabled={disabled}
       >
-        {!errors.acct && (
+        {!errors.acct && cardImg && (
           <CreditCardType>
-            <img src={cardIconMap[cardType]} alt={cardType} />
+            <img src={cardImg} alt={cardType} />
           </CreditCardType>
         )}
       </Input>

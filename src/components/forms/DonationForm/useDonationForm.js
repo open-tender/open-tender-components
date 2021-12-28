@@ -10,7 +10,9 @@ const useDonationsForm = (
   success,
   customer,
   creditCards,
-  recaptchaKey
+  recaptchaKey,
+  cardData,
+  cardType
 ) => {
   const submitRef = useRef(null)
   const inputRef = useRef(null)
@@ -20,7 +22,6 @@ const useDonationsForm = (
   const [isNewCard, setIsNewCard] = useState(true)
   const [creditCard, setCreditCard] = useState({})
   const [creditCardOptions, setCreditCardOptions] = useState([])
-  const [cardType, setCardType] = useState(null)
   const [errors, setErrors] = useState({})
   const [submitting, setSubmitting] = useState(false)
   const errMsg =
@@ -122,7 +123,7 @@ const useDonationsForm = (
       window.scrollTo(0, 0)
     } else {
       if (isNewCard) {
-        const { card, errors } = validateCreditCard(creditCard, cardType)
+        const { card, errors } = validateCreditCard(cardData, cardType)
         if (errors) {
           setErrors({
             ...errors,
@@ -134,7 +135,6 @@ const useDonationsForm = (
           purchaseWithCaptcha(card)
         }
       } else {
-        // purchase({ amount, email, credit_card: creditCard })
         purchaseWithCaptcha(creditCard)
       }
       submitRef.current.blur()
@@ -161,8 +161,6 @@ const useDonationsForm = (
     isNewCard,
     creditCard,
     creditCardOptions,
-    setCreditCard,
-    setCardType,
     handleCreditCard,
     handleSubmit,
     handleReset,

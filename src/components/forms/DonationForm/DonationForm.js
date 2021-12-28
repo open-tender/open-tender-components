@@ -1,13 +1,19 @@
 import React from 'react'
 import propTypes from 'prop-types'
 import ReCAPTCHA from 'react-google-recaptcha'
-import { CreditCardInputs } from '..'
-import { ButtonStyled, ButtonSubmit, Input } from '../..'
+import {
+  ButtonStyled,
+  ButtonSubmit,
+  CreditCard,
+  Input,
+  useCreditCard,
+} from '../..'
 import {
   FormError,
   FormFieldset,
   FormInputs,
   FormLegend,
+  FormRecaptcha,
   FormSubmit,
   Select,
 } from '../../inputs'
@@ -29,7 +35,16 @@ const DonationForm = ({
   customer,
   creditCards = [],
   recaptchaKey = null,
+  cardIconMap = {},
 }) => {
+  const {
+    data: cardData,
+    cardType,
+    errors: cardErrors,
+    disabled,
+    handleChange,
+    handleBlur,
+  } = useCreditCard(null)
   const {
     inputRef,
     submitRef,
@@ -45,8 +60,6 @@ const DonationForm = ({
     isNewCard,
     creditCard,
     creditCardOptions,
-    setCreditCard,
-    setCardType,
     handleCreditCard,
     handleSubmit,
     handleReset,
@@ -59,8 +72,11 @@ const DonationForm = ({
     success,
     customer,
     creditCards,
-    recaptchaKey
+    recaptchaKey,
+    cardData,
+    cardType
   )
+  const allCardErrors = { ...cardErrors, ...newCardErrors }
 
   return success ? (
     <FormFieldset>
@@ -69,6 +85,7 @@ const DonationForm = ({
         title="Success! Please check your email for your receipt."
         subtitle={`Thanks for your contribution of $${donation.amount}. We really
             appreciate it.`}
+        style={{ textAlign: 'center' }}
       />
       <FormSubmit>
         <ButtonStyled onClick={handleReset}>
@@ -138,17 +155,22 @@ const DonationForm = ({
                 title="Add your payment information"
                 subtitle="Please enter your payment info below."
               />
-              <CreditCardInputs
-                data={creditCard}
-                update={setCreditCard}
-                setCardType={setCardType}
-                errors={newCardErrors}
+              <CreditCard
+                data={cardData}
+                cardType={cardType}
+                errors={allCardErrors}
+                handleChange={handleChange}
+                handleBlur={handleBlur}
+                disabled={disabled}
+                cardIconMap={cardIconMap}
               />
             </>
           )}
-          {recaptchaKey && (
-            <ReCAPTCHA ref={recaptchaRef} sitekey={recaptchaKey} />
-          )}
+          <FormRecaptcha>
+            {recaptchaKey && (
+              <ReCAPTCHA ref={recaptchaRef} sitekey={recaptchaKey} />
+            )}
+          </FormRecaptcha>
           <FormSubmit style={{ margin: '3rem 0 0' }}>
             <ButtonSubmit submitRef={submitRef} submitting={submitting}>
               {submitting ? 'Submitting...' : 'Submit Contribution'}
@@ -172,6 +194,7 @@ DonationForm.propTypes = {
   customer: propTypes.object,
   creditCards: propTypes.array,
   recaptchaKey: propTypes.string,
+  cardIconMap: propTypes.object,
 }
 
 export default DonationForm

@@ -1,14 +1,20 @@
-import React, { useMemo } from 'react'
+import React from 'react'
 import propTypes from 'prop-types'
 import styled from '@emotion/styled'
 import ReCAPTCHA from 'react-google-recaptcha'
-import { CreditCardInputs } from '..'
-import { ButtonStyled, ButtonSubmit, Input } from '../..'
+import {
+  ButtonStyled,
+  ButtonSubmit,
+  CreditCard,
+  Input,
+  useCreditCard,
+} from '../..'
 import {
   FormError,
   FormFieldset,
   FormLegend,
   FormInputs,
+  FormRecaptcha,
   FormSubmit,
   Quantity,
   SelectOnly,
@@ -43,6 +49,11 @@ const GiftCardsRow = styled('div')`
   }
 `
 
+const GiftCardsTable = styled('table')`
+  font-size: ${(props) => props.theme.fonts.sizes.small};
+  margin: 0 0 3rem;
+`
+
 const GiftCardsForm = ({
   purchase,
   reset,
@@ -55,6 +66,7 @@ const GiftCardsForm = ({
   customer = {},
   creditCards = [],
   recaptchaKey = null,
+  cardIconMap = {},
 }) => {
   const amounts = ['10.00', '25.00', '50.00', '100.00', '500.00']
   const options = amounts.map((i) => ({
@@ -63,11 +75,19 @@ const GiftCardsForm = ({
   }))
   const initState = { amount: '10.00', quantity: 1, email: '' }
   const {
+    data: cardData,
+    cardType,
+    errors: cardErrors,
+    disabled,
+    handleChange: handleCardChange,
+    handleBlur,
+  } = useCreditCard(null)
+  const {
     formRef,
     inputRef,
     submitRef,
     recaptchaRef,
-    setCardType,
+    creditCard,
     creditCardOptions,
     handleName,
     handleEmail,
@@ -81,8 +101,7 @@ const GiftCardsForm = ({
     email,
     cards,
     isNewCard,
-    creditCard,
-    setCreditCard,
+    newCardErrors,
     errors,
     submitting,
   } = useGiftCardForm(
@@ -95,21 +114,15 @@ const GiftCardsForm = ({
     customer,
     creditCards,
     recaptchaKey,
-    initState
+    initState,
+    cardData,
+    cardType
   )
   const errMsg =
     errors.form && errors.form.includes('parameters')
       ? 'There are one or more errors below'
       : errors.form || null
-  const newCardErrors = useMemo(
-    () =>
-      errors
-        ? Object.entries(errors)
-            .filter(([key]) => key !== 'form')
-            .reduce((obj, [key, value]) => ({ ...obj, [key]: value }), {})
-        : {},
-    [errors]
-  )
+  const allCardErrors = { ...cardErrors, ...newCardErrors }
 
   return success ? (
     <FormFieldset>
@@ -118,9 +131,10 @@ const GiftCardsForm = ({
         title="Success! Please check your email for your receipt and assigned gift
           cards."
         subtitle="Below is the list of gift cards you purchased."
+        style={{ textAlign: 'center' }}
       />
       {purchasedCards && (
-        <table style={{ margin: '0 0 3rem' }}>
+        <GiftCardsTable>
           <thead>
             <tr>
               <th>Card Number</th>
@@ -137,7 +151,7 @@ const GiftCardsForm = ({
               </tr>
             ))}
           </tbody>
-        </table>
+        </GiftCardsTable>
       )}
       <FormSubmit>
         <ButtonStyled onClick={handleReset}>
@@ -229,7 +243,10 @@ const GiftCardsForm = ({
                     />
                   </span>
                 </GiftCardsRow>
-                <FormError errMsg={errors[`gift_cards.${index}.email`]} />
+                <FormError
+                  errMsg={errors[`gift_cards.${index}.email`]}
+                  style={{ margin: '-1rem 0 2rem' }}
+                />
               </>
             ))}
             <GiftCardsRow>
@@ -271,17 +288,22 @@ const GiftCardsForm = ({
                 title="Add your payment information"
                 subtitle="Please enter your payment info below."
               />
-              <CreditCardInputs
-                data={creditCard}
-                update={setCreditCard}
-                setCardType={setCardType}
-                errors={newCardErrors}
+              <CreditCard
+                data={cardData}
+                cardType={cardType}
+                errors={allCardErrors}
+                handleChange={handleCardChange}
+                handleBlur={handleBlur}
+                disabled={disabled}
+                cardIconMap={cardIconMap}
               />
             </>
           )}
-          {recaptchaKey && (
-            <ReCAPTCHA ref={recaptchaRef} sitekey={recaptchaKey} />
-          )}
+          <FormRecaptcha>
+            {recaptchaKey && (
+              <ReCAPTCHA ref={recaptchaRef} sitekey={recaptchaKey} />
+            )}
+          </FormRecaptcha>
           <FormSubmit>
             <ButtonSubmit submitRef={submitRef} submitting={submitting}>
               {submitting ? 'Submitting...' : 'Purchase Gift Cards'}
@@ -306,6 +328,7 @@ GiftCardsForm.propTypes = {
   customer: propTypes.object,
   creditCards: propTypes.array,
   recaptchaKey: propTypes.string,
+  cardIconMap: propTypes.object,
 }
 
 export default GiftCardsForm
