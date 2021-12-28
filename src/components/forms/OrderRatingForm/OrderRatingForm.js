@@ -1,8 +1,9 @@
-import React, { useRef, useState } from 'react'
+import React from 'react'
 import propTypes from 'prop-types'
 import styled from '@emotion/styled'
-import { ButtonSubmit } from '..'
-import { FormInputs, FormSubmit, Textarea } from '../inputs'
+import { ButtonSubmit } from '../..'
+import { FormInputs, FormSubmit, Textarea } from '../../inputs'
+import { useOrderRatingForm } from '.'
 
 const OrderStars = styled('div')`
   display: flex;
@@ -37,28 +38,15 @@ const OrderRatingForm = ({
   updateRating,
   callback,
 }) => {
-  const submitRef = useRef(null)
-  const [rating, setRating] = useState(orderRating.rating || 0)
-  const [comments, setComments] = useState(orderRating.comments || '')
-  const stars = [1, 2, 3, 4, 5]
-
-  const handleRating = (evt, star) => {
-    evt.preventDefault()
-    setRating(star)
-    evt.target.blur()
-  }
-
-  const handleComments = (evt) => {
-    setComments(evt.target.value)
-  }
-
-  const handleSubmit = (evt) => {
-    evt.preventDefault()
-    const data = { rating, comments }
-    updateRating(orderId, data)
-    if (callback) callback()
-    submitRef.current.blur()
-  }
+  const {
+    submitRef,
+    stars,
+    rating,
+    handleRating,
+    comments,
+    handleComments,
+    handleSubmit,
+  } = useOrderRatingForm(orderId, orderRating, updateRating, callback)
 
   return (
     <form id="rating-form" onSubmit={handleSubmit} noValidate>

@@ -2,7 +2,6 @@ import AddressForm, { useAddressForm } from './AddressForm'
 import AllergenForm, { useAllergenForm } from './AllergenForm'
 import CartGuestForm, { useCartGuestForm } from './CartGuestForm'
 import CreditCardForm, { useCreditCardForm } from './CreditCardForm'
-import CreditCardInputs from './CreditCardInputs'
 import DineInForm, { useDineInForm } from './DineInForm'
 import DonationForm, { useDonationForm } from './DonationForm'
 import GiftCardForm, { useGiftCardForm } from './GiftCardForm'
@@ -17,7 +16,7 @@ import LoginForm, { useLoginForm } from './LoginForm'
 import OrderFulfillmentForm, {
   useOrderFulfillmentForm,
 } from './OrderFulfillmentForm'
-import OrderRatingForm from './OrderRatingForm'
+import OrderRatingForm, { useOrderRatingForm } from './OrderRatingForm'
 import ProfileForm, { useProfileForm } from './ProfileForm'
 import ResetPasswordForm, { useResetPasswordForm } from './ResetPasswordForm'
 import SendResetForm, { useSendResetForm } from './SendResetForm'
@@ -30,7 +29,6 @@ export {
   AllergenForm,
   CartGuestForm,
   CreditCardForm,
-  CreditCardInputs,
   DineInForm,
   DonationForm,
   GiftCardForm,
@@ -62,6 +60,7 @@ export {
   useLevelUpForm,
   useLoginForm,
   useOrderFulfillmentForm,
+  useOrderRatingForm,
   useProfileForm,
   useResetPasswordForm,
   useSendResetForm,
