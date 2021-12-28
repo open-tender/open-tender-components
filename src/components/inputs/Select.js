@@ -1,6 +1,6 @@
 import React from 'react'
 import propTypes from 'prop-types'
-import { FormRow, Label, SelectOnly } from '.'
+import { Label, SelectOnly } from '.'
 
 const Select = ({
   label,
@@ -9,27 +9,26 @@ const Select = ({
   onChange,
   error,
   options,
-  showLabel = true,
   disabled = false,
   required = false,
 }) => {
   return (
-    <FormRow
+    <Label
       htmlFor={name}
-      label={showLabel && <Label text={label} required={required} />}
-      input={
-        <SelectOnly
-          label={label}
-          name={name}
-          value={value}
-          onChange={onChange}
-          disabled={disabled}
-          options={options}
-        />
-      }
+      text={label}
+      showLabel={false}
+      required={required}
       errMsg={error}
-      isInput={true}
-    />
+    >
+      <SelectOnly
+        label={label}
+        name={name}
+        value={value}
+        onChange={onChange}
+        disabled={disabled}
+        options={options}
+      />
+    </Label>
   )
 }
 
@@ -41,7 +40,6 @@ Select.propTypes = {
   onChange: propTypes.func,
   error: propTypes.string,
   options: propTypes.array,
-  showLabel: propTypes.bool,
   disabled: propTypes.bool,
   required: propTypes.bool,
 }

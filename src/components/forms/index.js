@@ -4,7 +4,7 @@ import CartGuestForm, { useCartGuestForm } from './CartGuestForm'
 import CreditCardForm, { useCreditCardForm } from './CreditCardForm'
 import CreditCardInputs from './CreditCardInputs'
 import DineInForm, { useDineInForm } from './DineInForm'
-import DonationForm from './DonationForm'
+import DonationForm, { useDonationForm } from './DonationForm'
 import GiftCardForm, { useGiftCardForm } from './GiftCardForm'
 import GiftCardAssignForm, { useGiftCardAssignForm } from './GiftCardAssignForm'
 import GiftCardAssignOtherForm, {
@@ -53,6 +53,7 @@ export {
   useCartGuestForm,
   useCreditCardForm,
   useDineInForm,
+  useDonationForm,
   useGiftCardForm,
   useGiftCardAssignForm,
   useGiftCardAssignOtherForm,
