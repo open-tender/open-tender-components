@@ -9,7 +9,6 @@ import {
   FormFieldset,
   FormLegend,
   FormInputs,
-  FormRow,
   FormSubmit,
   Quantity,
   SelectOnly,
@@ -17,8 +16,9 @@ import {
 } from '../../inputs'
 import useGiftCardForm from './useGiftCardsForm'
 
-const GiftCardsRow = styled('span')`
+const GiftCardsRow = styled('div')`
   width: 100%;
+  margin: 0 0 2rem;
   display: flex;
   justify-content: space-between;
   align-items: center;
@@ -35,6 +35,10 @@ const GiftCardsRow = styled('span')`
     &:last-of-type {
       flex-grow: 1;
       margin: 0 0 0 1rem;
+
+      input {
+        outline: none;
+      }
     }
   }
 `
@@ -193,57 +197,50 @@ const GiftCardsForm = ({
           />
           <FormInputs>
             {cards.map((card, index) => (
-              <FormRow
-                key={`card-${index}`}
-                as="div"
-                input={
-                  <GiftCardsRow>
-                    <SelectOnly
-                      label={`Gift card ${index} amount`}
-                      name={`amount-${index}`}
-                      value={card.amount}
+              <>
+                <GiftCardsRow key={`card-${index}`}>
+                  <SelectOnly
+                    label={`Gift card ${index} amount`}
+                    name={`amount-${index}`}
+                    value={card.amount}
+                    onChange={handleChange}
+                    error={errors[`amount-${index}`]}
+                    required={true}
+                    options={options}
+                  />
+                  <Quantity
+                    id={`gift-card-quantity-${index}`}
+                    name={`Gift card ${index}`}
+                    quantity={card.quantity}
+                    update={(quantity) => handleQuantity(index, quantity)}
+                    iconMap={iconMap}
+                  />
+                  <span>
+                    <input
+                      aria-label={`Gift card ${index} email recipient`}
+                      id={`email-${index}`}
+                      name={`email-${index}`}
+                      type="email"
+                      autoComplete={null}
+                      value={card.email}
+                      placeholder="enter email address (optional)"
+                      disabled={submitting}
                       onChange={handleChange}
-                      error={errors[`amount-${index}`]}
-                      required={true}
-                      options={options}
                     />
-                    <Quantity
-                      id={`gift-card-quantity-${index}`}
-                      name={`Gift card ${index}`}
-                      quantity={card.quantity}
-                      update={(quantity) => handleQuantity(index, quantity)}
-                      iconMap={iconMap}
-                    />
-                    <span>
-                      <input
-                        aria-label={`Gift card ${index} email recipient`}
-                        id={`email-${index}`}
-                        name={`email-${index}`}
-                        type="email"
-                        autoComplete={null}
-                        value={card.email}
-                        placeholder="enter email address (optional)"
-                        disabled={submitting}
-                        onChange={handleChange}
-                      />
-                    </span>
-                  </GiftCardsRow>
-                }
-                errMsg={errors[`gift_cards.${index}.email`]}
-              />
+                  </span>
+                </GiftCardsRow>
+                <FormError errMsg={errors[`gift_cards.${index}.email`]} />
+              </>
             ))}
-            <FormRow
-              as="div"
-              label={
-                <ButtonStyled
-                  onClick={handleAddAnother}
-                  disabled={submitting}
-                  color="secondary"
-                >
-                  Add Another
-                </ButtonStyled>
-              }
-            />
+            <GiftCardsRow>
+              <ButtonStyled
+                onClick={handleAddAnother}
+                disabled={submitting}
+                color="secondary"
+              >
+                Add Another
+              </ButtonStyled>
+            </GiftCardsRow>
           </FormInputs>
         </FormFieldset>
         <FormFieldset>

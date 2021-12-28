@@ -20,6 +20,10 @@ const CartSummaryItemImage = styled(BgImage)`
   margin: 0 2rem 0 0;
   background-color: ${(props) => props.theme.bgColors.secondary};
   border-radius: ${(props) => props.theme.border.radiusSmall};
+
+  & > div {
+    background-color: ${(props) => props.theme.colors.primary};
+  }
 `
 
 const CartSummaryItemContainer = styled('div')`

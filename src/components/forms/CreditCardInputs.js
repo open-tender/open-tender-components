@@ -6,7 +6,7 @@ import { FormInputs, Input } from '../inputs'
 const fields = [
   {
     label: 'Card Number',
-    placeholder: '#### #### #### ####',
+    // placeholder: '#### #### #### ####',
     name: 'acct',
     type: 'text',
     pattern: '[0-9]*',
@@ -14,7 +14,7 @@ const fields = [
   },
   {
     label: 'Expiration',
-    placeholder: 'MMYY',
+    // placeholder: 'MMYY',
     name: 'exp',
     type: 'text',
     pattern: '[0-9]*',
@@ -22,7 +22,7 @@ const fields = [
   },
   {
     label: 'CVV',
-    placeholder: '###',
+    // placeholder: '###',
     name: 'cvv',
     type: 'text',
     pattern: '[0-9]*',
@@ -30,7 +30,7 @@ const fields = [
   },
   {
     label: 'Zip Code',
-    placeholder: '#####',
+    // placeholder: '#####',
     name: 'zip',
     type: 'text',
     pattern: '[0-9]*',
