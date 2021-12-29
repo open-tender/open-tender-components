@@ -149,7 +149,8 @@ const RequestedAtDateTime = ({
               onClick={() => chooseTime('asap')}
               color={selected ? 'secondary' : 'primary'}
             >
-              Order ASAP (about {asapTime})
+              Order ASAP
+              {serviceType !== 'WALKIN' ? ` (about ${asapTime})` : null}
             </ButtonStyled>
           </RequestedAtDateTimeAsap>
           <p>Or choose a different date & time below.</p>
