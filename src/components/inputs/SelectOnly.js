@@ -8,8 +8,7 @@ const SelectOnlyView = styled('span')`
   flex-grow: 1;
 
   select {
-    // padding-left: 1.5rem;
-    padding-left: 0;
+    padding-left: ${(props) => props.theme.inputs.paddingHorizontal};
   }
 `
 
@@ -19,11 +18,13 @@ const SelectArrow = styled('span')`
   content: ' ';
   z-index: 2;
   bottom: ${(props) =>
-    props.theme.inputs.bottomBorderOnly ? '1.5rem' : '2rem'};
-  // right: 1.5rem;
-  right: 0;
+    props.theme.inputs.bottomBorderOnly
+      ? props.theme.inputs.paddingBottom
+      : '50%'};
+  right: ${(props) => props.theme.inputs.paddingHorizontal};
   width: 1.1rem;
   height: 1.1rem;
+  margin: -0.5rem 0 0;
   border-bottom-width: 0.2rem;
   border-bottom-style: solid;
   border-right-width: 0.2rem;
