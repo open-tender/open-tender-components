@@ -17,6 +17,9 @@ const BuilderInfo = styled('div')`
 
 const BuilderName = styled('h2')`
   font-size: ${(props) => props.theme.fonts.sizes.h3};
+  @media (max-width: ${(props) => props.theme.breakpoints.mobile}) {
+    font-size: ${(props) => props.theme.fonts.sizes.h4};
+  }
 `
 
 const BuilderDetails = styled('div')`
@@ -58,6 +61,9 @@ const BuilderDetailsTags = styled('span')`
 
 const BuilderDesc = styled('p')`
   line-height: 1.3;
+  @media (max-width: ${(props) => props.theme.breakpoints.mobile}) {
+    font-size: ${(props) => props.theme.fonts.sizes.small};
+  }
 `
 
 const BuilderNutritionButtons = styled('div')`

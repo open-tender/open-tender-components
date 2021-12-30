@@ -56,6 +56,7 @@ module.exports = {
     'lodash/isEqual': 'lodash/isEqual',
     'prop-types': 'prop-types',
     'react-datepicker': 'react-datepicker',
+    'react-device-detect': 'react-device-detect',
     'react-transition-group': 'react-transition-group',
     'google-maps-api-loader': 'google-maps-api-loader',
     '@emotion/react': '@emotion/react',

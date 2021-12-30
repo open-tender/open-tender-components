@@ -1,6 +1,7 @@
 import React, { useEffect, useMemo, useState } from 'react'
 import propTypes from 'prop-types'
 import styled from '@emotion/styled'
+import { isMobileOnly } from 'react-device-detect'
 import {
   dateStrMinutesToIso,
   isoToDateStrMinutes,
@@ -18,7 +19,7 @@ const RequestedAtDateTimeView = styled('div')`
 
 const RequestedAtDateTimeTitle = styled('p')`
   width: 100%;
-  margin: 0 0 3rem;
+  margin: 0 0 1rem;
   text-align: center;
   line-height: ${(props) => props.theme.lineHeight};
   font-size: ${(props) => props.theme.fonts.sizes.h3};
@@ -84,7 +85,6 @@ const RequestedAtDateTime = ({
   const requested = selected ? isoToDateStrMinutes(requestedAt, timezone) : {}
   const [date, setDate] = useState(requested.date || firstTime.date)
   const [time, setTime] = useState(requested.minutes || firstTime.minutes)
-  const [updated, setUpdated] = useState(selected ? true : false)
   const [dateChange, setDateChange] = useState(false)
   const daysAhead = orderType === 'CATERING' ? 100 : days_ahead
   const dates = useMemo(
@@ -116,13 +116,11 @@ const RequestedAtDateTime = ({
   const requestedTime = dateStrMinutesToIso(date, timeVal, timezone)
 
   const changeDate = (evt) => {
-    setUpdated(true)
     setDate(evt.target.value)
     setDateChange(true)
   }
 
   const changeTime = (evt) => {
-    setUpdated(true)
     setTime(parseInt(evt.target.value))
   }
 
@@ -142,22 +140,7 @@ const RequestedAtDateTime = ({
           {orderTypeName ? <br /> : null} from {name}
         </Heading>
       </RequestedAtDateTimeTitle>
-      {firstTime.has_asap ? (
-        <>
-          <RequestedAtDateTimeAsap>
-            <ButtonStyled
-              onClick={() => chooseTime('asap')}
-              color={selected ? 'secondary' : 'primary'}
-            >
-              Order ASAP
-              {serviceType !== 'WALKIN' ? ` (about ${asapTime})` : null}
-            </ButtonStyled>
-          </RequestedAtDateTimeAsap>
-          <p>Or choose a different date & time below.</p>
-        </>
-      ) : (
-        <p>Please choose a date & time below.</p>
-      )}
+      <p>Please choose a date & time below.</p>
       <RequestedAtDateTimeSelects>
         <RequestedAtDateTimeSelect>
           <SelectOnly
@@ -181,11 +164,26 @@ const RequestedAtDateTime = ({
       <RequestedAtDateTimeAsap>
         <ButtonStyled
           onClick={() => chooseTime(requestedTime)}
-          color={!firstTime.has_asap || updated ? 'primary' : 'secondary'}
+          color={isReorder || isLocation ? 'secondary' : 'primary'}
+          size={isMobileOnly ? 'small' : 'default'}
         >
           {orderMsg}
         </ButtonStyled>
       </RequestedAtDateTimeAsap>
+      {firstTime.has_asap ? (
+        <>
+          <RequestedAtDateTimeAsap>
+            <ButtonStyled
+              onClick={() => chooseTime('asap')}
+              color={isReorder || isLocation ? 'primary' : 'secondary'}
+              size={isMobileOnly ? 'small' : 'default'}
+            >
+              Order ASAP
+              {serviceType !== 'WALKIN' ? ` (about ${asapTime})` : null}
+            </ButtonStyled>
+          </RequestedAtDateTimeAsap>
+        </>
+      ) : null}
       <RequestedAtDateTimeNevermind>
         <ButtonLink onClick={cancel}>
           {isLocation
