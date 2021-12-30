@@ -11,7 +11,7 @@ const SwitchView = styled('div')`
 `
 
 const SwitchLabel = styled('div')`
-  padding: ${(props) => props.theme.inputs.padding};
+  padding: ${(props) => props.theme.inputs.paddingVertical} 0;
   line-height: ${(props) => props.theme.inputs.lineHeight};
   font-size: ${(props) => props.theme.inputs.fontSize};
   font-family: ${(props) => props.theme.inputs.family};

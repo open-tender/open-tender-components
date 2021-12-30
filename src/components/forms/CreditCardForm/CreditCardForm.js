@@ -3,7 +3,7 @@ import propTypes from 'prop-types'
 import ReCAPTCHA from 'react-google-recaptcha'
 
 import { ButtonSubmit, CreditCard, useCreditCard } from '../..'
-import { Checkbox, FormError, FormSubmit } from '../../inputs'
+import { Checkbox, FormError, FormRecaptcha, FormSubmit } from '../../inputs'
 import useCreditCardForm from './useCreditCardForm'
 
 const CreditCardForm = ({
@@ -63,7 +63,11 @@ const CreditCardForm = ({
         onChange={handleChange}
         disabled={disabled}
       />
-      {recaptchaKey && <ReCAPTCHA ref={recaptchaRef} sitekey={recaptchaKey} />}
+      {recaptchaKey && (
+        <FormRecaptcha>
+          <ReCAPTCHA ref={recaptchaRef} sitekey={recaptchaKey} />
+        </FormRecaptcha>
+      )}
       <FormSubmit>
         <ButtonSubmit submitRef={submitRef} submitting={submitting}>
           {submitting ? submittingText : submitText}
