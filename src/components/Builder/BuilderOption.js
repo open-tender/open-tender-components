@@ -25,33 +25,31 @@ const BuilderOption = ({
     group.included !== 0 &&
     (group.included === group.max || group.quantity < group.included)
   return (
-    <li>
-      <CartItem
-        item={option}
-        allergens={allergens}
-        displaySettings={displaySettings}
-        hidePrice={hidePrice}
-      >
-        {isCheckbox ? (
-          <BuilderCheckbox
-            option={option}
-            increment={increment}
-            decrement={decrement}
-            incrementDisabled={incrementDisabled}
-          />
-        ) : (
-          <BuilderQuantity
-            item={option}
-            adjust={adjust}
-            increment={increment}
-            decrement={decrement}
-            incrementDisabled={incrementDisabled}
-            decrementDisabled={decrementDisabled}
-            iconMap={iconMap}
-          />
-        )}
-      </CartItem>
-    </li>
+    <CartItem
+      item={option}
+      allergens={allergens}
+      displaySettings={displaySettings}
+      hidePrice={hidePrice}
+    >
+      {isCheckbox ? (
+        <BuilderCheckbox
+          option={option}
+          increment={increment}
+          decrement={decrement}
+          incrementDisabled={incrementDisabled}
+        />
+      ) : (
+        <BuilderQuantity
+          item={option}
+          adjust={adjust}
+          increment={increment}
+          decrement={decrement}
+          incrementDisabled={incrementDisabled}
+          decrementDisabled={decrementDisabled}
+          iconMap={iconMap}
+        />
+      )}
+    </CartItem>
   )
 }
 

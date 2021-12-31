@@ -113,23 +113,21 @@ const BuilderBody = ({
                   displaySettings={displaySettings}
                 />
               ) : (
-                <ul>
-                  {group.options.map((option) => {
-                    const optionProps = {
-                      key: `${group.id}-${option.id}`,
-                      group,
-                      option,
-                      adjust: (quantity) =>
-                        setOptionQuantity(group.id, option.id, quantity),
-                      increment: () => incrementOption(group.id, option.id),
-                      decrement: () => decrementOption(group.id, option.id),
-                      allergens,
-                      iconMap,
-                      displaySettings,
-                    }
-                    return renderOption(optionProps)
-                  })}
-                </ul>
+                group.options.map((option) => {
+                  const optionProps = {
+                    key: `${group.id}-${option.id}`,
+                    group,
+                    option,
+                    adjust: (quantity) =>
+                      setOptionQuantity(group.id, option.id, quantity),
+                    increment: () => incrementOption(group.id, option.id),
+                    decrement: () => decrementOption(group.id, option.id),
+                    allergens,
+                    iconMap,
+                    displaySettings,
+                  }
+                  return renderOption(optionProps)
+                })
               )}
             </BuilderOptions>
           </BuilderGroup>

@@ -98,6 +98,7 @@ const RequestedAtTimes = ({
               <ButtonStyled
                 onClick={() => handleRequestedAt(i.iso)}
                 color={current ? 'primary' : 'secondary'}
+                size="small"
               >
                 {current ? 'Keep' : 'Select'}
               </ButtonStyled>

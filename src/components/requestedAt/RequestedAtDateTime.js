@@ -75,6 +75,7 @@ const RequestedAtDateTime = ({
   cancel,
   isLocation,
   isReorder,
+  isLanding,
 }) => {
   const { name, timezone, first_times, holidays, days_ahead, valid_times } =
     revenueCenter
@@ -164,7 +165,11 @@ const RequestedAtDateTime = ({
       <RequestedAtDateTimeAsap>
         <ButtonStyled
           onClick={() => chooseTime(requestedTime)}
-          color={isReorder || isLocation ? 'secondary' : 'primary'}
+          color={
+            firstTime.has_asap && (isReorder || isLanding)
+              ? 'secondary'
+              : 'primary'
+          }
           size={isMobileOnly ? 'small' : 'default'}
         >
           {orderMsg}
@@ -175,7 +180,7 @@ const RequestedAtDateTime = ({
           <RequestedAtDateTimeAsap>
             <ButtonStyled
               onClick={() => chooseTime('asap')}
-              color={isReorder || isLocation ? 'primary' : 'secondary'}
+              color={isReorder || isLanding ? 'primary' : 'secondary'}
               size={isMobileOnly ? 'small' : 'default'}
             >
               Order ASAP
@@ -207,6 +212,7 @@ RequestedAtDateTime.propTypes = {
   cancel: propTypes.func,
   isLocation: propTypes.bool,
   isReorder: propTypes.bool,
+  isLanding: propTypes.bool,
 }
 
 export default RequestedAtDateTime
