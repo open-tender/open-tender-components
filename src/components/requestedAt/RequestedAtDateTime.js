@@ -115,6 +115,7 @@ const RequestedAtDateTime = ({
       : 'Choose Time'
   const timeVal = RequestedAtDateTime ? RequestedAtDateTime.value : time
   const requestedTime = dateStrMinutesToIso(date, timeVal, timezone)
+  const closedTimeOptions = [{ name: 'Closed', value: null, disabled: false }]
 
   const changeDate = (evt) => {
     setDate(evt.target.value)
@@ -158,7 +159,7 @@ const RequestedAtDateTime = ({
             name="order-time"
             value={time}
             onChange={changeTime}
-            options={timeOptions}
+            options={timeOptions || closedTimeOptions}
           />
         </RequestedAtDateTimeSelect>
       </RequestedAtDateTimeSelects>
@@ -171,6 +172,7 @@ const RequestedAtDateTime = ({
               : 'primary'
           }
           size={isMobileOnly ? 'small' : 'default'}
+          disabled={!timeOptions}
         >
           {orderMsg}
         </ButtonStyled>
