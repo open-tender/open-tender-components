@@ -105,15 +105,15 @@ const RequestedAtDateTime = ({
     ? makeReadableDateStrFromIso(firstTime.utc, timezone)
     : null
   const orderDate = dateOptions.find((i) => i.value === date)
-  const RequestedAtDateTime = timeOptions
+  const orderTime = timeOptions
     ? timeOptions.find((i) => i.value === time) ||
       timeOptions.find((i) => i.value === firstMinutes)
     : null
   const orderMsg =
-    orderDate && RequestedAtDateTime
-      ? `Order for ${orderDate.name} @ ${RequestedAtDateTime.name}`
+    orderDate && orderTime
+      ? `Order for ${orderDate.name} @ ${orderTime.name}`
       : 'Choose Time'
-  const timeVal = RequestedAtDateTime ? RequestedAtDateTime.value : time
+  const timeVal = orderTime ? orderTime.value : time
   const requestedTime = dateStrMinutesToIso(date, timeVal, timezone)
   const closedTimeOptions = [{ name: 'Closed', value: null, disabled: false }]
 
