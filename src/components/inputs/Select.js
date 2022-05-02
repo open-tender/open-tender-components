@@ -11,12 +11,14 @@ const Select = ({
   options,
   disabled = false,
   required = false,
+  showLabel = false,
 }) => {
   return (
     <Label
       htmlFor={name}
       text={label}
-      showLabel={false}
+      showLabel={showLabel}
+      value={true}
       required={required}
       errMsg={error}
     >
@@ -42,6 +44,7 @@ Select.propTypes = {
   options: propTypes.array,
   disabled: propTypes.bool,
   required: propTypes.bool,
+  showLabel: propTypes.bool,
 }
 
 export default Select

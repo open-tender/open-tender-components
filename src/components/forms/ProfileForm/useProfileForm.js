@@ -1,5 +1,5 @@
 import { useRef, useState, useEffect } from 'react'
-import { makePhone } from '@open-tender/js'
+import { makeBirthDate, makePhone, slashesToDashes } from '@open-tender/js'
 
 const useProfileForm = (profile, loading, error, update, optIns = {}) => {
   const submitRef = useRef(null)
@@ -40,7 +40,13 @@ const useProfileForm = (profile, loading, error, update, optIns = {}) => {
   const handleChange = (evt) => {
     const { id, type, value, checked } = evt.target
     const inputValue =
-      type === 'checkbox' ? checked : id === 'phone' ? makePhone(value) : value
+      type === 'checkbox'
+        ? checked
+        : id === 'phone'
+        ? makePhone(value)
+        : id === 'birth_date'
+        ? makeBirthDate(value)
+        : value
     setData({ ...data, [id]: inputValue })
   }
 
@@ -56,12 +62,10 @@ const useProfileForm = (profile, loading, error, update, optIns = {}) => {
       (obj, i) => ({ ...obj, [i.name]: data[i.name] }),
       {}
     )
-    if (accepts_marketing) {
-      updatedData.accepts_marketing = data.accepts_marketing
-    }
-    if (order_notifications) {
-      updatedData.order_notifications = data.order_notifications
-    }
+    updatedData.birth_date = data.birth_date
+      ? slashesToDashes(data.birth_date)
+      : null
+    updatedData.gender = data.gender || null
     update(updatedData)
     submitRef.current.blur()
   }

@@ -1,16 +1,14 @@
 import React from 'react'
 import propTypes from 'prop-types'
-import { optionsOrderNotifications } from '@open-tender/js'
 import { ButtonSubmit } from '../..'
-import {
-  Checkbox,
-  FormError,
-  FormInputs,
-  FormSubmit,
-  Input,
-  RadioButtonGroup,
-} from '../../inputs'
+import { FormError, FormInputs, FormSubmit, Input, Select } from '../../inputs'
 import useProfileForm from './useProfileForm'
+
+const options = [
+  { name: 'Male', value: 'MALE' },
+  { name: 'Female', value: 'FEMALE' },
+  { name: 'Declined', value: 'DECLINED' },
+]
 
 const ProfileForm = ({
   profile,
@@ -25,15 +23,12 @@ const ProfileForm = ({
   const {
     submitRef,
     formRef,
-    order_notifications,
-    accepts_marketing,
     data,
     errors,
     submitting,
     fields,
     errMsg,
     handleChange,
-    handleRadio,
     handleSubmit,
   } = useProfileForm(profile, loading, error, update, optIns)
 
@@ -55,36 +50,28 @@ const ProfileForm = ({
               autoComplete={field.autoComplete}
             />
           ))}
-        {order_notifications && (
-          <>
-            <RadioButtonGroup
-              label={order_notifications.title}
-              name="order_notifications"
-              value={data.order_notifications}
-              options={optionsOrderNotifications}
-              onChange={handleRadio}
-              showLabel={true}
-              required={true}
-              description={order_notifications.description}
-            />
-          </>
-        )}
-        {accepts_marketing && (
-          <>
-            <Checkbox
-              showLabel={false}
-              required={true}
-              // label={accepts_marketing.description || accepts_marketing.title}
-              id="accepts_marketing"
-              on={data.accepts_marketing}
-              onChange={handleChange}
-              description={
-                accepts_marketing.description || accepts_marketing.title
-              }
-              classes="-input"
-            />
-          </>
-        )}
+        <Input
+          label="Birth Date"
+          name="birth_date"
+          type="tel"
+          placeholder="mm/dd/yyyy"
+          value={data.birth_date}
+          onChange={handleChange}
+          error={
+            errors.birth_date
+              ? 'Invalid date. Please enter in mm/dd/yyyy format.'
+              : null
+          }
+        />
+        <Select
+          label="Gender"
+          showLabel={true}
+          name="gender"
+          value={data.gender}
+          onChange={handleChange}
+          error={errors.gender}
+          options={options}
+        />
       </FormInputs>
       <FormSubmit>
         <ButtonSubmit submitRef={submitRef} submitting={submitting}>
