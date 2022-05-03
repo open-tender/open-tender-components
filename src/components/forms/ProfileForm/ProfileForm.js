@@ -5,9 +5,9 @@ import { FormError, FormInputs, FormSubmit, Input, Select } from '../../inputs'
 import useProfileForm from './useProfileForm'
 
 const options = [
+  { name: 'not specified', value: 'DECLINED' },
   { name: 'Male', value: 'MALE' },
   { name: 'Female', value: 'FEMALE' },
-  { name: 'Declined', value: 'DECLINED' },
 ]
 
 const ProfileForm = ({
