@@ -1,6 +1,9 @@
 import AddressForm, { useAddressForm } from './AddressForm'
 import AllergenForm, { useAllergenForm } from './AllergenForm'
 import CartGuestForm, { useCartGuestForm } from './CartGuestForm'
+import CommunicationPreferences, {
+  useCommunicationPreferences,
+} from './CommunicationPreferences'
 import CreditCardForm, { useCreditCardForm } from './CreditCardForm'
 import DineInForm, { useDineInForm } from './DineInForm'
 import DonationForm, { useDonationForm } from './DonationForm'
@@ -28,6 +31,7 @@ export {
   AddressForm,
   AllergenForm,
   CartGuestForm,
+  CommunicationPreferences,
   CreditCardForm,
   DineInForm,
   DonationForm,
@@ -49,6 +53,7 @@ export {
   useAddressForm,
   useAllergenForm,
   useCartGuestForm,
+  useCommunicationPreferences,
   useCreditCardForm,
   useDineInForm,
   useDonationForm,

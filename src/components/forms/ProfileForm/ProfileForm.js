@@ -51,10 +51,9 @@ const ProfileForm = ({
             />
           ))}
         <Input
-          label="Birth Date"
+          label="Birth Date (mm/dd/yyyy)"
           name="birth_date"
           type="tel"
-          placeholder="mm/dd/yyyy"
           value={data.birth_date}
           onChange={handleChange}
           error={

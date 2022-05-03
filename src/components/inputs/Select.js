@@ -25,7 +25,7 @@ const Select = ({
       <SelectOnly
         label={label}
         name={name}
-        value={value}
+        value={value || ''}
         onChange={onChange}
         disabled={disabled}
         options={options}
