@@ -74,9 +74,14 @@ const CartSummaryItemPoints = ({ item, pointsObj }) => {
     points && applied.points
       ? Math.floor(applied.points / points.per) || null
       : null
+  const {
+    points: { remaining },
+  } = pointsObj
+  const disabled = applied.points === points.total || points.per > remaining
 
   const apply = (evt, item) => {
     evt.preventDefault()
+    if (disabled) return
     pointsObj.apply(item)
   }
 
@@ -88,7 +93,7 @@ const CartSummaryItemPoints = ({ item, pointsObj }) => {
   return (
     <CartSummaryItemPointsView>
       <CartSummaryItemPointsApply
-        disabled={applied.points === points.total}
+        disabled={disabled}
         onClick={(evt) => apply(evt, item)}
       >
         {quantityApplied && (
