@@ -10,7 +10,7 @@ const Preface = styled('span')`
     props.size
       ? props.theme.fonts.sizes[props.size]
       : props.theme.fonts.preface.fontSize};
-  color: ${(props) => props.theme.colors[props.color || 'secondary']};
+  color: ${(props) => props.theme.colors[props.color || 'tertiary']};
 `
 
 export default Preface

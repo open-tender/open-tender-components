@@ -6,7 +6,6 @@ const useSignUpForm = (
   error,
   signUp,
   callback,
-  optIns = {},
   checkConfig = {},
   hasThanx = false
 ) => {
@@ -15,14 +14,7 @@ const useSignUpForm = (
   const companyRequired = required && required.customer.includes('company')
   const submitRef = useRef(null)
   const formRef = useRef(null)
-  const { accepts_marketing, order_notifications } = optIns
-  const initialState = {
-    accepts_marketing: accepts_marketing ? accepts_marketing.default : false,
-    order_notifications: order_notifications
-      ? order_notifications.default
-      : 'NONE',
-  }
-  const [data, setData] = useState(initialState)
+  const [data, setData] = useState({})
   const [errors, setErrors] = useState({})
   const [submitting, setSubmitting] = useState(false)
   const errMsg = error ? 'There are one or more errors below.' : null
@@ -93,11 +85,6 @@ const useSignUpForm = (
     setData({ ...data, [id]: inputValue })
   }
 
-  const handleRadio = (evt) => {
-    const { name, value } = evt.target
-    setData({ ...data, [name]: value })
-  }
-
   const handleSubmit = (evt) => {
     evt.preventDefault()
     setErrors({})
@@ -109,15 +96,12 @@ const useSignUpForm = (
   return {
     submitRef,
     formRef,
-    accepts_marketing,
-    order_notifications,
     data,
     errors,
     submitting,
     formfields,
     errMsg,
     handleChange,
-    handleRadio,
     handleSubmit,
   }
 }

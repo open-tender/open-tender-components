@@ -65,11 +65,19 @@ const useDonationsForm = (
         : {}
       setCreditCard(defaultCard)
       setIsNewCard(false)
+    } else {
+      setCreditCardOptions([])
+      setCreditCard({})
+      setIsNewCard(true)
     }
   }, [creditCards])
 
   useEffect(() => {
-    if (customer) setEmail(customer.email)
+    if (customer) {
+      setEmail(customer.email)
+    } else {
+      setEmail('')
+    }
   }, [customer])
 
   const handleAmount = (evt) => {
