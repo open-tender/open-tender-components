@@ -68,17 +68,21 @@ const CommunicationPreferencesGroupView = styled.div`
 `
 
 const CommunicationPreferencesGroup = ({
+  channelTypes,
   prefs,
   add,
   remove,
   fields,
   title,
 }) => {
+  const filtered = fields.filter((i) =>
+    channelTypes.includes(i.notification_channel)
+  )
   return (
     <CommunicationPreferencesGroupView>
       <CommunicationPreferencesLabel>{title}</CommunicationPreferencesLabel>
       <CommunicationPreferencesOptions>
-        {fields.map((field) => {
+        {filtered.map((field) => {
           const id = `${field.notification_area}_${field.notification_channel}`
           const pref = prefs.find(
             (i) =>
@@ -109,6 +113,7 @@ const CommunicationPreferencesGroup = ({
 
 CommunicationPreferencesGroup.displayName = 'CommunicationPreferencesGroup'
 CommunicationPreferencesGroup.propTypes = {
+  channelTypes: propTypes.array,
   prefs: propTypes.array,
   add: propTypes.func,
   remove: propTypes.func,
@@ -116,36 +121,53 @@ CommunicationPreferencesGroup.propTypes = {
   title: propTypes.string,
 }
 
-const CommunicationPreferences = ({ prefs, add, remove }) => {
+const CommunicationPreferences = ({
+  areaTypes,
+  channelTypes,
+  prefs,
+  add,
+  remove,
+}) => {
   return (
     <CommunicationPreferencesView>
-      <CommunicationPreferencesGroup
-        prefs={prefs}
-        add={add}
-        remove={remove}
-        fields={orderNotifications}
-        title="Order Notifications"
-      />
-      <CommunicationPreferencesGroup
-        prefs={prefs}
-        add={add}
-        remove={remove}
-        fields={ratings}
-        title="Order Ratings"
-      />
-      <CommunicationPreferencesGroup
-        prefs={prefs}
-        add={add}
-        remove={remove}
-        fields={marketing}
-        title="Marketing"
-      />
+      {areaTypes.includes('ORDER') && (
+        <CommunicationPreferencesGroup
+          channelTypes={channelTypes}
+          prefs={prefs}
+          add={add}
+          remove={remove}
+          fields={orderNotifications}
+          title="Order Notifications"
+        />
+      )}
+      {areaTypes.includes('RATING') && (
+        <CommunicationPreferencesGroup
+          channelTypes={channelTypes}
+          prefs={prefs}
+          add={add}
+          remove={remove}
+          fields={ratings}
+          title="Order Ratings"
+        />
+      )}
+      {areaTypes.includes('MARKETING') && (
+        <CommunicationPreferencesGroup
+          channelTypes={channelTypes}
+          prefs={prefs}
+          add={add}
+          remove={remove}
+          fields={marketing}
+          title="Marketing"
+        />
+      )}
     </CommunicationPreferencesView>
   )
 }
 
 CommunicationPreferences.displayName = 'CommunicationPreferences'
 CommunicationPreferences.propTypes = {
+  areaTypes: propTypes.array,
+  channelTypes: propTypes.array,
   prefs: propTypes.array,
   add: propTypes.func,
   remove: propTypes.func,
