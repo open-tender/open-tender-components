@@ -2,6 +2,7 @@ import React from 'react'
 import propTypes from 'prop-types'
 import styled from '@emotion/styled'
 import { Checkbox } from '../../inputs'
+import Preface from '../../Preface'
 
 const orderNotifications = [
   { notification_area: 'ORDER', notification_channel: 'EMAIL', title: 'Email' },
@@ -33,28 +34,27 @@ const ratings = [
     notification_channel: 'EMAIL',
     title: 'Email',
   },
-  { notification_area: 'RATING', notification_channel: 'SMS', title: 'SMS' },
-  {
-    notification_area: 'RATING',
-    notification_channel: 'PUSH',
-    title: 'Push Notifications',
-  },
+  // { notification_area: 'RATING', notification_channel: 'SMS', title: 'SMS' },
+  // {
+  //   notification_area: 'RATING',
+  //   notification_channel: 'PUSH',
+  //   title: 'Push Notifications',
+  // },
 ]
 
 const CommunicationPreferencesView = styled.div``
 
-const CommunicationPreferencesLabel = styled('div')`
-  margin: 0 0 1rem;
-  line-height: ${(props) => props.theme.inputs.lineHeight};
-  font-size: ${(props) => props.theme.inputs.fontSize};
-  font-family: ${(props) => props.theme.inputs.family};
-  letter-spacing: ${(props) => props.theme.inputs.letterSpacing};
-  text-transform: ${(props) => props.theme.inputs.textTransform};
-  -webkit-font-smoothing: ${(props) => props.theme.inputs.fontSmoothing};
-  color: ${(props) => props.theme.inputs.placeholderColor};
-  @media (max-width: ${(props) => props.theme.breakpoints.mobile}) {
-    font-size: ${(props) => props.theme.inputs.fontSizeMobile};
-  }
+const CommunicationPreferencesHeader = styled.div`
+  margin: 0 0 1.5rem;
+`
+
+const CommunicationPreferencesTitle = styled(Preface)`
+  font-size: ${(props) => props.theme.fonts.sizes.small};
+`
+
+const CommunicationPreferencesSubtitle = styled.p`
+  font-size: ${(props) => props.theme.fonts.sizes.small};
+  margin: 0.5rem 0 0;
 `
 
 const CommunicationPreferencesOptions = styled.div`
@@ -64,7 +64,7 @@ const CommunicationPreferencesOptions = styled.div`
 `
 
 const CommunicationPreferencesGroupView = styled.div`
-  margin: 0 0 3rem;
+  margin: 0 0 3.5rem;
 `
 
 const CommunicationPreferencesGroup = ({
@@ -74,13 +74,21 @@ const CommunicationPreferencesGroup = ({
   remove,
   fields,
   title,
+  subtitle,
 }) => {
   const filtered = fields.filter((i) =>
     channelTypes.includes(i.notification_channel)
   )
   return (
     <CommunicationPreferencesGroupView>
-      <CommunicationPreferencesLabel>{title}</CommunicationPreferencesLabel>
+      <CommunicationPreferencesHeader>
+        <CommunicationPreferencesTitle>{title}</CommunicationPreferencesTitle>
+        {subtitle && (
+          <CommunicationPreferencesSubtitle>
+            {subtitle}
+          </CommunicationPreferencesSubtitle>
+        )}
+      </CommunicationPreferencesHeader>
       <CommunicationPreferencesOptions>
         {filtered.map((field) => {
           const id = `${field.notification_area}_${field.notification_channel}`
@@ -119,6 +127,7 @@ CommunicationPreferencesGroup.propTypes = {
   remove: propTypes.func,
   fields: propTypes.array,
   title: propTypes.string,
+  subtitle: propTypes.string,
 }
 
 const CommunicationPreferences = ({
@@ -127,6 +136,8 @@ const CommunicationPreferences = ({
   prefs,
   add,
   remove,
+  accepts_marketing = {},
+  order_notifications = {},
 }) => {
   return (
     <CommunicationPreferencesView>
@@ -137,7 +148,19 @@ const CommunicationPreferences = ({
           add={add}
           remove={remove}
           fields={orderNotifications}
-          title="Order Notifications"
+          title={order_notifications?.title || 'Order Notifications'}
+          subtitle={order_notifications?.description || null}
+        />
+      )}
+      {areaTypes.includes('MARKETING') && (
+        <CommunicationPreferencesGroup
+          channelTypes={channelTypes}
+          prefs={prefs}
+          add={add}
+          remove={remove}
+          fields={marketing}
+          title={accepts_marketing?.title || 'Marketing & Promotions'}
+          subtitle={accepts_marketing?.description || null}
         />
       )}
       {areaTypes.includes('RATING') && (
@@ -148,16 +171,6 @@ const CommunicationPreferences = ({
           remove={remove}
           fields={ratings}
           title="Order Ratings"
-        />
-      )}
-      {areaTypes.includes('MARKETING') && (
-        <CommunicationPreferencesGroup
-          channelTypes={channelTypes}
-          prefs={prefs}
-          add={add}
-          remove={remove}
-          fields={marketing}
-          title="Marketing"
         />
       )}
     </CommunicationPreferencesView>
@@ -171,6 +184,8 @@ CommunicationPreferences.propTypes = {
   prefs: propTypes.array,
   add: propTypes.func,
   remove: propTypes.func,
+  accepts_marketing: propTypes.object,
+  order_notifications: propTypes.object,
 }
 
 export default CommunicationPreferences
