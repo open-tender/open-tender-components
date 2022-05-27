@@ -171,6 +171,7 @@ const CommunicationPreferences = ({
           remove={remove}
           fields={ratings}
           title="Order Ratings"
+          subtitle="Rate orders & provide reviews"
         />
       )}
     </CommunicationPreferencesView>
