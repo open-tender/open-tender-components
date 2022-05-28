@@ -12,11 +12,15 @@ const eventsMapping = {
 }
 
 const useGoogleMap = ({ apiKey, zoom, styles, center, events = {} }) => {
-  const [mapState, setMapState] = useState({ loading: true })
   const mapRef = useRef(null)
+  const [mapState, setMapState] = useState({ loading: true })
+  console.log('this is being called')
+  const loader = new Loader({ libraries: ['places'], apiKey })
+  console.log(loader)
+
   useEffect(() => {
     const mapStyles = makeMapStyles(styles)
-    Loader({ libraries: ['places'], apiKey }).then((google) => {
+    loader.load().then((google) => {
       const sessionToken = new google.maps.places.AutocompleteSessionToken()
       const autocomplete = new google.maps.places.AutocompleteService()
       const map = new google.maps.Map(mapRef.current, {

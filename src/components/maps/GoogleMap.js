@@ -46,20 +46,15 @@ const GoogleMap = ({
   children,
   renderMap,
 }) => {
-  const {
-    maps,
-    map,
-    sessionToken,
-    autocomplete,
-    mapRef,
-    loading,
-  } = useGoogleMap({
-    apiKey,
-    zoom,
-    styles,
-    center,
-    events,
-  })
+  console.log('GoogleMap component')
+  const { maps, map, sessionToken, autocomplete, mapRef, loading } =
+    useGoogleMap({
+      apiKey,
+      zoom,
+      styles,
+      center,
+      events,
+    })
 
   useEffect(() => {
     map && map.panTo(center)
