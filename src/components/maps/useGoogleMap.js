@@ -14,9 +14,7 @@ const eventsMapping = {
 const useGoogleMap = ({ apiKey, zoom, styles, center, events = {} }) => {
   const mapRef = useRef(null)
   const [mapState, setMapState] = useState({ loading: true })
-  console.log('this is being called')
   const loader = new Loader({ libraries: ['places'], apiKey })
-  console.log(loader)
 
   useEffect(() => {
     const mapStyles = makeMapStyles(styles)

@@ -46,7 +46,6 @@ const GoogleMap = ({
   children,
   renderMap,
 }) => {
-  console.log('GoogleMap component')
   const { maps, map, sessionToken, autocomplete, mapRef, loading } =
     useGoogleMap({
       apiKey,

@@ -20,7 +20,6 @@ const ProfileForm = ({
   id = 'account-form',
   buttonText = 'Update Account',
 }) => {
-  console.log('ProfileForm is being called')
   const {
     submitRef,
     formRef,
