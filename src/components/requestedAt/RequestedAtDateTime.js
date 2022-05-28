@@ -1,7 +1,6 @@
 import React, { useEffect, useMemo, useState } from 'react'
 import propTypes from 'prop-types'
 import styled from '@emotion/styled'
-import { isMobileOnly } from 'react-device-detect'
 import {
   dateStrMinutesToIso,
   isoToDateStrMinutes,
@@ -171,7 +170,6 @@ const RequestedAtDateTime = ({
               ? 'secondary'
               : 'primary'
           }
-          size={isMobileOnly ? 'small' : 'default'}
           disabled={!timeOptions}
         >
           {orderMsg}
@@ -183,7 +181,6 @@ const RequestedAtDateTime = ({
             <ButtonStyled
               onClick={() => chooseTime('asap')}
               color={isReorder || isLanding ? 'primary' : 'secondary'}
-              size={isMobileOnly ? 'small' : 'default'}
             >
               Order ASAP
               {serviceType !== 'WALKIN' ? ` (about ${asapTime})` : null}

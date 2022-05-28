@@ -1,6 +1,6 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 import { useEffect, useState, useRef } from 'react'
-import GoogleMapsApiLoader from 'google-maps-api-loader'
+import { Loader } from '@googlemaps/js-api-loader'
 import makeMapStyles from './mapStyles'
 
 // https://github.com/laurencedorman/google-maps-api-loader
@@ -16,7 +16,7 @@ const useGoogleMap = ({ apiKey, zoom, styles, center, events = {} }) => {
   const mapRef = useRef(null)
   useEffect(() => {
     const mapStyles = makeMapStyles(styles)
-    GoogleMapsApiLoader({ libraries: ['places'], apiKey }).then((google) => {
+    Loader({ libraries: ['places'], apiKey }).then((google) => {
       const sessionToken = new google.maps.places.AutocompleteSessionToken()
       const autocomplete = new google.maps.places.AutocompleteService()
       const map = new google.maps.Map(mapRef.current, {
