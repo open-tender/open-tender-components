@@ -114,16 +114,6 @@ const CheckoutDiscounts = () => {
     }
   }, [form.discounts, prevCheckDiscounts, check.discounts, updateForm])
 
-  // useEffect(() => {
-  //   if (missingIds.length) {
-  //     console.log('this is happening')
-  //     const formDiscounts = form.discounts.filter(
-  //       (i) => !missingIds.includes(i.id)
-  //     )
-  //     updateForm({ discounts: [...formDiscounts] })
-  //   }
-  // }, [missingIds, form.discounts, updateForm])
-
   useEffect(() => {
     if (loading !== 'pending') setPendingDiscount(null)
   }, [loading])
