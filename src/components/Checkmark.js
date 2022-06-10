@@ -1,4 +1,5 @@
 import React from 'react'
+import propTypes from 'prop-types'
 import styled from '@emotion/styled'
 
 /* https://codepen.io/scottloway/pen/zqoLyQ */
@@ -12,8 +13,8 @@ const CheckmarkView = styled('span')`
   height: 1.9rem;
   border-width: 0.2rem;
   border-style: solid;
-  border-color: ${(props) => props.theme.links.primary.color};
-  background-color: ${(props) => props.theme.links.primary.color};
+  border-color: ${(props) => props.color || props.theme.colors.success};
+  background-color: ${(props) => props.color || props.theme.colors.success};
 `
 
 const CheckmarkTick = styled('span')`
@@ -34,14 +35,17 @@ const CheckmarkTick = styled('span')`
   }
 `
 
-const Checkmark = () => {
+const Checkmark = ({ color }) => {
   return (
-    <CheckmarkView>
+    <CheckmarkView color={color}>
       <CheckmarkTick />
     </CheckmarkView>
   )
 }
 
 Checkmark.displayName = 'Checkmark'
+Checkmark.propTypes = {
+  color: propTypes.string,
+}
 
 export default Checkmark
