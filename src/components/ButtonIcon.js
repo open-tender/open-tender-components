@@ -13,7 +13,7 @@ const ButtonIconView = styled('button')`
   height: 5rem;
   border: 0;
   margin: 0;
-  color: ${(props) => props.color || props.theme.colors.primary};
+  color: ${(props) => props.color || props.theme.buttons.colors.header.color};
   transition: ${(props) => props.theme.links.transition};
   opacity: ${(props) => (props.disabled ? '0.5' : '1.0')};
 
@@ -21,6 +21,13 @@ const ButtonIconView = styled('button')`
     display: block;
     width: ${(props) => (parseFloat(props.size) / 10.0).toFixed(1)}rem;
     height: ${(props) => (parseFloat(props.size) / 10.0).toFixed(1)}rem;
+  }
+
+  &:hover {
+    color: ${(props) => props.theme.buttons.colors.headerHover.color};
+    @media (max-width: ${(props) => props.theme.breakpoints.tablet}) {
+      color: ${(props) => props.theme.buttons.colors.header.color};
+    }
   }
 `
 

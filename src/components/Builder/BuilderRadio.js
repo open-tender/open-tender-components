@@ -34,7 +34,7 @@ const BuilderRadioButton = styled('span')`
   height: 2.4rem;
   padding: 0;
   border-radius: 100%;
-  border-width: 0.2rem;
+  border-width: 0.1rem;
   border-style: solid;
   transition: all 0.15s ease;
   background-color: ${(props) => props.theme.bgColors.primary};
@@ -50,8 +50,8 @@ const BuilderRadioButton = styled('span')`
     position: absolute;
     top: 0.3rem;
     left: 0.3rem;
-    width: 1.4rem;
-    height: 1.4rem;
+    width: 1.6rem;
+    height: 1.6rem;
     border-radius: 100%;
     background-color: ${(props) => props.theme.fonts.headings.color};
   }

@@ -25,16 +25,6 @@ const FormButtonView = styled('button')`
   &:active:enabled,
   &:focus:enabled {
     background-color: ${(props) => props.theme.bgColors.tertiary};
-
-    // span.form-button-apply {
-    //   transition: ${(props) => props.theme.links.transition};
-    //   color: ${(props) => props.theme.colors.success};
-    // }
-
-    // span.form-button-remove {
-    //   transition: ${(props) => props.theme.links.transition};
-    //   color: ${(props) => props.theme.colors.error};
-    // }
   }
 `
 

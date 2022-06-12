@@ -7,7 +7,7 @@ const LabelView = styled('label')`
   position: relative;
   display: block;
   width: 100%;
-  margin: 0 0 2.5rem;
+  margin: 0 0 3rem;
   -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
 
   input,
@@ -86,7 +86,10 @@ const LabelText = styled('span')`
       ${(props) => props.theme.inputs.label.top}
     );
     color: ${(props) => props.theme.inputs.colorFocus};
-    background-color: ${(props) => props.theme.inputs.bgColor};
+    background-color: ${(props) =>
+      props.theme.inputs.bottomBorderOnly
+        ? 'transparent'
+        : props.theme.inputs.bgColor};
     font-size: ${(props) => props.theme.inputs.label.fontSize};
     @media (max-width: ${(props) => props.theme.breakpoints.mobile}) {
       font-size: ${(props) => props.theme.inputs.label.fontSizeMobile};
@@ -103,7 +106,10 @@ const LabelText = styled('span')`
       ${props.theme.inputs.label.left},
       ${props.theme.inputs.label.top}
     );
-    background-color: ${props.theme.inputs.bgColor};
+    background-color: ${(props) =>
+      props.theme.inputs.bottomBorderOnly
+        ? 'transparent'
+        : props.theme.inputs.bgColor};
     font-size: ${props.theme.inputs.label.fontSize};
     `
       : ''}
