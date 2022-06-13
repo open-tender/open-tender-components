@@ -14,7 +14,8 @@ const useSignUpGuestForm = (
   loading,
   error,
   signUp,
-  submitGuest
+  submitGuest,
+  hasThanx
 ) => {
   const submitRef = useRef(null)
   const inputRef = useRef(null)
@@ -23,7 +24,7 @@ const useSignUpGuestForm = (
   const [errors, setErrors] = useState({})
   const [submitting, setSubmitting] = useState(false)
   const { guestData, guestIncomplete } = checkGuestData(data, email)
-  const isIncomplete = checkEmpty(data)
+  const isIncomplete = hasThanx ? guestIncomplete : checkEmpty(data)
   const isLoading = loading === 'pending'
   const disabled = isIncomplete || isLoading
   const guestDisabled = guestIncomplete || isLoading

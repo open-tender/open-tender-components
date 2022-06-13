@@ -55,7 +55,15 @@ const SignUpGuestForm = ({
     handleChange,
     handleSubmit,
     handleGuest,
-  } = useSignUpGuestForm(email, guest, loading, error, signUp, submitGuest)
+  } = useSignUpGuestForm(
+    email,
+    guest,
+    loading,
+    error,
+    signUp,
+    submitGuest,
+    hasThanx
+  )
   const passwordNeeded = !guestDisabled && !data.password && !hasThanx
 
   return (

@@ -117,7 +117,7 @@ CreditCard.propTypes = {
   handleChange: propTypes.func,
   handleBlur: propTypes.func,
   disabled: propTypes.bool,
-  cardIconMap: propTypes.bool,
+  cardIconMap: propTypes.object,
 }
 
 export default CreditCard
