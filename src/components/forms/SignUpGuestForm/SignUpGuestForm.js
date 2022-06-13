@@ -56,7 +56,7 @@ const SignUpGuestForm = ({
     handleSubmit,
     handleGuest,
   } = useSignUpGuestForm(email, guest, loading, error, signUp, submitGuest)
-  const passwordNeeded = !guestDisabled && !data.password
+  const passwordNeeded = !guestDisabled && !data.password && !hasThanx
 
   return (
     <form id="signup-form" onSubmit={handleSubmit} noValidate>
