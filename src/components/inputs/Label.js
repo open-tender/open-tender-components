@@ -87,7 +87,7 @@ const LabelText = styled('span')`
     );
     color: ${(props) => props.theme.inputs.colorFocus};
     background-color: ${(props) =>
-      props.theme.inputs.bottomBorderOnly
+      props.theme.inputs.bottomBorderOnly && !props.isTextarea
         ? 'transparent'
         : props.theme.inputs.bgColor};
     font-size: ${(props) => props.theme.inputs.label.fontSize};
@@ -106,10 +106,11 @@ const LabelText = styled('span')`
       ${props.theme.inputs.label.left},
       ${props.theme.inputs.label.top}
     );
-    background-color: ${(props) =>
-      props.theme.inputs.bottomBorderOnly
+    background-color: ${
+      props.theme.inputs.bottomBorderOnly && !props.isTextarea
         ? 'transparent'
-        : props.theme.inputs.bgColor};
+        : props.theme.inputs.bgColor
+    };
     font-size: ${props.theme.inputs.label.fontSize};
     `
       : ''}
