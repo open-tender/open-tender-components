@@ -33,10 +33,9 @@ const BuilderCheckboxButton = styled('span')`
   width: 2.1rem;
   height: 2.1rem;
   padding: 0;
-  border-width: 0.2rem;
+  border-width: 0.1rem;
   border-style: solid;
   transition: all 0.1s ease;
-  // background-color: ${(props) => props.theme.bgColors.primary};
   background-image: linear-gradient(
     ${(props) => props.theme.colors.primary},
     ${(props) => props.theme.colors.primary}
@@ -64,8 +63,8 @@ const BuilderCheckboxButton = styled('span')`
     width: 1.2rem;
     height: 0.7rem;
     background: transparent;
-    top: 0.3rem;
-    left: 0.3rem;
+    top: 0.4rem;
+    left: 0.4rem;
     border-width: 0.2rem;
     border-style: solid;
     border-top: none;
