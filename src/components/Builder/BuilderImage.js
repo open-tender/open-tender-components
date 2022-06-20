@@ -9,7 +9,7 @@ const BuilderImageView = styled('div')`
   z-index: 1;
   width: 100%;
   height: 24rem;
-  background-color: ${(props) => props.theme.bgColors.secondary};
+  background-color: ${(props) => props.theme.bgColors.tertiary};
 `
 
 const BuilderImageLoading = styled('div')`

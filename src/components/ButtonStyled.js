@@ -90,7 +90,7 @@ const ButtonStyled = ({
       id={id}
       aria-label={label || null}
       // onPointerUp={(evt) => onUp(evt)}
-      onClick={(evt) => onUp(evt)}
+      onClick={(evt) => (type === 'submit' ? null : onUp(evt))}
       disabled={disabled}
       size={size}
       color={color}

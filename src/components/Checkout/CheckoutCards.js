@@ -7,7 +7,6 @@ const CheckoutCardsView = styled(Box)`
   width: 100%;
   padding: 2rem 2rem;
   margin: 0 0 0.75rem;
-  // background-color: ${(props) => props.theme.bgColors.secondary};
 
   ul {
     display: block;
