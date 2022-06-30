@@ -132,11 +132,11 @@ const BuilderHeader = ({ item, displaySettings, spinner, pointsIcon }) => {
         {item.description && <BuilderDesc>{item.description}</BuilderDesc>}
         {(hasCals || hasIngredients) && (
           <BuilderNutritionButtons>
-            {hasCals && (
+            {hasCals && item.cals > 0 ? (
               <ButtonLink onClick={toggleShowInfo}>
                 <span>{!showInfo ? 'show' : 'hide'} nutritional info</span>
               </ButtonLink>
-            )}
+            ) : null}
             {hasCals && hasIngredients ? <span>{' | '}</span> : null}
             {hasIngredients && (
               <ButtonLink onClick={toggleShowIngredients}>

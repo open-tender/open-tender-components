@@ -1,4 +1,5 @@
 import BgImage from './BgImage'
+import Body from './Body'
 import Box from './Box'
 import ButtonIcon from './ButtonIcon'
 import ButtonClear from './ButtonClear'
@@ -19,6 +20,7 @@ import Checkmark from './Checkmark'
 import CreditCard from './CreditCard'
 import DeliveryLink from './DeliveryLink'
 import Heading from './Heading'
+import Headline from './Headline'
 import Message from './Message'
 import Points from './Points'
 import Preface from './Preface'
@@ -121,6 +123,7 @@ export {
   Textarea,
   AuthApplePay,
   BgImage,
+  Body,
   Box,
   Builder,
   BuilderBody,
@@ -180,6 +183,7 @@ export {
   CreditCard,
   DeliveryLink,
   Heading,
+  Headline,
   Message,
   Points,
   Preface,
