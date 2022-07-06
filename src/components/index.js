@@ -8,6 +8,8 @@ import ButtonPoints from './ButtonPoints'
 import ButtonStyled from './ButtonStyled'
 import ButtonSubmit from './ButtonSubmit'
 import ButtonToggleGroup from './ButtonToggleGroup'
+import Card from './Card'
+import CardMenuItem from './CardMenuItem'
 import CartItem from './CartItem'
 import CartItemCount from './CartItemCount'
 import CartSummary from './CartSummary'
@@ -146,6 +148,8 @@ export {
   ButtonStyled,
   ButtonSubmit,
   ButtonToggleGroup,
+  Card,
+  CardMenuItem,
   CartItem,
   CartItemCount,
   CartSummary,

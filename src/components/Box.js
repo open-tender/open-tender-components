@@ -1,6 +1,6 @@
 import styled from '@emotion/styled'
 
-const Box = styled('div')`
+const Box = styled.div`
   border-style: solid;
   border-width: ${(props) => props.theme.cards.default.borderWidth};
   border-color: ${(props) => props.theme.cards.default.borderColor};
