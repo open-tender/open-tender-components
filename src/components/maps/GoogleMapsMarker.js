@@ -40,29 +40,31 @@ const GoogleMapsMarker = ({
   }, [icon])
 
   useEffect(() => {
-    const newMarker = new maps.Marker({
-      position,
-      map,
-      title,
-      animation: drop ? maps.Animation.DROP : null,
-      icon: {
-        url: icon,
-        scaledSize: new maps.Size(size.width, size.height),
-        anchor: anchor ? new maps.Point(anchor.x, anchor.y) : null,
-      },
-    })
-    if (events) {
-      Object.keys(events).forEach((eventName) =>
-        newMarker.addListener(eventMapping[eventName], events[eventName])
-      )
+    if (maps) {
+      const newMarker = new maps.Marker({
+        position,
+        map,
+        title,
+        animation: drop ? maps.Animation.DROP : null,
+        icon: {
+          url: icon,
+          scaledSize: new maps.Size(size.width, size.height),
+          anchor: anchor ? new maps.Point(anchor.x, anchor.y) : null,
+        },
+      })
+      if (events) {
+        Object.keys(events).forEach((eventName) =>
+          newMarker.addListener(eventMapping[eventName], events[eventName])
+        )
+      }
+      setMarker(newMarker)
+      markerRef.current = newMarker
+      return () => {
+        markerRef.current.setMap(null)
+        setMarker(null)
+      }
     }
-    setMarker(newMarker)
-    markerRef.current = newMarker
-    return () => {
-      markerRef.current.setMap(null)
-      setMarker(null)
-    }
-  }, [])
+  }, [maps])
 
   return null
 }

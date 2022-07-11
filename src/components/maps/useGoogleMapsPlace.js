@@ -3,8 +3,8 @@ import { useState, useEffect, useCallback } from 'react'
 
 const useGoogleMapsPlace = (maps, map, placeId) => {
   const [place, setPlace] = useState(null)
-  const placeService = new maps.places.PlacesService(map)
-  const ok = maps.places.PlacesServiceStatus.OK
+  const placeService = maps ? new maps.places.PlacesService(map) : null
+  const ok = maps ? maps.places.PlacesServiceStatus.OK : false
 
   const callback = useCallback(
     (place, status) => {

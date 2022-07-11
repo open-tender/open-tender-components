@@ -13,6 +13,7 @@ const Map = styled('div')`
   bottom: 0;
   left: 0;
   right: 76.8rem;
+  background-color: ${(props) => props.theme.bgColors.tertiary};
 
   @media (max-width: ${(props) => props.theme.breakpoints.tablet}) {
     top: 14rem;

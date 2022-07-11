@@ -254,7 +254,7 @@ const CartItem = ({
                 </>
               ) : (
                 <>
-                  {showCals && item.cals && <span>{item.cals} cal</span>}
+                  {showCals && item.cals ? <span>{item.cals} cal</span> : null}
                   {showAllergens && item.allergens.length > 0 && (
                     <BuilderOptionDetailsTag color="alert">
                       {item.allergens.join(', ')}
