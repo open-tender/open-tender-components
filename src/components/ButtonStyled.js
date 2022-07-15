@@ -37,6 +37,14 @@ export const ButtonStyledView = styled('button')`
       props.theme.buttons.colors[`${props.color}Hover`].bgColor};
     border-color: ${(props) =>
       props.theme.buttons.colors[`${props.color}Hover`].borderColor};
+
+    @media (max-width: ${(props) => props.theme.breakpoints.tablet}) {
+      color: ${(props) => props.theme.buttons.colors[props.color].color};
+      background-color: ${(props) =>
+        props.theme.buttons.colors[props.color].bgColor};
+      border-color: ${(props) =>
+        props.theme.buttons.colors[props.color].borderColor};
+    }
   }
 
   &:disabled {
