@@ -37,13 +37,15 @@ const useGeolocation = () => {
       setError('Geolocation is not supported')
       return
     }
-    // console.log('fetching geo')
-    geo.getCurrentPosition(onSuccess, onError, geoOptions)
+    if (isMounted) {
+      // console.log('fetching geo')
+      geo.getCurrentPosition(onSuccess, onError, geoOptions)
+    }
     return () => {
       // console.log('canceling geo')
       setIsMounted(false)
     }
-  }, [onSuccess])
+  }, [isMounted, onSuccess])
 
   return { geoLatLng: position, geoError: error }
 }
