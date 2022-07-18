@@ -3,9 +3,12 @@ import propTypes from 'prop-types'
 import { displayPrice, makeModifierNames } from '@open-tender/js'
 import { BuilderNutrition, BuilderIngredients } from './Builder'
 import styled from '@emotion/styled'
-import { BgImage, ButtonLink } from '.'
+import { ButtonLink } from '.'
+import BgImage from './BgImage'
+import Body from './Body'
+import Heading from './Heading'
 
-const BuilderOptionOverlay = styled('div')`
+const BuilderOptionOverlay = styled.div`
   position: absolute;
   z-index: 1;
   top: 0;
@@ -27,7 +30,7 @@ const BuilderOptionOverlay = styled('div')`
   }
 `
 
-const BuilderOptionOverlayAlert = styled('div')`
+const BuilderOptionOverlayAlert = styled.div`
   width: 2.4rem;
   height: 2.4rem;
   border-radius: 1.2rem;
@@ -75,10 +78,8 @@ const BuilderOptionInfo = styled('span')`
   }
 `
 
-const BuilderOptionName = styled('span')`
+const BuilderOptionName = styled(Heading)`
   font-size: ${(props) => props.theme.fonts.sizes.small};
-  font-weight: ${(props) => props.theme.boldWeight};
-  color: ${(props) => props.theme.colors.primary};
 `
 
 const BuilderOptionSoldOut = styled('span')`
@@ -87,8 +88,8 @@ const BuilderOptionSoldOut = styled('span')`
   padding: 0 0 0 1rem;
 `
 
-const BuilderOptionDescription = styled('span')`
-  margin-top: 0.2rem;
+const BuilderOptionDescription = styled(Body)`
+  margin-top: 0.3rem;
   font-size: ${(props) => props.theme.fonts.sizes.xSmall};
 `
 
@@ -124,9 +125,8 @@ const BuilderOptionDetailsContainer = styled('span')`
 }
 `
 
-const BuilderOptionDetailsPrice = styled('span')`
-  font-weight: ${(props) => props.theme.boldWeight};
-  color: ${(props) => props.theme.colors.primary};
+const BuilderOptionDetailsPrice = styled(Heading)`
+  font-size: ${(props) => props.theme.fonts.sizes.small};
 `
 
 const BuilderOptionDetailsTag = styled('span')`
@@ -186,7 +186,7 @@ const CartItem = ({
     modifierImage: showImage = true,
     modifierDescription: showDescription = true,
   } = displaySettings
-  const hasCals = showCals && item.cals
+  const hasCals = showCals && item.cals ? true : false
   const hasIngredients = item.ingredients && item.ingredients.length > 0
   const bgStyle = item.imageUrl
     ? { backgroundImage: `url(${item.imageUrl}` }
@@ -287,18 +287,18 @@ const CartItem = ({
         </BuilderOptionInfo>
         <span>{children}</span>
       </BuilderOption>
-      {showCals && (
+      {hasCals ? (
         <BuilderNutrition
           nutritionalInfo={item.nutritionalInfo}
           show={showInfo}
         />
-      )}
-      {hasIngredients && (
+      ) : null}
+      {hasIngredients ? (
         <BuilderIngredients
           ingredients={item.ingredients}
           show={showIngredients}
         />
-      )}
+      ) : null}
     </>
   )
 }
