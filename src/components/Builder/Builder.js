@@ -44,8 +44,7 @@ const BuilderFooterContainer = styled('div')`
 `
 
 const Builder = ({
-  menuItem,
-  soldOut,
+  orderItem,
   allergens,
   addItemToCart,
   renderHeader,
@@ -56,7 +55,6 @@ const Builder = ({
   spinner,
   pointsIcon,
 }) => {
-  const hasPoints = !!pointsIcon
   const {
     item,
     increment,
@@ -68,7 +66,7 @@ const Builder = ({
     incrementOption,
     decrementOption,
     setOptionQuantity,
-  } = useBuilder(menuItem, soldOut, hasPoints)
+  } = useBuilder(orderItem)
   return (
     <BuilderView>
       <BuilderContent>
@@ -105,7 +103,7 @@ const Builder = ({
 
 Builder.displayName = 'Builder'
 Builder.propTypes = {
-  menuItem: propTypes.object,
+  orderItem: propTypes.object,
   soldOut: propTypes.array,
   allergens: propTypes.array,
   addItemToCart: propTypes.func,
