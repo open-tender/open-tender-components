@@ -4,11 +4,11 @@ import { isoToDate } from '@open-tender/js'
 import styled from '@emotion/styled'
 import { ButtonStyled } from '.'
 
-export const InvalidView = styled('div')`
+export const InvalidView = styled.div`
   margin: 3rem 0 0;
 `
 
-export const InvalidItemsView = styled('div')`
+export const InvalidItemsView = styled.div`
   margin: 0 0 3rem;
 
   > p {
@@ -36,16 +36,19 @@ export const InvalidItemsView = styled('div')`
   }
 `
 
-const InvalidButtons = styled('div')`
+const InvalidButtons = styled.div`
   margin-top: 3rem;
   display: flex;
+  flex-direction: column;
   justify-content: flex-start;
   align-items: center;
 
   button {
     display: block;
+    width: 100%;
+
     & + button {
-      margin-left: 1rem;
+      margin-top: 1rem;
     }
   }
 `

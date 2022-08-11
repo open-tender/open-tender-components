@@ -83,7 +83,10 @@ const LabelText = styled('span')`
     padding: ${(props) => props.theme.inputs.label.padding};
     transform: translate(
       ${(props) => props.theme.inputs.label.left},
-      ${(props) => props.theme.inputs.label.top}
+      ${(props) =>
+        props.theme.inputs.bottomBorderOnly && props.isTextarea
+          ? '-150%'
+          : props.theme.inputs.label.top}
     );
     color: ${(props) => props.theme.inputs.colorFocus};
     background-color: ${(props) =>
@@ -104,7 +107,11 @@ const LabelText = styled('span')`
     padding: ${props.theme.inputs.label.padding};
     transform: translate(
       ${props.theme.inputs.label.left},
-      ${props.theme.inputs.label.top}
+      ${
+        props.theme.inputs.bottomBorderOnly && props.isTextarea
+          ? '-150%'
+          : props.theme.inputs.label.top
+      }
     );
     background-color: ${
       props.theme.inputs.bottomBorderOnly && !props.isTextarea
