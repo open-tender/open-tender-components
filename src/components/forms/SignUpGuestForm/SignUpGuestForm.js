@@ -1,7 +1,7 @@
 import React from 'react'
 import propTypes from 'prop-types'
 import styled from '@emotion/styled'
-import { ButtonStyled, ButtonSubmit, Text } from '../..'
+import { ButtonLink, ButtonSubmit, Text } from '../..'
 import { FormError, FormInputs, Input } from '../../inputs'
 import useSignUpGuestForm from './useSignUpGuestForm'
 
@@ -14,15 +14,13 @@ const SignUpGuestFormNote = styled('div')`
 
   & > span {
     display: block;
-    // opacity: 0;
-    // animation: slide-down 0.25s ease-in-out 0 forwards;
   }
 `
 
 const SignUpGuestFormSubmit = styled('div')`
   margin: 1.5rem 0 0;
   display: flex;
-  justify-content: flex-start;
+  justify-content: space-between;
   align-items: center;
 
   button {
@@ -31,6 +29,9 @@ const SignUpGuestFormSubmit = styled('div')`
 
   button + button {
     margin: 0 0 0 1rem;
+    @media (max-width: ${(props) => props.theme.breakpoints.mobile}) {
+      font-size: ${(props) => props.theme.fonts.sizes.small};
+    }
   }
 `
 
@@ -41,6 +42,7 @@ const SignUpGuestForm = ({
   error,
   signUp,
   submitGuest,
+  showGuest = true,
   hasThanx = false,
 }) => {
   const {
@@ -119,29 +121,31 @@ const SignUpGuestForm = ({
         )}
       </FormInputs>
       <SignUpGuestFormNote>
-        {passwordNeeded && (
+        {showGuest && passwordNeeded ? (
           <Text color="alert" size="xSmall">
             Enter a password to create an account or proceed as a guest
           </Text>
-        )}
+        ) : null}
       </SignUpGuestFormNote>
       <SignUpGuestFormSubmit>
         <ButtonSubmit submitRef={submitRef} submitting={disabled || submitting}>
           {submitting ? 'Submitting...' : 'Sign Up'}
         </ButtonSubmit>
-        <ButtonStyled
+        {/* <ButtonStyled
           onClick={handleGuest}
           disabled={guestDisabled || submitting}
           color="secondary"
         >
           Checkout as a guest
-        </ButtonStyled>
-        {/* <ButtonLink
-          onClick={handleGuest}
-          disabled={guestDisabled || submitting}
-        >
-          Checkout as a guest
-        </ButtonLink> */}
+        </ButtonStyled> */}
+        {showGuest ? (
+          <ButtonLink
+            onClick={handleGuest}
+            disabled={guestDisabled || submitting}
+          >
+            Checkout as a guest
+          </ButtonLink>
+        ) : null}
       </SignUpGuestFormSubmit>
     </form>
   )
@@ -155,6 +159,7 @@ SignUpGuestForm.propTypes = {
   error: propTypes.object,
   signUp: propTypes.func,
   submitGuest: propTypes.func,
+  showGuest: propTypes.bool,
   hasThanx: propTypes.bool,
 }
 
