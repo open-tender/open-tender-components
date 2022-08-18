@@ -3,9 +3,11 @@ import propTypes from 'prop-types'
 import styled from '@emotion/styled'
 import { formatDollars, makeModifierNames } from '@open-tender/js'
 import { BgImage, CartItemCount } from '..'
+import Body from '../Body'
+import Heading from '../Heading'
 import CartSummaryItemPoints from './CartSummaryItemPoints'
 
-const CartSummaryItemView = styled('div')`
+const CartSummaryItemView = styled.div`
   margin: 0 0 2rem;
   display: flex;
   justify-content: space-between;
@@ -26,33 +28,35 @@ const CartSummaryItemImage = styled(BgImage)`
   }
 `
 
-const CartSummaryItemContainer = styled('div')`
+const CartSummaryItemContainer = styled.div`
   flex-grow: 1;
 `
 
-const CartSummaryItemInfo = styled('div')`
+const CartSummaryItemInfo = styled.div`
   display: flex;
   justify-content: space-between;
   align-items: flex-start;
 `
 
-const CartSummaryItemContent = styled('div')`
+const CartSummaryItemContent = styled.div`
   flex: 1 1 100%;
 `
 
-const CartSummaryItemName = styled('p')`
+const CartSummaryItemName = styled(Heading)`
   font-size: ${(props) => props.theme.fonts.sizes.small};
-  font-weight: ${(props) => props.theme.boldWeight};
-  color: ${(props) => props.theme.colors.primary};
 `
 
-const CartSummaryItemMods = styled('p')`
-  margin: 0.25rem 0 0;
+const CartSummaryItemMods = styled(Body)`
+  margin: 0.3rem 0 0;
   font-size: ${(props) => props.theme.fonts.sizes.xSmall};
-  color: ${(props) => props.theme.colors.secondary};
 `
 
-const CartSummaryItemPrice = styled('div')`
+const CartSummaryItemMadeFor = styled(Heading)`
+  margin: 0.4rem 0 0;
+  font-size: ${(props) => props.theme.fonts.sizes.xSmall};
+`
+
+const CartSummaryItemPrice = styled.div`
   flex: 1 0 10rem;
   text-align: right;
 
@@ -79,8 +83,13 @@ const CartSummaryItem = ({ item, pointsObj, children }) => {
       <CartSummaryItemContainer>
         <CartSummaryItemInfo>
           <CartSummaryItemContent>
-            <CartSummaryItemName>{item.name}</CartSummaryItemName>
-            {mods && <CartSummaryItemMods>{mods}</CartSummaryItemMods>}
+            <CartSummaryItemName as="p">{item.name}</CartSummaryItemName>
+            {mods && <CartSummaryItemMods as="p">{mods}</CartSummaryItemMods>}
+            {item.madeFor ? (
+              <CartSummaryItemMadeFor as="p">
+                For <span>{item.madeFor}</span>
+              </CartSummaryItemMadeFor>
+            ) : null}
           </CartSummaryItemContent>
           <CartSummaryItemPrice>
             <p>{price}</p>
