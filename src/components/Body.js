@@ -9,7 +9,7 @@ const Body = styled.span`
     text-transform: ${theme.fonts.body.textTransform};
     -webkit-font-smoothing: ${theme.fonts.body.fontSmoothing};
     color: ${theme.fonts.body.color};
-    ${size ? `font-size: ${theme.fonts.sizes[size]}` : ''}
+    ${size ? `font-size: ${theme.fonts.sizes[size]};` : ''}
   `}
 `
 

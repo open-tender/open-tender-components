@@ -9,7 +9,7 @@ const Heading = styled.span`
     text-transform: ${theme.fonts.headings.textTransform};
     -webkit-font-smoothing: ${theme.fonts.headings.fontSmoothing};
     color: ${theme.fonts.headings.color};
-    ${size ? `font-size: ${theme.fonts.sizes[size]}` : ''}
+    ${size ? `font-size: ${theme.fonts.sizes[size]};` : ''}
   `}
 `
 
