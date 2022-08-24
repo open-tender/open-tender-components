@@ -10,7 +10,8 @@ const useCreditCardForm = (
   setErrors,
   addCard,
   callback,
-  recaptchaKey
+  recaptchaKey,
+  revenue_center_id
 ) => {
   const submitRef = useRef(null)
   const formRef = useRef(null)
@@ -39,6 +40,7 @@ const useCreditCardForm = (
       setSubmitting(false)
       if (windowRef) windowRef.current.scrollTop = 0
     } else {
+      const cardRc = revenue_center_id ? { ...card, revenue_center_id } : card
       if (recaptchaKey) {
         try {
           const token = recaptchaRef.current.getValue()
@@ -50,7 +52,7 @@ const useCreditCardForm = (
             if (windowRef) windowRef.current.scrollTop = 0
           } else {
             setSubmitting(true)
-            addCard({ ...card, token }, callback)
+            addCard({ ...cardRc, token }, callback)
           }
         } catch (err) {
           setSubmitting(false)
@@ -61,7 +63,7 @@ const useCreditCardForm = (
         }
       } else {
         setSubmitting(true)
-        addCard(card, callback)
+        addCard(cardRc, callback)
       }
     }
     submitRef.current.blur()

@@ -16,6 +16,7 @@ const CreditCardForm = ({
   submittingText = 'Authorizing Card...',
   recaptchaKey,
   cardIconMap = {},
+  revenue_center_id = null,
 }) => {
   const {
     data,
@@ -36,7 +37,8 @@ const CreditCardForm = ({
       setErrors,
       addCard,
       callback,
-      recaptchaKey
+      recaptchaKey,
+      revenue_center_id
     )
 
   return (
@@ -92,6 +94,7 @@ CreditCardForm.propTypes = {
   ]),
   recaptchaKey: propTypes.string,
   cardIconMap: propTypes.object,
+  revenue_center_id: propTypes.number,
 }
 
 export default CreditCardForm
