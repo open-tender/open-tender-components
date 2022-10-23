@@ -10,25 +10,23 @@ const LabelView = styled.label`
   margin: 0 0 3rem;
   -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
   color: ${(props) => props.theme.inputs.color};
+
+  input {
+    ${(props) =>
+      props.hasIcon
+        ? `padding-left: ${props.theme.inputs.paddingLeftIcon};`
+        : ''}
 `
 
 const LabelIcon = styled.span`
   position: absolute;
-  top: 0;
-  left: 0;
-  width: 4.8rem;
-  height: 5.6rem;
-  padding: 0 0.8rem 0 1.6rem;
+  top: ${(props) => props.theme.inputs.paddingTop};
+  left: ${(props) => props.theme.inputs.iconLeft};
+  width: ${(props) => props.theme.inputs.selectSize};
+  height: ${(props) => props.theme.inputs.selectSize};
   display: flex;
   justify-content: center;
   align-items: center;
-
-  svg {
-    fill: ${(props) =>
-      props.hasValue && !props.disabled
-        ? props.theme.inputs.color
-        : props.theme.inputs.placeholderColor} !important;
-  }
 `
 
 const LabelText = styled.span`
@@ -39,6 +37,10 @@ const LabelText = styled.span`
   padding: ${(props) => props.theme.inputs.padding};
   padding-top: ${(props) => props.theme.inputs.paddingTop};
   padding-bottom: ${(props) => props.theme.inputs.paddingBottom};
+  padding-left: ${(props) =>
+    props.hasIcon
+      ? props.theme.inputs.paddingLeftIcon
+      : props.theme.inputs.paddingHorizontal};
   border-style: solid;
   border-color: transparent;
   border-width: ${(props) => props.theme.inputs.borderWidth};

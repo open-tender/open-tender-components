@@ -27,11 +27,11 @@ const InputView = styled.input`
   ${(props) =>
     props.theme.inputs.bottomBorderOnly
       ? `
+    box-shadow: none;
     background-color: transparent;
     border-radius: 0;
     border-width: 0;
     border-bottom-width: ${props.theme.inputs.borderWidth};
-
   `
       : ''}
 
