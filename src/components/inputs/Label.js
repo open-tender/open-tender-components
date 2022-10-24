@@ -13,20 +13,30 @@ const LabelView = styled.label`
 
   input {
     ${(props) =>
-      props.hasIcon
-        ? `padding-left: ${props.theme.inputs.paddingLeftIcon};`
-        : ''}
+      props.hasIcon ? `padding-left: ${props.theme.inputs.paddingIcon};` : ''}
 `
 
-const LabelIcon = styled.span`
+const LabelIconView = styled.span`
   position: absolute;
-  top: ${(props) => props.theme.inputs.paddingTop};
-  left: ${(props) => props.theme.inputs.iconLeft};
-  width: ${(props) => props.theme.inputs.selectSize};
-  height: ${(props) => props.theme.inputs.selectSize};
   display: flex;
   justify-content: center;
   align-items: center;
+  line-height: 0;
+  top: ${(props) => props.theme.inputs.paddingTop};
+  left: ${(props) => props.theme.inputs.iconLeft};
+  // width: ${(props) => props.theme.inputs.selectSize};
+  width: 1.8rem;
+  height: ${(props) => props.theme.inputs.selectSize};
+  color: ${(props) =>
+    props.hasValue
+      ? props.theme.inputs.color
+      : props.theme.inputs.placeholderColor};
+`
+
+const LabelIcon = styled.span`
+  display: block;
+  width: 1.8rem;
+  height: 1.8rem;
 `
 
 const LabelText = styled.span`
@@ -39,7 +49,7 @@ const LabelText = styled.span`
   padding-bottom: ${(props) => props.theme.inputs.paddingBottom};
   padding-left: ${(props) =>
     props.hasIcon
-      ? props.theme.inputs.paddingLeftIcon
+      ? props.theme.inputs.paddingIcon
       : props.theme.inputs.paddingHorizontal};
   border-style: solid;
   border-color: transparent;
@@ -129,9 +139,9 @@ const Label = ({
         hasValue={!!value}
       >
         {icon && (
-          <LabelIcon hasValue={!!value} disabled={disabled}>
-            {icon}
-          </LabelIcon>
+          <LabelIconView hasValue={!!value} disabled={disabled}>
+            <LabelIcon>{icon}</LabelIcon>
+          </LabelIconView>
         )}
         {children}
         {showLabel && (
