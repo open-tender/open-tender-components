@@ -13,7 +13,7 @@ const LabelView = styled.label`
 
   input {
     ${(props) =>
-      props.hasIcon ? `padding-left: ${props.theme.inputs.paddingIcon};` : ''}
+      props.hasIcon ? `padding-left: ${props.theme.inputs.iconPadding};` : ''}
 `
 
 const LabelIconView = styled.span`
@@ -24,7 +24,6 @@ const LabelIconView = styled.span`
   line-height: 0;
   top: ${(props) => props.theme.inputs.paddingTop};
   left: ${(props) => props.theme.inputs.iconLeft};
-  // width: ${(props) => props.theme.inputs.selectSize};
   width: 1.8rem;
   height: ${(props) => props.theme.inputs.selectSize};
   color: ${(props) =>
@@ -49,7 +48,7 @@ const LabelText = styled.span`
   padding-bottom: ${(props) => props.theme.inputs.paddingBottom};
   padding-left: ${(props) =>
     props.hasIcon
-      ? props.theme.inputs.paddingIcon
+      ? props.theme.inputs.iconPadding
       : props.theme.inputs.paddingHorizontal};
   border-style: solid;
   border-color: transparent;

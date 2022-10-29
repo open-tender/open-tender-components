@@ -20,8 +20,8 @@ const FormErrorView = styled('span')`
   -webkit-font-smoothing: ${(props) => props.theme.inputs.fontSmoothing};
   line-height: ${(props) => props.theme.inputs.lineHeight};
   border-radius: ${(props) => props.theme.border.radiusSmall};
-  color: ${(props) => props.theme.colors.error};
-  background-color: ${(props) => props.theme.bgColors.error};
+  color: ${(props) => props.theme.error.color};
+  background-color: ${(props) => props.theme.error.bgColor};
 `
 
 const FormError = ({ errMsg, style }) => {
