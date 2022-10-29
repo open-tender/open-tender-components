@@ -51,11 +51,6 @@ const InputView = styled.input`
     color: ${(props) => props.theme.inputs.placeholderColor};
   }
 
-  &::selection {
-    color: ${(props) => props.theme.inputs.bgColor};
-    background-color: ${(props) => props.theme.inputs.color};
-  }
-
   &:active,
   &:focus {
     color: ${(props) => props.theme.inputs.colorFocus};
@@ -68,6 +63,11 @@ const InputView = styled.input`
       props.hasError ? `border-color: ${props.theme.colors.error};` : ''}
 
     ${(props) => !props.theme.inputs.showOutline && `outline: none;`}
+  }
+
+  &::selection {
+    color: ${(props) => props.theme.colors.light};
+    background-color: ${(props) => props.theme.colors.dark};
   }
 
   &:disabled,
