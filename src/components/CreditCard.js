@@ -4,12 +4,12 @@ import styled from '@emotion/styled'
 
 import { Input } from './inputs'
 
-const CreditCardView = styled('div')`
+const CreditCardView = styled.div`
   label: CreditCardView;
   position: relative;
 `
 
-const CreditCardType = styled('div')`
+const CreditCardType = styled.div`
   position: absolute;
   z-index: 2;
   top: 50%;
@@ -23,7 +23,7 @@ const CreditCardType = styled('div')`
   }
 `
 
-const CreditCardExpCvv = styled('div')`
+const CreditCardExpCvv = styled.div`
   display: flex;
   justify-content: space-between;
   align-items: flex-start;

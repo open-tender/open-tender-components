@@ -6,7 +6,7 @@ import CheckSummaryUpdating from './CheckSummaryUpdating'
 import CheckSummaryItem from './CheckSummaryItem'
 import CheckSummaryTotal from './CheckSummaryTotal'
 
-const CheckSummaryView = styled('div')`
+const CheckSummaryView = styled.div`
   position: relative;
   z-index: 2;
   width: 100%;

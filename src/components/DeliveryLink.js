@@ -2,7 +2,7 @@ import React from 'react'
 import propTypes from 'prop-types'
 import styled from '@emotion/styled'
 
-const DeliveryLinkIcon = styled('span')`
+const DeliveryLinkIcon = styled.span`
   display: inline-block;
   position: relative;
   top: 0.1rem;

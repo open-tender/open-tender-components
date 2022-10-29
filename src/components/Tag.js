@@ -3,7 +3,7 @@ import propTypes from 'prop-types'
 import styled from '@emotion/styled'
 import { Preface } from '.'
 
-const TagView = styled('span')`
+const TagView = styled.span`
   position: relative;
   display: inline-block;
   padding: 0.4em 0.7em 0.3em;
@@ -14,7 +14,7 @@ const TagView = styled('span')`
   background-color: ${(props) => props.theme.bgColors[props.bgColor]};
 `
 
-const TagContainer = styled('span')`
+const TagContainer = styled.span`
   display: flex;
   align-items: center;
   line-height: 0;
@@ -24,7 +24,7 @@ const TagContainer = styled('span')`
   }
 `
 
-const TagIcon = styled('span')`
+const TagIcon = styled.span`
   position: relative;
   display: block;
   width: 1rem;

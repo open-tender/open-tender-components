@@ -2,7 +2,7 @@ import React from 'react'
 import propTypes from 'prop-types'
 import styled from '@emotion/styled'
 
-const RecaptchaView = styled('div')`
+const RecaptchaView = styled.div`
   margin: 2rem 0;
 `
 

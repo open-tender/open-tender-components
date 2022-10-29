@@ -2,11 +2,11 @@ import React from 'react'
 import propTypes from 'prop-types'
 import styled from '@emotion/styled'
 
-const RadioButtonGroupView = styled('div')`
+const RadioButtonGroupView = styled.div`
   margin: 0 0 2rem;
 `
 
-const RadioButtonGroupLabel = styled('div')`
+const RadioButtonGroupLabel = styled.div`
   // padding: ${(props) => props.theme.inputs.padding};
   line-height: ${(props) => props.theme.inputs.lineHeight};
   font-size: ${(props) => props.theme.inputs.fontSize};
@@ -24,7 +24,7 @@ const RadioButtonGroupLabel = styled('div')`
   }
 `
 
-const RadioButtonGroupComment = styled('span')`
+const RadioButtonGroupComment = styled.span`
   display: block;
   margin: 0.5rem 0 0;
   font-size: ${(props) => props.theme.fonts.sizes.small};
@@ -33,7 +33,7 @@ const RadioButtonGroupComment = styled('span')`
   }
 `
 
-const RadioGroupView = styled('span')`
+const RadioGroupView = styled.span`
   width: 100%;
   margin: 1.5rem 0 0;
   display: flex;
@@ -73,7 +73,7 @@ const RadioButtonInput = styled('input')`
   white-space: nowrap;
 `
 
-const RadioButtonView = styled('span')`
+const RadioButtonView = styled.span`
   content: '';
   display: block;
   position: relative;
@@ -106,7 +106,7 @@ const RadioButtonView = styled('span')`
   }
 `
 
-const RadioButtonDescription = styled('span')`
+const RadioButtonDescription = styled.span`
   display: block;
   margin: 0 0 0 0.8rem;
   font-size: ${(props) => props.theme.fonts.sizes.small};

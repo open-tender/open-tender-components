@@ -13,7 +13,7 @@ const keys = {
   down: 40,
 }
 
-const AutocompleteView = styled('div')`
+const AutocompleteView = styled.div`
   position: relative;
   display: block;
   width: 100%;
@@ -47,7 +47,7 @@ const AutocompleteView = styled('div')`
   }
 `
 
-const AutocompletePredictions = styled('div')`
+const AutocompletePredictions = styled.div`
   display: none;
   position: absolute;
   z-index: 1;
@@ -80,7 +80,7 @@ const AutocompletePrediction = styled('li')`
   }
 `
 
-const AutocompleteIcon = styled('div')`
+const AutocompleteIcon = styled.div`
   position: absolute;
   top: 50%;
   left: 1.1rem;

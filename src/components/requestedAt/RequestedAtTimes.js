@@ -42,7 +42,7 @@ const OrderTimeView = styled('li')`
   }
 `
 
-const OrderTime = styled('div')`
+const OrderTime = styled.div`
   p {
     line-height: ${(props) => props.theme.lineHeight};
 

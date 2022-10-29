@@ -5,7 +5,7 @@ import { ButtonLink, ButtonSubmit, Text } from '../..'
 import { FormError, FormInputs, Input } from '../../inputs'
 import useSignUpGuestForm from './useSignUpGuestForm'
 
-const SignUpGuestFormNote = styled('div')`
+const SignUpGuestFormNote = styled.div`
   width: 100%;
   height: 2rem;
   margin: -1rem 0 0;
@@ -17,7 +17,7 @@ const SignUpGuestFormNote = styled('div')`
   }
 `
 
-const SignUpGuestFormSubmit = styled('div')`
+const SignUpGuestFormSubmit = styled.div`
   margin: 1.5rem 0 0;
   display: flex;
   justify-content: space-between;

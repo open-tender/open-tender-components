@@ -1,6 +1,6 @@
 import styled from '@emotion/styled'
 
-const ButtonToggleGroup = styled('div')`
+const ButtonToggleGroup = styled.div`
   button {
     &:first-of-type {
       border-top-right-radius: 0;

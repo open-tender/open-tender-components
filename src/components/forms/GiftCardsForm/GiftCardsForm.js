@@ -22,7 +22,7 @@ import {
 } from '../../inputs'
 import useGiftCardForm from './useGiftCardsForm'
 
-const GiftCardsRow = styled('div')`
+const GiftCardsRow = styled.div`
   width: 100%;
   margin: 0 0 2rem;
   display: flex;

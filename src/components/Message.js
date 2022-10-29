@@ -1,6 +1,6 @@
 import styled from '@emotion/styled'
 
-const Message = styled('span')`
+const Message = styled.span`
   display: inline-block;
   ${({ theme, color = 'secondary', size = 'main' }) => `
     padding: ${size === 'small' ? '0.6em 1.2rem' : '1em 1em'};

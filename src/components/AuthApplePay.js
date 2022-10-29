@@ -4,7 +4,7 @@ import styled from '@emotion/styled'
 import { handleRespError } from '@open-tender/js'
 import { FormError } from './inputs'
 
-const ApplePayView = styled('div')`
+const ApplePayView = styled.div`
   margin: 2rem 0;
 
   > span > p {
@@ -21,7 +21,7 @@ const ApplePayButton = styled('button')`
   height: 4.5rem;
 `
 
-const ApplePayChecking = styled('div')`
+const ApplePayChecking = styled.div`
   width: 100%;
   padding: 0 0 1rem;
   text-align: center;
@@ -46,9 +46,8 @@ const paymentSessionConfig = {
 const checkApplePayWithActiveCard = (applePayMerchantId, setChecking) => {
   if (applePayMerchantId && window.ApplePaySession) {
     setChecking(true)
-    const promise = ApplePaySession.canMakePaymentsWithActiveCard(
-      applePayMerchantId
-    )
+    const promise =
+      ApplePaySession.canMakePaymentsWithActiveCard(applePayMerchantId)
     return promise
       .then((canMakePayments) => {
         const canPay = ApplePaySession.canMakePayments()

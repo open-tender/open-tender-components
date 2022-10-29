@@ -3,7 +3,7 @@ import propTypes from 'prop-types'
 import styled from '@emotion/styled'
 import Heading from '../Heading'
 
-const CheckTitleView = styled('div')`
+const CheckTitleView = styled.div`
   padding: 0 0 0.5rem;
   // border-bottom-width: ${(props) => props.theme.border.width};
   border-bottom-width: 0.1rem;
@@ -24,7 +24,7 @@ const CheckTitleView = styled('div')`
   }
 `
 
-const CheckTitlePoints = styled('span')`
+const CheckTitlePoints = styled.span`
   display: block;
   font-size: ${(props) => props.theme.fonts.sizes.small};
   color: ${(props) => props.theme.colors.secondary};

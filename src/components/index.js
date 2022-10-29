@@ -31,10 +31,8 @@ import AuthApplePay from './AuthApplePay'
 
 import {
   Checkbox,
-  FormApplied,
   FormError,
   FormFieldset,
-  FormHeader,
   FormInputs,
   FormLegend,
   FormRow,
@@ -56,10 +54,8 @@ import { Recaptcha, useRecaptcha } from './recaptcha'
 
 export {
   Checkbox,
-  FormApplied,
   FormError,
   FormFieldset,
-  FormHeader,
   FormInputs,
   FormLegend,
   FormRow,

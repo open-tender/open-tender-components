@@ -1,7 +1,6 @@
 import styled from '@emotion/styled'
-// import { Box } from '..'
 
-export const FormFieldset = styled('fieldset')`
+export const FormFieldset = styled.fieldset`
   & + fieldset {
     margin: ${(props) => props.theme.layout.margin} 0 0;
     @media (max-width: ${(props) => props.theme.breakpoints.tablet}) {
@@ -10,7 +9,7 @@ export const FormFieldset = styled('fieldset')`
   }
 `
 
-export const FormInputs = styled('div')`
+export const FormInputs = styled.div`
   width: 100%;
 
   button + button {
@@ -18,7 +17,7 @@ export const FormInputs = styled('div')`
   }
 `
 
-export const FormSubmit = styled('div')`
+export const FormSubmit = styled.div`
   margin: 3rem 0 0;
   text-align: center;
 
@@ -27,7 +26,7 @@ export const FormSubmit = styled('div')`
   }
 `
 
-export const FormWrapper = styled('div')`
+export const FormWrapper = styled.div`
   max-width: ${(props) =>
     props.theme.cards.form.bgColor === 'transparent' ? '54rem' : '60rem'};
   border-style: solid;
@@ -50,23 +49,6 @@ export const FormWrapper = styled('div')`
         ? '0'
         : props.theme.layout.paddingMobile};
     margin: 0 auto ${(props) => props.theme.layout.marginMobile};
-  }
-`
-
-export const FormHeader = styled('div')`
-  text-align: left;
-  margin: 0 0 2rem;
-
-  p {
-    margin: 1rem 0 0;
-    line-height: ${(props) => props.theme.lineHeight};
-    font-size: ${(props) => props.theme.fonts.sizes.main};
-
-    &:first-of-type {
-      margin: 0 0 0 -0.1rem;
-      line-height: 1;
-      font-size: ${(props) => props.theme.fonts.sizes.h3};
-    }
   }
 `
 

@@ -2,7 +2,7 @@ import React from 'react'
 import propTypes from 'prop-types'
 import styled from '@emotion/styled'
 
-const CheckUpdatingView = styled('div')`
+const CheckUpdatingView = styled.div`
   position: absolute;
   z-index: 1;
   top: 0;

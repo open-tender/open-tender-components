@@ -3,7 +3,7 @@ import propTypes from 'prop-types'
 import { TransitionGroup, CSSTransition } from 'react-transition-group'
 import styled from '@emotion/styled'
 
-const FormErrorView = styled('span')`
+const FormErrorView = styled.span`
   outline: 0;
   display: inline-block;
   width: 100%;

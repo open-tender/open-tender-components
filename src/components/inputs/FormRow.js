@@ -18,7 +18,7 @@ const FormRowView = styled('label')`
   }
 `
 
-const FormRowContainer = styled('span')`
+const FormRowContainer = styled.span`
   display: flex;
   justify-content: space-between;
   align-items: center;
@@ -50,7 +50,7 @@ const FormRowContainer = styled('span')`
   }
 `
 
-const FormRowLabel = styled('span')`
+const FormRowLabel = styled.span`
   display: flex;
   justify-content: flex-start;
   align-items: center;
@@ -61,7 +61,7 @@ const FormRowLabel = styled('span')`
   }
 `
 
-const FormRowInput = styled('span')`
+const FormRowInput = styled.span`
   display: flex;
   justify-content: flex-end;
   align-items: center;

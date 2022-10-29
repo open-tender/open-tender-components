@@ -5,7 +5,7 @@ import { TransitionGroup, CSSTransition } from 'react-transition-group'
 import { makeTimeIntervals, fmtDate } from '@open-tender/js'
 import { ButtonStyled, Preface } from '..'
 
-const TimePickerContainer = styled('div')`
+const TimePickerContainer = styled.div`
   position: absolute;
   z-index: 1;
   top: 0;
@@ -20,7 +20,7 @@ const TimePickerContainer = styled('div')`
   background-color: rgba(0, 0, 0, 0.4);
 `
 
-const TimePickerView = styled('div')`
+const TimePickerView = styled.div`
   width: 100%;
   padding: 1.5rem 1rem 1.5rem;
   border-radius: 1.4rem;
@@ -31,7 +31,7 @@ const TimePickerView = styled('div')`
   box-shadow: 0 0.6rem 2rem rgba(0, 0, 0, 0.13);
 `
 
-const TimePickerLabel = styled('div')`
+const TimePickerLabel = styled.div`
   width: 25%;
   text-align: center;
 `
@@ -44,7 +44,7 @@ const TimePickerLabelText = styled(Preface)`
   }
 `
 
-const TimePickerSelect = styled('div')`
+const TimePickerSelect = styled.div`
   width: 50%;
   text-align: center;
   display: flex;
@@ -53,13 +53,13 @@ const TimePickerSelect = styled('div')`
   align-items: center;
 `
 
-const TimePickerConfirm = styled('div')`
+const TimePickerConfirm = styled.div`
   width: 25%;
   display: flex;
   justify-content: center;
 `
 
-const TimePickerTimes = styled('div')`
+const TimePickerTimes = styled.div`
   width: 100%;
   height: 6rem;
   overflow-y: scroll;
@@ -78,7 +78,7 @@ const TimePickerTimeText = styled(Preface)`
   }
 `
 
-const TimePickerTimeView = styled('div')`
+const TimePickerTimeView = styled.div`
   width: 100%;
   height: 100%;
   padding: 0 0 0.5rem;
@@ -105,7 +105,7 @@ const TimePickerSelectButton = styled('button')`
   padding: 0.5rem 1.5rem;
 `
 
-const ArrowUp = styled('span')`
+const ArrowUp = styled.span`
   display: block;
   width: 0;
   height: 0;
@@ -117,7 +117,7 @@ const ArrowUp = styled('span')`
   transition: all 0.15s ease;
 `
 
-const ArrowDown = styled('span')`
+const ArrowDown = styled.span`
   display: block;
   width: 0;
   height: 0;
@@ -145,7 +145,7 @@ TimePickerTime.propTypes = {
   index: propTypes.number,
 }
 
-const TimePickerButtonView = styled('div')`
+const TimePickerButtonView = styled.div`
   button {
     position: relative;
     width: 4.6rem;
@@ -159,7 +159,7 @@ const TimePickerButtonView = styled('div')`
   }
 `
 
-const CheckmarkTick = styled('span')`
+const CheckmarkTick = styled.span`
   display: block;
 
   &:after {
@@ -207,7 +207,7 @@ const getActiveElement = (elements, topOffset) => {
   return active
 }
 
-// const Triangle = styled('span')`
+// const Triangle = styled.span`
 //   display: block;
 //   width: 1.4rem;
 //   height: 1.4rem;

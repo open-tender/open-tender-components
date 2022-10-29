@@ -1,5 +1,4 @@
 import Checkbox from './Checkbox'
-import FormApplied from './FormApplied'
 import FormError from './FormError'
 import FormLegend from './FormLegend'
 import FormRow from './FormRow'
@@ -15,7 +14,6 @@ import Textarea from './Textarea'
 import {
   FormInputs,
   FormFieldset,
-  FormHeader,
   FormRecaptcha,
   FormSubmit,
   FormWrapper,
@@ -23,10 +21,8 @@ import {
 
 export {
   Checkbox,
-  FormApplied,
   FormError,
   FormFieldset,
-  FormHeader,
   FormInputs,
   FormLegend,
   FormRow,

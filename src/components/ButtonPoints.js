@@ -50,12 +50,12 @@ const ButtonPointsView = styled('button')`
   }
 `
 
-const ButtonPointsTitle = styled('span')`
+const ButtonPointsTitle = styled.span`
   display: block;
   color: ${(props) => props.theme.colors.light};
 `
 
-const ButtonPointsIcon = styled('span')`
+const ButtonPointsIcon = styled.span`
   display: block;
   width: ${(props) => props.theme.fonts.sizes[props.size]};
   height: ${(props) => props.theme.fonts.sizes[props.size]};

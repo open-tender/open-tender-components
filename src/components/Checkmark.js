@@ -4,7 +4,7 @@ import styled from '@emotion/styled'
 
 /* https://codepen.io/scottloway/pen/zqoLyQ */
 
-const CheckmarkView = styled('span')`
+const CheckmarkView = styled.span`
   position: relative;
   display: inline-block;
   vertical-align: top;
@@ -17,7 +17,7 @@ const CheckmarkView = styled('span')`
   background-color: ${(props) => props.color || props.theme.colors.success};
 `
 
-const CheckmarkTick = styled('span')`
+const CheckmarkTick = styled.span`
   display: block;
 
   &:after {

@@ -6,7 +6,7 @@ import CheckUpdating from './CheckUpdating'
 import CheckTitle from './CheckTitle'
 import CheckItem from './CheckItem'
 
-const CheckView = styled('div')`
+const CheckView = styled.div`
   position: relative;
   width: 100%;
   height: 100%;

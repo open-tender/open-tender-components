@@ -6,7 +6,7 @@ import styled from '@emotion/styled'
 
 // https://codesandbox.io/s/lx947qjv0z?file=/src/Consumer.jsx
 
-const Map = styled('div')`
+const Map = styled.div`
   position: fixed;
   z-index: 0;
   top: 0;
@@ -27,7 +27,7 @@ const Map = styled('div')`
   }
 `
 
-const MapLoading = styled('div')`
+const MapLoading = styled.div`
   position: absolute;
   z-index: 1;
   width: 100%;

@@ -3,7 +3,7 @@ import propTypes from 'prop-types'
 import styled from '@emotion/styled'
 import { Points } from '..'
 
-const CartSummaryItemPointsView = styled('div')`
+const CartSummaryItemPointsView = styled.div`
   label: CartSummaryItemPoints;
 
   position: relative;
@@ -11,7 +11,7 @@ const CartSummaryItemPointsView = styled('div')`
   margin: 0.5rem 0 0;
 `
 
-const CartSummaryItemPointsCount = styled('div')`
+const CartSummaryItemPointsCount = styled.div`
   label: CartSummaryItemPointsCount;
 
   position: absolute;

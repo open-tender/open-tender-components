@@ -3,14 +3,14 @@ import propTypes from 'prop-types'
 import { Label } from '.'
 import styled from '@emotion/styled'
 
-const SwitchView = styled('div')`
+const SwitchView = styled.div`
   width: 100%;
   display: flex;
   justify-content: space-between;
   align-items: center;
 `
 
-const SwitchLabel = styled('div')`
+const SwitchLabel = styled.div`
   padding: ${(props) => props.theme.inputs.paddingVertical} 0;
   line-height: ${(props) => props.theme.inputs.lineHeight};
   font-size: ${(props) => props.theme.inputs.fontSize};
@@ -37,7 +37,7 @@ const SwitchInput = styled('input')`
   white-space: nowrap;
 `
 
-const SwitchToggle = styled('span')`
+const SwitchToggle = styled.span`
   display: inline-block;
   cursor: pointer;
   user-select: none;

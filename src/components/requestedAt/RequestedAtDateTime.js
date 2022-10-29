@@ -11,7 +11,7 @@ import {
 } from '@open-tender/js'
 import { ButtonLink, ButtonStyled, Heading, SelectOnly } from '..'
 
-const RequestedAtDateTimeView = styled('div')`
+const RequestedAtDateTimeView = styled.div`
   label: RequestedAtDateTimeSelects;
   text-align: center;
 `
@@ -24,7 +24,7 @@ const RequestedAtDateTimeTitle = styled('p')`
   font-size: ${(props) => props.theme.fonts.sizes.h3};
 `
 
-const RequestedAtDateTimeAsap = styled('div')`
+const RequestedAtDateTimeAsap = styled.div`
   label: RequestedAtDateTimeAsap;
 
   margin: 0 0 3rem;
@@ -39,7 +39,7 @@ const RequestedAtDateTimeAsap = styled('div')`
   }
 `
 
-const RequestedAtDateTimeSelects = styled('div')`
+const RequestedAtDateTimeSelects = styled.div`
   label: RequestedAtDateTimeSelects;
 
   width: 100%;
@@ -49,7 +49,7 @@ const RequestedAtDateTimeSelects = styled('div')`
   align-items: center;
 `
 
-const RequestedAtDateTimeSelect = styled('div')`
+const RequestedAtDateTimeSelect = styled.div`
   width: 47.5%;
 
   select {
@@ -57,7 +57,7 @@ const RequestedAtDateTimeSelect = styled('div')`
   }
 `
 
-const RequestedAtDateTimeNevermind = styled('div')`
+const RequestedAtDateTimeNevermind = styled.div`
   button {
     width: 100%;
     text-align: center;

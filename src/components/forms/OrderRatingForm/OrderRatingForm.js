@@ -5,7 +5,7 @@ import { ButtonSubmit } from '../..'
 import { FormInputs, FormSubmit, Textarea } from '../../inputs'
 import { useOrderRatingForm } from '.'
 
-const OrderStars = styled('div')`
+const OrderStars = styled.div`
   display: flex;
   margin: 0.25rem 0 0.5rem;
 `

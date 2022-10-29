@@ -3,7 +3,7 @@ import propTypes from 'prop-types'
 import styled from '@emotion/styled'
 import CartSummaryItem from './CartSummaryItem'
 
-const CartSummaryView = styled('div')`
+const CartSummaryView = styled.div`
   position: relative;
   z-index: 2;
 `

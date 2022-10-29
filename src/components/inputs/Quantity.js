@@ -2,7 +2,7 @@ import React from 'react'
 import propTypes from 'prop-types'
 import styled from '@emotion/styled'
 
-const QuantityView = styled('span')`
+const QuantityView = styled.span`
   display: inline-flex;
   justify-content: center;
   align-items: center;

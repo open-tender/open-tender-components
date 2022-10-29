@@ -16,7 +16,7 @@ const CheckboxInput = styled('input')`
   white-space: nowrap;
 `
 
-const CheckboxContainer = styled('span')`
+const CheckboxContainer = styled.span`
   width: 100%;
   flex-grow: 1;
   display: flex;
@@ -27,7 +27,7 @@ const CheckboxContainer = styled('span')`
   }
 `
 
-const CheckboxView = styled('span')`
+const CheckboxView = styled.span`
   content: '';
   flex-shrink: 0;
   display: block;
@@ -81,7 +81,7 @@ const CheckboxView = styled('span')`
   }
 `
 
-const CheckboxDescription = styled('span')`
+const CheckboxDescription = styled.span`
   display: block;
   color: ${(props) => props.theme.inputs.placeholderColor};
   line-height: ${(props) => props.theme.lineHeight};

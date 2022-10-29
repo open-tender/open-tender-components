@@ -63,7 +63,7 @@ export const ButtonStyledView = styled('button')`
   }
 `
 
-const ButtonStyledIcon = styled('span')`
+const ButtonStyledIcon = styled.span`
   display: block;
   flex-shrink: 0;
   line-height: 0;

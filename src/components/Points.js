@@ -2,7 +2,7 @@ import React from 'react'
 import styled from '@emotion/styled'
 import propTypes from 'prop-types'
 
-const PointsView = styled('span')`
+const PointsView = styled.span`
   display: block;
   height: 2em;
   padding: 0 1em;
@@ -30,14 +30,14 @@ const PointsView = styled('span')`
   }
 `
 
-const PointsTitle = styled('span')`
+const PointsTitle = styled.span`
   display: block;
   color: ${(props) => props.theme.colors[props.color]};
   line-height: 1;
   margin: 0.1rem 0 0;
 `
 
-const PointsIcon = styled('span')`
+const PointsIcon = styled.span`
   display: block;
   width: ${(props) => props.theme.fonts.sizes[props.size]};
   height: ${(props) => props.theme.fonts.sizes[props.size]};
