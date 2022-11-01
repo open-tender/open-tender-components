@@ -37,18 +37,12 @@ const CheckboxView = styled.span`
   padding: 0;
   margin: 0 1rem 0 0;
   border-radius: 0.2rem;
-  background-color: ${(props) => props.theme.bgColors.primary};
+  background-color: ${(props) => props.theme.inputs.bgColor};
   border: ${(props) => props.theme.inputs.borderWidth} solid
     ${(props) => props.theme.inputs.borderColor};
   box-shadow: ${(props) => props.theme.inputs.boxShadow};
   @media (max-width: ${(props) => props.theme.breakpoints.mobile}) {
     margin: 0.5rem 1.5rem 0 0;
-  }
-
-  input:focus + & {
-    outline-color: ${(props) => props.theme.inputs.color};
-    outline-style: auto;
-    outline-width: 5px;
   }
 
   &:before {

@@ -22,6 +22,10 @@ const AutocompleteView = styled.div`
     padding: 0;
     margin-bottom: 0;
 
+    & > span {
+      padding-left: 3.2rem;
+    }
+
     & > span > span:first-of-type {
       margin: 0;
     }
@@ -29,6 +33,8 @@ const AutocompleteView = styled.div`
     input {
       padding-left: 3.2rem;
       padding-right: 3.2rem;
+      padding-top: ${(props) => props.theme.inputs.paddingTop};
+      padding-bottom: ${(props) => props.theme.inputs.paddingBottom};
       @media (max-width: ${(props) => props.theme.breakpoints.tablet}) {
         padding: 0.6rem 3.2rem;
         line-height: 3rem;
@@ -39,6 +45,8 @@ const AutocompleteView = styled.div`
     input:active {
       border-bottom-left-radius: 0;
       border-bottom-right-radius: 0;
+      padding-top: ${(props) => props.theme.inputs.paddingTop};
+      padding-bottom: ${(props) => props.theme.inputs.paddingBottom};
 
       & + div {
         display: block;
@@ -63,7 +71,7 @@ const AutocompletePredictions = styled.div`
   border-bottom: 0;
 `
 
-const AutocompletePrediction = styled('li')`
+const AutocompletePrediction = styled.li`
   font-size: ${(props) => props.theme.fonts.sizes.small};
   background-color: ${(props) =>
     props.active ? props.theme.bgColors.tertiary : 'transparent'};
@@ -88,6 +96,7 @@ const AutocompleteIcon = styled.div`
   height: 1.4rem;
   margin-top: -0.7rem;
   opacity: 0.4;
+  line-height: 1;
 `
 
 const GoogleMapsAutocomplete = ({
@@ -192,7 +201,6 @@ const GoogleMapsAutocomplete = ({
         placeholder={placeholder}
         onChange={(evt) => setInput(evt.target.value)}
         showLabel={false}
-        // classes="autocomplete__input"
         error={error}
         ref={inputRef}
       >

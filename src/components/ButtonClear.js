@@ -5,7 +5,7 @@ import styled from '@emotion/styled'
 // as of 2020-07-12, this is only used in <GoogleMapsAutocomplete /> and
 // and <CheckoutPromoCodes /> and not exported for use outside of this library
 
-const ButtonClearView = styled('button')`
+const ButtonClearView = styled.button`
   position: absolute;
   top: 1.4rem;
   right: 1.1rem;

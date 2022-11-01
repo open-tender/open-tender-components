@@ -13,7 +13,7 @@ const CreditCardType = styled.div`
   position: absolute;
   z-index: 2;
   top: 50%;
-  right: 0;
+  right: ${(props) => props.theme.inputs.paddingHorizontal};
   height: 2.4rem;
   margin-top: -1.2rem;
 

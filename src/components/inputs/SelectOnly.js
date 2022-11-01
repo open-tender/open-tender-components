@@ -6,10 +6,14 @@ const SelectOnlyView = styled.span`
   position: relative;
   display: block;
   flex-grow: 1;
+  border-radius: ${(props) => props.theme.inputs.radius};
+  background-color: ${(props) => props.theme.inputs.bgColor};
+  box-shadow: ${(props) => props.theme.inputs.boxShadow};
 `
 
 const SelectView = styled.select`
   position: relative;
+  z-index: 3;
   -webkit-appearance: none;
   -moz-appearance: none;
   appearance: none;
@@ -28,9 +32,8 @@ const SelectView = styled.select`
   text-transform: ${(props) => props.theme.inputs.textTransform};
   -webkit-font-smoothing: ${(props) => props.theme.inputs.fontSmoothing};
   color: ${(props) => props.theme.inputs.color};
-  background-color: ${(props) => props.theme.inputs.bgColor};
-  box-shadow: ${(props) => props.theme.inputs.boxShadow};
   transition: ${(props) => props.theme.links.transition};
+  background-color: transparent;
 
   ${(props) =>
     props.theme.inputs.bottomBorderOnly
@@ -47,6 +50,12 @@ const SelectView = styled.select`
 
   ${(props) =>
     props.hasError ? `border-color: ${props.theme.colors.error};` : ''}
+
+  ${(props) =>
+    props.showLabel
+      ? `padding-top: ${props.theme.inputs.paddingTopActive};
+    padding-bottom: ${props.theme.inputs.paddingBottomActive};`
+      : ''}
 
   @media (max-width: ${(props) => props.theme.breakpoints.tablet}) {
     font-size: ${(props) => props.theme.inputs.fontSizeMobile};
@@ -74,8 +83,9 @@ const SelectView = styled.select`
     cursor: default;
     opacity: 1;
     color: ${(props) => props.theme.inputs.color};
-    background-color: ${(props) => props.theme.inputs.bgColor};
     border-color: ${(props) => props.theme.inputs.borderColor};
+    background-color: ${(props) => props.theme.inputs.bgColor};
+    background-color: transparent;
   }
 `
 
@@ -116,7 +126,15 @@ const SelectArrow = styled.span`
   margin-top: -0.6rem;
 `
 
-const SelectOnly = ({ label, name, value, onChange, disabled, options }) => {
+const SelectOnly = ({
+  label,
+  showLabel,
+  name,
+  value,
+  onChange,
+  disabled,
+  options,
+}) => {
   return (
     <SelectOnlyView>
       <SelectView
@@ -125,6 +143,7 @@ const SelectOnly = ({ label, name, value, onChange, disabled, options }) => {
         value={value}
         onChange={onChange}
         disabled={disabled}
+        showLabel={label && showLabel}
       >
         {options ? (
           options.map((option, index) => (
@@ -152,6 +171,7 @@ const SelectOnly = ({ label, name, value, onChange, disabled, options }) => {
 SelectOnly.displayName = 'SelectOnly'
 SelectOnly.propTypes = {
   label: propTypes.string,
+  showLabel: propTypes.bool,
   name: propTypes.string,
   value: propTypes.oneOfType([propTypes.string, propTypes.number]),
   onChange: propTypes.func,

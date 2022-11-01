@@ -24,6 +24,7 @@ const Select = ({
     >
       <SelectOnly
         label={label}
+        showLabel={showLabel}
         name={name}
         value={value || ''}
         onChange={onChange}
