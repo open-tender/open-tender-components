@@ -45,6 +45,13 @@ const CheckboxView = styled.span`
     margin: 0.5rem 1.5rem 0 0;
   }
 
+  input:focus + & {
+    outline-color: ${(props) => props.theme.inputs.color};
+    outline-style: ${(props) =>
+      props.theme.inputs.showOutline ? 'auto' : 'none'};
+    outline-width: 5px;
+  }
+
   &:before {
     content: '';
     position: absolute;

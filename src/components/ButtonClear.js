@@ -6,9 +6,7 @@ import styled from '@emotion/styled'
 // and <CheckoutPromoCodes /> and not exported for use outside of this library
 
 const ButtonClearView = styled.button`
-  position: absolute;
-  top: 1.4rem;
-  right: 1.1rem;
+  position: relative;
   width: 1.5rem;
   height: 1.5rem;
   border-radius: 0.75rem;

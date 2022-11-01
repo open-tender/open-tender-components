@@ -90,13 +90,26 @@ const AutocompletePrediction = styled.li`
 
 const AutocompleteIcon = styled.div`
   position: absolute;
-  top: 50%;
-  left: 1.1rem;
+  top: ${(props) => props.theme.inputs.paddingTop};
+  bottom: ${(props) => props.theme.inputs.paddingBottom};
+  left: 0;
+  width: 3.2rem;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+`
+
+const AutocompleteSearchIcon = styled.div`
   width: 1.4rem;
   height: 1.4rem;
-  margin-top: -0.7rem;
   opacity: 0.4;
   line-height: 1;
+`
+
+const AutocompleteClear = styled(AutocompleteIcon)`
+  left: auto;
+  right: ${(props) => props.theme.inputs.paddingHorizontal};
+  width: auto;
 `
 
 const GoogleMapsAutocomplete = ({
@@ -224,13 +237,18 @@ const GoogleMapsAutocomplete = ({
             </ul>
           ) : null}
         </AutocompletePredictions>
-        {icon && <AutocompleteIcon>{icon}</AutocompleteIcon>}
+        {icon && (
+          <AutocompleteIcon>
+            <AutocompleteSearchIcon>{icon}</AutocompleteSearchIcon>
+          </AutocompleteIcon>
+        )}
         {input.length ? (
-          <ButtonClear
-            ariaLabel="Clear text & start over"
-            onClick={clearInput}
-            style={{ top: '50%', marginTop: '-0.7rem' }}
-          />
+          <AutocompleteClear>
+            <ButtonClear
+              ariaLabel="Clear text & start over"
+              onClick={clearInput}
+            />
+          </AutocompleteClear>
         ) : null}
       </Input>
     </AutocompleteView>
