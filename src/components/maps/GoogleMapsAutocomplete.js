@@ -35,10 +35,6 @@ const AutocompleteView = styled.div`
       padding-right: 3.2rem;
       padding-top: ${(props) => props.theme.inputs.paddingTop};
       padding-bottom: ${(props) => props.theme.inputs.paddingBottom};
-      @media (max-width: ${(props) => props.theme.breakpoints.tablet}) {
-        padding: 0.6rem 3.2rem;
-        line-height: 3rem;
-      }
     }
 
     input:focus,
