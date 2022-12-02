@@ -19,20 +19,13 @@ const PointsView = styled.span`
     justify-content: center;
     align-items: center;
     height: 100%;
-
-    // span {
-    //   margin: 0;
-    // }
-
-    // span + span {
-    //   margin: 0 0 0 0.4rem;
-    // }
   }
 `
 
 const PointsTitle = styled.span`
   display: block;
   color: ${(props) => props.theme.colors[props.color]};
+  font-weight: ${(props) => props.theme.boldWeight};
   line-height: 1;
   margin: 0.1rem 0 0;
 `

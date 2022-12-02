@@ -36,6 +36,7 @@ const QuantityInput = styled('input')`
   text-align: center;
   color: ${(props) => props.theme.buttons.colors.primary.color};
   background-color: ${(props) => props.theme.buttons.colors.primary.bgColor};
+  border-width: 0;
   border-color: ${(props) => props.theme.buttons.colors.primary.borderColor};
   padding-top: ${(props) => props.theme.counts.quantity.paddingTop};
   padding-bottom: ${(props) => props.theme.counts.quantity.paddingBottom};

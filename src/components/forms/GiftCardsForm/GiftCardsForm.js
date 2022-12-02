@@ -29,6 +29,10 @@ const GiftCardsRow = styled.div`
   justify-content: space-between;
   align-items: center;
 
+  label {
+    margin: 0;
+  }
+
   > span {
     &:first-of-type {
       flex: 0 0 12rem;
@@ -229,7 +233,7 @@ const GiftCardsForm = ({
                     update={(quantity) => handleQuantity(index, quantity)}
                     iconMap={iconMap}
                   />
-                  <span>
+                  {/* <span>
                     <input
                       aria-label={`Gift card ${index} email recipient`}
                       id={`email-${index}`}
@@ -241,7 +245,18 @@ const GiftCardsForm = ({
                       disabled={submitting}
                       onChange={handleChange}
                     />
-                  </span>
+                  </span> */}
+                  <Input
+                    label={`Gift card ${index} email recipient`}
+                    showLabel={false}
+                    name={`email-${index}`}
+                    type="email"
+                    autoComplete={null}
+                    value={card.email}
+                    placeholder="enter email address (optional)"
+                    disabled={submitting}
+                    onChange={handleChange}
+                  />
                 </GiftCardsRow>
                 <FormError
                   errMsg={errors[`gift_cards.${index}.email`]}
