@@ -14,13 +14,8 @@ const CreditCardType = styled.div`
   z-index: 2;
   top: 50%;
   right: ${(props) => props.theme.inputs.paddingHorizontal};
-  height: 2.4rem;
+  width: 3.6rem;
   margin-top: -1.2rem;
-
-  img {
-    height: 100%;
-    width: auto;
-  }
 `
 
 const CreditCardExpCvv = styled.div`
@@ -42,7 +37,7 @@ const CreditCard = ({
   disabled = false,
   cardIconMap,
 }) => {
-  const cardImg = cardIconMap[cardType]
+  const cardSvg = cardIconMap[cardType]
   return (
     <CreditCardView>
       <Input
@@ -58,11 +53,7 @@ const CreditCard = ({
         error={errors.acct}
         disabled={disabled}
       >
-        {!errors.acct && cardImg && (
-          <CreditCardType>
-            <img src={cardImg} alt={cardType} />
-          </CreditCardType>
-        )}
+        {!errors.acct && cardSvg && <CreditCardType>{cardSvg}</CreditCardType>}
       </Input>
       <CreditCardExpCvv>
         <Input
