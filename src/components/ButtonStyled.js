@@ -12,6 +12,7 @@ export const ButtonStyledView = styled('button')`
   transition: ${(props) => props.theme.links.transition};
   font-family: ${(props) => props.theme.buttons.sizes[props.size].family};
   font-weight: ${(props) => props.theme.buttons.sizes[props.size].weight};
+  font-style: ${(props) => props.theme.buttons.sizes[props.size].fontStyle};
   -webkit-font-smoothing: ${(props) =>
     props.theme.buttons.sizes[props.size].fontSmoothing};
   letter-spacing: ${(props) =>

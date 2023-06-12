@@ -4,6 +4,7 @@ const Preface = styled.span`
   ${({ theme, size, color }) => `
   font-family: ${theme.fonts.preface.family};
   font-weight: ${theme.fonts.preface.weight};
+  font-style: ${theme.fonts.preface.fontStyle};
   letter-spacing: ${theme.fonts.preface.letterSpacing};
   line-height: ${theme.fonts.preface.lineHeight};
   text-transform: ${theme.fonts.preface.textTransform};

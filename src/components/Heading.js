@@ -4,6 +4,7 @@ const Heading = styled.span`
   ${({ theme, size }) => `
     font-family: ${theme.fonts.headings.family};
     font-weight: ${theme.fonts.headings.weight};
+    font-style: ${theme.fonts.headings.fontStyle};
     letter-spacing: ${theme.fonts.headings.letterSpacing};
     line-height: ${theme.fonts.headings.lineHeight};
     text-transform: ${theme.fonts.headings.textTransform};

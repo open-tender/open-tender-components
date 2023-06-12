@@ -4,6 +4,7 @@ const Body = styled.span`
   ${({ theme, size }) => `
     font-family: ${theme.fonts.body.family};
     font-weight: ${theme.fonts.body.weight};
+    font-style: ${theme.fonts.body.fontStyle};
     letter-spacing: ${theme.fonts.body.letterSpacing};
     line-height: ${theme.fonts.body.lineHeight};
     text-transform: ${theme.fonts.body.textTransform};
